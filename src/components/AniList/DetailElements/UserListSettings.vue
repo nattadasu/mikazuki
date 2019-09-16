@@ -116,7 +116,8 @@ import { isNumber } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import API from '@/modules/AniList/API';
 import { AniListScoreFormat, AniListListStatus } from '@/modules/AniList/types';
-import { aniListStore, appStore } from '@/store';
+import { appStore, userStore } from '@/store';
+import aniListEventHandler from '@/modules/AniList/eventHandler';
 
 @Component
 export default class UserListSettings extends Vue {
@@ -181,7 +182,7 @@ export default class UserListSettings extends Vue {
       return null;
     }
 
-    const { scoreFormat } = aniListStore.session.user.mediaListOptions;
+    const { scoreFormat } = userStore.session.user.mediaListOptions;
 
     return scoreFormat === AniListScoreFormat.POINT_3
       ? AniListScoreFormat.POINT_3
@@ -229,7 +230,7 @@ export default class UserListSettings extends Vue {
               text: this.$t('notifications.aniList.simpleUpdateText', [this.item.userPreferredTitle, this.progress]) as string,
             });
           }
-          aniListStore.refreshLists();
+          aniListEventHandler.refreshLists();
           this.$emit('updated');
         }
       } catch (error) {
@@ -294,7 +295,7 @@ export default class UserListSettings extends Vue {
           title: this.$t('notifications.aniList.successTitle') as string,
           text: this.$t('notifications.aniList.addedToList', [this.item.userPreferredTitle]) as string,
         });
-        aniListStore.refreshLists();
+        aniListEventHandler.refreshLists();
         this.$emit('updated');
       } else {
         throw new Error();

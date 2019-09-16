@@ -58,12 +58,11 @@
 </template>
 
 <script lang="ts">
-// import { ipcRenderer } from 'electron';
 import { map } from 'lodash';
 import { format, parse } from 'url';
 import request from 'request';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { aniListStore, appStore } from '@/store';
+import { appStore, userStore } from '@/store';
 import { IAniListUser } from '@/modules/AniList/types';
 
 @Component
@@ -72,23 +71,23 @@ export default class AniListSettings extends Vue {
   private tabKey!: string;
 
   private get isAuthenticated(): boolean {
-    return aniListStore && aniListStore.isAuthenticated;
+    return userStore && userStore.isAuthenticated;
   }
 
   private get currentUser(): IAniListUser {
-    return aniListStore.session.user;
+    return userStore.session.user;
   }
 
   private get currentAniListRefreshRate(): number {
-    return aniListStore.refreshRate;
+    return userStore.refreshRate;
   }
 
   private set currentAniListRefreshRate(refreshRate: number) {
-    aniListStore.setRefreshRate(refreshRate);
+    userStore.setRefreshRate(refreshRate);
   }
 
   private loginToAniList() {
-    if (!aniListStore.isAuthenticated) {
+    if (!userStore.isAuthenticated) {
       const oauthConfig = {
         clientId: process.env.VUE_APP_CLIENT_ID,
         clientSecret: process.env.VUE_APP_CLIENT_SECRET,
@@ -105,13 +104,13 @@ export default class AniListSettings extends Vue {
   }
 
   private async logout() {
-    if (!aniListStore.isAuthenticated) {
+    if (!userStore.isAuthenticated) {
       return;
     }
 
     await appStore.setLoadingState(true);
 
-    await aniListStore.logout();
+    await userStore.logout();
 
     await appStore.setLoadingState(false);
 

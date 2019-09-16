@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 
 // Custom Components
 import Log from '@/log';
-import { aniListStore } from '@/store';
+import { userStore } from '@/store';
 import {
   AniListListStatus,
   AniListSeason,
@@ -158,7 +158,7 @@ export default class AniListAPI {
 
   public static async getListEntryByMediaId(mediaId: number): Promise<IAniListEntry | null> {
     try {
-      const { accessToken } = aniListStore.session;
+      const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
       const response = await axios.post('/', {
         query: getListEntry,
@@ -181,7 +181,7 @@ export default class AniListAPI {
 
   public static async searchAnime(query: string, filters: { isAdult: boolean | null, listStatus: AniListListStatus[], genres: string[] }): Promise<IAniListSearchResult[] | null> {
     try {
-      const { accessToken } = aniListStore.session;
+      const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
       const genres = filters.genres.length ? filters.genres : null;
       const onList = !!filters.listStatus.length;
@@ -256,7 +256,7 @@ export default class AniListAPI {
 
   public static async addEntry(mediaId: number, status: AniListListStatus, score?: number, progress?: number): Promise<boolean> {
     try {
-      const { accessToken } = aniListStore.session;
+      const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
       const response = await axios.post('/', {
@@ -279,7 +279,7 @@ export default class AniListAPI {
 
   public static async updateEntry(entryId: number, progress: number, score: number, status: AniListListStatus): Promise<boolean> {
     try {
-      const { accessToken } = aniListStore.session;
+      const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
       await axios.post('/', {
@@ -302,7 +302,7 @@ export default class AniListAPI {
 
   public static async removeEntry(entryId: number): Promise<boolean> {
     try {
-      const { accessToken } = aniListStore.session;
+      const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
       await axios.post('/', {
@@ -322,7 +322,7 @@ export default class AniListAPI {
 
   public static async setEntryProgress(entryId: number, progress: number): Promise<void> {
     try {
-      const { accessToken } = aniListStore.session;
+      const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
       await axios.post('/', {
@@ -339,7 +339,7 @@ export default class AniListAPI {
 
   public static async setEntryCompleted(entryId: number, episodeAmount: number): Promise<void> {
     try {
-      const { accessToken } = aniListStore.session;
+      const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
       const now = new Date();

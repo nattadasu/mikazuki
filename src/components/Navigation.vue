@@ -9,6 +9,7 @@
       v-model="navigationDrawer"
       temporary
       app
+      hide-overlay
       :right="$vuetify.rtl"
     >
       <v-list-item>
@@ -101,7 +102,7 @@ import { RawLocation, Route } from 'vue-router';
 // Custom Components
 import Log from '@/log';
 import { AniListListStatus } from '@/modules/AniList/types';
-import { aniListStore, appStore } from '@/store';
+import { userStore, appStore } from '@/store';
 
 // Navigation Toolbars
 import AniListToolbar from './NavigationToolbars/AniListToolbar.vue';
@@ -202,11 +203,11 @@ export default class Navigation extends Vue {
   }
 
   private get isAuthenticated(): boolean {
-    return aniListStore.isAuthenticated;
+    return userStore.isAuthenticated;
   }
 
   private get timeUntilRefresh(): string {
-    const time = aniListStore.timeUntilRefresh * 1000;
+    const time = userStore.timeUntilRefresh * 1000;
 
     return moment(time).format('mm:ss');
   }
@@ -217,7 +218,11 @@ export default class Navigation extends Vue {
     this.item = this.mainMenuItems.findIndex(item => item.routeName === currentRouteName);
 
     if (this.item === -1) {
-      this.item = this.aniListMenuItems.findIndex(item => item.routeName === currentRouteName) + 2;
+      this.item = this.aniListMenuItems.findIndex(item => item.routeName === currentRouteName);
+
+      if (this.item !== -1) {
+        this.item += 2;
+      }
     }
   }
 
@@ -232,7 +237,11 @@ export default class Navigation extends Vue {
     this.item = this.mainMenuItems.findIndex(item => item.routeName === currentRouteName);
 
     if (this.item === -1) {
-      this.item = this.aniListMenuItems.findIndex(item => item.routeName === currentRouteName) + 2;
+      this.item = this.aniListMenuItems.findIndex(item => item.routeName === currentRouteName);
+
+      if (this.item !== -1) {
+        this.item += 2;
+      }
     }
   }
 }

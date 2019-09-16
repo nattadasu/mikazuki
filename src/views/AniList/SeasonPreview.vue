@@ -77,7 +77,7 @@ import API from '@/modules/AniList/API';
 import {
   AniListListStatus, AniListSeason, IAniListEntry, IAniListSeasonPreviewMedia,
 } from '@/modules/AniList/types';
-import { aniListStore, appStore } from '@/store';
+import { aniListStore, appStore, userStore } from '@/store';
 
 interface UpdateSeasonProperties {
   year: number;
@@ -115,7 +115,7 @@ export default class SeasonPreview extends Vue {
   }
 
   private get isAuthenticated(): boolean {
-    return aniListStore.isAuthenticated;
+    return userStore.isAuthenticated;
   }
 
   private get preparedMedia() {
@@ -131,7 +131,7 @@ export default class SeasonPreview extends Vue {
     };
 
     return chain(this.media)
-      .filter(item => !item.isAdult || (item.isAdult && aniListStore.allowAdultContent))
+      .filter(item => !item.isAdult || (item.isAdult && userStore.allowAdultContent))
       .map((item) => {
         const outputFormat = item.startDate.day
           ? this.$t('misc.dates.full') as string
@@ -233,10 +233,10 @@ export default class SeasonPreview extends Vue {
         // We don't want to reload everytime a media is added to planned list
         // so we just set the refresh timer to half a minute, which is enough time
         // to think about adding another anime to the planned list which then resets the timer again
-        const tempRefreshRate = aniListStore.refreshRate;
-        await aniListStore.setRefreshRate(0.5);
-        await aniListStore.restartRefreshTimer();
-        await aniListStore.setRefreshRate(tempRefreshRate);
+        const tempRefreshRate = userStore.refreshRate;
+        await userStore.setRefreshRate(0.5);
+        await userStore.restartRefreshTimer();
+        await userStore.setRefreshRate(tempRefreshRate);
       }
     } catch (error) {
       Log.log(Log.getErrorSeverity(), ['SeasonPreview', 'addMediaToPlanList'], error);

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersistence from 'vuex-persist';
-import localForage from 'localforage';
 
 // Custom Stores
 import { aniListModule, AniListStore } from './AniList';
@@ -10,21 +9,27 @@ import { UserSettings, userSettingsModule } from './UserSettings';
 
 Vue.use(Vuex);
 
-const vuexPersist = new VuexPersistence({
-  storage: localForage,
-  asyncStorage: true,
-  key: 'zerotwo_store',
+const localPersist = new VuexPersistence({
+  storage: window.localStorage,
+  key: 'userSettings',
+  modules: ['userSettings', 'app'],
+});
+
+const sessionPersist = new VuexPersistence({
+  storage: window.sessionStorage,
+  key: 'rest',
+  modules: ['aniList'],
 });
 
 export const store: any = new Vuex.Store({
   state: {},
   modules: {
-    aniListModule,
-    appModule,
-    userSettingsModule,
+    aniList: aniListModule,
+    app: appModule,
+    userSettings: userSettingsModule,
   },
   // To keep mutated changes in local Storage
-  plugins: [vuexPersist.plugin],
+  plugins: [localPersist.plugin, sessionPersist.plugin],
 });
 
 /**

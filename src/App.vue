@@ -13,7 +13,8 @@
 import moment from 'moment';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { validLanguageCodes } from './i18n';
-import { aniListStore, appStore } from './store';
+import { appStore, userStore } from './store';
+import aniListEventHandler from '@/modules/AniList/eventHandler';
 
 // Components
 import Navigation from '@/components/Navigation.vue';
@@ -37,18 +38,18 @@ export default class App extends Vue {
   }
 
   public get loggedIntoAniList(): boolean {
-    return aniListStore.isAuthenticated;
+    return userStore.isAuthenticated;
   }
 
   @Watch('loggedIntoAniList')
   public async loggedInStateChanged(newState: boolean) {
     if (newState) {
       await appStore.setLoadingState(true);
-      await aniListStore.refreshAniListData();
-      await aniListStore.restartRefreshTimer();
+      await aniListEventHandler.refreshAniListData();
+      await userStore.restartRefreshTimer();
       await appStore.setLoadingState(false);
     } else {
-      await aniListStore.destroyRefreshTimer();
+      await userStore.destroyRefreshTimer();
     }
   }
 
@@ -75,12 +76,12 @@ export default class App extends Vue {
     this.$vuetify.theme.dark = newValue;
   }
 
-  private created() {
+  private async created() {
     if (!this.locale) {
       if (window.navigator.languages && window.navigator.languages.length) {
-        appStore.setLanguage(window.navigator.languages[0]);
+        await appStore.setLanguage(window.navigator.languages[0]);
       } else {
-        appStore.setLanguage(window.navigator.language);
+        await appStore.setLanguage(window.navigator.language);
       }
     } else {
       this.$i18n.locale = this.locale;
@@ -93,10 +94,17 @@ export default class App extends Vue {
     this.$vuetify.rtl = this.isRTLLanguage(this.$i18n.locale);
 
     moment.locale(this.$i18n.locale);
+
+    if (userStore.isAuthenticated) {
+      await appStore.setLoadingState(true);
+      await aniListEventHandler.refreshAniListData();
+      await userStore.restartRefreshTimer();
+      await appStore.setLoadingState(false);
+    }
   }
 
   private async beforeDestroy() {
-    await aniListStore.destroyRefreshTimer();
+    await userStore.destroyRefreshTimer();
   }
 
   private getLocaleBasedFontFace(locale: string): string {

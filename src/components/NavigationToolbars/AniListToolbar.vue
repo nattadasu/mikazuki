@@ -82,12 +82,12 @@ import { Component, Vue } from 'vue-property-decorator';
 
 // Custom Components
 import { AniListListStatus } from '@/modules/AniList/types';
-import { aniListStore } from '@/store';
+import { aniListStore, userStore } from '@/store';
 
 @Component
 export default class AniListToolbar extends Vue {
   private get isAuthenticated(): boolean {
-    return aniListStore.isAuthenticated;
+    return userStore.isAuthenticated;
   }
 
   private get watchingAmount(): number {

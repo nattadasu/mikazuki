@@ -72,7 +72,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Activities from '@/components/AniList/Activities.vue';
 import ProfileImage from '@/components/AniList/ProfileImage.vue';
-import { aniListStore } from '@/store';
+import { userStore } from '@/store';
 
 @Component({
   components: {
@@ -89,17 +89,17 @@ export default class Home extends Vue {
         this.$router.replace({ name: 'Home' });
       }
 
-      await aniListStore.setSession(accessToken as string);
+      await userStore.setSession(accessToken as string);
       this.$router.replace({ name: 'Home' });
     }
   }
 
   private get currentUser() {
-    return aniListStore.session.user;
+    return userStore.session.user;
   }
 
   private get isAuthenticated(): boolean {
-    return aniListStore.isAuthenticated;
+    return userStore.isAuthenticated;
   }
 
   private openSupportPage(): void {

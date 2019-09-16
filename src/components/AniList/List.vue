@@ -17,6 +17,7 @@
         <v-flex
           v-for="item in listData"
           :key="item.id"
+          class="lg5-custom"
           xs12
           sm6
           md4
@@ -78,7 +79,8 @@ import API from '@/modules/AniList/API';
 import {
   AniListListStatus, AniListMediaStatus, AniListScoreFormat, IAniListEntry,
 } from '@/modules/AniList/types';
-import { aniListStore, appStore } from '@/store';
+import { aniListStore, appStore, userStore } from '@/store';
+import aniListEventHandler from '@/modules/AniList/eventHandler';
 import AdultToolTip from './ListElements/AdultToolTip.vue';
 import EpisodeState from './ListElements/EpisodeState.vue';
 import ListImage from './ListElements/ListImage.vue';
@@ -134,7 +136,7 @@ export default class List extends Vue {
   private readonly status!: AniListListStatus;
 
   private get ratingStarAmount(): number {
-    return aniListStore.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3
+    return userStore.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3
       ? 3
       : 5;
   }
@@ -240,7 +242,7 @@ export default class List extends Vue {
       return 0;
     }
 
-    const userScoringSystem = aniListStore.session.user.mediaListOptions.scoreFormat;
+    const userScoringSystem = userStore.session.user.mediaListOptions.scoreFormat;
 
     switch (userScoringSystem) {
       case AniListScoreFormat.POINT_100:
@@ -380,7 +382,7 @@ export default class List extends Vue {
       if (status === AniListListStatus.COMPLETED) {
         await API.setEntryCompleted(id, progress);
         await appStore.setLoadingState(true);
-        await aniListStore.refreshLists();
+        await aniListEventHandler.refreshLists();
         await appStore.setLoadingState(false);
         this.$notify({
           title: this.$t('notifications.aniList.successTitle') as string,
@@ -388,7 +390,7 @@ export default class List extends Vue {
         });
       } else {
         await API.setEntryProgress(id, progress);
-        await aniListStore.refreshLists();
+        await aniListEventHandler.refreshLists();
         this.$notify({
           title: this.$t('notifications.aniList.successTitle') as string,
           text: this.$t('notifications.aniList.simpleUpdateText', [title, progress]) as string,
@@ -401,3 +403,16 @@ export default class List extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+/* vuetify lg min breakpoint: 1280 - 16     = 1264px */
+/* vuetify lg max breakpoint: 1920 - 16 - 1 = 1903px */
+
+@media (min-width: 1480px) and (max-width: 1903px) {
+  .flex.lg5-custom {
+      width: 20% !important;
+      max-width: 20% !important;
+      flex-basis: 20% !important;
+  }
+}
+</style>

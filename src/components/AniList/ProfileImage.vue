@@ -19,16 +19,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { aniListStore, appStore } from '@/store';
+import { userStore, appStore } from '@/store';
 
 @Component
 export default class ProfileImage extends Vue {
   private get avatarUrl(): string {
-    return aniListStore.session.user.avatar.large;
+    return userStore.session.user.avatar.large;
   }
 
   private get userName(): string {
-    return aniListStore.session.user.name;
+    return userStore.session.user.name;
   }
 
   private get isDarkMode(): boolean {
