@@ -83,7 +83,6 @@
       <LoadingIndicator />
 
       <BackButton />
-      <TopButton />
       <SortButton />
       <SearchButton v-if="isAuthenticated" />
 
@@ -116,7 +115,6 @@ import LoadingIndicator from './NavigationToolbars/Items/Loading.vue';
 import SearchButton from './NavigationToolbars/Items/Search.vue';
 import SettingsButton from './NavigationToolbars/Items/Settings.vue';
 import SortButton from './NavigationToolbars/Items/Sort.vue';
-import TopButton from './NavigationToolbars/Items/Top.vue';
 
 @Component({
   components: {
@@ -130,7 +128,6 @@ import TopButton from './NavigationToolbars/Items/Top.vue';
     SearchButton,
     SettingsButton,
     SortButton,
-    TopButton,
     // AniList Buttons
     AniListRefresh,
   },
