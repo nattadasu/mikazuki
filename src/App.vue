@@ -4,6 +4,7 @@
       <Navigation @navigationDrawerUpdated="navigationDrawer = !navigationDrawer" />
       <router-view :key="$route.path" />
       <ZeroTwoNotifications position="top center" />
+      <TopButton />
     </main>
   </v-app>
 </template>
@@ -16,11 +17,13 @@ import { aniListStore, appStore } from './store';
 
 // Components
 import Navigation from '@/components/Navigation.vue';
+import TopButton from '@/components/TopButton.vue';
 import ZeroTwoNotifications from '@/components/Notifications.vue';
 
 @Component({
   components: {
     Navigation,
+    TopButton,
     ZeroTwoNotifications,
   },
 })
