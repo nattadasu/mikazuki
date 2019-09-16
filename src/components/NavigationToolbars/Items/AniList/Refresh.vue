@@ -25,12 +25,13 @@ import { Component, Vue } from 'vue-property-decorator';
 
 // Custom Components
 import Log from '@/log';
-import { aniListStore, appStore } from '@/store';
+import { appStore, userStore } from '@/store';
+import aniListEventHandler from '@/modules/AniList/eventHandler';
 
 @Component
 export default class Refresh extends Vue {
   private get isAuthenticated(): boolean {
-    return aniListStore.isAuthenticated;
+    return userStore.isAuthenticated;
   }
 
   private get isLoading(): boolean {
@@ -47,14 +48,14 @@ export default class Refresh extends Vue {
   }
 
   private get timeUntilRefresh(): string {
-    const time = aniListStore.timeUntilRefresh * 1000;
+    const time = userStore.timeUntilRefresh * 1000;
 
     return moment(time).format('mm:ss');
   }
 
   private get timeUntilRefreshPercentage(): number {
-    const fullTime = aniListStore.refreshRate * 60;
-    const currentTime = aniListStore.timeUntilRefresh;
+    const fullTime = userStore.refreshRate * 60;
+    const currentTime = userStore.timeUntilRefresh;
 
     return (currentTime / fullTime) * 100;
   }
@@ -64,8 +65,8 @@ export default class Refresh extends Vue {
 
     // AniList
     try {
-      await aniListStore.refreshAniListData();
-      await aniListStore.restartRefreshTimer();
+      await aniListEventHandler.refreshAniListData();
+      await userStore.restartRefreshTimer();
       this.$forceUpdate();
     } catch (error) {
       Log.log(Log.getErrorSeverity(), ['navigation', 'refreshData', 'aniList'], error);

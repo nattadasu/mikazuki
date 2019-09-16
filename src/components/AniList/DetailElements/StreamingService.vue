@@ -19,8 +19,8 @@
               <v-flex xs12>
                 <v-layout fill-height justify-start align-end>
                   <v-flex xs4>
-                    <!-- <v-img v-if="episode.site === 'Crunchyroll'" height="50" class="background-shadowed" :src="require('@/assets/logos/Crunchyroll.svg')" /> -->
-                    <span class="title shadowed">{{ episode.site }}</span>
+                    <v-img v-if="episode.site === 'Crunchyroll'" height="50" class="background-shadowed" :src="require('@/assets/logos/Crunchyroll.svg')" />
+                    <!-- <span class="title shadowed">{{ episode.site }}</span> -->
                   </v-flex>
                 </v-layout>
               </v-flex>
@@ -49,8 +49,8 @@
                 <v-flex xs12>
                   <v-layout fill-height justify-start align-end>
                     <v-flex xs4>
-                      <!-- <v-img v-if="episode.site === 'Crunchyroll'" height="50" class="background-shadowed" :src="require('@/assets/logos/Crunchyroll.svg')" /> -->
-                      <span class="title shadowed">{{ episode.site }}</span>
+                      <v-img v-if="episode.site === 'Crunchyroll'" height="50" class="background-shadowed" :src="require('@/assets/logos/Crunchyroll.svg')" />
+                      <!-- <span class="title shadowed">{{ episode.site }}</span> -->
                     </v-flex>
                   </v-layout>
                 </v-flex>

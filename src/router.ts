@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import AniList from '@/routes/AniList';
 import Search from '@/views/Search.vue';
 import Settings from '@/views/Settings.vue';
-import { store } from './store';
 
 Vue.use(Router);
 
@@ -35,10 +34,6 @@ const router = new Router({
       redirect: '/aniList',
     },
   ],
-});
-
-router.beforeEach((to, from, next) => {
-  store.restored.then(next);
 });
 
 export default router;
