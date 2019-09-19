@@ -74,13 +74,21 @@
     "aniList": {
       "home": {
         "activities": {
+          "badges": {
+            "anime": "Anime",
+            "manga": "Manga"
+          },
           "headline": "Neuste Aktivitäten",
           "completed": "{0} fertig geguckt",
           "plansToWatch": "{0} zur Plan-Liste hinzugefügt",
           "watchedEpisode": "Folge {1} von {0} geguckt",
           "dropped": "{0} abgebrochen",
           "rewatchedEpisode": "Folge {1} von {0} wiederholt",
-          "pausedWatching": "{0} pausiert"
+          "pausedWatching": "{0} pausiert",
+          "readChapter": "Kapitel {1} von {0} gelesen",
+          "plansToRead": "{0} zur Plan-Liste hinzugefügt",
+          "rereadChapter": "Kapitel {1} von {0} wiederholt",
+          "pausedReading": "{0} pausiert"
         },
         "howToAuthenticate": {
           "header": "Wie man sich einloggt:",
@@ -95,7 +103,7 @@
         "airingFinished": "Ausstrahlung beendet",
         "missingEpisodes": "Noch eine Folge gucken | Noch {count} Folgen gucken",
         "notYetAired": "Noch nicht ausgestrahlt",
-        "nextAiringEpisode": "Ausstrahlung von Episode {0} {1}"
+        "nextAiringEpisode": "Episode {0} {1}"
       },
       "detailView": {
         "airedOn": "Wurde am {0} ausgestrahlt",

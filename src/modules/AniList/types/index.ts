@@ -187,6 +187,24 @@ export interface IAniListMediaTitle {
   userPreferred: string;
 }
 
+export interface IAniListMediaStudioNode {
+  /**
+   * @var {string} name contains the studio's name
+   */
+  name: string;
+  /**
+   * @var {boolean} isAnimationStudio
+   */
+  isAnimationStudio: boolean;
+}
+
+export interface IAniListMediaStudio {
+  /**
+   * @var {IAniListMediaStudioNode[]} nodes contains the informations about the media's studios
+   */
+  nodes: IAniListMediaStudioNode[];
+}
+
 /**
  * @interface IAniListMedia
  * @description contains the media's complete information
@@ -220,6 +238,10 @@ export interface IAniListMedia {
    * @var {AniListMediaStatus} status contains the media's status
    */
   status: AniListMediaStatus;
+  /**
+   * @var {string} studio contains the media's studio name
+   */
+  studios: IAniListMediaStudio;
   /**
    * @var {AniListFormat} format contains the media's release format
    */

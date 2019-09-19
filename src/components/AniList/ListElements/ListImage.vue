@@ -11,12 +11,16 @@
         <v-progress-circular indeterminate color="grey lighten-5" />
       </v-layout>
     </template>
-    <v-container fill-height fluid>
-      <v-layout fill-height>
-        <v-flex xs12 align-end flexbox>
-          <span class="title shadowed">{{ name }}</span>
-        </v-flex>
-      </v-layout>
+    <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">
+      <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} titled`">
+        <v-col cols="12">
+          <span class="title">{{ name }}</span>
+        </v-col>
+        <v-spacer />
+        <v-col cols="12" align-self="end">
+          <span class="grey--text" :class="{ 'text--darken-4': !darkMode }">{{ concatenatedStudios }}</span>
+        </v-col>
+      </v-row>
     </v-container>
   </v-img>
 </template>
@@ -24,6 +28,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
+import { IAniListMediaStudio, IAniListMediaStudioNode } from '../../../modules/AniList/types';
 
 @Component
 export default class ListImage extends Vue {
@@ -35,6 +40,26 @@ export default class ListImage extends Vue {
 
   @Prop(String)
   private name!: string;
+
+  @Prop()
+  private studios!: IAniListMediaStudio;
+
+  public get darkMode(): boolean {
+    return this.$vuetify.theme.dark;
+  }
+
+  public get concatenatedStudios(): string {
+    let animationStudios = this.studios.nodes
+      .filter((item: IAniListMediaStudioNode) => item.isAnimationStudio)
+      .map((item: IAniListMediaStudioNode) => item.name);
+
+    if (!animationStudios.length) {
+      animationStudios = this.studios.nodes
+        .map((item: IAniListMediaStudioNode) => item.name);
+    }
+
+    return animationStudios.join(', ');
+  }
 
   private moveToDetails(id: number) {
     const aniListId = id.toString();
@@ -49,16 +74,32 @@ export default class ListImage extends Vue {
   cursor: pointer;
 }
 
-.shadowed {
-  color: #FFF;
-  text-shadow:
-    -1px 1px 4px #000,
-    -2px 2px 4px #000,
-    1px 1px 4px #000,
-    2px 2px 4px #000,
-    1px -1px 4px #000,
-    2px -2px 4px #000,
-    -1px -1px 4px #000,
-    -2px -2px 4px #000;
+.anime-image-container {
+  & .titled {
+    &.shadowed {
+      background-color: rgba(0, 0, 0, .65);
+    }
+    &.lightened {
+      background-color: rgba(255, 255, 255, .85);
+    }
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+
+    transition: .25s ease-in-out;
+  }
+
+  &:hover > .titled {
+    height: 100%;
+
+    &.shadowed {
+      background-color: rgba(0, 0, 0, .85);
+    }
+    &.lightened {
+      background-color: rgba(255, 255, 255, .95);
+    }
+  }
 }
 </style>

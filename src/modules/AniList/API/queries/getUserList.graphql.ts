@@ -31,6 +31,12 @@ query GetListByUsername($userName: String!, $type: MediaType!) {
           genres
           season
           status
+          studios(isMain: true) {
+            nodes {
+              name
+              isAnimationStudio
+            }
+          }
           format
           type
           episodes

@@ -74,13 +74,21 @@
     "aniList": {
       "home": {
         "activities": {
+          "badges": {
+            "anime": "アニメ",
+            "manga": "漫画"
+          },
           "headline": "最近の更新",
           "completed": "{0}を終了しました",
           "plansToWatch": "{0}を予定リストに追加しました",
           "watchedEpisode": "{0}の第{1}話を見ました",
           "dropped": "{0}を中止しました",
           "rewatchedEpisode": "{0}の第{1}話を再見しました",
-          "pausedWatching": "{0}を一時的中止しました"
+          "pausedWatching": "{0}を一時的中止しました",
+          "readChapter": "{0}の第{1}巻を読みました",
+          "plansToRead": "{0}を読み予定リストに追加しました",
+          "rereadChapter": "{0}の第{1}巻を再読みました",
+          "pausedReading": "{0}を一時的中止しました"
         }
       },
       "howToAuthenticate": {

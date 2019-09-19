@@ -74,13 +74,21 @@
     "aniList": {
       "home": {
         "activities": {
+          "badges": {
+            "anime": "Anime",
+            "manga": "Manga"
+          },
           "headline": "Aktivitas Terbaru",
           "completed": "Selesai {0}",
           "plansToWatch": "Direncanakan {0}",
           "watchedEpisode": "Episode {1} dari {0} selesai",
           "dropped": "Dihentikan {0}",
           "rewatchedEpisode": "Episode {1} dari {0} ditonton kembali",
-          "pausedWatching": "Ditahan {0}"
+          "pausedWatching": "Ditahan {0}",
+          "readChapter": "Read chapter {1} of {0}",
+          "plansToRead": "Plans to read {0}",
+          "rereadChapter": "Reread chapter {1} of {0}",
+          "pausedReading": "Paused reading {0}"
         },
         "howToAuthenticate": {
           "header": "Cara untuk masuk:",

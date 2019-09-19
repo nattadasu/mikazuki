@@ -1,70 +1,72 @@
 <template>
   <v-content>
-    <v-card v-if="isAuthenticated">
-      <v-card-text class="background" :style="`background-image: url(${currentUser.bannerImage})`">
-        <v-container fluid>
-          <v-layout>
-            <v-flex
-              xs8
-              sm6
-              md4
-              lg3
-              xl2
-            >
-              <ProfileImage />
-            </v-flex>
+    <div class="d-flex flex-column">
+      <v-card v-if="isAuthenticated" flat style="background: transparent;">
+        <v-card-text class="background" :style="`background-image: url(${currentUser.bannerImage})`">
+          <v-container fluid>
+            <v-row>
+              <v-col
+                cols="8"
+                sm="6"
+                md="4"
+                lg="3"
+                xl="2"
+              >
+                <ProfileImage />
+              </v-col>
 
-            <v-flex
-              xs4
-              sm3
-              md3
-              lg3
-              xl3
-              offset-xs0
-              offset-sm2
-              offset-md5
-              offset-lg6
-              offset-xl7
-            >
-              <v-img
-                class="pointer-on-hover"
-                :src="require('@/assets/logos/Ko-fi-Support-Button.png')"
-                @click="openSupportPage"
-              />
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card-text>
-    </v-card>
-    <v-card v-if="isAuthenticated">
-      <v-card-text>
-        <v-container fluid fill-height>
-          <v-flex xs12>
-            <div class="title">
-              {{ $t('pages.aniList.home.activities.headline') }}
+              <v-col
+                cols="4"
+                sm="3"
+                md="3"
+                lg="3"
+                xl="3"
+                offset="0"
+                offset-sm="2"
+                offset-md="5"
+                offset-lg="6"
+                offset-xl="7"
+              >
+                <v-img
+                  class="pointer-on-hover"
+                  :src="require('@/assets/logos/Ko-fi-Support-Button.png')"
+                  @click="openSupportPage"
+                />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
+      <v-container v-if="isAuthenticated" class="fill-height" style="flex-grow: 1" fluid>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12">
+              <div class="title">
+                {{ $t('pages.aniList.home.activities.headline') }}
+              </div>
+              <Activities />
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-container>
+      <v-card v-if="!isAuthenticated" style="flex-grow: 1" tile>
+        <v-card-title primary-title>
+          <div>
+            <div class="headline">
+              {{ $t('alerts.unauthenticated') }}
             </div>
-            <Activities />
-          </v-flex>
-        </v-container>
-      </v-card-text>
-    </v-card>
-    <v-card v-if="!isAuthenticated">
-      <v-card-title primary-title>
-        <div>
-          <div class="headline">
-            {{ $t('alerts.unauthenticated') }}
+            <span class="subheading">{{ $t('pages.aniList.home.howToAuthenticate.header') }}</span>
           </div>
-          <span class="subheading">{{ $t('pages.aniList.home.howToAuthenticate.header') }}</span>
-        </div>
-      </v-card-title>
-      <v-card-text>
-        <div class="body-2">
-          <p v-for="(item, index) in $t('pages.aniList.home.howToAuthenticate.text')" :key="index">
-            {{ item }}
-          </p>
-        </div>
-      </v-card-text>
-    </v-card>
+        </v-card-title>
+        <v-card-text>
+          <div class="body-2">
+            <p v-for="(item, index) in $t('pages.aniList.home.howToAuthenticate.text')" :key="index">
+              {{ item }}
+            </p>
+          </div>
+        </v-card-text>
+      </v-card>
+    </div>
   </v-content>
 </template>
 
