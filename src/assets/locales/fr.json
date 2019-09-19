@@ -34,7 +34,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Next list update in: {0}"
+      "timeUntilNextRefresh": "Prochaine mise à jour de la liste dans: {0}"
     },
     "aniList": {
       "completed": "Terminé",
@@ -74,13 +74,21 @@
     "aniList": {
       "home": {
         "activities": {
+          "badges": {
+            "anime": "Animé",
+            "manga": "Manga"
+          },
           "headline": "Dernières activitiés",
           "completed": "Terminé {0}",
           "plansToWatch": "À regarder {0}",
           "watchedEpisode": "Épisode regardé {1} sur {0}",
           "dropped": "Abandonné {0}",
           "rewatchedEpisode": "Épisode revisionné {1} sur {0}",
-          "pausedWatching": "En pause {0}"
+          "pausedWatching": "En pause {0}",
+          "readChapter": "Chapitre liré {1} sur {0}",
+          "plansToRead": "À lire {0}",
+          "rereadChapter": "Chapitre reliré {1} sur {0}",
+          "pausedReading": "En pause {0}"
         },
         "howToAuthenticate": {
           "header": "Manuel de connexion:",

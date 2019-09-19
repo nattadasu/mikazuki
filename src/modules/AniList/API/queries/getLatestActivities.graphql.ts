@@ -12,6 +12,7 @@ query GetActivities($page: Int!, $perPage: Int!, $userId: Int!) {
           coverImage {
             extraLarge
           }
+          type
         }
         progress
         status
