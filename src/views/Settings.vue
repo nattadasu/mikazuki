@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-card>
+    <v-card tile raised>
       <v-card-text>
         <v-tabs v-model="tabs" grow>
           <v-tab

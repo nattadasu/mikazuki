@@ -13,22 +13,46 @@
           </v-flex>
           <v-flex xs2>
             <a href="#" class="headline" @click="openGitHub">
-              <v-img :src="require('@/assets/logos/github-logo.png')" alt="GitHub" />
+              <v-img :src="require('@/assets/logos/github-logo.png')" alt="GitHub">
+                <template v-slot:placeholder>
+                  <v-row align="center" justify="center" ma-0>
+                    <v-progress-circular indeterminate color="grey lighten-5" />
+                  </v-row>
+                </template>
+              </v-img>
             </a>
           </v-flex>
           <v-flex xs2 offset-xs1>
             <a href="#" class="headline" @click="openDiscord">
-              <v-img :src="require('@/assets/logos/discord-blurple-logo.png')" alt="Discord" />
+              <v-img :src="require('@/assets/logos/discord-blurple-logo.png')" alt="Discord">
+                <template v-slot:placeholder>
+                  <v-row align="center" justify="center" ma-0>
+                    <v-progress-circular indeterminate color="grey lighten-5" />
+                  </v-row>
+                </template>
+              </v-img>
             </a>
           </v-flex>
           <v-flex xs2 offset-xs1>
             <a href="#" class="headline" @click="openZeroTwo">
-              <v-img :src="require('@/assets/logos/ZeroTwoAppIcon_1024.png')" alt="ZeroTwo" />
+              <v-img :src="require('@/assets/logos/ZeroTwoAppIcon_1024.png')" alt="ZeroTwo">
+                <template v-slot:placeholder>
+                  <v-row align="center" justify="center" ma-0>
+                    <v-progress-circular indeterminate color="grey lighten-5" />
+                  </v-row>
+                </template>
+              </v-img>
             </a>
           </v-flex>
           <v-flex xs2 offset-xs1>
             <a href="#" class="headline" @click="openAniList">
-              <v-img :src="require('@/assets/logos/AniListLogo.svg')" alt="AniList" />
+              <v-img :src="require('@/assets/logos/AniListLogo.svg')" alt="AniList">
+                <template v-slot:placeholder>
+                  <v-row align="center" justify="center" ma-0>
+                    <v-progress-circular indeterminate color="grey lighten-5" />
+                  </v-row>
+                </template>
+              </v-img>
             </a>
           </v-flex>
         </v-layout>

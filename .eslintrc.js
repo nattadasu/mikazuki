@@ -11,6 +11,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    semi: ['error', 'always'],
     'class-methods-use-this': [0],
     'import/no-extraneous-dependencies': [0],
     'no-underscore-dangle': [0],

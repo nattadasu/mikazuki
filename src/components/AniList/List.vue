@@ -1,35 +1,35 @@
 <template>
-  <v-container fluid class="py-0 px-1" fill-height>
-    <v-layout wrap>
-      <v-flex v-show="isLoading" xs12 align-self-center>
+  <v-container fluid class="py-0 px-1 fill-height">
+    <v-row no-gutters>
+      <v-col v-show="isLoading" cols="12" align-self="center">
         <div class="display-3 text-center ma-6">
           {{ $t('actions.loading') }}
         </div>
-      </v-flex>
-      <v-flex v-if="!listData.length && !isLoading" xs12>
+      </v-col>
+      <v-col v-if="!listData.length && !isLoading" cols="12">
         <v-container>
           <div class="headline text-center">
             {{ $t('$vuetify.noDataText') }}
           </div>
         </v-container>
-      </v-flex>
+      </v-col>
       <template v-if="!isLoading">
-        <v-flex
+        <v-col
           v-for="item in listData"
           :key="item.id"
           class="lg5-custom"
-          xs12
-          sm6
-          md4
-          lg3
-          xl2
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
         >
-          <v-card class="ma-1">
-            <ListImage :image-link="item.imageLink" :ani-list-id="item.aniListId" :name="item.title" />
+          <v-card raised class="ma-2">
+            <ListImage :image-link="item.imageLink" :ani-list-id="item.aniListId" :name="item.title" :studios="item.studios" />
 
-            <v-card-text>
-              <v-layout wrap>
-                <v-flex xs4>
+            <v-card-text class="py-0">
+              <v-row>
+                <v-col cols="4">
                   <ProgressCircle
                     :entry-id="item.id"
                     :status="status"
@@ -38,19 +38,19 @@
                     :episode-amount="item.episodeAmount"
                     @increase="increaseCurrentEpisodeProgress"
                   />
-                </v-flex>
+                </v-col>
 
-                <v-flex xs8>
-                  <v-layout align-center justify-end wrap>
-                    <v-flex xs12>
+                <v-col cols="8">
+                  <v-row align="center" justify="end">
+                    <v-col cols="12" class="py-0">
                       <EpisodeState :status="item.mediaStatus" :next-episode="item.nextEpisode" />
-                    </v-flex>
-                    <v-flex xs12>
+                    </v-col>
+                    <v-col cols="12" class="py-0">
                       <MissingEpisodes :next-airing-episode="item.nextAiringEpisode" :current-progress="item.currentProgress" />
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
-              </v-layout>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
             </v-card-text>
 
             <v-card-actions>
@@ -58,12 +58,12 @@
               <StarRating :score="item.score" :rating-star-amount="ratingStarAmount" :score-stars="item.scoreStars" />
             </v-card-actions>
           </v-card>
-        </v-flex>
+        </v-col>
       </template>
       <v-snackbar v-model="isSnackbarVisible" top :color="snackbarColor" :timeout="3500">
         {{ snackbarText }}
       </v-snackbar>
-    </v-layout>
+    </v-row>
   </v-container>
 </template>
 
@@ -193,6 +193,7 @@ export default class List extends Vue {
         scoreStars,
         startDate: new Date(year, month, day),
         status: entry.status,
+        studios: media.studios,
         title: media.title.userPreferred,
       };
     });
@@ -405,11 +406,8 @@ export default class List extends Vue {
 </script>
 
 <style lang="scss" scoped>
-/* vuetify lg min breakpoint: 1280 - 16     = 1264px */
-/* vuetify lg max breakpoint: 1920 - 16 - 1 = 1903px */
-
 @media (min-width: 1480px) and (max-width: 1903px) {
-  .flex.lg5-custom {
+  .lg5-custom[class*="col-"] {
       width: 20% !important;
       max-width: 20% !important;
       flex-basis: 20% !important;

@@ -1,11 +1,9 @@
 <template>
   <v-app id="app">
-    <main>
-      <Navigation @navigationDrawerUpdated="navigationDrawer = !navigationDrawer" />
-      <router-view :key="$route.path" />
-      <ZeroTwoNotifications position="top center" />
-      <TopButton />
-    </main>
+    <Navigation @navigationDrawerUpdated="navigationDrawer = !navigationDrawer" />
+    <router-view :key="$route.path" />
+    <ZeroTwoNotifications position="top center" />
+    <TopButton />
   </v-app>
 </template>
 

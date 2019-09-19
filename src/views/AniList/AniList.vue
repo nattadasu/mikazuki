@@ -1,10 +1,10 @@
 <template>
   <v-content>
-    <v-layout fill-height fluid>
-      <v-flex xs12 fill-height>
+    <v-row>
+      <v-col cols="12">
         <List :status="status" />
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-content>
 </template>
 
