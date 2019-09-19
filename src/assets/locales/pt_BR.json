@@ -76,7 +76,7 @@
         "activities": {
           "badges": {
             "anime": "Anime",
-            "manga": "Manga"
+            "manga": "Mangá"
           },
           "headline": "Atividades mais recentes",
           "completed": "Completado {0}",
@@ -85,10 +85,10 @@
           "dropped": "Dropou {0}",
           "rewatchedEpisode": "Reassistindo episódio {1} of {0}",
           "pausedWatching": "Pausou {0}",
-          "readChapter": "Read chapter {1} of {0}",
-          "plansToRead": "Plans to read {0}",
-          "rereadChapter": "Reread chapter {1} of {0}",
-          "pausedReading": "Paused reading {0}"
+          "readChapter": "Lendo capítulo {1} de {0},",
+          "plansToRead": "Planeja a ler {0}",
+          "rereadChapter": "Relendo capítulo {1} de {0}",
+          "pausedReading": "Pausada a leitura {0}"
         },
         "howToAuthenticate": {
           "header": "Como fazer o login:",
