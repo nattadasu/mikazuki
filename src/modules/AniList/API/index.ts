@@ -2,7 +2,6 @@ import Axios, { AxiosInstance } from 'axios';
 import { omit } from 'lodash';
 
 // Custom Components
-import Log from '@/log';
 import { userStore } from '@/store';
 import {
   AniListListStatus,
@@ -69,7 +68,7 @@ export default class AniListAPI {
       // the last data is part of the response of AniList
       return response.data.data.list as IAniListMediaListCollection;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'getUserList'], error);
+      //
     }
 
     return null;
@@ -88,7 +87,7 @@ export default class AniListAPI {
 
       return response.data.data.user as IAniListUser;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'getUser'], error);
+      //
     }
 
     return null;
@@ -107,7 +106,7 @@ export default class AniListAPI {
 
       return response.data.data.page.activities;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'getLatestActivities'], error);
+      //
     }
 
     return null;
@@ -131,7 +130,7 @@ export default class AniListAPI {
         media,
       };
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'getSeasonPreview'], error);
+      //
     }
 
     return null;
@@ -150,7 +149,7 @@ export default class AniListAPI {
 
       return media;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'getAnimeInfo'], error);
+      //
     }
 
     return null;
@@ -173,7 +172,7 @@ export default class AniListAPI {
 
       return listEntry as IAniListEntry;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'getListEntry'], error);
+      //
     }
 
     return null;
@@ -246,7 +245,7 @@ export default class AniListAPI {
 
       return searchResults;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'getListEntry'], error);
+      //
     }
 
     return null;
@@ -271,7 +270,7 @@ export default class AniListAPI {
 
       return !!response.data.data.response.media;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'addEntry'], error);
+      //
     }
 
     return false;
@@ -294,7 +293,7 @@ export default class AniListAPI {
 
       return true;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'updateEntry'], error);
+      //
     }
 
     return false;
@@ -314,7 +313,7 @@ export default class AniListAPI {
 
       return true;
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'removeEntry'], error);
+      //
     }
 
     return false;
@@ -333,7 +332,7 @@ export default class AniListAPI {
         },
       }, { headers });
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'setEpisodeProgress'], error);
+      //
     }
   }
 
@@ -358,7 +357,7 @@ export default class AniListAPI {
         },
       }, { headers });
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'api', 'setEntryCompleted'], error);
+      //
     }
   }
 }

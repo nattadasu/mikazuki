@@ -24,7 +24,6 @@ import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 
 // Custom Components
-import Log from '@/log';
 import { appStore, userStore } from '@/store';
 import aniListEventHandler from '@/modules/AniList/eventHandler';
 
@@ -69,7 +68,7 @@ export default class Refresh extends Vue {
       await userStore.restartRefreshTimer();
       this.$forceUpdate();
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['navigation', 'refreshData', 'aniList'], error);
+      //
     }
 
     await appStore.setLoadingState(false);

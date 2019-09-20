@@ -31,6 +31,12 @@ query GetAnime($id: Int!) {
       large
       medium
     }
+    studios(isMain: true) {
+      nodes {
+        name
+        isAnimationStudio
+      }
+    }
     bannerImage
     genres
     synonyms

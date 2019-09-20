@@ -38,6 +38,12 @@ query GetByMediaId($mediaId: Int!) {
       large
       medium
     }
+    studios(isMain: true) {
+      nodes {
+        name
+        isAnimationStudio
+      }
+    }
     bannerImage
     genres
     synonyms

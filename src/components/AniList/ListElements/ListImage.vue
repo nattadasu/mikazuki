@@ -49,6 +49,10 @@ export default class ListImage extends Vue {
   }
 
   public get concatenatedStudios(): string {
+    if (!this.studios) {
+      return '';
+    }
+
     let animationStudios = this.studios.nodes
       .filter((item: IAniListMediaStudioNode) => item.isAnimationStudio)
       .map((item: IAniListMediaStudioNode) => item.name);

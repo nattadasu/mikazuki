@@ -16,6 +16,12 @@ query searchAnime({0}) {
       nextAiringEpisode {
         episode
       }
+      studios(isMain: true) {
+        nodes {
+          name
+          isAnimationStudio
+        }
+      }
       isAdult
       mediaListEntry {
         id

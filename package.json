@@ -1,8 +1,8 @@
 {
   "name": "zerotwo",
   "version": "0.7.2b",
-  "description": "Taiga alternative",
-  "author": "NicoAiko <nicoaiko@zerotwo.org>",
+  "description": "AniList Listing Management app of the future",
+  "author": "Nico Linnemann <nicoaiko@zerotwo.org>",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -20,7 +20,7 @@
     "vue-notification": "^1.3.16",
     "vue-property-decorator": "^8.2.2",
     "vue-router": "^3.1.3",
-    "vuetify": "^2.0.17",
+    "vuetify": "^2.0.18",
     "vuex": "^3.1.1",
     "vuex-class-component": "^1.9.0",
     "vuex-persist": "^2.1.0"

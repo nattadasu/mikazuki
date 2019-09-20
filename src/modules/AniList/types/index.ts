@@ -566,4 +566,5 @@ export interface IAniListSearchResult {
   isAdult: boolean;
   mediaListEntry: IAniListEntry;
   nextAiringEpisode: IAniListNextAiringEpisode;
+  studios: IAniListMediaStudio;
 }

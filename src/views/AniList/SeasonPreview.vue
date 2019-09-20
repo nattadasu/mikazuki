@@ -72,7 +72,6 @@ import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import eventBus from '@/eventBus';
-import Log from '@/log';
 import API from '@/modules/AniList/API';
 import {
   AniListListStatus, AniListSeason, IAniListEntry, IAniListSeasonPreviewMedia,
@@ -239,7 +238,7 @@ export default class SeasonPreview extends Vue {
         await userStore.setRefreshRate(tempRefreshRate);
       }
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['SeasonPreview', 'addMediaToPlanList'], error);
+      //
     }
 
     await appStore.setLoadingState(false);
