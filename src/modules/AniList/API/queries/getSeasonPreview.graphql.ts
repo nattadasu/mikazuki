@@ -19,6 +19,12 @@ query getSeasonAnime($seasonYear: Int, $season: MediaSeason) {
       coverImage {
         extraLarge
       }
+      studios(isMain: true) {
+        nodes {
+          name
+          isAnimationStudio
+        }
+      }
       bannerImage
       genres
       nextAiringEpisode {

@@ -1,20 +1,20 @@
 <template>
   <v-content>
-    <v-layout fill-height fluid>
-      <v-flex xs12 fill-height>
-        <v-container fluid fill-height class="px-0 py-0">
-          <v-layout wrap>
-            <v-flex xs12>
+    <v-row>
+      <v-col cols="12" class="pt-0">
+        <v-container fluid class="px-0 py-0 fill-height">
+          <v-row no-gutters>
+            <v-col cols="12" class="pa-0">
               <v-card class="no-border-radius">
                 <v-card-text>
-                  <v-container fluid grid-list-md>
-                    <v-layout wrap>
-                      <v-flex
-                        xs12
-                        sm12
-                        md6
-                        lg6
-                        xl6
+                  <v-container fluid>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        sm="12"
+                        md="6"
+                        lg="6"
+                        xl="6"
                       >
                         <v-text-field
                           v-model="searchInput"
@@ -22,14 +22,13 @@
                           prepend-icon="mdi-magnify"
                           @keyup.enter="search"
                         />
-                      </v-flex>
+                      </v-col>
 
-                      <v-flex
-                        xs12
-                        sm12
-                        md2
-                        lg2
-                        xl2
+                      <v-col
+                        cols="12"
+                        md="2"
+                        lg="2"
+                        xl="2"
                       >
                         <v-select
                           v-model="adultContentValue"
@@ -39,14 +38,13 @@
                           persistent-hint
                           clearable
                         />
-                      </v-flex>
+                      </v-col>
 
-                      <v-flex
-                        xs12
-                        sm12
-                        md2
-                        lg2
-                        xl2
+                      <v-col
+                        cols="12"
+                        md="2"
+                        lg="2"
+                        xl="2"
                       >
                         <v-select
                           v-model="listValues"
@@ -59,14 +57,13 @@
                           chips
                           small-chips
                         />
-                      </v-flex>
+                      </v-col>
 
-                      <v-flex
-                        xs12
-                        sm12
-                        md2
-                        lg2
-                        xl2
+                      <v-col
+                        cols="12"
+                        md="2"
+                        lg="2"
+                        xl="2"
                       >
                         <v-combobox
                           v-model="genreValues"
@@ -89,32 +86,34 @@
                             </v-list-item>
                           </template>
                         </v-combobox>
-                      </v-flex>
-                    </v-layout>
+                      </v-col>
+                    </v-row>
                   </v-container>
                 </v-card-text>
               </v-card>
-            </v-flex>
+            </v-col>
 
-            <v-flex
+            <v-col
               v-for="result in searchResults"
               :key="result.id"
-              xs12
-              sm6
-              md4
-              lg3
-              xl2
+              class="lg5-custom"
+              cols="12"
+              sm="6"
+              md="4"
+              lg="3"
+              xl="2"
             >
-              <v-card class="ma-1">
+              <v-card raised class="ma-2">
                 <ListImage
                   :image-link="result.coverImage.extraLarge"
                   :ani-list-id="result.id"
                   :name="result.title.romaji"
+                  :studios="result.studios"
                 />
 
-                <v-card-text>
-                  <v-layout wrap>
-                    <v-flex xs4>
+                <v-card-text class="py-0">
+                  <v-row>
+                    <v-col cols="4">
                       <template v-if="result.mediaListEntry">
                         <ProgressCircle
                           :entry-id="result.mediaListEntry.id"
@@ -135,86 +134,78 @@
                           @increase="() => {}"
                         />
                       </template>
-                    </v-flex>
-                    <v-flex xs8>
-                      <v-layout>
-                        <v-flex v-if="result.isAdult">
-                          <v-tooltip top>
-                            <template v-slot:activator="{ on }">
-                              <v-icon
-                                large
-                                color="error"
-                                v-on="on"
-                              >
-                                mdi-alert
-                              </v-icon>
-                            </template>
-                            <span>{{ $t('alerts.adultContent') }}</span>
-                          </v-tooltip>
-                        </v-flex>
-                        <v-flex grow>
-                          <v-layout align-center justify-end>
-                            <template v-if="result.mediaListEntry">
-                              <v-icon color="green" class="pr-1">
-                                mdi-account
-                              </v-icon>{{ result.mediaListEntry.score }}
-                              <v-divider vertical class="mx-2" />
-                            </template>
-                            <v-icon color="yellow lighten-1" class="pr-1">
-                              mdi-account-group
-                            </v-icon>{{ result.averageScore || 'n.a.' }}
-                          </v-layout>
-                        </v-flex>
-                      </v-layout>
-                    </v-flex>
-                  </v-layout>
+                    </v-col>
+                    <v-col cols="8" class="text-right">
+                      <v-tooltip v-if="result.isAdult" top>
+                        <template v-slot:activator="{ on }">
+                          <v-icon
+                            large
+                            color="error"
+                            v-on="on"
+                          >
+                            mdi-alert
+                          </v-icon>
+                        </template>
+                        <span>{{ $t('alerts.adultContent') }}</span>
+                      </v-tooltip>
+
+                      <template v-if="result.mediaListEntry">
+                        <v-icon color="green" class="pr-1">
+                          mdi-account
+                        </v-icon>{{ result.mediaListEntry.score }}
+                      </template>
+                      <v-icon color="yellow lighten-1" class="pr-1">
+                        mdi-account-group
+                      </v-icon>{{ result.averageScore || 'n.a.' }}
+                    </v-col>
+                  </v-row>
                 </v-card-text>
 
                 <v-card-actions class="icon-actionize">
-                  <v-layout pa-1>
-                    <v-flex text-center>
+                  <v-row class="pa-1">
+                    <v-col class="text-center">
                       <v-icon :color="result.isWatching ? 'green' : 'grey darken-2'">
                         mdi-play
                       </v-icon>
-                    </v-flex>
+                    </v-col>
 
-                    <v-flex text-center>
+                    <v-col text-center>
                       <v-icon :color="result.isRepeating ? 'green darken-3' : 'grey darken-2'">
                         mdi-repeat
                       </v-icon>
-                    </v-flex>
+                    </v-col>
 
-                    <v-flex text-center>
+                    <v-col text-center>
                       <v-icon :color="result.isCompleted ? 'blue' : 'grey darken-2'">
                         mdi-check
                       </v-icon>
-                    </v-flex>
+                    </v-col>
 
-                    <v-flex text-center>
+                    <v-col text-center>
                       <v-icon :color="result.isPaused ? 'yellow darken-2' : 'grey darken-2'">
                         mdi-pause
                       </v-icon>
-                    </v-flex>
+                    </v-col>
 
-                    <v-flex text-center>
+                    <v-col text-center>
                       <v-icon :color="result.isDropped ? 'red darken-1' : 'grey darken-2'">
                         mdi-stop
                       </v-icon>
-                    </v-flex>
+                    </v-col>
 
-                    <v-flex text-center>
+                    <v-col text-center>
                       <v-icon :color="result.isPlanning ? '' : 'grey darken-2'">
                         mdi-playlist-plus
                       </v-icon>
-                    </v-flex>
-                  </v-layout>
+                    </v-col>
+                  </v-row>
                 </v-card-actions>
               </v-card>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-content>
 </template>
 

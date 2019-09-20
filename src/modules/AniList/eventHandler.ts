@@ -1,5 +1,4 @@
 import { userStore, aniListStore } from '@/store';
-import Log from '@/log';
 import API from './API';
 import { IAniListUser, AniListType } from './types';
 
@@ -25,7 +24,7 @@ export default {
         await aniListStore.setLatestActivities(latestActivities);
       }
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'store', 'refreshAniListData'], error);
+      //
     }
   },
 
@@ -43,7 +42,7 @@ export default {
         aniListStore.setAniListData(userList);
       }
     } catch (error) {
-      Log.log(Log.getErrorSeverity(), ['aniList', 'store', 'refreshLists'], error);
+      //
     }
   },
 };

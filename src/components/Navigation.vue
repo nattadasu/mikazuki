@@ -100,7 +100,6 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { RawLocation, Route } from 'vue-router';
 
 // Custom Components
-import Log from '@/log';
 import { AniListListStatus } from '@/modules/AniList/types';
 import { userStore, appStore } from '@/store';
 
@@ -179,7 +178,7 @@ export default class Navigation extends Vue {
     title: 'menus.aniList.planning',
     location: { name: 'Planning' },
     routeName: 'Planning',
-    icon: 'mdi-format-list-checks',
+    icon: 'mdi-menu',
   }];
 
   private get isMediaPage(): boolean {
