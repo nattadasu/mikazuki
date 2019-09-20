@@ -76,7 +76,7 @@
         "activities": {
           "badges": {
             "anime": "动画",
-            "manga": "Manga"
+            "manga": "漫画/小说"
           },
           "headline": "最新动态",
           "completed": "已看完 {0}",
