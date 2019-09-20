@@ -88,7 +88,7 @@
           "readChapter": "已看 {0} 的第 {1} 章",
           "plansToRead": "准备看 {0}",
           "rereadChapter": "重温 {0} 的第 {1} 章",
-          "pausedReading": "Paused reading {0}"
+          "pausedReading": "暂时不看 {0}"
         },
         "howToAuthenticate": {
           "header": "如何登录：",
