@@ -85,7 +85,7 @@
           "dropped": "放弃看 {0}",
           "rewatchedEpisode": "重温 {0} 的第 {1} 话",
           "pausedWatching": "暂时不看 {0}",
-          "readChapter": "Read chapter {1} of {0}",
+          "readChapter": "已看 {0} 的第 {1} 章",
           "plansToRead": "Plans to read {0}",
           "rereadChapter": "Reread chapter {1} of {0}",
           "pausedReading": "Paused reading {0}"
