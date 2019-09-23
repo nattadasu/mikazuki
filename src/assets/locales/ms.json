@@ -134,11 +134,11 @@
     },
     "search": {
       "searchQuery": "Cari...",
-      "searchFilter": "Search filter",
+      "searchFilter": "Tapis carian",
       "adultContent": {
         "label": "Kandungan dewasa",
         "hint": "Membantu menguruskan carian untuk kandungan dewasa dan bukan dewasa",
-        "both": "No filter",
+        "both": "Tiada penapisan",
         "onlyNonAdult": "Tunjukkan bukan kandungan dewasa saja",
         "onlyAdult": "Tunjukkan hanya kandungan dewasa"
       },
