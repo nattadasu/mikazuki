@@ -8,6 +8,10 @@
   display: none;
 }
 
+body {
+  overflow: hidden;
+}
+
 #app.v-application--is-rtl .v-icon {
   &:not(.mdi-play):not(.mdi-check) {
     -moz-transform: scaleX(-1);

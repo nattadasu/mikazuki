@@ -134,9 +134,11 @@
     },
     "search": {
       "searchQuery": "Pesquisar...",
+      "searchFilter": "Search filter",
       "adultContent": {
         "label": "Conteúdo Adulto",
         "hint": "Mantenha-se livre para pesquisar conteúdo adulto e não-adulto",
+        "both": "No filter",
         "onlyNonAdult": "Apenas Conteúdo não-adulto",
         "onlyAdult": "Apenas Conteúdo adulto"
       },

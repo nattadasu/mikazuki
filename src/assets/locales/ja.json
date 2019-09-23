@@ -134,9 +134,11 @@
     },
     "search": {
       "searchQuery": "検索・・・",
+      "searchFilter": "検索フィルター",
       "adultContent": {
         "label": "１８禁",
         "hint": "１８禁コンテンツと普通のを探したければ、空白のままにしてください。",
+        "both": "フィルターなし",
         "onlyNonAdult": "不１８禁コンテンツのみ",
         "onlyAdult": "１８禁コンテンツのみ"
       },

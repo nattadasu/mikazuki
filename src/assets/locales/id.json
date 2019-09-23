@@ -134,9 +134,11 @@
     },
     "search": {
       "searchQuery": "Cari...",
+      "searchFilter": "Search filter",
       "adultContent": {
         "label": "Konten dewasa",
         "hint": "Membantu mengelola pencarian untuk konten dewasa maupun bukan",
+        "both": "No filter",
         "onlyNonAdult": "Tampilkan hanya bukan konten dewasa",
         "onlyAdult": "Tampilkan hanya konten dewasa"
       },

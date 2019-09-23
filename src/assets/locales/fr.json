@@ -134,9 +134,11 @@
     },
     "search": {
       "searchQuery": "Chercher...",
+      "searchFilter": "Filtre de Recherche",
       "adultContent": {
         "label": "Contenu mature",
         "hint": "Laissé vide pour rechercher du contenu à la fois mature et non-mature",
+        "both": "Pas de filtre",
         "onlyNonAdult": "Uniqument contenu non-mature",
         "onlyAdult": "Uniquement contenu mature"
       },

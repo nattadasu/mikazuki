@@ -178,77 +178,71 @@ export default class AniListAPI {
     return null;
   }
 
-  public static async searchAnime(query: string, filters: { isAdult: boolean | null, listStatus: AniListListStatus[], genres: string[] }): Promise<IAniListSearchResult[] | null> {
-    try {
-      const { accessToken } = userStore.session;
-      const headers = { Authorization: `Bearer ${accessToken}` };
-      const genres = filters.genres.length ? filters.genres : null;
-      const onList = !!filters.listStatus.length;
-      const { isAdult } = filters;
+  public static async searchAnime(query: string, filters: { isAdult: string, listStatus: AniListListStatus[], genres: string[] }): Promise<IAniListSearchResult[] | null> {
+    const { accessToken } = userStore.session;
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    const genres = filters.genres.length ? filters.genres : null;
+    const onList = !!filters.listStatus.length;
+    const { isAdult } = filters;
 
-      const mediaQueryDeclaration = [
-        '$query: String!',
-        '$type: MediaType!',
-        '$genres: [String]',
-      ];
-      const mediaQueryDefinition = [
-        'search: $query',
-        'type: $type',
-        'genre_in: $genres',
-      ];
-      const mediaQueryParameters: {
-        query: string,
-        type: string,
-        genres: string[] | null,
-        onList?: boolean,
-        isAdult?: boolean,
-      } = {
-        query,
-        type: 'ANIME',
-        genres,
-      };
+    const mediaQueryDeclaration = [
+      '$query: String!',
+      '$type: MediaType!',
+      '$genres: [String]',
+    ];
+    const mediaQueryDefinition = [
+      'search: $query',
+      'type: $type',
+      'genre_in: $genres',
+    ];
+    const mediaQueryParameters: {
+      query: string,
+      type: string,
+      genres: string[] | null,
+      onList?: boolean,
+      isAdult?: boolean,
+    } = {
+      query,
+      type: 'ANIME',
+      genres,
+    };
 
-      if (onList) {
-        mediaQueryDeclaration.push('$onList: Boolean');
-        mediaQueryDefinition.push('onList: $onList');
-        mediaQueryParameters.onList = onList;
-      }
-
-      if (isAdult) {
-        mediaQueryDeclaration.push('$isAdult: Boolean');
-        mediaQueryDefinition.push('isAdult: $isAdult');
-        mediaQueryParameters.isAdult = isAdult;
-      }
-
-      const searchQuery = searchAnime
-        .replace('{0}', mediaQueryDeclaration.join(', '))
-        .replace('{1}', mediaQueryDefinition.join(', '));
-
-      const response = await axios.post('/', {
-        query: searchQuery,
-        variables: mediaQueryParameters,
-      }, { headers });
-
-      const searchResults: IAniListSearchResult[] = response.data.data.page.media;
-
-      if (filters.listStatus.length) {
-        const results = searchResults.filter((e) => {
-          if (!e.mediaListEntry) {
-            return false;
-          }
-
-          return filters.listStatus.find(filter => filter === e.mediaListEntry.status);
-        });
-
-        return results;
-      }
-
-      return searchResults;
-    } catch (error) {
-      //
+    if (onList) {
+      mediaQueryDeclaration.push('$onList: Boolean');
+      mediaQueryDefinition.push('onList: $onList');
+      mediaQueryParameters.onList = onList;
     }
 
-    return null;
+    if (isAdult !== 'both') {
+      mediaQueryDeclaration.push('$isAdult: Boolean');
+      mediaQueryDefinition.push('isAdult: $isAdult');
+      mediaQueryParameters.isAdult = isAdult === 'adult';
+    }
+
+    const searchQuery = searchAnime
+      .replace('{0}', mediaQueryDeclaration.join(', '))
+      .replace('{1}', mediaQueryDefinition.join(', '));
+
+    const response = await axios.post('/', {
+      query: searchQuery,
+      variables: mediaQueryParameters,
+    }, { headers });
+
+    const searchResults: IAniListSearchResult[] = response.data.data.page.media;
+
+    if (filters.listStatus.length) {
+      const results = searchResults.filter((e) => {
+        if (!e.mediaListEntry) {
+          return false;
+        }
+
+        return filters.listStatus.find(filter => filter === e.mediaListEntry.status);
+      });
+
+      return results;
+    }
+
+    return searchResults;
   }
 
   // Mutations

@@ -134,9 +134,11 @@
     },
     "search": {
       "searchQuery": "Suchbegriff...",
+      "searchFilter": "Suchfilter",
       "adultContent": {
         "label": "18+-Inhalte",
         "hint": "Leer lassen, um ungefiltert Inhalte zu suchen",
+        "both": "Kein Filter",
         "onlyNonAdult": "Nur jugendfreie Inhalte",
         "onlyAdult": "Nur Inhalte ab 18+"
       },
