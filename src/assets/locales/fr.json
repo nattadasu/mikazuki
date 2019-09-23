@@ -134,7 +134,7 @@
     },
     "search": {
       "searchQuery": "Chercher...",
-      "searchFilter": "Filtre de Recherche",
+      "searchFilter": "Filtre de recherche",
       "adultContent": {
         "label": "Contenu mature",
         "hint": "Laissé vide pour rechercher du contenu à la fois mature et non-mature",
