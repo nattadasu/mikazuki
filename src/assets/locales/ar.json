@@ -75,8 +75,8 @@
       "home": {
         "activities": {
           "badges": {
-            "anime": "Anime",
-            "manga": "Manga"
+            "anime": "أنمي",
+            "manga": "مانغا"
           },
           "headline": "أحدث الأنشطة",
           "completed": "منجز {0}",
@@ -84,11 +84,11 @@
           "watchedEpisode": "شاهد الحلقة {1} من {0}",
           "dropped": "توقفت {0}",
           "rewatchedEpisode": "حلق المشاهدة الحلقة {1} من {0}",
-          "pausedWatching": "توقف {0}",
-          "readChapter": "Read chapter {1} of {0}",
-          "plansToRead": "Plans to read {0}",
-          "rereadChapter": "Reread chapter {1} of {0}",
-          "pausedReading": "Paused reading {0}"
+          "pausedWatching": "توقف المشاهدة {0}",
+          "readChapter": "قرأت الفصل {1} من {0}",
+          "plansToRead": "خطط لقرء {0}",
+          "rereadChapter": "حلق القراءة الفصل {1} من {0}",
+          "pausedReading": "توقف القراءة {1}"
         },
         "howToAuthenticate": {
           "header": "خطوة لتسجيل الدخول:",
