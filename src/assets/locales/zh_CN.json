@@ -134,11 +134,11 @@
     },
     "search": {
       "searchQuery": "搜索……",
-      "searchFilter": "Search filter",
+      "searchFilter": "筛选设置",
       "adultContent": {
         "label": "R-18 内容",
         "hint": "留空以同时搜索全年龄内容和 R-18 内容",
-        "both": "No filter",
+        "both": "未筛选",
         "onlyNonAdult": "仅全年龄内容",
         "onlyAdult": "仅 R-18 内容"
       },
