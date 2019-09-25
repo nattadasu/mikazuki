@@ -134,9 +134,11 @@
     },
     "search": {
       "searchQuery": "Search...",
+      "searchFilter": "Search filter",
       "adultContent": {
         "label": "Adult content",
         "hint": "Keep clear to search for both adult and non-adult content",
+        "both": "No filter",
         "onlyNonAdult": "Only non-adult content",
         "onlyAdult": "Only adult content"
       },

@@ -1,211 +1,182 @@
 <template>
   <v-content>
-    <v-row>
-      <v-col cols="12" class="pt-0">
-        <v-container fluid class="px-0 py-0 fill-height">
-          <v-row no-gutters>
-            <v-col cols="12" class="pa-0">
-              <v-card class="no-border-radius">
-                <v-card-text>
-                  <v-container fluid>
-                    <v-row>
-                      <v-col
-                        cols="12"
-                        sm="12"
-                        md="6"
-                        lg="6"
-                        xl="6"
+    <v-container fluid class="px-0 py-0">
+      <v-row no-gutters>
+        <v-col cols="12" class="pa-0">
+          <v-card class="no-border-radius" :loading="isLoading">
+            <v-card-text>
+              <v-container fluid class="pb-0">
+                <v-row>
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="searchInput"
+                      :label="$t('pages.search.searchQuery')"
+                      prepend-icon="mdi-magnify"
+                      @keyup.enter="search"
+                    />
+                  </v-col>
+
+                  <v-col cols="12" md="8">
+                    <template v-if="$vuetify.breakpoint.smAndDown">
+                      <v-expansion-panels v-model="panel" accordion>
+                        <v-expansion-panel>
+                          <v-expansion-panel-header>{{ $t('pages.search.searchFilter') }}</v-expansion-panel-header>
+                          <v-expansion-panel-content>
+                            <SearchFilter
+                              :list-values="listValues"
+                              :adult-content="adultContentValue"
+                              :genre-values="genreValues"
+                              @listValuesChanged="value => listValues = value"
+                              @adultContentValueChanged="value => adultContentValue = value"
+                              @genreValuesChanged="value => genreValues = value"
+                            />
+                          </v-expansion-panel-content>
+                        </v-expansion-panel>
+                      </v-expansion-panels>
+                    </template>
+                    <template v-else>
+                      <SearchFilter
+                        :list-values="listValues"
+                        :adult-content="adultContentValue"
+                        :genre-values="genreValues"
+                        @listValuesChanged="value => listValues = value"
+                        @adultContentValueChanged="value => adultContentValue = value"
+                        @genreValuesChanged="value => genreValues = value"
+                      />
+                    </template>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-btn
+                block
+                text
+                color="green"
+                :loading="isLoading"
+                @click="search"
+              >
+                <v-icon left>
+                  mdi-magnify
+                </v-icon>
+                {{ $t('actions.search') }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+
+        <v-col
+          v-for="result in searchResults"
+          :key="result.id"
+          class="lg5-custom"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
+        >
+          <v-card raised class="ma-2">
+            <ListImage
+              :image-link="result.coverImage.extraLarge"
+              :ani-list-id="result.id"
+              :name="result.title.romaji"
+              :studios="result.studios"
+            />
+
+            <v-card-text class="py-0">
+              <v-row>
+                <v-col cols="4">
+                  <template v-if="result.mediaListEntry">
+                    <ProgressCircle
+                      :entry-id="result.mediaListEntry.id"
+                      :status="result.mediaListEntry.status"
+                      :progress-percentage="result.progressPercentage"
+                      :current-progress="result.mediaListEntry.progress"
+                      :episode-amount="result.episodes || '?'"
+                      @increase="() => {}"
+                    />
+                  </template>
+                  <template v-else>
+                    <ProgressCircle
+                      :entry-id="0"
+                      :status="null"
+                      :progress-percentage="0"
+                      :current-progress="0"
+                      :episode-amount="result.episodes || '?'"
+                      @increase="() => {}"
+                    />
+                  </template>
+                </v-col>
+                <v-col cols="8" class="text-right">
+                  <v-tooltip v-if="result.isAdult" top>
+                    <template v-slot:activator="{ on }">
+                      <v-icon
+                        large
+                        color="error"
+                        v-on="on"
                       >
-                        <v-text-field
-                          v-model="searchInput"
-                          :label="$t('pages.search.searchQuery')"
-                          prepend-icon="mdi-magnify"
-                          @keyup.enter="search"
-                        />
-                      </v-col>
-
-                      <v-col
-                        cols="12"
-                        md="2"
-                        lg="2"
-                        xl="2"
-                      >
-                        <v-select
-                          v-model="adultContentValue"
-                          :items="adultContent"
-                          :label="$t('pages.search.adultContent.label')"
-                          :hint="$t('pages.search.adultContent.hint')"
-                          persistent-hint
-                          clearable
-                        />
-                      </v-col>
-
-                      <v-col
-                        cols="12"
-                        md="2"
-                        lg="2"
-                        xl="2"
-                      >
-                        <v-select
-                          v-model="listValues"
-                          :label="$t('pages.search.inList.label')"
-                          :items="listStatus"
-                          :hint="$t('pages.search.inList.hint')"
-                          clearable
-                          persistent-hint
-                          multiple
-                          chips
-                          small-chips
-                        />
-                      </v-col>
-
-                      <v-col
-                        cols="12"
-                        md="2"
-                        lg="2"
-                        xl="2"
-                      >
-                        <v-combobox
-                          v-model="genreValues"
-                          :items="genres"
-                          clearable
-                          :search-input.sync="genreSearch"
-                          hide-selected
-                          :label="$t('pages.search.genres.label')"
-                          :hint="$t('pages.search.genres.hint')"
-                          multiple
-                          persistent-hint
-                          small-chips
-                        >
-                          <template v-slot:no-data>
-                            <v-list-item>
-                              <v-list-item-content>
-                                <!-- eslint-disable-next-line vue/no-v-html -->
-                                <v-list-item-title v-html="$t('pages.search.genres.noMatch', [genreSearch])" />
-                              </v-list-item-content>
-                            </v-list-item>
-                          </template>
-                        </v-combobox>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-              </v-card>
-            </v-col>
-
-            <v-col
-              v-for="result in searchResults"
-              :key="result.id"
-              class="lg5-custom"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-              xl="2"
-            >
-              <v-card raised class="ma-2">
-                <ListImage
-                  :image-link="result.coverImage.extraLarge"
-                  :ani-list-id="result.id"
-                  :name="result.title.romaji"
-                  :studios="result.studios"
-                />
-
-                <v-card-text class="py-0">
-                  <v-row>
-                    <v-col cols="4">
-                      <template v-if="result.mediaListEntry">
-                        <ProgressCircle
-                          :entry-id="result.mediaListEntry.id"
-                          :status="result.mediaListEntry.status"
-                          :progress-percentage="result.progressPercentage"
-                          :current-progress="result.mediaListEntry.progress"
-                          :episode-amount="result.episodes || '?'"
-                          @increase="() => {}"
-                        />
-                      </template>
-                      <template v-else>
-                        <ProgressCircle
-                          :entry-id="0"
-                          :status="null"
-                          :progress-percentage="0"
-                          :current-progress="0"
-                          :episode-amount="result.episodes || '?'"
-                          @increase="() => {}"
-                        />
-                      </template>
-                    </v-col>
-                    <v-col cols="8" class="text-right">
-                      <v-tooltip v-if="result.isAdult" top>
-                        <template v-slot:activator="{ on }">
-                          <v-icon
-                            large
-                            color="error"
-                            v-on="on"
-                          >
-                            mdi-alert
-                          </v-icon>
-                        </template>
-                        <span>{{ $t('alerts.adultContent') }}</span>
-                      </v-tooltip>
-
-                      <template v-if="result.mediaListEntry">
-                        <v-icon color="green" class="pr-1">
-                          mdi-account
-                        </v-icon>{{ result.mediaListEntry.score }}
-                      </template>
-                      <v-icon color="yellow lighten-1" class="pr-1">
-                        mdi-account-group
-                      </v-icon>{{ result.averageScore || 'n.a.' }}
-                    </v-col>
-                  </v-row>
-                </v-card-text>
-
-                <v-card-actions class="icon-actionize">
-                  <v-row class="pa-1">
-                    <v-col class="text-center">
-                      <v-icon :color="result.isWatching ? 'green' : 'grey darken-2'">
-                        mdi-play
+                        mdi-alert
                       </v-icon>
-                    </v-col>
+                    </template>
+                    <span>{{ $t('alerts.adultContent') }}</span>
+                  </v-tooltip>
 
-                    <v-col text-center>
-                      <v-icon :color="result.isRepeating ? 'green darken-3' : 'grey darken-2'">
-                        mdi-repeat
-                      </v-icon>
-                    </v-col>
+                  <template v-if="result.mediaListEntry">
+                    <v-icon color="green" class="pr-1">
+                      mdi-account
+                    </v-icon>{{ result.mediaListEntry.score }}
+                  </template>
+                  <v-icon color="yellow lighten-1" class="pr-1">
+                    mdi-account-group
+                  </v-icon>{{ result.averageScore || 'n.a.' }}
+                </v-col>
+              </v-row>
+            </v-card-text>
 
-                    <v-col text-center>
-                      <v-icon :color="result.isCompleted ? 'blue' : 'grey darken-2'">
-                        mdi-check
-                      </v-icon>
-                    </v-col>
+            <v-card-actions class="icon-actionize">
+              <v-row class="pa-1">
+                <v-col class="text-center">
+                  <v-icon :color="result.isWatching ? 'green' : 'grey darken-2'">
+                    mdi-play
+                  </v-icon>
+                </v-col>
 
-                    <v-col text-center>
-                      <v-icon :color="result.isPaused ? 'yellow darken-2' : 'grey darken-2'">
-                        mdi-pause
-                      </v-icon>
-                    </v-col>
+                <v-col text-center>
+                  <v-icon :color="result.isRepeating ? 'green darken-3' : 'grey darken-2'">
+                    mdi-repeat
+                  </v-icon>
+                </v-col>
 
-                    <v-col text-center>
-                      <v-icon :color="result.isDropped ? 'red darken-1' : 'grey darken-2'">
-                        mdi-stop
-                      </v-icon>
-                    </v-col>
+                <v-col text-center>
+                  <v-icon :color="result.isCompleted ? 'blue' : 'grey darken-2'">
+                    mdi-check
+                  </v-icon>
+                </v-col>
 
-                    <v-col text-center>
-                      <v-icon :color="result.isPlanning ? '' : 'grey darken-2'">
-                        mdi-playlist-plus
-                      </v-icon>
-                    </v-col>
-                  </v-row>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-col>
-    </v-row>
+                <v-col text-center>
+                  <v-icon :color="result.isPaused ? 'yellow darken-2' : 'grey darken-2'">
+                    mdi-pause
+                  </v-icon>
+                </v-col>
+
+                <v-col text-center>
+                  <v-icon :color="result.isDropped ? 'red darken-1' : 'grey darken-2'">
+                    mdi-stop
+                  </v-icon>
+                </v-col>
+
+                <v-col text-center>
+                  <v-icon :color="result.isPlanning ? '' : 'grey darken-2'">
+                    mdi-playlist-plus
+                  </v-icon>
+                </v-col>
+              </v-row>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-content>
 </template>
 
@@ -216,55 +187,33 @@ import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import ProgressCircle from '@/components/AniList/ListElements/ProgressCircle.vue';
 import API from '@/modules/AniList/API';
 import { AniListListStatus, IAniListSearchResult } from '@/modules/AniList/types';
+import { appStore } from '@/store';
+import SearchFilter from '@/components/Search/Filter.vue';
 
 @Component({
-  components: { AdultToolTip, ListImage, ProgressCircle },
+  components: {
+    AdultToolTip,
+    ListImage,
+    ProgressCircle,
+    SearchFilter,
+  },
 })
 export default class Search extends Vue {
   private searchInput: string = '';
 
   private searchResults: IAniListSearchResult[] = [];
 
-  private listStatus = [{
-    text: this.$root.$t('misc.aniList.listStatusses.watching'),
-    value: AniListListStatus.CURRENT,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.completed'),
-    value: AniListListStatus.COMPLETED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.dropped'),
-    value: AniListListStatus.DROPPED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.paused'),
-    value: AniListListStatus.PAUSED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.planning'),
-    value: AniListListStatus.PLANNING,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.repeating'),
-    value: AniListListStatus.REPEATING,
-  }];
-
-  private genres = [
-    'Action',
-    'Mystery',
-  ];
-
-  private adultContent = [{
-    text: this.$root.$t('pages.search.adultContent.onlyNonAdult'),
-    value: false,
-  }, {
-    text: this.$root.$t('pages.search.adultContent.onlyAdult'),
-    value: true,
-  }];
-
   private listValues: AniListListStatus[] = [];
 
   private genreValues = [];
 
-  private adultContentValue = null;
+  private adultContentValue = 'both';
 
-  private genreSearch = null;
+  private panel = null;
+
+  private get isLoading(): boolean {
+    return appStore.isLoading;
+  }
 
   private created() {
     if (this.$route.params && this.$route.params.query) {
@@ -286,6 +235,8 @@ export default class Search extends Vue {
     };
 
     try {
+      await appStore.setLoadingState(true);
+
       const results = await API.searchAnime(this.searchInput, filters) || [];
 
       this.searchResults = results.map((result) => {
@@ -297,6 +248,8 @@ export default class Search extends Vue {
           isPaused: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PAUSED,
           isPlanning: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PLANNING,
         }, result);
+
+        appStore.setLoadingState(false);
 
         if (result.mediaListEntry) {
           return Object.assign({}, {
@@ -312,6 +265,8 @@ export default class Search extends Vue {
         title: 'ERROR',
         text: error,
       });
+
+      appStore.setLoadingState(false);
     }
   }
 
@@ -350,13 +305,6 @@ export default class Search extends Vue {
     // neither through the next airing episode nor through the episode amount
     // we can determine our status.
     return 75;
-  }
-
-  @Watch('genreValues')
-  private onGenreValuesChange(value: string[]) {
-    if (value.length > 3) {
-      this.$nextTick(() => this.genreValues.pop());
-    }
   }
 }
 </script>
