@@ -3,6 +3,7 @@
   "englishReading": "Indonesian",
   "actions": {
     "add": "Tambah",
+    "added": "Added to the list",
     "addToPlanToWatch": "Tambahkan ke daftar Direncanakan",
     "back": "Kembali",
     "fastSearch": "Mencari... \u23ce",

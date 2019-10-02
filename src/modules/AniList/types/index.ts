@@ -541,6 +541,10 @@ export interface IAniListSeasonPreviewMedia {
    * @var {string} description contains the media's description
    */
   description: string;
+  /**
+   * @var {IAniListMediaStudio} studios contains the media's studios
+   */
+  studios: IAniListMediaStudio;
 }
 
 /**

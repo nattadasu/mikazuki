@@ -3,6 +3,7 @@
   "englishReading": "French",
   "actions": {
     "add": "Ajouter",
+    "added": "Added to the list",
     "addToPlanToWatch": "Ajouter à \"À regarder\"",
     "back": "Retour",
     "fastSearch": "Chercher... \u23ce",

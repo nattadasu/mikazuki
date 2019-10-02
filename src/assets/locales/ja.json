@@ -3,6 +3,7 @@
   "englishReading": "Japanese",
   "actions": {
     "add": "追加",
+    "added": "リストに追加しました",
     "addToPlanToWatch": "見る予定リストに追加",
     "back": "戻る",
     "fastSearch": "検索する・・・ \u23ce",

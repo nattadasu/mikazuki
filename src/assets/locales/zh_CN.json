@@ -3,6 +3,7 @@
   "englishReading": "Simplified Chinese",
   "actions": {
     "add": "添加",
+    "added": "Added to the list",
     "addToPlanToWatch": "添加至“计划中”",
     "back": "返回",
     "fastSearch": "搜索…… \u23ce",

@@ -186,7 +186,7 @@ export default class Navigation extends Vue {
   }
 
   private get isSeasonPreviewPage(): boolean {
-    return this.$route.meta && this.$route.path === '/season-preview';
+    return this.$route.meta && this.$route.meta.seasonPreviewPage;
   }
 
   private get currentRouteName(): string {

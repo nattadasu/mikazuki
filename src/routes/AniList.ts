@@ -92,6 +92,7 @@ const routes: RouteConfig[] = [{
   meta: {
     searchablePage: true,
     sortingPage: true,
+    seasonPreviewPage: true,
     routeName: 'seasonPreview',
   },
 }, {
