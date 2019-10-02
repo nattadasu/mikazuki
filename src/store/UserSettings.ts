@@ -2,6 +2,7 @@ import {
   action, getter, Module, mutation, VuexModule,
 } from 'vuex-class-component';
 import { IAniListSession, AniListScoreFormat, IAniListUser } from '@/modules/AniList/types';
+import eventHandler from '@/modules/AniList/eventHandler';
 
 /**
  * @description This is a testing module to get to know Vuex in Typescript better.
@@ -141,7 +142,7 @@ export class UserSettings extends VuexModule {
         clearInterval(this._refreshTimer);
         this._setRefreshTimer(null);
 
-        this.$store.dispatch('refreshAniListData')
+        eventHandler.refreshAniListData()
           .then(() => {
             this.restartRefreshTimer();
           });
