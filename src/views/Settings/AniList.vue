@@ -90,7 +90,6 @@ export default class AniListSettings extends Vue {
     if (!userStore.isAuthenticated) {
       const oauthConfig = {
         clientId: process.env.VUE_APP_CLIENT_ID,
-        clientSecret: process.env.VUE_APP_CLIENT_SECRET,
         redirectUri: process.env.VUE_APP_REDIRECT_HOST,
         authorizationUrl: 'https://anilist.co/api/v2/oauth/authorize',
         tokenUrl: 'https://anilist.co/api/v2/oauth/token',
