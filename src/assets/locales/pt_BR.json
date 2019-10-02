@@ -3,6 +3,7 @@
   "englishReading": "Portuguese (Brazil)",
   "actions": {
     "add": "Adicionar",
+    "added": "Adicionado à lista",
     "addToPlanToWatch": "Planejar para assistir",
     "back": "Voltar",
     "fastSearch": "Pesquisar... \u23ce",

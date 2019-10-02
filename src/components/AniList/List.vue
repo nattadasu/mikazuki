@@ -406,7 +406,7 @@ export default class List extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 1480px) and (max-width: 1903px) {
+@media (min-width: 1480px) and (max-width: 1920px) {
   .lg5-custom[class*="col-"] {
       width: 20% !important;
       max-width: 20% !important;

@@ -3,6 +3,7 @@
   "englishReading": "German",
   "actions": {
     "add": "Hinzufügen",
+    "added": "Zur Liste hinzugefügt",
     "addToPlanToWatch": "Zur Plan-Liste hinzufügen",
     "back": "Zurück",
     "fastSearch": "Suchen... \u23ce",

@@ -1,18 +1,19 @@
 <template>
   <v-content>
-    <v-container fluid class="py-0 px-1" fill-height>
-      <v-layout wrap>
-        <v-flex
+    <v-container fluid class="py-0 px-1">
+      <v-row no-gutters>
+        <v-col
           v-for="item in preparedMedia"
           :key="item.id"
-          xs12
-          sm6
-          md4
-          lg3
-          xl2
+          class="lg5-custom"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          xl="2"
         >
-          <v-card hover class="ma-1">
-            <ListImage :image-link="item.coverImage" :name="item.title" :ani-list-id="item.id" />
+          <v-card raised class="ma-2">
+            <ListImage :image-link="item.coverImage" :name="item.title" :ani-list-id="item.id" :studios="item.studios" />
 
             <v-card-text>
               <v-layout row fill-height align-center>
@@ -42,11 +43,12 @@
               </v-layout>
             </v-card-text>
 
-            <v-card-actions>
+            <v-card-actions v-if="isAuthenticated">
               <v-btn
+                v-if="!item.inList"
                 block
                 text
-                :disabled="item.isLocked || item.inList || !isAuthenticated"
+                :disabled="item.isLocked"
                 :loading="appLoading"
                 @click="addMediaToPlanList(item)"
               >
@@ -55,13 +57,23 @@
                 </v-icon>
                 {{ $t('actions.addToPlanToWatch') }}
               </v-btn>
+              <v-btn
+                v-else
+                block
+                text
+              >
+                <v-icon left color="info">
+                  mdi-check
+                </v-icon>
+                {{ $t('actions.added') }}
+              </v-btn>
             </v-card-actions>
           </v-card>
-        </v-flex>
-        <v-flex v-if="!preparedMedia.length" xs12 text-center class="display-2 ma-4">
+        </v-col>
+        <v-col v-if="!preparedMedia.length" cols="12" class="text-center display-2 ma-4">
           {{ $t('$vuetify.noDataText') }}
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-container>
   </v-content>
 </template>
@@ -70,6 +82,7 @@
 import { chain, includes, get } from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
+import { Route } from 'vue-router';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import eventBus from '@/eventBus';
 import API from '@/modules/AniList/API';
@@ -83,17 +96,11 @@ interface UpdateSeasonProperties {
   season: AniListSeason;
 }
 
+Component.registerHooks(['beforeRouteUpdate', 'beforeRouteLeave']);
+
 @Component({
   components: {
     ListImage,
-  },
-  beforeRouteUpdate(to, from, next) {
-    eventBus.$emit('resetAllSorts');
-    next();
-  },
-  beforeRouteLeave(to, from, next) {
-    eventBus.$emit('resetAllSorts');
-    next();
   },
 })
 export default class SeasonPreview extends Vue {
@@ -174,6 +181,7 @@ export default class SeasonPreview extends Vue {
           genres: item.genres,
           startDateTimestamp,
           startDate,
+          studios: item.studios,
         };
       })
       .filter(filterGenres)
@@ -182,6 +190,18 @@ export default class SeasonPreview extends Vue {
   }
 
   private async created() {
+    if (
+      this.$route.query
+      && this.$route.query.year
+      && this.$route.query.season
+    ) {
+      const { year, season } = this.$route.query;
+      this.seasonYear = parseInt(year as string, 10);
+      this.season = this.isValidSeason(season.toString().toUpperCase())
+        ? season.toString().toUpperCase() as AniListSeason
+        : this.getCurrentSeason();
+    }
+
     eventBus.$on('changeSorting', (item: { sortBy: string, direction: string }) => {
       this.sortBy = item.sortBy;
       this.sortDirection = item.direction;
@@ -244,19 +264,62 @@ export default class SeasonPreview extends Vue {
     await appStore.setLoadingState(false);
   }
 
+  private beforeRouteUpdate(to: Route, from: Route, next: any) {
+    eventBus.$emit('resetAllSorts');
+
+    const { query } = to;
+    if (query.year) {
+      this.seasonYear = parseInt(query.year as string, 10);
+    }
+
+    if (query.season) {
+      const season = (query.season as string).toUpperCase();
+
+      this.season = this.isValidSeason(season)
+        ? season as AniListSeason
+        : this.getCurrentSeason();
+    }
+
+    next();
+  }
+
+  private beforeRouteLeave(to: Route, from: Route, next: any) {
+    eventBus.$emit('resetAllSorts');
+    next();
+  }
+
   private getCurrentSeason(): AniListSeason {
     const currentMonth = new Date().getUTCMonth();
 
     // Spring months
-    return currentMonth >= 2 && currentMonth <= 4
+    return currentMonth >= 3 && currentMonth < 6
       ? AniListSeason.SPRING
       // Summer months
-      : currentMonth >= 5 && currentMonth <= 7
+      : currentMonth >= 6 && currentMonth < 9
         ? AniListSeason.SUMMER
         // Fall months
-        : currentMonth >= 8 && currentMonth <= 10
+        : currentMonth >= 9 && currentMonth < 12
           ? AniListSeason.FALL
           : AniListSeason.WINTER;
   }
+
+  isValidSeason(value: string): boolean {
+    return [
+      AniListSeason.SPRING,
+      AniListSeason.WINTER,
+      AniListSeason.SUMMER,
+      AniListSeason.FALL,
+    ].find(item => item === value.toUpperCase()) !== undefined;
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+@media (min-width: 1480px) and (max-width: 1920px) {
+  .lg5-custom[class*="col-"] {
+      width: 20% !important;
+      max-width: 20% !important;
+      flex-basis: 20% !important;
+  }
+}
+</style>

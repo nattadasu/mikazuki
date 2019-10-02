@@ -3,6 +3,7 @@
   "englishReading": "English",
   "actions": {
     "add": "Add",
+    "added": "Added to the list",
     "addToPlanToWatch": "Add to plan to watch",
     "back": "Back",
     "fastSearch": "Search... \u23ce",

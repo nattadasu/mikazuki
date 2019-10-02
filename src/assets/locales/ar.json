@@ -3,6 +3,7 @@
   "englishReading": "Arabic",
   "actions": {
     "add": "اضف",
+    "added": "يضاف إلى القائمة",
     "addToPlanToWatch": "إضافة إلى قائمة التخطيط",
     "back": "رجع",
     "fastSearch": "بحث... \u23ce",

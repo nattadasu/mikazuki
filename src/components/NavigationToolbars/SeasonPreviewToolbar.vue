@@ -63,7 +63,8 @@ export default class SeasonPreviewToolbar extends Vue {
   }
 
   private created(): void {
-    this.year = this.currentYear;
+    const { query } = this.$route;
+
     this.items = [{
       title: this.$t('misc.aniList.seasons.winter').toString(),
       value: AniListSeason.WINTER,
@@ -78,8 +79,24 @@ export default class SeasonPreviewToolbar extends Vue {
       value: AniListSeason.FALL,
     }];
 
-    const currentSeasonValue = this.getCurrentSeason();
-    this.selectedSeason = this.items.find(item => item.value === currentSeasonValue) as SeasonItemProperties;
+    if (!query || (!query.year && !query.season)) {
+      const currentSeasonValue = this.getCurrentSeason();
+
+      this.year = this.currentYear;
+      this.selectedSeason = this.items.find(item => item.value === currentSeasonValue) as SeasonItemProperties;
+
+      return;
+    }
+
+    if (query.year) {
+      this.year = query.year as string;
+    }
+
+    if (query.season) {
+      this.selectedSeason = this.isValidSeason(query.season.toString().toUpperCase())
+        ? this.items.find(item => item.value === query.season) as SeasonItemProperties
+        : this.items.find(item => item.value === this.getCurrentSeason()) as SeasonItemProperties;
+    }
   }
 
   private previousYear(): void {
@@ -136,6 +153,14 @@ export default class SeasonPreviewToolbar extends Vue {
       year,
       season: this.selectedSeason.value,
     });
+
+    this.$router.push({
+      name: 'SeasonPreview',
+      query: {
+        year: year.toString(),
+        season: this.selectedSeason.value,
+      },
+    });
   }
 
   private getCurrentSeason(): string {
@@ -153,6 +178,15 @@ export default class SeasonPreviewToolbar extends Vue {
         : currentMonth >= 6 && currentMonth <= 8
           ? AniListSeason.SUMMER
           : AniListSeason.FALL;
+  }
+
+  isValidSeason(value: string): boolean {
+    return [
+      AniListSeason.SPRING,
+      AniListSeason.WINTER,
+      AniListSeason.SUMMER,
+      AniListSeason.FALL,
+    ].find(item => item === value.toUpperCase()) !== undefined;
   }
 }
 </script>
