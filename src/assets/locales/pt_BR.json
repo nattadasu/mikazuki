@@ -44,7 +44,7 @@
       "paused": "Pausado",
       "planning": "Planejando",
       "repeating": "Repetindo",
-      "seasonPreview": "Prévia Temporada",
+      "seasonPreview": "Prévia da temporada",
       "watching": "Assistindo"
     },
     "search": "Busca detalhada",
@@ -194,7 +194,7 @@
     },
     "detailView": "Visão detalhada",
     "search": "Busca",
-    "seasonPreview": "Prévida da temporada",
+    "seasonPreview": "Prévia da temporada",
     "settings": "Configurações"
   },
   "notifications": {
