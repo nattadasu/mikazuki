@@ -8,7 +8,7 @@
       "id": "Menyelesaikan desain baru melalui Vuetify v2",
       "ja": "「Ｖｕｅｔｉｆｙ」バージョン２を使って、新デザイン",
       "ms": "Merekabentuk baru melalui Vuetify v2",
-      "pt_BR": "Um completo novo design via Vuetify v2",
+      "pt_BR": "Atualização do design com Vuetify v2",
       "zh_CN": "使用 Vuetify v2 对 App 进行了全新设计"
     },
     {
@@ -19,7 +19,7 @@
       "id": "Pengembangan pengalaman dalam pencarian",
       "ja": "検索機能を改正",
       "ms": "Pengalaman carian yang lebih baik",
-      "pt_BR": "Experiência de pesquisa melhorada",
+      "pt_BR": "Melhorada a experiência de busca",
       "zh_CN": "改善了搜索功能"
     },
     {
@@ -30,7 +30,7 @@
       "id": "Integrasi pada pratinjau musim",
       "ja": "シーズン予告機能を追加",
       "ms": "Pratonton musim yang terbina dalam",
-      "pt_BR": "Preview da Temporada embutido",
+      "pt_BR": "Adição da prévia da temporada",
       "zh_CN": "加入了每季番组一览"
     },
     {
@@ -41,7 +41,7 @@
       "id": "Laman utama dengan aktivitas terbaru",
       "ja": "ユーザの最新情報ホームページを追加",
       "ms": "Laman utama dengan aktifiti terkini",
-      "pt_BR": "Página inicial com as últimas atividades",
+      "pt_BR": "Adição da seção \"Atividades recentes\" na página inicial",
       "zh_CN": "加入了含“最新动态”的个人主页"
     },
     {
@@ -52,7 +52,7 @@
       "id": "Penambatan tampilan riwayat perubahan dalam aplikasi",
       "ja": "アプリ内に最新更新情報が見える",
       "ms": "Penempatan paparan log perubahan dalam aplikasi",
-      "pt_BR": "Changelog visível no aplicativo",
+      "pt_BR": "Adição das notas de atualização no aplicativo",
       "zh_CN": "可在程序内查看“最近更新”日志"
     },
     {
@@ -63,7 +63,7 @@
       "id": "Saring berdasarkan genre",
       "ja": "ジャンルのフィルタリングを追加",
       "ms": "Penapis mengikuti genre",
-      "pt_BR": "Filtragem por Género",
+      "pt_BR": "Adição de filtragem por gênero",
       "zh_CN": "筛选方式新增了“类型”选项"
     },
     {
@@ -74,7 +74,7 @@
       "id": "Menggantikan Aplikasi berbasis Electron ke Web App",
       "ja": "エレクトロンのアプリの代わりに、ウェブアプリに変わりました",
       "ms": "Menggantikan Aplikasi berasaskan Electron kepada Web App",
-      "pt_BR": "(to be translated) Web app replaces Electron app",
+      "pt_BR": "Substituição do Electron por Web App",
       "zh_CN": "用网页版 App 替代了 Electron 版 App"
     },
     {
@@ -85,7 +85,7 @@
       "id": "Dukungan terhadap bahasa Perancis dan Portugis Brasil",
       "ja": "フランス語とブラジル語を追加しました",
       "ms": "Penyokongan terhadap bahasa Perancis dan Portugis Brazil",
-      "pt_BR": "(to be translated) French and Portuguese (Brazil) are supported",
+      "pt_BR": "Adição de suporte ao francês e português do Brasil",
       "zh_CN": "添加了法语和葡萄牙语（巴西）翻译"
     }
   ],
@@ -98,7 +98,7 @@
       "id": "Pemisahan daftar selesai pada AniList sekarang telah didukung penuh",
       "ja": "「ＡｎｉＬｉｓｔ」に設定できる「終了リストを分ける」はサポートします",
       "ms": "Pemecahan senarai selesai AniList kini disokong sepenuhnya",
-      "pt_BR": "A lista completa dividida no AniList agora é totalmente suportada",
+      "pt_BR": "Adição de suporte total à divisão de listas do AniList",
       "zh_CN": "完全支持 AniList 上的拆分式完整列表"
     },
     {
@@ -109,7 +109,7 @@
       "id": "Pengurutan melalui berbagai pengaturan",
       "ja": "リストアイテムの並べ替えはタイトル以外にも出来るになりました",
       "ms": "Penapis mengikuti pelbagai tetapan",
-      "pt_BR": "Ordenação através de vários parâmetros",
+      "pt_BR": "Adição de parâmetros de ordenação",
       "zh_CN": "现在可通过各种参数对列表进行排序"
     }
   ],
@@ -122,7 +122,7 @@
       "id": "Dukungan untuk MyAnimeList telah dihapus",
       "ja": "「ＭｙＡｎｉｍｅＬｉｓｔ」はもうサポートしていません",
       "ms": "Penyokongan terhadap MyAnimeList kini dipadamkan",
-      "pt_BR": "Suporte para o MyAnimeList foi terminado",
+      "pt_BR": "Finalização do suporte ao MyAnimeList",
       "zh_CN": "停止对 MyAnimeList 的支持"
     }
   ],
