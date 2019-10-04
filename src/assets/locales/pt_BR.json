@@ -1,59 +1,59 @@
 {
-  "originalReading": "Português (Brasil)",
-  "englishReading": "Portuguese (Brazil)",
+  "originalReading": "Português do Brasil",
+  "englishReading": "Brazilian Portuguese",
   "actions": {
     "add": "Adicionar",
     "added": "Adicionado à lista",
-    "addToPlanToWatch": "Planejar para assistir",
+    "addToPlanToWatch": "Adicionar aos planejados",
     "back": "Voltar",
-    "fastSearch": "Pesquisar... \u23ce",
+    "fastSearch": "Buscar... \u23ce",
     "loading": "Carregando...",
-    "login": "Login",
-    "logout": "Logout",
+    "login": "Iniciar sessão",
+    "logout": "Finalizar sessão",
     "remove": "Remover",
     "reset": "Reiniciar",
     "save": "Salvar",
     "search": "Pesquisar",
-    "sort": "Ordenar & Filtrar",
+    "sort": "Ordenar e filtrar",
     "toPageTop": "Ir para o topo"
   },
   "alerts": {
-    "adultContent": "Esta mídia contém conteúdo adulto! Discrição do Espectador é aconselhada ",
+    "adultContent": "Esta mídia contém conteúdo adulto! É aconselhável a discrição dos espectadores.",
     "noDescription": "Nenhuma descrição disponivel.",
     "noEnglishTitle": "Nenhum título em inglês disponível.",
     "noInformation": "Nenhuma informação disponivel",
-    "noSynonyms": "Não há sinônimos disponíveis.",
+    "noSynonyms": "Nenhum sinônimo disponível.",
     "notYetInList": "Este conteúdo ainda não está na sua lista.",
     "unauthenticated": "Você não está autenticado!",
     "unknown": "Desconhecido"
   },
   "errors": {
     "updateFailed": {
-      "title": "A atualização falhou",
-      "text": "A atualização submetida não pôde ser sincronizada! Verifique a disponibilidade do AniList ou a sua conexão com a internet!"
+      "title": "Falha na atualização",
+      "text": "A atualização não pôde ser sincronizada! Verifique a disponibilidade do AniList ou a conexão com a internet!"
     }
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Next list update in: {0}"
+      "timeUntilNextRefresh": "Próxima atualização da lista: {0}"
     },
     "aniList": {
-      "completed": "Completado(a)",
+      "completed": "Completado",
       "dropped": "Dropado",
       "home": "Página inicial",
       "paused": "Pausado",
       "planning": "Planejando",
       "repeating": "Repetindo",
-      "seasonPreview": "Preview da Temporada",
+      "seasonPreview": "Prévia Temporada",
       "watching": "Assistindo"
     },
-    "search": "Pesquisa Detalhada",
+    "search": "Busca detalhada",
     "settings": {
       "title": "Configurações",
-      "about": "Sobre ZeroTwo",
+      "about": "Sobre o ZeroTwo",
       "aniList": "AniList",
       "appSettings": "Configurações do aplicativo",
-      "changelog": "Últimas mudanças",
+      "changelog": "Últimas alterações",
       "specialThanks": "Agradecimentos especiais"
     }
   },
@@ -65,10 +65,10 @@
       },
       "sortingLabel": "Ordenar por",
       "title": "Título",
-      "score": "Score",
+      "score": "Nota",
       "progress": "Progresso",
       "startingDate": "Data de início",
-      "episodeAmount": "Quantidade de Episódios"
+      "episodeAmount": "Nº de episódios"
     }
   },
   "pages": {
@@ -79,24 +79,24 @@
             "anime": "Anime",
             "manga": "Mangá"
           },
-          "headline": "Atividades mais recentes",
-          "completed": "Completado {0}",
+          "headline": "Atividades recentes",
+          "completed": "Terminou de assistir {0}",
           "plansToWatch": "Planeja assistir {0}",
-          "watchedEpisode": "Assistido episódio {1} de {0}",
+          "watchedEpisode": "Assistiu ao episódio {1} de {0}",
           "dropped": "Dropou {0}",
-          "rewatchedEpisode": "Reassistindo episódio {1} of {0}",
+          "rewatchedEpisode": "Reassistiu ao episódio {1} de {0}",
           "pausedWatching": "Pausou {0}",
-          "readChapter": "Lendo capítulo {1} de {0}",
-          "plansToRead": "Planeja a ler {0}",
-          "rereadChapter": "Relendo capítulo {1} de {0}",
-          "pausedReading": "Pausada a leitura {0}"
+          "readChapter": "Leu o capítulo {1} de {0}",
+          "plansToRead": "Planeja ler {0}",
+          "rereadChapter": "Releu o capítulo {1} de {0}",
+          "pausedReading": "Pausou a leitura de {0}"
         },
         "howToAuthenticate": {
-          "header": "Como fazer o login:",
+          "header": "Como iniciar a sessão:",
           "text": [
-            "Por favor, navegue para as configurações (engrenagem no canto direito) e depois para a aba do \"AniList\".",
-            "Lá você encontrará o botão de \"Login\"  que abrirá uma janela de login do AniList.",
-            "Depois de introduzir os seus dados, a janela será fechada e o processo de login deve ser feito com sucesso."
+            "Acesse a página de configurações (engrenagem no canto direito) e clique na aba \"AniList\".",
+            "Lá você encontrará o botão \"Iniciar sessão\", que ao ser clicado abrirá uma janela início de sessão no AniList.",
+            "Após inserir os dados, a janela será fechada automaticamente e o processo de início de sessão deverá ter sido concluído com sucesso."
           ]
         }
       },
@@ -104,7 +104,7 @@
         "airingFinished": "Transmissão finalizada",
         "missingEpisodes": "Um episódio para assistir | {count} episódios para assistir",
         "notYetAired": "Ainda não foi ao ar",
-        "nextAiringEpisode": "Episódio {0} será transmitido {1}"
+        "nextAiringEpisode": "O episódio {0} lança {1}"
       },
       "detailView": {
         "airedOn": "Foi ao ar em {0}",
@@ -115,42 +115,42 @@
         "airingStartsOnDay": "Começa em {0}",
         "airingStartsInMonthYear": "Começa em {0}",
         "airingStartsInYear": "Começa em {0}",
-        "airingTime": "Tempo de transmissão",
+        "airingTime": "Data de transmissão",
         "airingWithUnknownStart": "? - {0}",
         "description": "Descrição",
         "englishTitle": "Título em Inglês",
         "episodes": "Episódios",
         "genres": "Gêneros",
-        "nativeTitle": "Título Nativo",
-        "ownInformation": "Informação da sua lista",
+        "nativeTitle": "Título original",
+        "ownInformation": "Informações da sua lista",
         "ownProgress": "Progresso",
         "ownStatus": "Status",
-        "ownScore": "Pontuação",
-        "romajiTitle": "Titlo em Rōmaji",
+        "ownScore": "Nota",
+        "romajiTitle": "Título romanizado",
         "score": "{0} / {1} pontos",
         "scoreLabel": "Nota média",
-        "streamingSubheader": "Serviços de Streaming",
+        "streamingSubheader": "Serviços de transmissão",
         "synonyms": "Sinônimos"
       }
     },
     "search": {
-      "searchQuery": "Pesquisar...",
-      "searchFilter": "Filtro de pesquisa",
+      "searchQuery": "Busca...",
+      "searchFilter": "Filtro da busca",
       "adultContent": {
-        "label": "Conteúdo Adulto",
-        "hint": "Mantenha-se livre para pesquisar conteúdo adulto e não-adulto",
-        "both": "Sem filtro",
-        "onlyNonAdult": "Apenas Conteúdo não-adulto",
-        "onlyAdult": "Apenas Conteúdo adulto"
+        "label": "Conteúdo adulto",
+        "hint": "Deixe em branco para buscar tanto por conteúdo adulto quanto livre",
+        "both": "Ambos",
+        "onlyNonAdult": "Só conteúdo livre",
+        "onlyAdult": "Só conteúdo adulto"
       },
       "inList": {
-        "label": "Na Lista",
-        "hint": "Fique claro para também procurar por conteúdo que ainda não está em sua lista"
+        "label": "Na lista",
+        "hint": "Deixe em branco para buscar por conteúdo fora da sua lista"
       },
       "genres": {
         "label": "Gêneros",
         "hint": "Max. 3",
-        "noMatch": "Nenhum gênero combina \"<strong>{0}</strong>\". Aperte <kbd>enter</kbd> para criá-lo."
+        "noMatch": "Não há gêneros que correspondam a \"<strong>{0}</strong>\". Aperte <kbd>enter</kbd> para criar."
       }
     },
     "seasonPreview": {
@@ -162,21 +162,21 @@
         "version": "Versão"
       },
       "aniList": {
-        "loggedInAs": "Logado como {0}",
+        "loggedInAs": "Sessão iniciada como {0}",
         "refreshRate": "Taxa de atualização",
         "refreshRateSuffix": "minutos",
-        "refreshRateHint": "Este intervalo determina a quantidade de minutos até a próxima sincronização com os servidores da AniList. Mudanças no intervalo serão aplicadas após a próxima sincronização."
+        "refreshRateHint": "Este intervalo determina a quantidade de minutos até a próxima sincronização com os servidores do AniList. Alterações no intervalo serão aplicadas após a próxima sincronização."
       },
       "appSettings": {
-        "chooseLanguage": "Escolha o idioma",
+        "chooseLanguage": "Selecionar idioma",
         "darkMode": "Modo escuro"
       },
       "changelog": {
         "new": "NOVIDADES",
         "fix": "CORREÇÕES",
-        "remove": "REMOVIDO",
+        "remove": "REMOÇÕES",
         "version": "Versão",
-        "changesIn": "Últimas mudanças no {0}"
+        "changesIn": "Últimas mudanças — {0}"
       },
       "specialThanks": "Agradecimentos especiais",
       "supporters": "Apoiadores"
@@ -184,7 +184,7 @@
   },
   "routes": {
     "aniList": {
-      "home": "Página inicial",
+      "home": "Início",
       "watching": "Assistindo",
       "repeating": "Repetindo",
       "completed": "Completado(a)",
@@ -193,8 +193,8 @@
       "planning": "Planejando"
     },
     "detailView": "Visão detalhada",
-    "search": "Pesquisar",
-    "seasonPreview": "Preview da Temporada",
+    "search": "Busca",
+    "seasonPreview": "Prévida da temporada",
     "settings": "Configurações"
   },
   "notifications": {
@@ -225,19 +225,19 @@
       }
     },
     "dates": {
-      "full": "MMMM Do YYYY",
-      "monthAndYear": "MMMM YYYY",
+      "full": "DD [de] MMMM [de] YYYY",
+      "monthAndYear": "MMMM [de] YYYY",
       "yearOnly": "YYYY",
       "dateUnknown": "Data desconhecida"
     },
     "rules": {
-      "required": "Está parte deve ser preenchida."
+      "required": "Este campo é obrigatório."
     },
     "modules": {
       "aniList": "AniList"
     }
   },
   "$vuetify": {
-    "noDataText": "Nenhum dado"
+    "noDataText": "Sem dados"
   }
 }
