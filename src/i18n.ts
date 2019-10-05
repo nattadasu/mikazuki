@@ -24,6 +24,7 @@ export const validLanguageCodes: string[] = [
   'en',
   'fr',
   'id',
+  'it',
   'ja',
   'ms',
   'pt_BR',
