@@ -1,0 +1,243 @@
+{
+  "originalReading": "Italiano",
+  "englishReading": "Italian",
+  "actions": {
+    "add": "Aggiungi",
+    "added": "Aggiunto alla lista",
+    "addToPlanToWatch": "Aggiunto alla lista da guardare",
+    "back": "Indietro",
+    "fastSearch": "Ricerca... \u23ce",
+    "loading": "Caricamento...",
+    "login": "Accedi",
+    "logout": "Esci",
+    "remove": "Rimuovi",
+    "reset": "Resetta",
+    "save": "Salva",
+    "search": "Cerca",
+    "sort": "Ordina e Filtra",
+    "toPageTop": "Torna in cima"
+  },
+  "alerts": {
+    "adultContent": "Questo media è considerato per adulti.",
+    "noDescription": "Descrizione non disponibile.",
+    "noEnglishTitle": "Titolo in inglese non disponibile.",
+    "noInformation": "Nessuna informazione disponibile.",
+    "noSynonyms": "Nessun sinonimo disponibile.",
+    "notYetInList": "This media is not yet in your list.",
+    "unauthenticated": "Non sei autenticato!",
+    "unknown": "Sconosciuto"
+  },
+  "errors": {
+    "updateFailed": {
+      "title": "Aggiornamento fallito",
+      "text": "L'aggiornamento richiesto non può essere effettuato! Controlla lo stato di AniList e la tua connessione a internet!"
+    }
+  },
+  "menus": {
+    "navigationDrawer": {
+      "timeUntilNextRefresh": "Prossimo aggiornamento della lista in: {0}"
+    },
+    "aniList": {
+      "completed": "Completati",
+      "dropped": "Abbandonati",
+      "home": "Home",
+      "paused": "In pausa",
+      "planning": "Pianificati",
+      "repeating": "In ripetizione",
+      "seasonPreview": "Anteprima Stagione",
+      "watching": "Guardando"
+    },
+    "search": "Ricerca Dettagliata",
+    "settings": {
+      "title": "Impostazioni",
+      "about": "Riguardo ZeroTwo",
+      "aniList": "AniList",
+      "appSettings": "Impostazioni App",
+      "changelog": "Ultime Modifiche",
+      "specialThanks": "Ringraziamenti Speciali"
+    }
+  },
+  "components": {
+    "sorting": {
+      "directions": {
+        "ascending": "Ascendente",
+        "descending": "Discendente"
+      },
+      "sortingLabel": "Ordina per",
+      "title": "Titolo",
+      "score": "Punteggio",
+      "progress": "Progresso",
+      "startingDate": "Data di inizio",
+      "episodeAmount": "Numero di episodi"
+    }
+  },
+  "pages": {
+    "aniList": {
+      "home": {
+        "activities": {
+          "badges": {
+            "anime": "Anime",
+            "manga": "Manga"
+          },
+          "headline": "Attività Recentu",
+          "completed": "Cpmpletati {0}",
+          "plansToWatch": "Pianificati {0}",
+          "watchedEpisode": "Visti {1} of {0}",
+          "dropped": "Abbandonati {0}",
+          "rewatchedEpisode": "Rivisti {1} of {0}",
+          "pausedWatching": "In pausa {0}",
+          "readChapter": "Capitoli letti {1} of {0}",
+          "plansToRead": "Pianificati da leggere {0}",
+          "rereadChapter": "Capitoli riletti {1} of {0}",
+          "pausedReading": "Letture in pausa {0}"
+        },
+        "howToAuthenticate": {
+          "header": "Come accedere:",
+          "text": [
+            "Vai nella pagina Impostazioni (angolo in alto a destra) e quindi vai nel tab \"AniList\".",
+            "Qua troverai un bottone \"Login\" che aprirà una finestra di accesso di AniList.",
+            "Dopo aver inserito le credenziali la finestra si chiuderà e l'accesso dovrebbe essere stato effettuato con successo"
+          ]
+        }
+      },
+      "list": {
+        "airingFinished": "Trasmissione terminata",
+        "missingEpisodes": "Un episodio da guardare | {count} episodi da guardare",
+        "notYetAired": "Non ancora trasmesso",
+        "nextAiringEpisode": "L'episodio {0} è in trasmissione {1}"
+      },
+      "detailView": {
+        "airedOn": "Trasmesso il {0}",
+        "airedOnTo": "{0} fino al {1}",
+        "airesFromTo": "In trasmissione dal {0} al {1}",
+        "airesOn": "Trasmesso il {0}",
+        "airingStartedOn": "Iniziato il {0}",
+        "airingStartsOnDay": "Inizia il {0}",
+        "airingStartsInMonthYear": "Inizia in {0}",
+        "airingStartsInYear": "Inizia nel {0}",
+        "airingTime": "Durata trasmissione",
+        "airingWithUnknownStart": "? - {0}",
+        "description": "Descrizione",
+        "englishTitle": "Titolo inglese",
+        "episodes": "Episodi",
+        "genres": "Generi",
+        "nativeTitle": "Titolo originale",
+        "ownInformation": "Informazioni sulla tua lista",
+        "ownProgress": "Progresso",
+        "ownStatus": "Stato",
+        "ownScore": "Punteggio",
+        "romajiTitle": "Titolo in Rōmaji",
+        "score": "{0} / {1} punti",
+        "scoreLabel": "Punteggio medio",
+        "streamingSubheader": "Servizi di trasmissione",
+        "synonyms": "Sinonimi"
+      }
+    },
+    "search": {
+      "searchQuery": "Ricerca...",
+      "searchFilter": "Filtri di ricerca",
+      "adultContent": {
+        "label": "Contenuti per adulti",
+        "hint": "Lascia vuoto per cercare sia contenuti per adulti che non",
+        "both": "Nessun filtro",
+        "onlyNonAdult": "Solo contenuti non per adulti (SFW)",
+        "onlyAdult": "Solo contenuti per adulti (NSFW)"
+      },
+      "inList": {
+        "label": "Nella lista",
+        "hint": "Lascia vuoto per cercare anche contenuti non nella lista"
+      },
+      "genres": {
+        "label": "Generi",
+        "hint": "Massimo 3",
+        "noMatch": "Nessun genere che corrisponde a \"<strong>{0}</strong>\". Premi <kbd>enter</kbd> per crearlo."
+      }
+    },
+    "seasonPreview": {
+      "episodes": "? episodi | 1 episodio | {count} episodi",
+      "startDate": "Inizio trasmissione:"
+    },
+    "settings": {
+      "aboutZeroTwo": {
+        "version": "Versione"
+      },
+      "aniList": {
+        "loggedInAs": "Entrato come {0}",
+        "refreshRate": "Frequenza di ricaricamento",
+        "refreshRateSuffix": "minuti",
+        "refreshRateHint": "Questo intervallo determina il numero di minuti prima di effettuare un nuovo controllo sul server AniList."
+      },
+      "appSettings": {
+        "chooseLanguage": "Scegli lingua",
+        "darkMode": "Modalità scura"
+      },
+      "changelog": {
+        "new": "NUOVO",
+        "fix": "FIX",
+        "remove": "RIMOSSO",
+        "version": "Versione",
+        "changesIn": "Ultimi cambiamenti in {0}"
+      },
+      "specialThanks": "Ringraziamenti speciali",
+      "supporters": "Supportatori"
+    }
+  },
+  "routes": {
+    "aniList": {
+      "home": "Home",
+      "watching": "Guardando",
+      "repeating": "In ripetizione",
+      "completed": "Completati",
+      "paused": "In pausa",
+      "dropped": "Abbandonati",
+      "planning": "Pianificati"
+    },
+    "detailView": "Vista Dettagliata",
+    "search": "Ricerca",
+    "seasonPreview": "Anteprima Stagione",
+    "settings": "Impostazioni"
+  },
+  "notifications": {
+    "aniList": {
+      "successTitle": "Sincronizzato con successo",
+      "completeUpdateText": "{0} è stato completato con la sincronizzazione fino all'episodio {1}.",
+      "simpleUpdateText": "{0} è stato sincronizzato fino all'episodio {1}.",
+      "addedToList": "{0} è stato aggiunto con successo alla tua lista.",
+      "removeEntry": "{0} è stato rimosso con successo dalla tua lista."
+    }
+  },
+  "misc": {
+    "aniList": {
+      "listStatusses": {
+        "completed": "Completato",
+        "dropped": "Abbandonato",
+        "paused": "In pausa",
+        "planning": "Pianificati",
+        "In ripetizione": "Repeating",
+        "watching": "Guardando"
+      },
+      "seasons": {
+        "spring": "Primavera",
+        "summer": "Estate",
+        "fall": "Autunno",
+        "autumn": "Autunno",
+        "winter": "Inverno"
+      }
+    },
+    "dates": {
+      "full": "Do MMMM YYYY",
+      "monthAndYear": "MMMM YYYY",
+      "yearOnly": "YYYY",
+      "dateUnknown": "Date unknown"
+    },
+    "rules": {
+      "required": "Questo campo deve essere compilato."
+    },
+    "modules": {
+      "aniList": "AniList"
+    }
+  },
+  "$vuetify": {
+    "noDataText": "Nessun dato"
+  }
+}
