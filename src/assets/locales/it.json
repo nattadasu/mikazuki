@@ -95,7 +95,7 @@
           "header": "Come accedere:",
           "text": [
             "Vai nella pagina Impostazioni (angolo in alto a destra) e quindi vai nel tab \"AniList\".",
-            "Qua troverai un bottone \"Login\" che aprirà una finestra di accesso di AniList.",
+            "Qua troverai un bottone \"Accedi\" che aprirà una finestra di accesso di AniList.",
             "Dopo aver inserito le credenziali la finestra si chiuderà e l'accesso dovrebbe essere stato effettuato con successo"
           ]
         }
@@ -228,7 +228,7 @@
       "full": "Do MMMM YYYY",
       "monthAndYear": "MMMM YYYY",
       "yearOnly": "YYYY",
-      "dateUnknown": "Date unknown"
+      "dateUnknown": "Data sconosciuta"
     },
     "rules": {
       "required": "Questo campo deve essere compilato."
