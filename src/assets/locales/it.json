@@ -82,13 +82,13 @@
           "headline": "Attività Recentu",
           "completed": "Completati {0}",
           "plansToWatch": "Pianificati {0}",
-          "watchedEpisode": "Visti {1} of {0}",
+          "watchedEpisode": "Visti {1} di {0}",
           "dropped": "Abbandonati {0}",
-          "rewatchedEpisode": "Rivisti {1} of {0}",
+          "rewatchedEpisode": "Rivisti {1} di {0}",
           "pausedWatching": "In pausa {0}",
-          "readChapter": "Capitoli letti {1} of {0}",
+          "readChapter": "Capitoli letti {1} di {0}",
           "plansToRead": "Pianificati da leggere {0}",
-          "rereadChapter": "Capitoli riletti {1} of {0}",
+          "rereadChapter": "Capitoli riletti {1} di {0}",
           "pausedReading": "Letture in pausa {0}"
         },
         "howToAuthenticate": {
