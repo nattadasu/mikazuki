@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="py-0 px-1 fill-height">
+  <v-container fluid class="py-0 px-1">
     <v-row no-gutters>
       <v-col v-show="isLoading" cols="12" align-self="center">
         <div class="display-3 text-center ma-6">
@@ -25,7 +25,7 @@
           xl="2"
         >
           <v-card raised class="ma-2">
-            <ListImage :image-link="item.imageLink" :ani-list-id="item.aniListId" :name="item.title" :studios="item.studios" />
+            <ListImage :image-link="item.imageLink" :ani-list-id="item.aniListId" :name="item.title" />
 
             <v-card-text class="py-0">
               <v-row>

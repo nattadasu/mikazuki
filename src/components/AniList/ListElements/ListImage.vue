@@ -12,12 +12,12 @@
       </v-layout>
     </template>
     <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">
-      <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} titled`">
+      <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} ${isMobile ? 'titled-mobile' : 'titled'}`">
         <v-col cols="12">
           <span class="title">{{ name }}</span>
         </v-col>
-        <v-spacer />
-        <v-col cols="12" align-self="end">
+        <v-spacer v-if="concatenatedStudios.length" />
+        <v-col v-if="concatenatedStudios.length" cols="12" align-self="end">
           <span class="grey--text" :class="{ 'text--darken-4': !darkMode }">{{ concatenatedStudios }}</span>
         </v-col>
       </v-row>
@@ -48,8 +48,12 @@ export default class ListImage extends Vue {
     return this.$vuetify.theme.dark;
   }
 
+  public get isMobile(): boolean {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
   public get concatenatedStudios(): string {
-    if (!this.studios) {
+    if (!this.studios || !this.studios.nodes || !this.studios.nodes.length) {
       return '';
     }
 
@@ -62,7 +66,7 @@ export default class ListImage extends Vue {
         .map((item: IAniListMediaStudioNode) => item.name);
     }
 
-    return animationStudios.join(', ');
+    return animationStudios[0];
   }
 
   private moveToDetails(id: number) {
@@ -91,6 +95,21 @@ export default class ListImage extends Vue {
     bottom: 0;
     width: 100%;
     height: 20%;
+
+    transition: .25s ease-in-out;
+  }
+
+  & .titled-mobile {
+    &.shadowed {
+      background-color: rgba(0, 0, 0, .65);
+    }
+    &.lightened {
+      background-color: rgba(255, 255, 255, .85);
+    }
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 
     transition: .25s ease-in-out;
   }

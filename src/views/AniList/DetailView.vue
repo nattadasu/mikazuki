@@ -3,18 +3,13 @@
     <v-layout wrap>
       <v-flex xs12>
         <Loading v-if="!item" />
-        <BannerImage v-if="item && item.bannerImage" :item="item" />
+        <BannerImage v-if="item && item.bannerImage" :item="item" class="d-none d-md-flex" />
       </v-flex>
     </v-layout>
     <v-container fluid>
       <v-row dense>
         <template v-if="item">
-          <v-col
-            class="d-none d-md-flex"
-            :md="3"
-            :lg="3"
-            :xl="3"
-          >
+          <v-col cols="12" md="3">
             <CoverImage :cover-image="item.coverImage" />
           </v-col>
 

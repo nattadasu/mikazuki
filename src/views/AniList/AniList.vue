@@ -1,10 +1,6 @@
 <template>
   <v-content>
-    <v-row>
-      <v-col cols="12">
-        <List :status="status" />
-      </v-col>
-    </v-row>
+    <List :status="status" />
   </v-content>
 </template>
 

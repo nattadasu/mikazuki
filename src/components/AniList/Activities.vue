@@ -1,5 +1,5 @@
 <template>
-  <v-container class="py-0 px-1 fill-height" fluid>
+  <v-container class="py-0 px-1" fluid>
     <v-row no-gutters>
       <v-col
         v-for="activity in activities"

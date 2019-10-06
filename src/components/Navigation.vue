@@ -43,7 +43,7 @@
 
           <v-list-item
             v-for="(item, index) in aniListMenuItems"
-            :key="index + 2"
+            :key="index + mainMenuItems.length"
             @click="navigateTo(item.location)"
           >
             <v-list-item-icon>
@@ -69,7 +69,7 @@
     </template>
 
     <template v-if="isSeasonPreviewPage">
-      <SeasonPreviewToolbar class="d-none d-lg-flex" />
+      <SeasonPreviewToolbar class="d-none d-sm-flex" />
 
       <v-spacer class="d-none d-lg-flex" />
     </template>
@@ -83,13 +83,13 @@
     <v-toolbar-items>
       <LoadingIndicator />
 
-      <BackButton />
+      <BackButton v-if="$vuetify.breakpoint.mdAndUp" />
       <SortButton />
       <SearchButton v-if="isAuthenticated" />
 
       <AniListRefresh />
 
-      <SettingsButton />
+      <SettingsButton v-if="$vuetify.breakpoint.mdAndUp" />
     </v-toolbar-items>
   </v-app-bar>
 </template>
@@ -147,6 +147,11 @@ export default class Navigation extends Vue {
     location: { name: 'SeasonPreview' },
     routeName: 'SeasonPreview',
     icon: 'mdi-calendar-month',
+  }, {
+    title: 'menus.settings.title',
+    location: { name: 'Settings' },
+    routeName: 'Settings',
+    icon: 'mdi-settings',
   }];
 
   private aniListMenuItems: Array<{ title: string, location: RawLocation, routeName: string, icon: string }> = [{

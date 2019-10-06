@@ -127,6 +127,7 @@ export default class App extends Vue {
       case 'de':
       case 'en':
       case 'fr':
+      case 'it':
       case 'pt_BR': // Latin-based
       default:
         fontFace = 'lt';
