@@ -73,4 +73,19 @@
     "pt_BR": "por fornecer a tradução em português do Brasil.",
     "zh_CN": "提供了葡萄牙语（巴西）翻译。"
   }
+}, {
+  "icon": "translate",
+  "name": "Knocks",
+  "message": {
+    "ar": "(to be translated) for providing the Italian localisation.",
+    "en": "for providing the Italian localisation.",
+    "de": "für das Bereitstellen einer italienischen Übersetzung.",
+    "id": "(to be translated) for providing the Italian localisation.",
+    "it": "per la traduzione Italiano.",
+    "ja": "イタリア語の翻訳を作ったこと。",
+    "ms": "(to be translated) for providing the Italian localisation.",
+    "fr": "pour avoir préparé la traduction italienne.",
+    "pt_BR": "por fornecer a tradução em italiana.",
+    "zh_CN": "(to be translated) for providing the Italian localisation."
+  }
 }]
