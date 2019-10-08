@@ -79,17 +79,17 @@
             "anime": "Anime",
             "manga": "Manga"
           },
-          "headline": "Attività Recentu",
-          "completed": "Completati {0}",
-          "plansToWatch": "Pianificati {0}",
+          "headline": "Attività Recenti",
+          "completed": "{0} completato",
+          "plansToWatch": "{0} messo nella lista dei pianificati",
           "watchedEpisode": "Visti {1} di {0}",
-          "dropped": "Abbandonati {0}",
+          "dropped": "Abbandonato {0}",
           "rewatchedEpisode": "Rivisti {1} di {0}",
-          "pausedWatching": "In pausa {0}",
-          "readChapter": "Capitoli letti {1} di {0}",
-          "plansToRead": "Pianificati da leggere {0}",
-          "rereadChapter": "Capitoli riletti {1} di {0}",
-          "pausedReading": "Letture in pausa {0}"
+          "pausedWatching": "{0} messo in pausa",
+          "readChapter": "{1} capitoli letti di {0}",
+          "plansToRead": "{0} messo nella lista dei pianificati da leggere",
+          "rereadChapter": "{1} capitoli riletti di {0}",
+          "pausedReading": "{0} messo in pausa"
         },
         "howToAuthenticate": {
           "header": "Come accedere:",
