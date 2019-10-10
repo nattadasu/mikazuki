@@ -73,6 +73,11 @@ export class UserSettings extends VuexModule {
     return this._session;
   }
 
+  @getter
+  public get accessToken(): string {
+    return this._session.accessToken;
+  }
+
   /**
    * @getter
    * @method isAuthenticated

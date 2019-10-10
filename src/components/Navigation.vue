@@ -84,7 +84,7 @@
       <LoadingIndicator />
 
       <BackButton v-if="$vuetify.breakpoint.mdAndUp" />
-      <SortButton />
+      <SortButton v-if="isSortingPage" />
       <SearchButton v-if="isAuthenticated" />
 
       <AniListRefresh />
@@ -192,6 +192,10 @@ export default class Navigation extends Vue {
 
   private get isSeasonPreviewPage(): boolean {
     return this.$route.meta && this.$route.meta.seasonPreviewPage;
+  }
+
+  private get isSortingPage(): boolean {
+    return this.$route.meta && this.$route.meta.sortingPage;
   }
 
   private get currentRouteName(): string {

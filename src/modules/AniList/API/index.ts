@@ -112,22 +112,40 @@ export default class AniListAPI {
     return null;
   }
 
-  public static async getSeasonPreview(seasonYear: number, season: AniListSeason): Promise<IAniListSeasonPreview | null> {
-    try {
-      const response = await axios.post('/', {
-        query: getSeasonPreview,
-        variables: {
-          season,
-          seasonYear,
-        },
-      });
+  public static async getSeasonPreview(seasonYear: number, season: AniListSeason, accessToken: string): Promise<IAniListSeasonPreview | null> {
+    const headers = { Authorization: `Bearer ${accessToken}` };
 
-      const { media } = response.data.data.page;
+    try {
+      const mediaItems: IAniListSeasonPreviewMedia[] = [];
+      let page = 1;
+      let tmp = true;
+
+      while (tmp) {
+        // eslint-disable-next-line no-await-in-loop
+        const response = await axios.post('/', {
+          query: getSeasonPreview,
+          variables: {
+            season,
+            seasonYear,
+            page,
+          },
+        }, { headers });
+
+        const { media } = response.data.data.page;
+
+        if (!media.length) {
+          tmp = false;
+          break;
+        }
+
+        mediaItems.push(...media);
+        page += 1;
+      }
 
       return {
         season,
         seasonYear,
-        media,
+        media: mediaItems,
       };
     } catch (error) {
       //
