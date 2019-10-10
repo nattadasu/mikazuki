@@ -1,62 +1,64 @@
 <template>
   <v-tab-item :key="tabKey">
     <v-card flat>
-      <v-container fill-height>
-        <v-layout align-center justify-center wrap fill-height>
-          <v-flex xs12>
-            <h2 class="display-3 text-center">
-              {{ $t('pages.settings.aboutZeroTwo.version') }}
-            </h2>
-            <h3 class="display-2 text-center">
-              {{ currentAppVersion }}
-            </h3>
-          </v-flex>
-          <v-flex xs2>
-            <a href="#" class="headline" @click="openGitHub">
-              <v-img :src="require('@/assets/logos/github-logo.png')" alt="GitHub">
-                <template v-slot:placeholder>
-                  <v-row align="center" justify="center" ma-0>
-                    <v-progress-circular indeterminate color="grey lighten-5" />
-                  </v-row>
-                </template>
-              </v-img>
-            </a>
-          </v-flex>
-          <v-flex xs2 offset-xs1>
-            <a href="#" class="headline" @click="openDiscord">
-              <v-img :src="require('@/assets/logos/discord-blurple-logo.png')" alt="Discord">
-                <template v-slot:placeholder>
-                  <v-row align="center" justify="center" ma-0>
-                    <v-progress-circular indeterminate color="grey lighten-5" />
-                  </v-row>
-                </template>
-              </v-img>
-            </a>
-          </v-flex>
-          <v-flex xs2 offset-xs1>
-            <a href="#" class="headline" @click="openZeroTwo">
-              <v-img :src="require('@/assets/logos/ZeroTwoAppIcon_1024.png')" alt="ZeroTwo">
-                <template v-slot:placeholder>
-                  <v-row align="center" justify="center" ma-0>
-                    <v-progress-circular indeterminate color="grey lighten-5" />
-                  </v-row>
-                </template>
-              </v-img>
-            </a>
-          </v-flex>
-          <v-flex xs2 offset-xs1>
-            <a href="#" class="headline" @click="openAniList">
-              <v-img :src="require('@/assets/logos/AniListLogo.svg')" alt="AniList">
-                <template v-slot:placeholder>
-                  <v-row align="center" justify="center" ma-0>
-                    <v-progress-circular indeterminate color="grey lighten-5" />
-                  </v-row>
-                </template>
-              </v-img>
-            </a>
-          </v-flex>
-        </v-layout>
-      </v-container>
+      <v-card-text class="px-0">
+        <v-container fill-height>
+          <v-layout align-center justify-center wrap fill-height>
+            <v-flex xs12>
+              <h2 class="display-3 text-center">
+                {{ $t('pages.settings.aboutZeroTwo.version') }}
+              </h2>
+              <h3 class="display-2 text-center">
+                {{ currentAppVersion }}
+              </h3>
+            </v-flex>
+            <v-flex xs2>
+              <a href="#" class="headline" @click="openGitHub">
+                <v-img :src="require('@/assets/logos/github-logo.png')" alt="GitHub">
+                  <template v-slot:placeholder>
+                    <v-row align="center" justify="center" ma-0>
+                      <v-progress-circular indeterminate color="grey lighten-5" />
+                    </v-row>
+                  </template>
+                </v-img>
+              </a>
+            </v-flex>
+            <v-flex xs2 offset-xs1>
+              <a href="#" class="headline" @click="openDiscord">
+                <v-img :src="require('@/assets/logos/discord-blurple-logo.png')" alt="Discord">
+                  <template v-slot:placeholder>
+                    <v-row align="center" justify="center" ma-0>
+                      <v-progress-circular indeterminate color="grey lighten-5" />
+                    </v-row>
+                  </template>
+                </v-img>
+              </a>
+            </v-flex>
+            <v-flex xs2 offset-xs1>
+              <a href="#" class="headline" @click="openZeroTwo">
+                <v-img :src="require('@/assets/logos/ZeroTwoAppIcon_1024.png')" alt="ZeroTwo">
+                  <template v-slot:placeholder>
+                    <v-row align="center" justify="center" ma-0>
+                      <v-progress-circular indeterminate color="grey lighten-5" />
+                    </v-row>
+                  </template>
+                </v-img>
+              </a>
+            </v-flex>
+            <v-flex xs2 offset-xs1>
+              <a href="#" class="headline" @click="openAniList">
+                <v-img :src="require('@/assets/logos/AniListLogo.svg')" alt="AniList">
+                  <template v-slot:placeholder>
+                    <v-row align="center" justify="center" ma-0>
+                      <v-progress-circular indeterminate color="grey lighten-5" />
+                    </v-row>
+                  </template>
+                </v-img>
+              </a>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card-text>
     </v-card>
   </v-tab-item>
 </template>

@@ -1,43 +1,45 @@
 <template>
   <v-tab-item :key="tabKey">
     <v-card flat>
-      <v-container fill-height grid-list-xl>
-        <v-layout wrap>
-          <v-flex
-            xs12
-            sm5
-          >
-            <v-select
-              :items="languages"
-              item-text="original"
-              :value="_locale"
-              dense
-              :label="$t('pages.settings.appSettings.chooseLanguage')"
-              @change="setLanguage"
+      <v-card-text>
+        <v-container fill-height grid-list-xl>
+          <v-layout wrap>
+            <v-flex
+              xs12
+              sm5
             >
-              <template v-slot:selection="data">
-                {{ data.item.original }} ({{ data.item.english }})
-              </template>
-              <template v-slot:item="data">
-                <v-list-item-content>
-                  <v-list-item-title>{{ data.item.original }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ data.item.english }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </template>
-            </v-select>
-          </v-flex>
+              <v-select
+                :items="languages"
+                item-text="original"
+                :value="_locale"
+                dense
+                :label="$t('pages.settings.appSettings.chooseLanguage')"
+                @change="setLanguage"
+              >
+                <template v-slot:selection="data">
+                  {{ data.item.original }} ({{ data.item.english }})
+                </template>
+                <template v-slot:item="data">
+                  <v-list-item-content>
+                    <v-list-item-title>{{ data.item.original }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ data.item.english }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </template>
+              </v-select>
+            </v-flex>
 
-          <v-flex
-            xs12
-            sm5
-            offset-sm2
-            justify-center
-            align-center
-          >
-            <v-switch v-model="darkMode" :label="$t('pages.settings.appSettings.darkMode')" />
-          </v-flex>
-        </v-layout>
-      </v-container>
+            <v-flex
+              xs12
+              sm5
+              offset-sm2
+              justify-center
+              align-center
+            >
+              <v-switch v-model="darkMode" :label="$t('pages.settings.appSettings.darkMode')" />
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card-text>
     </v-card>
   </v-tab-item>
 </template>

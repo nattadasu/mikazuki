@@ -1,58 +1,60 @@
 <template>
   <v-tab-item :key="tabKey">
     <v-card flat>
-      <v-container fill-height grid-list-xl>
-        <v-layout
-          v-if="!isAuthenticated"
-          class="ma-4"
-          fill-height
-          justify-center
-          align-center
-        >
-          <v-btn color="primary" @click="loginToAniList">
-            {{ $t('actions.login') }}
-          </v-btn>
-        </v-layout>
-        <v-layout
-          v-else
-          fill-height
-          justify-center
-          align-center
-          wrap
-        >
-          <v-flex
-            xs12
-            sm5
-            text-center
+      <v-card-text>
+        <v-container fill-height grid-list-xl>
+          <v-layout
+            v-if="!isAuthenticated"
+            class="ma-4"
+            fill-height
+            justify-center
+            align-center
           >
-            <v-layout column>
-              <v-flex>
-                {{ $t('pages.settings.aniList.loggedInAs', [currentUser.name]) }}
-              </v-flex>
-              <v-flex>
-                <v-btn color="red darken-2" @click="logout">
-                  {{ $t('actions.logout') }}
-                </v-btn>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-          <v-flex
-            xs12
-            sm5
-            offset-sm2
+            <v-btn color="primary" @click="loginToAniList">
+              {{ $t('actions.login') }}
+            </v-btn>
+          </v-layout>
+          <v-layout
+            v-else
+            fill-height
+            justify-center
+            align-center
+            wrap
           >
-            <v-text-field
-              v-model="currentAniListRefreshRate"
-              type="number"
-              :min="5"
-              :label="$t('pages.settings.aniList.refreshRate')"
-              :suffix="$t('pages.settings.aniList.refreshRateSuffix')"
-              :hint="$t('pages.settings.aniList.refreshRateHint')"
-              persistent-hint
-            />
-          </v-flex>
-        </v-layout>
-      </v-container>
+            <v-flex
+              xs12
+              sm5
+              text-center
+            >
+              <v-layout column>
+                <v-flex>
+                  {{ $t('pages.settings.aniList.loggedInAs', [currentUser.name]) }}
+                </v-flex>
+                <v-flex>
+                  <v-btn color="red darken-2" @click="logout">
+                    {{ $t('actions.logout') }}
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </v-flex>
+            <v-flex
+              xs12
+              sm5
+              offset-sm2
+            >
+              <v-text-field
+                v-model="currentAniListRefreshRate"
+                type="number"
+                :min="5"
+                :label="$t('pages.settings.aniList.refreshRate')"
+                :suffix="$t('pages.settings.aniList.refreshRateSuffix')"
+                :hint="$t('pages.settings.aniList.refreshRateHint')"
+                persistent-hint
+              />
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card-text>
     </v-card>
   </v-tab-item>
 </template>
