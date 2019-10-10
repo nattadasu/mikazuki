@@ -1,6 +1,6 @@
 export default `
-query getSeasonAnime($seasonYear: Int, $season: MediaSeason) {
-  page: Page {
+query getSeasonAnime($seasonYear: Int, $season: MediaSeason, $page: Int) {
+  page: Page(page: $page) {
     media(season: $season, seasonYear: $seasonYear, type: ANIME) {
       id
       title {

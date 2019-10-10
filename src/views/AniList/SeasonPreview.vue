@@ -44,29 +44,7 @@
             </v-card-text>
 
             <v-card-actions v-if="isAuthenticated">
-              <v-btn
-                v-if="!item.inList"
-                block
-                text
-                :disabled="item.isLocked"
-                :loading="appLoading"
-                @click="addMediaToPlanList(item)"
-              >
-                <v-icon left color="success">
-                  mdi-playlist-plus
-                </v-icon>
-                {{ $t('actions.addToPlanToWatch') }}
-              </v-btn>
-              <v-btn
-                v-else
-                block
-                text
-              >
-                <v-icon left color="info">
-                  mdi-check
-                </v-icon>
-                {{ $t('actions.added') }}
-              </v-btn>
+              <AddButton :item="item" />
             </v-card-actions>
           </v-card>
         </v-col>
@@ -84,6 +62,7 @@ import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import { Route } from 'vue-router';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
+import AddButton from '@/components/AniList/SeasonPreview/AddButton.vue';
 import eventBus from '@/eventBus';
 import API from '@/modules/AniList/API';
 import {
@@ -101,6 +80,7 @@ Component.registerHooks(['beforeRouteUpdate', 'beforeRouteLeave']);
 @Component({
   components: {
     ListImage,
+    AddButton,
   },
 })
 export default class SeasonPreview extends Vue {
@@ -115,6 +95,8 @@ export default class SeasonPreview extends Vue {
   private sortBy: string = 'title';
 
   private genreFilters: string[] = [];
+
+  adultContentFilter: string = 'without';
 
   private get appLoading(): boolean {
     return appStore.isLoading;
@@ -136,7 +118,14 @@ export default class SeasonPreview extends Vue {
       return this.genreFilters.every(genre => includes(entry.genres, genre));
     };
 
-    return chain(this.media)
+    let { media } = this;
+
+    if (this.adultContentFilter !== 'noFilter') {
+      const showOnlyAdult = this.adultContentFilter === 'only';
+      media = media.filter(item => item.isAdult === showOnlyAdult);
+    }
+
+    return chain(media)
       .filter(item => !item.isAdult || (item.isAdult && userStore.allowAdultContent))
       .map((item) => {
         const outputFormat = item.startDate.day
@@ -211,11 +200,15 @@ export default class SeasonPreview extends Vue {
       this.genreFilters = item.genres;
     });
 
+    eventBus.$on('changeAdultContentFilter', (item: { adultFilter: string }) => {
+      this.adultContentFilter = item.adultFilter;
+    });
+
     // Listen to event
     eventBus.$on('updateSeason', async (season: UpdateSeasonProperties) => {
       await appStore.setLoadingState(true);
       try {
-        const preview = await API.getSeasonPreview(season.year, season.season);
+        const preview = await API.getSeasonPreview(season.year, season.season, userStore.accessToken);
         if (!preview) {
           this.media = [];
         } else {
@@ -228,7 +221,7 @@ export default class SeasonPreview extends Vue {
     });
 
     try {
-      const preview = await API.getSeasonPreview(this.seasonYear, this.season);
+      const preview = await API.getSeasonPreview(this.seasonYear, this.season, userStore.accessToken);
       if (!preview) {
         this.media = [];
       } else {
@@ -237,31 +230,6 @@ export default class SeasonPreview extends Vue {
     } catch (error) {
       this.media = [];
     }
-  }
-
-  private async addMediaToPlanList(item: any): Promise<void> {
-    await appStore.setLoadingState(true);
-
-    try {
-      const response = await API.addEntry(item.id, AniListListStatus.PLANNING);
-
-      if (response) {
-        // eslint-disable-next-line no-param-reassign
-        item.inList = true;
-
-        // We don't want to reload everytime a media is added to planned list
-        // so we just set the refresh timer to half a minute, which is enough time
-        // to think about adding another anime to the planned list which then resets the timer again
-        const tempRefreshRate = userStore.refreshRate;
-        await userStore.setRefreshRate(0.5);
-        await userStore.restartRefreshTimer();
-        await userStore.setRefreshRate(tempRefreshRate);
-      }
-    } catch (error) {
-      //
-    }
-
-    await appStore.setLoadingState(false);
   }
 
   private beforeRouteUpdate(to: Route, from: Route, next: any) {

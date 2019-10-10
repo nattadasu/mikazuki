@@ -3,12 +3,12 @@
     v-model="sortMenu"
     :close-on-content-click="false"
     offset-y
+    absolute
   >
     <template v-slot:activator="{ on: sortWindow }">
       <v-tooltip bottom>
         <template v-slot:activator="{ on: toolTip }">
           <v-btn
-            v-if="isSortingPage"
             text
             icon
             v-on="{ ...toolTip, ...sortWindow }"
@@ -35,6 +35,18 @@
             <v-radio-group v-model="direction" column @change="changeDirection">
               <v-radio :label="$t('components.sorting.directions.ascending')" value="asc" />
               <v-radio :label="$t('components.sorting.directions.descending')" value="desc" />
+            </v-radio-group>
+          </v-flex>
+          <v-flex xs12>
+            <v-radio-group
+              v-model="adultContent"
+              :label="$t('pages.search.adultContent.label')"
+              column
+              @change="changeAdultContent"
+            >
+              <v-radio :label="$t('pages.search.adultContent.both')" value="noFilter" />
+              <v-radio :label="$t('pages.search.adultContent.onlyAdult')" value="only" />
+              <v-radio :label="$t('pages.search.adultContent.onlyNonAdult')" value="without" />
             </v-radio-group>
           </v-flex>
         </v-layout>
@@ -109,6 +121,8 @@ export default class Sort extends Vue {
   private direction: string = 'asc';
 
   private sortItem: string = 'title';
+
+  adultContent: string = 'without';
 
   private created() {
     EventBus.$on('resetAllSorts', () => {
@@ -190,14 +204,22 @@ export default class Sort extends Vue {
     });
   }
 
+  changeAdultContent(value: string) {
+    EventBus.$emit('changeAdultContentFilter', {
+      adultFilter: value,
+    });
+  }
+
   private resetFilters(emitEvents: boolean = true): void {
     this.genreValues = [];
     this.sortItem = 'title';
     this.direction = 'asc';
+    this.adultContent = 'without';
 
     if (emitEvents) {
       this.changeGenres(this.genreValues);
       this.changeSorting(this.sortItem);
+      this.changeAdultContent(this.adultContent);
       // Direction is automatically send with sorting
     }
   }
