@@ -70,6 +70,13 @@ export class AniListStore extends VuexModule {
     this._setCurrentMediaTitle(title);
   }
 
+  @action()
+  public async resetAllData(): Promise<void> {
+    this._setAniListData({ lists: [] });
+    this._setLatestActivities([]);
+    this._setCurrentMediaTitle(null);
+  }
+
   /**
    * @protected
    * @mutation

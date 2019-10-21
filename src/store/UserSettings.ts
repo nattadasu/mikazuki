@@ -105,8 +105,7 @@ export class UserSettings extends VuexModule {
     await this.setSession('');
     await this.setRefreshRate(15);
 
-    await this.$store.dispatch('resetAniListData');
-    await this.$store.dispatch('resetAniListLatestActivities');
+    await this.$store.dispatch('resetAllData');
   }
 
   /**

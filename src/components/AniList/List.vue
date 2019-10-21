@@ -167,7 +167,7 @@ export default class List extends Vue {
           [
             media.nextAiringEpisode.episode,
             moment(media.nextAiringEpisode.airingAt, 'X').fromNow(),
-          ],
+          ]
         )
         : null;
       const progressPercentage = this.calculateProgressPercentage(entry);

@@ -18,11 +18,11 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Top extends Vue {
-  private get isSortingPage(): boolean {
+  get isSortingPage(): boolean {
     return this.$route.meta && this.$route.meta.sortingPage;
   }
 
-  private jumpToTop(): void {
+  jumpToTop(): void {
     window.scrollTo(0, 0);
   }
 }

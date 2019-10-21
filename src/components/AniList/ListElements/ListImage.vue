@@ -94,7 +94,7 @@ export default class ListImage extends Vue {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 20%;
+    max-height: 20%;
 
     transition: .25s ease-in-out;
   }
@@ -115,7 +115,7 @@ export default class ListImage extends Vue {
   }
 
   &:hover > .titled {
-    height: 100%;
+    max-height: 75%;
 
     &.shadowed {
       background-color: rgba(0, 0, 0, .85);

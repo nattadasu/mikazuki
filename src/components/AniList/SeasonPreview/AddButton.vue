@@ -21,7 +21,7 @@
     <v-icon left color="success">
       mdi-playlist-plus
     </v-icon>
-    {{ $t('actions.addToPlanToWatch') }}
+    {{ $t('actions.add') }}
   </v-btn>
 </template>
 
