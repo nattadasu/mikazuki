@@ -12,7 +12,7 @@ import { appStore } from '@/store';
 
 @Component
 export default class Loading extends Vue {
-  private get isLoading(): boolean {
+  get isLoading(): boolean {
     return appStore.isLoading;
   }
 }

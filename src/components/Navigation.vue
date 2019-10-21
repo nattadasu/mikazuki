@@ -83,7 +83,7 @@
     <v-toolbar-items>
       <LoadingIndicator />
 
-      <BackButton v-if="$vuetify.breakpoint.mdAndUp" />
+      <BackButton v-if="$vuetify.breakpoint.mdAndUp && (isMediaPage || isSettingsPage || isSearchablePage)" />
       <SortButton v-if="isSortingPage" />
       <SearchButton v-if="isAuthenticated" />
 
@@ -133,11 +133,11 @@ import SortButton from './NavigationToolbars/Items/Sort.vue';
   },
 })
 export default class Navigation extends Vue {
-  private navigationDrawer: boolean = false;
+  navigationDrawer: boolean = false;
 
-  private item = 0;
+  item = 0;
 
-  private mainMenuItems: Array<{ title: string, location: RawLocation, routeName: string, icon: string }> = [{
+  mainMenuItems: Array<{ title: string, location: RawLocation, routeName: string, icon: string }> = [{
     title: 'menus.aniList.home',
     location: { name: 'Home' },
     routeName: 'Home',
@@ -154,7 +154,7 @@ export default class Navigation extends Vue {
     icon: 'mdi-settings',
   }];
 
-  private aniListMenuItems: Array<{ title: string, location: RawLocation, routeName: string, icon: string }> = [{
+  aniListMenuItems: Array<{ title: string, location: RawLocation, routeName: string, icon: string }> = [{
     title: 'menus.aniList.watching',
     location: { name: 'Watching' },
     routeName: 'Watching',
@@ -186,41 +186,49 @@ export default class Navigation extends Vue {
     icon: 'mdi-menu',
   }];
 
-  private get isMediaPage(): boolean {
+  get isMediaPage(): boolean {
     return this.$route.meta && this.$route.meta.mediaPage;
   }
 
-  private get isSeasonPreviewPage(): boolean {
+  get isSearchablePage(): boolean {
+    return this.$route.meta && this.$route.meta.searchablePage;
+  }
+
+  get isSettingsPage(): boolean {
+    return this.$route.name === 'Settings';
+  }
+
+  get isSeasonPreviewPage(): boolean {
     return this.$route.meta && this.$route.meta.seasonPreviewPage;
   }
 
-  private get isSortingPage(): boolean {
+  get isSortingPage(): boolean {
     return this.$route.meta && this.$route.meta.sortingPage;
   }
 
-  private get currentRouteName(): string {
+  get currentRouteName(): string {
     const { routeName } = this.$route.meta;
 
     return this.$t(`routes.${routeName}`) as string;
   }
 
-  private get isAniListRoute(): boolean {
+  get isAniListRoute(): boolean {
     const currentRoute = this.$route.path;
 
     return currentRoute.startsWith('/aniList');
   }
 
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
   }
 
-  private get timeUntilRefresh(): string {
+  get timeUntilRefresh(): string {
     const time = userStore.timeUntilRefresh * 1000;
 
     return moment(time).format('mm:ss');
   }
 
-  private created() {
+  created() {
     const currentRouteName = this.$route.name;
 
     this.item = this.mainMenuItems.findIndex(item => item.routeName === currentRouteName);
@@ -234,12 +242,12 @@ export default class Navigation extends Vue {
     }
   }
 
-  private navigateTo(location: RawLocation) {
+  navigateTo(location: RawLocation) {
     this.$router.push(location);
   }
 
   @Watch('currentRouteName')
-  public routeChanged() {
+  routeChanged() {
     const currentRouteName = this.$route.name;
 
     this.item = this.mainMenuItems.findIndex(item => item.routeName === currentRouteName);
