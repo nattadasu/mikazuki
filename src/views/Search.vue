@@ -26,9 +26,9 @@
                               :list-values="listValues"
                               :adult-content="adultContentValue"
                               :genre-values="genreValues"
-                              @listValuesChanged="value => listValues = value"
-                              @adultContentValueChanged="value => adultContentValue = value"
-                              @genreValuesChanged="value => genreValues = value"
+                              @listValuesChanged="(value) => (listValues = value)"
+                              @adultContentValueChanged="(value) => (adultContentValue = value)"
+                              @genreValuesChanged="(value) => (genreValues = value)"
                             />
                           </v-expansion-panel-content>
                         </v-expansion-panel>
@@ -39,9 +39,9 @@
                         :list-values="listValues"
                         :adult-content="adultContentValue"
                         :genre-values="genreValues"
-                        @listValuesChanged="value => listValues = value"
-                        @adultContentValueChanged="value => adultContentValue = value"
-                        @genreValuesChanged="value => genreValues = value"
+                        @listValuesChanged="(value) => (listValues = value)"
+                        @adultContentValueChanged="(value) => (adultContentValue = value)"
+                        @genreValuesChanged="(value) => (genreValues = value)"
                       />
                     </template>
                   </v-col>
@@ -111,11 +111,7 @@
                 <v-col cols="8" class="text-right">
                   <v-tooltip v-if="result.isAdult" top>
                     <template v-slot:activator="{ on }">
-                      <v-icon
-                        large
-                        color="error"
-                        v-on="on"
-                      >
+                      <v-icon large color="error" v-on="on">
                         mdi-alert
                       </v-icon>
                     </template>
@@ -129,7 +125,8 @@
                   </template>
                   <v-icon color="yellow lighten-1" class="pr-1">
                     mdi-account-group
-                  </v-icon>{{ result.averageScore || 'n.a.' }}
+                  </v-icon>
+                  {{ result.averageScore || 'n.a.' }}
                 </v-col>
               </v-row>
             </v-card-text>
@@ -182,6 +179,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Route } from 'vue-router';
 import AdultToolTip from '@/components/AniList/ListElements/AdultToolTip.vue';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import ProgressCircle from '@/components/AniList/ListElements/ProgressCircle.vue';
@@ -199,31 +197,26 @@ import SearchFilter from '@/components/Search/Filter.vue';
   },
 })
 export default class Search extends Vue {
-  private searchInput: string = '';
+  searchInput: string = '';
+  searchResults: IAniListSearchResult[] = [];
+  listValues: AniListListStatus[] = [];
+  genreValues = [];
+  adultContentValue = 'both';
+  panel = null;
 
-  private searchResults: IAniListSearchResult[] = [];
-
-  private listValues: AniListListStatus[] = [];
-
-  private genreValues = [];
-
-  private adultContentValue = 'both';
-
-  private panel = null;
-
-  private get isLoading(): boolean {
+  get isLoading(): boolean {
     return appStore.isLoading;
   }
 
-  private created() {
-    if (this.$route.params && this.$route.params.query) {
-      this.searchInput = this.$route.params.query;
+  created() {
+    if (this.$route.query && this.$route.query.query) {
+      this.searchInput = this.$route.query.query as string;
 
       this.search();
     }
   }
 
-  private async search() {
+  async search() {
     if (!this.searchInput.length) {
       return;
     }
@@ -237,24 +230,32 @@ export default class Search extends Vue {
     try {
       await appStore.setLoadingState(true);
 
-      const results = await API.searchAnime(this.searchInput, filters) || [];
+      const results = (await API.searchAnime(this.searchInput, filters)) || [];
 
       this.searchResults = results.map((result) => {
-        const object = Object.assign({}, {
-          isWatching: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.CURRENT,
-          isRepeating: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.REPEATING,
-          isCompleted: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.COMPLETED,
-          isDropped: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.DROPPED,
-          isPaused: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PAUSED,
-          isPlanning: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PLANNING,
-        }, result);
+        const object = Object.assign(
+          {},
+          {
+            isWatching: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.CURRENT,
+            isRepeating: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.REPEATING,
+            isCompleted: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.COMPLETED,
+            isDropped: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.DROPPED,
+            isPaused: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PAUSED,
+            isPlanning: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PLANNING,
+          },
+          result
+        );
 
         appStore.setLoadingState(false);
 
         if (result.mediaListEntry) {
-          return Object.assign({}, {
-            progressPercentage: this.calculateProgressPercentage(result),
-          }, object);
+          return Object.assign(
+            {},
+            {
+              progressPercentage: this.calculateProgressPercentage(result),
+            },
+            object
+          );
         }
 
         return object;
@@ -266,11 +267,11 @@ export default class Search extends Vue {
         text: error,
       });
 
-      appStore.setLoadingState(false);
+      await appStore.setLoadingState(false);
     }
   }
 
-  private calculateProgressPercentage(entry: IAniListSearchResult): number {
+  calculateProgressPercentage(entry: IAniListSearchResult): number {
     if (!entry.mediaListEntry) {
       return 0;
     }
@@ -284,7 +285,7 @@ export default class Search extends Vue {
 
     // Check if max episode amount is known
     if (episodes) {
-      return currentProgress / episodes * 100;
+      return (currentProgress / episodes) * 100;
     }
 
     // We don't know the exact amount of episodes
@@ -293,18 +294,28 @@ export default class Search extends Vue {
     // and then add some buffer
     if (nextAiringEpisode && nextAiringEpisode.episode) {
       // We have to substract one here as that episode isn't aired yet
-      const episode = nextAiringEpisode.episode - 1 > 0
-        ? nextAiringEpisode.episode - 1
-        : 1;
+      const episode = nextAiringEpisode.episode - 1 > 0 ? nextAiringEpisode.episode - 1 : 1;
 
       // We choose only 80 percent here, as we are unaware of the episode amount
-      return currentProgress / episode * 80;
+      return (currentProgress / episode) * 80;
     }
 
     // Just return 75% if we have a non-zero progress but
     // neither through the next airing episode nor through the episode amount
     // we can determine our status.
     return 75;
+  }
+
+  @Watch('$route')
+  onRouteChanged(newRoute: Route, oldRoute: Route) {
+    if (newRoute.name !== oldRoute.name) {
+      return;
+    }
+    if (newRoute.query !== oldRoute.query && newRoute.query.query) {
+      this.searchInput = newRoute.query.query as string;
+
+      this.search();
+    }
   }
 }
 </script>
