@@ -1,12 +1,7 @@
 <template>
   <v-tooltip bottom>
     <template v-slot:activator="{ on: toolTip }">
-      <v-btn
-        text
-        icon
-        :to="{ name: 'Search' }"
-        v-on="{ ...toolTip }"
-      >
+      <v-btn text icon :to="{ name: 'Search' }" v-on="{ ...toolTip }">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -29,13 +24,13 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Search extends Vue {
-  private searchInput: string = '';
+  searchInput: string = '';
 
-  private get isSearchPage(): boolean {
+  get isSearchPage(): boolean {
     return this.$route.name === 'Search';
   }
 
-  private startSearch(): void {
+  startSearch(): void {
     if (!this.searchInput) {
       return;
     }
@@ -45,7 +40,7 @@ export default class Search extends Vue {
 
     this.$router.push({
       name: 'Search',
-      params: {
+      query: {
         query,
       },
     });
