@@ -256,7 +256,7 @@ export default class SeasonPreview extends Vue {
     eventBus.$on('updateSeason', async (season: UpdateSeasonProperties) => {
       await appStore.setLoadingState(true);
       try {
-        const preview = await API.getSeasonPreview(season.year, season.season, userStore.accessToken);
+        const preview = await this.$http.getSeasonPreview(season.year, season.season);
         if (!preview) {
           this.media = [];
         } else {
@@ -269,7 +269,7 @@ export default class SeasonPreview extends Vue {
     });
 
     try {
-      const preview = await API.getSeasonPreview(this.seasonYear, this.season, userStore.accessToken);
+      const preview = await this.$http.getSeasonPreview(this.seasonYear, this.season);
       if (!preview) {
         this.media = [];
       } else {

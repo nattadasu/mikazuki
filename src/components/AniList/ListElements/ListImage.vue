@@ -94,7 +94,7 @@ export default class ListImage extends Vue {
     position: absolute;
     bottom: 0;
     width: 100%;
-    max-height: 20%;
+    max-height: 19%;
 
     transition: .25s ease-in-out;
   }

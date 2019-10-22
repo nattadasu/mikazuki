@@ -124,7 +124,7 @@ export default class DetailView extends Vue {
   }
 
   private async loadListEntry(aniListId: number): Promise<void> {
-    this.entry = await API.getListEntryByMediaId(aniListId);
+    this.entry = await this.$http.getListEntryByMediaId(aniListId);
 
     // Media does not exist
     if (!this.entry) {
