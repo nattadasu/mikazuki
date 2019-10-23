@@ -25,6 +25,10 @@ import getSeasonPreview from './queries/getSeasonPreview.graphql';
 import searchAnime from './queries/searchAnime.graphql';
 // #endregion
 
+// #region Mutations
+import addEntry from './mutations/addEntry.graphql';
+// #endregion
+
 // #region Responses
 import {
   UserListResponse, UserResponse, SeasonPreviewResponse, MediaResponse, SearchResponse
@@ -108,67 +112,52 @@ export default class AniListAPI {
   }
 
   public async searchAnime(query: string, filters: SearchFilters): Promise<IAniListSearchResult[]> {
-    const genres = filters.genres.length ? filters.genres : null;
-    const onList = !!filters.listStatus.length;
-    const { isAdult } = filters;
+    const genres = filters.genres.length ? filters.genres : undefined;
+    const onList = !!filters.listStatus.length || undefined;
+    const isAdult = filters.isAdult === 'both' ? undefined : filters.isAdult === 'adult';
 
-    const mediaQueryDeclaration = [
-      '$query: String!',
-      '$type: MediaType!',
-      '$genres: [String]',
-    ];
-    const mediaQueryDefinition = [
-      'search: $query',
-      'type: $type',
-      'genre_in: $genres',
-    ];
-    const mediaQueryParameters: {
-      query: string,
-      type: string,
-      genres: string[] | null,
-      onList?: boolean,
-      isAdult?: boolean,
-    } = {
+    const params = {
       query,
       type: AniListType.ANIME,
       genres,
+      onList,
+      isAdult,
     };
 
-    if (onList) {
-      mediaQueryDeclaration.push('$onList: Boolean');
-      mediaQueryDefinition.push('onList: $onList');
-      mediaQueryParameters.onList = onList;
-    }
-
-    if (isAdult !== 'both') {
-      mediaQueryDeclaration.push('$isAdult: Boolean');
-      mediaQueryDefinition.push('isAdult: $isAdult');
-      mediaQueryParameters.isAdult = isAdult === 'adult';
-    }
-
-    const searchQuery = (searchAnime.loc as Location).source.body
-      .replace('query searchAnime', `query searchAnime(${mediaQueryDeclaration.join(', ')})`)
-      .replace('media {', `media(${mediaQueryDefinition.join(', ')}) {`);
-
     const response = await axios.post<SearchResponse>('/', {
-      query: searchQuery,
-      variables: mediaQueryParameters,
+      query: searchAnime,
+      variables: params,
     });
 
     const searchResults = response.page.media;
 
     if (filters.listStatus.length) {
-      const results = searchResults.filter((element) => {
+      return searchResults.filter((element) => {
         if (!element.mediaListEntry) {
           return false;
         }
 
-        return filters.listStatus.some(filter => filter === element.mediaListEntry.status);
+        return filters.listStatus.some((filter) => filter === element.mediaListEntry.status);
       });
-
-      return results;
     }
 
     return searchResults;
+  }
+
+  public async addEntry(
+    mediaId: number,
+    status: AniListListStatus,
+    score?: number,
+    progress?: number
+  ): Promise<boolean> {
+    return axios.post<boolean>('/', {
+      query: addEntry,
+      variables: {
+        mediaId,
+        status,
+        score,
+        progress,
+      },
+    });
   }
 }

@@ -83,7 +83,7 @@ export default class SeasonPreviewToolbar extends Vue {
       const currentSeasonValue = this.getCurrentSeason();
 
       this.year = this.currentYear;
-      this.selectedSeason = this.items.find(item => item.value === currentSeasonValue) as SeasonItemProperties;
+      this.selectedSeason = this.items.find((item) => item.value === currentSeasonValue) as SeasonItemProperties;
 
       return;
     }
@@ -94,8 +94,8 @@ export default class SeasonPreviewToolbar extends Vue {
 
     if (query.season) {
       this.selectedSeason = this.isValidSeason(query.season.toString().toUpperCase())
-        ? this.items.find(item => item.value === query.season) as SeasonItemProperties
-        : this.items.find(item => item.value === this.getCurrentSeason()) as SeasonItemProperties;
+        ? this.items.find((item) => item.value === query.season) as SeasonItemProperties
+        : this.items.find((item) => item.value === this.getCurrentSeason()) as SeasonItemProperties;
     }
   }
 
@@ -144,7 +144,7 @@ export default class SeasonPreviewToolbar extends Vue {
   private updateSeasonPreview(): void {
     // Full-width characters convert to half-width
     // @TODO: Move to a globally available library
-    const input = this.year.replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
+    const input = this.year.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (s) => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
     // If the input is no number, replace it with the current year
     const year = parseInt(input, 10) || new Date().getUTCFullYear();
 
@@ -186,7 +186,7 @@ export default class SeasonPreviewToolbar extends Vue {
       AniListSeason.WINTER,
       AniListSeason.SUMMER,
       AniListSeason.FALL,
-    ].find(item => item === value.toUpperCase()) !== undefined;
+    ].find((item) => item === value.toUpperCase()) !== undefined;
   }
 }
 </script>

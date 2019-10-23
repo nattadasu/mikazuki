@@ -254,7 +254,7 @@ export default class AniListAPI {
           return false;
         }
 
-        return filters.listStatus.find(filter => filter === e.mediaListEntry.status);
+        return filters.listStatus.find((filter) => filter === e.mediaListEntry.status);
       });
 
       return results;

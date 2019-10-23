@@ -78,7 +78,7 @@ import { aniListStore } from '@/store';
 @Component({ components: { ListImage } })
 export default class Activities extends Vue {
   private get activities() {
-    return aniListStore.latestActivities.map(activity => ({
+    return aniListStore.latestActivities.map((activity) => ({
       mediaId: activity.media.id,
       isAnime: activity.media.type === AniListType.ANIME,
       isManga: activity.media.type === AniListType.MANGA,

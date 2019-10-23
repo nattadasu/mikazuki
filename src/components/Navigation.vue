@@ -231,10 +231,10 @@ export default class Navigation extends Vue {
   created() {
     const currentRouteName = this.$route.name;
 
-    this.item = this.mainMenuItems.findIndex(item => item.routeName === currentRouteName);
+    this.item = this.mainMenuItems.findIndex((item) => item.routeName === currentRouteName);
 
     if (this.item === -1) {
-      this.item = this.aniListMenuItems.findIndex(item => item.routeName === currentRouteName);
+      this.item = this.aniListMenuItems.findIndex((item) => item.routeName === currentRouteName);
 
       if (this.item !== -1) {
         this.item += 2;
@@ -250,10 +250,10 @@ export default class Navigation extends Vue {
   routeChanged() {
     const currentRouteName = this.$route.name;
 
-    this.item = this.mainMenuItems.findIndex(item => item.routeName === currentRouteName);
+    this.item = this.mainMenuItems.findIndex((item) => item.routeName === currentRouteName);
 
     if (this.item === -1) {
-      this.item = this.aniListMenuItems.findIndex(item => item.routeName === currentRouteName);
+      this.item = this.aniListMenuItems.findIndex((item) => item.routeName === currentRouteName);
 
       if (this.item !== -1) {
         this.item += 2;

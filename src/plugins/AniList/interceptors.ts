@@ -18,6 +18,6 @@ export default (axios: AxiosInstance) => {
   });
 
   axios.interceptors.response.use(
-    response => response.data.data
+    (response) => response.data.data
   );
 };

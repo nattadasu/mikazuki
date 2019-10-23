@@ -80,7 +80,7 @@
             <ListImage
               :image-link="result.coverImage.extraLarge"
               :ani-list-id="result.id"
-              :name="result.title.romaji"
+              :name="result.title.userPreferred"
               :studios="result.studios"
             />
 

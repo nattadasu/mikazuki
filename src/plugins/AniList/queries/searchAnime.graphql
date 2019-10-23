@@ -1,11 +1,9 @@
-query searchAnime {
+query searchAnime($query: String!, $type: MediaType!, $genres: [String], $onList: Boolean, $isAdult: Boolean) {
   page: Page {
-    media {
+    media(search: $query, type: $type, genre_in: $genres, onList: $onList, isAdult: $isAdult) {
       id
       title {
-        romaji
-        english
-        native
+        userPreferred
       }
       averageScore
       coverImage {

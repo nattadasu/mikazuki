@@ -155,18 +155,18 @@ export default class SeasonPreview extends Vue {
         return true;
       }
 
-      return this.genreFilters.every(genre => includes(entry.genres, genre));
+      return this.genreFilters.every((genre) => includes(entry.genres, genre));
     };
 
     let { media } = this;
 
     if (this.adultContentFilter !== 'noFilter') {
       const showOnlyAdult = this.adultContentFilter === 'only';
-      media = media.filter(item => item.isAdult === showOnlyAdult);
+      media = media.filter((item) => item.isAdult === showOnlyAdult);
     }
 
     return chain(media)
-      .filter(item => !item.isAdult || (item.isAdult && userStore.allowAdultContent))
+      .filter((item) => !item.isAdult || (item.isAdult && userStore.allowAdultContent))
       .map((item) => {
         const outputFormat = item.startDate.day
           ? this.$t('misc.dates.full') as string
@@ -175,7 +175,7 @@ export default class SeasonPreview extends Vue {
             : item.startDate.year
               ? this.$t('misc.dates.yearOnly') as string
               : undefined;
-        const usersListStatus = !!aniListStore.aniListData.lists.find(list => !!list.entries.find((entry: IAniListEntry) => entry.media.id === item.id));
+        const usersListStatus = !!aniListStore.aniListData.lists.find((list) => !!list.entries.find((entry: IAniListEntry) => entry.media.id === item.id));
 
         let dateFormat = '';
         let itemDate = '';
@@ -222,7 +222,7 @@ export default class SeasonPreview extends Vue {
         };
       })
       .filter(filterGenres)
-      .orderBy(entry => get(entry, this.sortBy), [sortDirection])
+      .orderBy((entry) => get(entry, this.sortBy), [sortDirection])
       .value();
   }
 
@@ -325,7 +325,7 @@ export default class SeasonPreview extends Vue {
       AniListSeason.WINTER,
       AniListSeason.SUMMER,
       AniListSeason.FALL,
-    ].find(item => item === value.toUpperCase()) !== undefined;
+    ].find((item) => item === value.toUpperCase()) !== undefined;
   }
 }
 </script>

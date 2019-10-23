@@ -150,7 +150,7 @@ export default class List extends Vue {
       return [];
     }
 
-    const listElement = aniListStore.aniListData.lists.find(list => list.status === this.status);
+    const listElement = aniListStore.aniListData.lists.find((list) => list.status === this.status);
 
     if (!listElement) {
       return [];
@@ -206,12 +206,12 @@ export default class List extends Vue {
         return true;
       }
 
-      return this.genreFilters.every(genre => includes(entry.genres, genre));
+      return this.genreFilters.every((genre) => includes(entry.genres, genre));
     };
 
     newEntries = chain(newEntries)
       .filter(filterGenres)
-      .orderBy(entry => get(entry, this.sortBy), [sortDirection])
+      .orderBy((entry) => get(entry, this.sortBy), [sortDirection])
       .slice(0, this.startAmount + this.currentIndex)
       .value();
 
@@ -312,7 +312,7 @@ export default class List extends Vue {
   }
 
   private increaseCurrentEpisodeProgress(entryId: number): void {
-    const listEntry = this.listData.find(entry => entry.id === entryId);
+    const listEntry = this.listData.find((entry) => entry.id === entryId);
 
     if (!listEntry) {
       return;
@@ -355,8 +355,8 @@ export default class List extends Vue {
     }
 
     const entries = chain(this.updatePayload)
-      .groupBy(value => value.id)
-      .map(group => reduce((group), (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) => (item.changeFrom > accumulator.changeFrom ? item : accumulator), {
+      .groupBy((value) => value.id)
+      .map((group) => reduce((group), (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) => (item.changeFrom > accumulator.changeFrom ? item : accumulator), {
         id: null,
         title: null,
         status: null,
@@ -364,7 +364,7 @@ export default class List extends Vue {
         score: null,
         changeFrom: 0,
       }))
-      .filter(group => !!group.id)
+      .filter((group) => !!group.id)
       .value();
 
     if (isEmpty(entries)) {
