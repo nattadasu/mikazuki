@@ -230,7 +230,7 @@ export default class Search extends Vue {
     try {
       await appStore.setLoadingState(true);
 
-      const results = (await API.searchAnime(this.searchInput, filters)) || [];
+      const results = await this.$http.searchAnime(this.searchInput, filters);
 
       this.searchResults = results.map((result) => {
         const object = Object.assign(

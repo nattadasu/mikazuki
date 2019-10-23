@@ -1,6 +1,6 @@
-query searchAnime({0}) {
+query searchAnime {
   page: Page {
-    media({1}) {
+    media {
       id
       title {
         romaji
