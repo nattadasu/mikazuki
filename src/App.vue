@@ -75,6 +75,7 @@ export default class App extends Vue {
   }
 
   private async created() {
+    console.log(this.$store);
     if (!this.locale) {
       if (window.navigator.languages && window.navigator.languages.length) {
         await appStore.setLanguage(window.navigator.languages[0]);

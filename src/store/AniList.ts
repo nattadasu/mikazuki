@@ -1,6 +1,4 @@
-import {
-  action, getter, Module, mutation, VuexModule,
-} from 'vuex-class-component';
+import { action, mutation, createModule } from 'vuex-class-component';
 import {
   IAniListActivity,
   IAniListMediaListCollection,
@@ -10,8 +8,13 @@ import {
  * @module AniListStore
  * @description contains the user's data that is connected to AniList
  */
-@Module()
-export class AniListStore extends VuexModule {
+
+const VuexModule = createModule({
+  namespaced: true,
+  strict: false,
+});
+
+export default class AniListStore extends VuexModule {
   /**
    * @private
    * @var {IAniListMediaListCollection} _aniListData contains the logged in user's lists
@@ -35,7 +38,6 @@ export class AniListStore extends VuexModule {
    * @method aniListData
    * @returns {IAniListMediaListCollection} the current user's AniList data
    */
-  @getter
   public get aniListData(): IAniListMediaListCollection {
     return this._aniListData;
   }
@@ -45,33 +47,27 @@ export class AniListStore extends VuexModule {
    * @method latestActivities
    * @returns {IAniListActivity[]} the current user's latest activities
    */
-  @getter
   public get latestActivities(): IAniListActivity[] {
     return this._latestActivities;
   }
 
-  @getter
   public get currentMediaTitle(): string | null {
     return this._currentMediaTitle;
   }
 
-  @action()
-  public async setAniListData(data: IAniListMediaListCollection): Promise<void> {
+  @action public async setAniListData(data: IAniListMediaListCollection): Promise<void> {
     this._setAniListData(data);
   }
 
-  @action()
-  public async setLatestActivities(data: IAniListActivity[]): Promise<void> {
+  @action public async setLatestActivities(data: IAniListActivity[]): Promise<void> {
     this._setLatestActivities(data);
   }
 
-  @action()
-  public async setCurrentMediaTitle(title: string | null): Promise<void> {
+  @action public async setCurrentMediaTitle(title: string | null): Promise<void> {
     this._setCurrentMediaTitle(title);
   }
 
-  @action()
-  public async resetAllData(): Promise<void> {
+  @action public async resetAllData(): Promise<void> {
     this._setAniListData({ lists: [] });
     this._setLatestActivities([]);
     this._setCurrentMediaTitle(null);
@@ -85,20 +81,15 @@ export class AniListStore extends VuexModule {
    * @description sets the user's complete list data
    * @returns {void}
    */
-  @mutation
-  protected _setAniListData(data: IAniListMediaListCollection): void {
+  @mutation protected _setAniListData(data: IAniListMediaListCollection): void {
     this._aniListData = data;
   }
 
-  @mutation
-  protected _setLatestActivities(data: IAniListActivity[]): void {
+  @mutation protected _setLatestActivities(data: IAniListActivity[]): void {
     this._latestActivities = data;
   }
 
-  @mutation
-  protected _setCurrentMediaTitle(title: string | null): void {
+  @mutation protected _setCurrentMediaTitle(title: string | null): void {
     this._currentMediaTitle = title;
   }
 }
-
-export const aniListModule = AniListStore.ExtractVuexModule(AniListStore);
