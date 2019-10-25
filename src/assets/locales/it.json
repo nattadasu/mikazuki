@@ -4,7 +4,7 @@
   "actions": {
     "add": "Aggiungi",
     "added": "Aggiunto alla lista",
-    "addToPlanToWatch": "Aggiunto alla lista da guardare",
+    "addToPlanToWatch": "Aggiungi alla lista da guardare",
     "back": "Indietro",
     "fastSearch": "Ricerca... \u23ce",
     "loading": "Caricamento...",
@@ -83,7 +83,7 @@
           "completed": "{0} completato",
           "plansToWatch": "{0} messo nella lista dei pianificati",
           "watchedEpisode": "Visti {1} di {0}",
-          "dropped": "Abbandonato {0}",
+          "dropped": "{0} abbandonato",
           "rewatchedEpisode": "Rivisti {1} di {0}",
           "pausedWatching": "{0} messo in pausa",
           "readChapter": "{1} capitoli letti di {0}",
@@ -104,7 +104,7 @@
         "airingFinished": "Trasmissione terminata",
         "missingEpisodes": "Un episodio da guardare | {count} episodi da guardare",
         "notYetAired": "Non ancora trasmesso",
-        "nextAiringEpisode": "L'episodio {0} è in trasmissione {1}"
+        "nextAiringEpisode": "L'episodio {0} verrà trasmesso {1}"
       },
       "detailView": {
         "airedOn": "Trasmesso il {0}",
