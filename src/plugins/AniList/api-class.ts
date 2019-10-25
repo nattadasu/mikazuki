@@ -1,4 +1,3 @@
-import { Location } from 'graphql';
 import axios from './connection';
 
 // #region AniList Types
@@ -27,18 +26,40 @@ import searchAnime from './queries/searchAnime.graphql';
 
 // #region Mutations
 import addEntry from './mutations/addEntry.graphql';
+import updateEntry from './mutations/updateEntry.graphql';
+import removeEntry from './mutations/removeEntry.graphql';
 // #endregion
 
 // #region Responses
-import {
-  UserListResponse, UserResponse, SeasonPreviewResponse, MediaResponse, SearchResponse
-} from './responses';
+import { UserListResponse, UserResponse, SeasonPreviewResponse, MediaResponse, SearchResponse } from './responses';
 // #endregion
 
 interface SearchFilters {
   isAdult: string;
   listStatus: AniListListStatus[];
   genres: string[];
+}
+
+interface FuzzyDateInput {
+  year: number;
+  month: number;
+  day: number;
+}
+
+interface AddEntryParams {
+  mediaId: number;
+  status: AniListListStatus;
+  score?: number;
+  progress?: number;
+}
+
+interface UpdateEntryParams {
+  entryId: number;
+  progress: number;
+  score?: number;
+  status?: AniListListStatus;
+  startedAt?: FuzzyDateInput;
+  completedAt?: FuzzyDateInput;
 }
 
 export default class AniListAPI {
@@ -144,13 +165,8 @@ export default class AniListAPI {
     return searchResults;
   }
 
-  public async addEntry(
-    mediaId: number,
-    status: AniListListStatus,
-    score?: number,
-    progress?: number
-  ): Promise<boolean> {
-    return axios.post<boolean>('/', {
+  public async addEntry({ mediaId, status, score, progress }: AddEntryParams): Promise<void> {
+    await axios.post('/', {
       query: addEntry,
       variables: {
         mediaId,
@@ -158,6 +174,34 @@ export default class AniListAPI {
         score,
         progress,
       },
+    });
+  }
+
+  public async updateEntry({
+    entryId,
+    progress,
+    score,
+    status,
+    startedAt,
+    completedAt,
+  }: UpdateEntryParams): Promise<void> {
+    await axios.post('/', {
+      query: updateEntry,
+      variables: {
+        entryId,
+        progress,
+        score,
+        status,
+        startedAt,
+        completedAt,
+      },
+    });
+  }
+
+  public async removeEntry(entryId: number): Promise<void> {
+    await axios.post('/', {
+      query: removeEntry,
+      variables: { entryId },
     });
   }
 }

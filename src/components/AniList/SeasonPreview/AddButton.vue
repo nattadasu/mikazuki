@@ -1,23 +1,11 @@
 <template>
-  <v-btn
-    v-if="inList || isAdded"
-    block
-    text
-    color="grey"
-  >
+  <v-btn v-if="inList || isAdded" block text color="grey">
     <v-icon left color="info">
       mdi-check
     </v-icon>
     {{ $t('actions.added') }}
   </v-btn>
-  <v-btn
-    v-else
-    block
-    text
-    :disabled="isLocked"
-    :loading="isLoading"
-    @click="addMediaToPlanList(item)"
-  >
+  <v-btn v-else block text :disabled="isLocked" :loading="isLoading" @click="addMediaToPlanList(item)">
     <v-icon left color="success">
       mdi-playlist-plus
     </v-icon>
@@ -52,21 +40,26 @@ export default class SeasonPreviewAddButton extends Vue {
     this.isLoading = true;
 
     try {
-      const response = await AniListAPI.addEntry(item.id, AniListListStatus.PLANNING);
+      await this.$http.addEntry({
+        mediaId: item.id,
+        status: AniListListStatus.PLANNING,
+      });
 
-      if (response) {
-        this.isAdded = true;
+      this.isAdded = true;
 
-        // We don't want to reload everytime a media is added to planned list
-        // so we just set the refresh timer to half a minute, which is enough time
-        // to think about adding another anime to the planned list which then resets the timer again
-        const tempRefreshRate = userStore.refreshRate;
-        await userStore.setRefreshRate(0.5);
-        await userStore.restartRefreshTimer();
-        await userStore.setRefreshRate(tempRefreshRate);
-      }
+      // We don't want to reload everytime a media is added to planned list
+      // so we just set the refresh timer to half a minute, which is enough time
+      // to think about adding another anime to the planned list which then resets the timer again
+      const tempRefreshRate = userStore.refreshRate;
+      await userStore.setRefreshRate(0.5);
+      await userStore.restartRefreshTimer();
+      await userStore.setRefreshRate(tempRefreshRate);
     } catch (error) {
-      //
+      this.$notify({
+        title: this.$t('errors.updateFailed.title') as string,
+        text: this.$t('errors.updateFailed.text') as string,
+        type: 'error',
+      });
     }
 
     // eslint-disable-next-line no-param-reassign

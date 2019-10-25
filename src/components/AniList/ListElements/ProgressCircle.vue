@@ -31,9 +31,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Emit, Prop, Vue, Watch,
-} from 'vue-property-decorator';
+import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator';
 import { AniListListStatus } from '@/modules/AniList/types';
 
 type AlphaNumerical = number | string;

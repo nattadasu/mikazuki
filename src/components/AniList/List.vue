@@ -14,16 +14,7 @@
         </v-container>
       </v-col>
       <template v-if="!isLoading">
-        <v-col
-          v-for="item in listData"
-          :key="item.id"
-          class="lg5-custom"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-          xl="2"
-        >
+        <v-col v-for="item in listData" :key="item.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card raised class="ma-2">
             <ListImage :image-link="item.imageLink" :ani-list-id="item.aniListId" :name="item.title" />
 
@@ -46,7 +37,10 @@
                       <EpisodeState :status="item.mediaStatus" :next-episode="item.nextEpisode" />
                     </v-col>
                     <v-col cols="12" class="py-0">
-                      <MissingEpisodes :next-airing-episode="item.nextAiringEpisode" :current-progress="item.currentProgress" />
+                      <MissingEpisodes
+                        :next-airing-episode="item.nextAiringEpisode"
+                        :current-progress="item.currentProgress"
+                      />
                     </v-col>
                   </v-row>
                 </v-col>
@@ -68,17 +62,13 @@
 </template>
 
 <script lang="ts">
-import {
-  chain, isEmpty, reduce, get, includes,
-} from 'lodash';
+import { chain, isEmpty, reduce, get, includes } from 'lodash';
 import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
 import EventBus from '@/eventBus';
 import API from '@/modules/AniList/API';
-import {
-  AniListListStatus, AniListMediaStatus, AniListScoreFormat, IAniListEntry,
-} from '@/modules/AniList/types';
+import { AniListListStatus, AniListMediaStatus, AniListScoreFormat, IAniListEntry } from '@/modules/AniList/types';
 import { aniListStore, appStore, userStore } from '@/store';
 import aniListEventHandler from '@/modules/AniList/eventHandler';
 import AdultToolTip from './ListElements/AdultToolTip.vue';
@@ -136,9 +126,7 @@ export default class List extends Vue {
   private readonly status!: AniListListStatus;
 
   private get ratingStarAmount(): number {
-    return userStore.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3
-      ? 3
-      : 5;
+    return userStore.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3 ? 3 : 5;
   }
 
   private get isLoading(): boolean {
@@ -162,13 +150,10 @@ export default class List extends Vue {
       const imageLink = media.coverImage.extraLarge;
 
       const nextEpisode = media.nextAiringEpisode
-        ? this.$root.$t(
-          'pages.aniList.list.nextAiringEpisode',
-          [
+        ? this.$root.$t('pages.aniList.list.nextAiringEpisode', [
             media.nextAiringEpisode.episode,
             moment(media.nextAiringEpisode.airingAt, 'X').fromNow(),
-          ]
-        )
+          ])
         : null;
       const progressPercentage = this.calculateProgressPercentage(entry);
       const missingEpisodes = this.calculateMissingEpisodes(entry);
@@ -221,14 +206,14 @@ export default class List extends Vue {
   private async created() {
     // Infinite Scrolling
     window.onscroll = async () => {
-      const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
-        === document.documentElement.offsetHeight;
+      const bottomOfWindow =
+        document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
       if (bottomOfWindow) {
         this.currentIndex += this.startAmount;
       }
     };
 
-    EventBus.$on('changeSorting', (item: { sortBy: string, direction: string }) => {
+    EventBus.$on('changeSorting', (item: { sortBy: string; direction: string }) => {
       this.sortBy = item.sortBy;
       this.sortDirection = item.direction;
     });
@@ -270,7 +255,7 @@ export default class List extends Vue {
 
     // Check if max episode amount is known
     if (episodes) {
-      return currentProgress / episodes * 100;
+      return (currentProgress / episodes) * 100;
     }
 
     // We don't know the exact amount of episodes
@@ -279,12 +264,10 @@ export default class List extends Vue {
     // and then add some buffer
     if (nextAiringEpisode && nextAiringEpisode.episode) {
       // We have to substract one here as that episode isn't aired yet
-      const episode = nextAiringEpisode.episode - 1 > 0
-        ? nextAiringEpisode.episode - 1
-        : 1;
+      const episode = nextAiringEpisode.episode - 1 > 0 ? nextAiringEpisode.episode - 1 : 1;
 
       // We choose only 80 percent here, as we are unaware of the episode amount
-      return currentProgress / episode * 80;
+      return (currentProgress / episode) * 80;
     }
 
     // Just return 75% if we have a non-zero progress but
@@ -306,9 +289,7 @@ export default class List extends Vue {
 
     // Return the amount of episodes only when there are next episodes
     // and if there are episodes the user hasn't watched yet.
-    return nextEpisode - 1 > 0 && nextEpisode - 1 - currentProgress > 0
-      ? nextEpisode - 1 - currentProgress
-      : null;
+    return nextEpisode - 1 > 0 && nextEpisode - 1 - currentProgress > 0 ? nextEpisode - 1 - currentProgress : null;
   }
 
   private increaseCurrentEpisodeProgress(entryId: number): void {
@@ -356,48 +337,85 @@ export default class List extends Vue {
 
     const entries = chain(this.updatePayload)
       .groupBy((value) => value.id)
-      .map((group) => reduce((group), (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) => (item.changeFrom > accumulator.changeFrom ? item : accumulator), {
-        id: null,
-        title: null,
-        status: null,
-        progress: null,
-        score: null,
-        changeFrom: 0,
-      }))
+      .map((group) =>
+        reduce(
+          group,
+          (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) =>
+            item.changeFrom > accumulator.changeFrom ? item : accumulator,
+          {
+            id: null,
+            title: null,
+            status: null,
+            progress: null,
+            score: null,
+            changeFrom: 0,
+          }
+        )
+      )
       .filter((group) => !!group.id)
+      .map(async (entry) => {
+        const { id, title, status, progress, score } = entry;
+
+        if (!id || progress === null) {
+          return;
+        }
+
+        let completedAt = undefined;
+        if (status === AniListListStatus.COMPLETED) {
+          const now = new Date();
+          completedAt = {
+            year: now.getUTCFullYear(),
+            month: now.getUTCMonth() + 1,
+            day: now.getUTCDate(),
+          };
+        }
+
+        return this.$http.updateEntry({
+          entryId: id,
+          progress,
+          status: status ? status : undefined,
+          score: score ? score : undefined,
+          completedAt,
+        });
+      })
       .value();
 
     if (isEmpty(entries)) {
       return;
     }
 
-    await Promise.all(entries.map(async (entry) => {
-      const {
-        id, title, status, progress, score,
-      } = entry;
+    entries.push(aniListEventHandler.refreshLists());
 
-      if (!id || progress === null) {
-        return;
-      }
-
-      if (status === AniListListStatus.COMPLETED) {
-        await API.setEntryCompleted(id, progress);
-        await appStore.setLoadingState(true);
-        await aniListEventHandler.refreshLists();
-        await appStore.setLoadingState(false);
-        this.$notify({
-          title: this.$t('notifications.aniList.successTitle') as string,
-          text: this.$t('notifications.aniList.completeUpdateText', [title, progress]) as string,
-        });
-      } else {
-        await API.setEntryProgress(id, progress);
-        await aniListEventHandler.refreshLists();
-        this.$notify({
-          title: this.$t('notifications.aniList.successTitle') as string,
-          text: this.$t('notifications.aniList.simpleUpdateText', [title, progress]) as string,
-        });
-      }
-    }))
+    Promise.all(entries)
+      .then(() => {
+        let updateText = '';
+        const entries = chain(this.updatePayload)
+          .groupBy((value) => value.id)
+          .map((group) =>
+            reduce(
+              group,
+              (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) =>
+                item.changeFrom > accumulator.changeFrom ? item : accumulator,
+              {
+                id: null,
+                title: null,
+                status: null,
+                progress: null,
+                score: null,
+                changeFrom: 0,
+              }
+            )
+          )
+          .filter((group) => !!group.id)
+          .forEach((item) => {
+            updateText = item.status === AniListListStatus.COMPLETED ? 'completeUpdateText' : 'simpleUpdateText';
+            this.$notify({
+              title: this.$t('notifications.aniList.successTitle') as string,
+              text: this.$t(`notifications.aniList.${updateText}`, [item.title, item.progress]) as string,
+            });
+          });
+      })
+      .catch((error) => console.error(error))
       .finally(() => {
         this.updatePayload = [];
       });
@@ -407,10 +425,10 @@ export default class List extends Vue {
 
 <style lang="scss" scoped>
 @media (min-width: 1480px) and (max-width: 1920px) {
-  .lg5-custom[class*="col-"] {
-      width: 20% !important;
-      max-width: 20% !important;
-      flex-basis: 20% !important;
+  .lg5-custom[class*='col-'] {
+    width: 20% !important;
+    max-width: 20% !important;
+    flex-basis: 20% !important;
   }
 }
 </style>

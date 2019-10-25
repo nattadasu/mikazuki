@@ -13,8 +13,7 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "types": [
-      "webpack-env",
-      "webpack"
+      "webpack-env"
     ],
     "paths": {
       "@/*": [
