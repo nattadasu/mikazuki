@@ -5,13 +5,7 @@
         <v-card-text class="background" :style="`background-image: url(${currentUser.bannerImage})`">
           <v-container fluid>
             <v-row>
-              <v-col
-                cols="8"
-                sm="6"
-                md="4"
-                lg="3"
-                xl="2"
-              >
+              <v-col cols="8" sm="6" md="4" lg="3" xl="2">
                 <ProfileImage />
               </v-col>
 

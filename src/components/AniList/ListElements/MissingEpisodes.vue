@@ -27,9 +27,7 @@ export default class MissingEpisodes extends Vue {
 
     // Return the amount of episodes only when there are next episodes
     // and if there are episodes the user hasn't watched yet.
-    return nextEpisode - 1 > 0 && nextEpisode - 1 - currentProgress > 0
-      ? nextEpisode - 1 - currentProgress
-      : 0;
+    return nextEpisode - 1 > 0 && nextEpisode - 1 - currentProgress > 0 ? nextEpisode - 1 - currentProgress : 0;
   }
 }
 </script>

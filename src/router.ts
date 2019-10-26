@@ -25,9 +25,11 @@ const router = new Router({
         searchablePage: true,
         routeName: 'search',
       },
-      children: [{
-        path: ':query',
-      }],
+      children: [
+        {
+          path: ':query',
+        },
+      ],
     },
     {
       path: '*',

@@ -60,9 +60,7 @@ export default class App extends Vue {
   public localeChanged(newLocale: string | undefined) {
     const root = document.getElementsByTagName('html')[0];
 
-    this.$i18n.locale = newLocale && validLanguageCodes.includes(newLocale)
-      ? newLocale
-      : this.$i18n.fallbackLocale;
+    this.$i18n.locale = newLocale && validLanguageCodes.includes(newLocale) ? newLocale : this.$i18n.fallbackLocale;
 
     this.$vuetify.rtl = this.isRTLLanguage(this.$i18n.locale);
     moment.locale(this.$i18n.locale);

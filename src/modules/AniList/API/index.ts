@@ -53,16 +53,24 @@ export default class AniListAPI {
    * @param {AniListType} type contains the type of media
    * @returns {Promise<IAniListMediaListCollection | null>} User's Media list collection or nothing
    */
-  public static async getUserList(userName: string, type: AniListType, accessToken: string): Promise<IAniListMediaListCollection | null> {
+  public static async getUserList(
+    userName: string,
+    type: AniListType,
+    accessToken: string
+  ): Promise<IAniListMediaListCollection | null> {
     try {
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.post('/', {
-        query: getUserList,
-        variables: {
-          userName,
-          type,
+      const response = await axios.post(
+        '/',
+        {
+          query: getUserList,
+          variables: {
+            userName,
+            type,
+          },
         },
-      }, { headers });
+        { headers }
+      );
 
       // response.data is part of the AniList response object.
       // the last data is part of the response of AniList
@@ -93,7 +101,11 @@ export default class AniListAPI {
     return null;
   }
 
-  public static async getLatestActivities(userId: number, page: number = 0, perPage: number = 0): Promise<IAniListActivity[] | null> {
+  public static async getLatestActivities(
+    userId: number,
+    page: number = 0,
+    perPage: number = 0
+  ): Promise<IAniListActivity[] | null> {
     try {
       const response = await axios.post('/', {
         query: getLatestActivities,
@@ -112,7 +124,11 @@ export default class AniListAPI {
     return null;
   }
 
-  public static async getSeasonPreview(seasonYear: number, season: AniListSeason, accessToken: string): Promise<IAniListSeasonPreview | null> {
+  public static async getSeasonPreview(
+    seasonYear: number,
+    season: AniListSeason,
+    accessToken: string
+  ): Promise<IAniListSeasonPreview | null> {
     const headers = { Authorization: `Bearer ${accessToken}` };
 
     try {
@@ -122,14 +138,18 @@ export default class AniListAPI {
 
       while (tmp) {
         // eslint-disable-next-line no-await-in-loop
-        const response = await axios.post('/', {
-          query: getSeasonPreview,
-          variables: {
-            season,
-            seasonYear,
-            page,
+        const response = await axios.post(
+          '/',
+          {
+            query: getSeasonPreview,
+            variables: {
+              season,
+              seasonYear,
+              page,
+            },
           },
-        }, { headers });
+          { headers }
+        );
 
         const { media } = response.data.data.page;
 
@@ -177,12 +197,16 @@ export default class AniListAPI {
     try {
       const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.post('/', {
-        query: getListEntry,
-        variables: {
-          mediaId,
+      const response = await axios.post(
+        '/',
+        {
+          query: getListEntry,
+          variables: {
+            mediaId,
+          },
         },
-      }, { headers });
+        { headers }
+      );
 
       const { media } = response.data.data;
       const listEntry = media.mediaListEntry || {};
@@ -196,29 +220,24 @@ export default class AniListAPI {
     return null;
   }
 
-  public static async searchAnime(query: string, filters: { isAdult: string, listStatus: AniListListStatus[], genres: string[] }): Promise<IAniListSearchResult[] | null> {
+  public static async searchAnime(
+    query: string,
+    filters: { isAdult: string; listStatus: AniListListStatus[]; genres: string[] }
+  ): Promise<IAniListSearchResult[] | null> {
     const { accessToken } = userStore.session;
     const headers = { Authorization: `Bearer ${accessToken}` };
     const genres = filters.genres.length ? filters.genres : null;
     const onList = !!filters.listStatus.length;
     const { isAdult } = filters;
 
-    const mediaQueryDeclaration = [
-      '$query: String!',
-      '$type: MediaType!',
-      '$genres: [String]',
-    ];
-    const mediaQueryDefinition = [
-      'search: $query',
-      'type: $type',
-      'genre_in: $genres',
-    ];
+    const mediaQueryDeclaration = ['$query: String!', '$type: MediaType!', '$genres: [String]'];
+    const mediaQueryDefinition = ['search: $query', 'type: $type', 'genre_in: $genres'];
     const mediaQueryParameters: {
-      query: string,
-      type: string,
-      genres: string[] | null,
-      onList?: boolean,
-      isAdult?: boolean,
+      query: string;
+      type: string;
+      genres: string[] | null;
+      onList?: boolean;
+      isAdult?: boolean;
     } = {
       query,
       type: 'ANIME',
@@ -241,10 +260,14 @@ export default class AniListAPI {
       .replace('{0}', mediaQueryDeclaration.join(', '))
       .replace('{1}', mediaQueryDefinition.join(', '));
 
-    const response = await axios.post('/', {
-      query: searchQuery,
-      variables: mediaQueryParameters,
-    }, { headers });
+    const response = await axios.post(
+      '/',
+      {
+        query: searchQuery,
+        variables: mediaQueryParameters,
+      },
+      { headers }
+    );
 
     const searchResults: IAniListSearchResult[] = response.data.data.page.media;
 
@@ -265,20 +288,29 @@ export default class AniListAPI {
 
   // Mutations
 
-  public static async addEntry(mediaId: number, status: AniListListStatus, score?: number, progress?: number): Promise<boolean> {
+  public static async addEntry(
+    mediaId: number,
+    status: AniListListStatus,
+    score?: number,
+    progress?: number
+  ): Promise<boolean> {
     try {
       const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
-      const response = await axios.post('/', {
-        query: addEntry,
-        variables: {
-          mediaId,
-          status,
-          score,
-          progress,
+      const response = await axios.post(
+        '/',
+        {
+          query: addEntry,
+          variables: {
+            mediaId,
+            status,
+            score,
+            progress,
+          },
         },
-      }, { headers });
+        { headers }
+      );
 
       return !!response.data.data.response.media;
     } catch (error) {
@@ -288,20 +320,29 @@ export default class AniListAPI {
     return false;
   }
 
-  public static async updateEntry(entryId: number, progress: number, score: number, status: AniListListStatus): Promise<boolean> {
+  public static async updateEntry(
+    entryId: number,
+    progress: number,
+    score: number,
+    status: AniListListStatus
+  ): Promise<boolean> {
     try {
       const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
-      await axios.post('/', {
-        query: updateEntry,
-        variables: {
-          entryId,
-          progress,
-          score,
-          status,
+      await axios.post(
+        '/',
+        {
+          query: updateEntry,
+          variables: {
+            entryId,
+            progress,
+            score,
+            status,
+          },
         },
-      }, { headers });
+        { headers }
+      );
 
       return true;
     } catch (error) {
@@ -316,12 +357,16 @@ export default class AniListAPI {
       const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
-      await axios.post('/', {
-        query: removeEntry,
-        variables: {
-          entryId,
+      await axios.post(
+        '/',
+        {
+          query: removeEntry,
+          variables: {
+            entryId,
+          },
         },
-      }, { headers });
+        { headers }
+      );
 
       return true;
     } catch (error) {
@@ -336,13 +381,17 @@ export default class AniListAPI {
       const { accessToken } = userStore.session;
       const headers = { Authorization: `Bearer ${accessToken}` };
 
-      await axios.post('/', {
-        query: setEpisodeProgress,
-        variables: {
-          entryId,
-          progress,
+      await axios.post(
+        '/',
+        {
+          query: setEpisodeProgress,
+          variables: {
+            entryId,
+            progress,
+          },
         },
-      }, { headers });
+        { headers }
+      );
     } catch (error) {
       //
     }
@@ -360,14 +409,18 @@ export default class AniListAPI {
         day: now.getUTCDate(),
       };
 
-      await axios.post('/', {
-        query: setEpisodeProgress,
-        variables: {
-          entryId,
-          progress: episodeAmount,
-          completedAt,
+      await axios.post(
+        '/',
+        {
+          query: setEpisodeProgress,
+          variables: {
+            entryId,
+            progress: episodeAmount,
+            completedAt,
+          },
         },
-      }, { headers });
+        { headers }
+      );
     } catch (error) {
       //
     }

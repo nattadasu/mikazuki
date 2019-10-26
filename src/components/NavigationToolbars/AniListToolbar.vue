@@ -15,7 +15,8 @@
           <v-btn text exact :to="{ name: 'Watching' }" v-on="{ ...toolTip }">
             <v-icon color="green">
               mdi-play
-            </v-icon> ({{ watchingAmount }})
+            </v-icon>
+            ({{ watchingAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.watching') }}</span>
@@ -26,7 +27,8 @@
           <v-btn text exact :to="{ name: 'Repeating' }" v-on="{ ...toolTip }">
             <v-icon color="green darken-3">
               mdi-repeat
-            </v-icon> ({{ repeatingAmount }})
+            </v-icon>
+            ({{ repeatingAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.repeating') }}</span>
@@ -37,7 +39,8 @@
           <v-btn text exact :to="{ name: 'Completed' }" v-on="{ ...toolTip }">
             <v-icon color="blue">
               mdi-check
-            </v-icon> ({{ completedAmount }})
+            </v-icon>
+            ({{ completedAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.completed') }}</span>
@@ -48,7 +51,8 @@
           <v-btn text exact :to="{ name: 'Paused' }" v-on="{ ...toolTip }">
             <v-icon color="yellow darken-2">
               mdi-pause
-            </v-icon> ({{ pausedAmount }})
+            </v-icon>
+            ({{ pausedAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.paused') }}</span>
@@ -59,7 +63,8 @@
           <v-btn text exact :to="{ name: 'Dropped' }" v-on="{ ...toolTip }">
             <v-icon color="red darken-1">
               mdi-stop
-            </v-icon> ({{ droppedAmount }})
+            </v-icon>
+            ({{ droppedAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.dropped') }}</span>

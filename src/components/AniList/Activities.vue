@@ -1,16 +1,7 @@
 <template>
   <v-container class="py-0 px-1" fluid>
     <v-row no-gutters>
-      <v-col
-        v-for="activity in activities"
-        :key="activity.id"
-        class="lg5-custom"
-        cols="12"
-        sm="6"
-        md="4"
-        lg="3"
-        xl="2"
-      >
+      <v-col v-for="activity in activities" :key="activity.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
         <v-card class="ma-2">
           <ListImage :image-link="activity.coverImage" :ani-list-id="activity.mediaId" name="" />
 
@@ -106,10 +97,10 @@ export default class Activities extends Vue {
 
 <style lang="scss" scoped>
 @media (min-width: 1480px) and (max-width: 1902px) {
-  .lg5-custom[class*="col-"] {
-      width: 20% !important;
-      max-width: 20% !important;
-      flex-basis: 20% !important;
+  .lg5-custom[class*='col-'] {
+    width: 20% !important;
+    max-width: 20% !important;
+    flex-basis: 20% !important;
   }
 }
 </style>

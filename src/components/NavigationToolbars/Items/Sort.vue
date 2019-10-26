@@ -1,18 +1,9 @@
 <template>
-  <v-menu
-    v-model="sortMenu"
-    :close-on-content-click="false"
-    offset-y
-    absolute
-  >
+  <v-menu v-model="sortMenu" :close-on-content-click="false" offset-y absolute>
     <template v-slot:activator="{ on: sortWindow }">
       <v-tooltip bottom>
         <template v-slot:activator="{ on: toolTip }">
-          <v-btn
-            text
-            icon
-            v-on="{ ...toolTip, ...sortWindow }"
-          >
+          <v-btn text icon v-on="{ ...toolTip, ...sortWindow }">
             <v-icon>mdi-sort</v-icon>
           </v-btn>
         </template>
@@ -107,10 +98,7 @@ interface SelectItem {
 
 @Component
 export default class Sort extends Vue {
-  private genres = [
-    'Action',
-    'Mystery',
-  ];
+  private genres = ['Action', 'Mystery'];
 
   private genreValues = [];
 
@@ -144,34 +132,44 @@ export default class Sort extends Vue {
       case 'Dropped':
       case 'Planning':
       case 'Paused':
-        items.push({
-          text: this.$t('components.sorting.title') as string,
-          value: 'title',
-        }, {
-          text: this.$t('components.sorting.score') as string,
-          value: 'score',
-        }, {
-          text: this.$t('components.sorting.progress') as string,
-          value: 'progressPercentage',
-        }, {
-          text: this.$t('components.sorting.startingDate') as string,
-          value: 'startDate',
-        }, {
-          text: this.$t('components.sorting.episodeAmount') as string,
-          value: 'episodeAmount',
-        });
+        items.push(
+          {
+            text: this.$t('components.sorting.title') as string,
+            value: 'title',
+          },
+          {
+            text: this.$t('components.sorting.score') as string,
+            value: 'score',
+          },
+          {
+            text: this.$t('components.sorting.progress') as string,
+            value: 'progressPercentage',
+          },
+          {
+            text: this.$t('components.sorting.startingDate') as string,
+            value: 'startDate',
+          },
+          {
+            text: this.$t('components.sorting.episodeAmount') as string,
+            value: 'episodeAmount',
+          }
+        );
         break;
       case 'SeasonPreview':
-        items.push({
-          text: this.$t('components.sorting.title') as string,
-          value: 'title',
-        }, {
-          text: this.$t('components.sorting.startingDate') as string,
-          value: 'startDateTimestamp',
-        }, {
-          text: this.$t('components.sorting.episodeAmount') as string,
-          value: 'episodes',
-        });
+        items.push(
+          {
+            text: this.$t('components.sorting.title') as string,
+            value: 'title',
+          },
+          {
+            text: this.$t('components.sorting.startingDate') as string,
+            value: 'startDateTimestamp',
+          },
+          {
+            text: this.$t('components.sorting.episodeAmount') as string,
+            value: 'episodes',
+          }
+        );
         break;
       default:
         break;

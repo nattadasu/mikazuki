@@ -2,18 +2,14 @@
   <v-content>
     <v-container fluid class="py-0 px-1">
       <v-row no-gutters>
-        <v-col
-          v-for="item in preparedMedia"
-          :key="item.id"
-          class="lg5-custom"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-          xl="2"
-        >
+        <v-col v-for="item in preparedMedia" :key="item.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card raised class="ma-2">
-            <ListImage :image-link="item.coverImage" :name="item.title" :ani-list-id="item.id" :studios="item.studios" />
+            <ListImage
+              :image-link="item.coverImage"
+              :name="item.title"
+              :ani-list-id="item.id"
+              :studios="item.studios"
+            />
 
             <v-card-text>
               <v-layout row fill-height align-center>
@@ -105,9 +101,7 @@ import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import AddButton from '@/components/AniList/SeasonPreview/AddButton.vue';
 import eventBus from '@/eventBus';
 import API from '@/modules/AniList/API';
-import {
-  AniListListStatus, AniListSeason, IAniListEntry, IAniListSeasonPreviewMedia,
-} from '@/modules/AniList/types';
+import { AniListListStatus, AniListSeason, IAniListEntry, IAniListSeasonPreviewMedia } from '@/modules/AniList/types';
 import { aniListStore, appStore, userStore } from '@/store';
 
 interface UpdateSeasonProperties {
@@ -169,13 +163,15 @@ export default class SeasonPreview extends Vue {
       .filter((item) => !item.isAdult || (item.isAdult && userStore.allowAdultContent))
       .map((item) => {
         const outputFormat = item.startDate.day
-          ? this.$t('misc.dates.full') as string
+          ? (this.$t('misc.dates.full') as string)
           : item.startDate.month
-            ? this.$t('misc.dates.monthAndYear') as string
-            : item.startDate.year
-              ? this.$t('misc.dates.yearOnly') as string
-              : undefined;
-        const usersListStatus = !!aniListStore.aniListData.lists.find((list) => !!list.entries.find((entry: IAniListEntry) => entry.media.id === item.id));
+          ? (this.$t('misc.dates.monthAndYear') as string)
+          : item.startDate.year
+          ? (this.$t('misc.dates.yearOnly') as string)
+          : undefined;
+        const usersListStatus = !!aniListStore.aniListData.lists.find(
+          (list) => !!list.entries.find((entry: IAniListEntry) => entry.media.id === item.id)
+        );
 
         let dateFormat = '';
         let itemDate = '';
@@ -195,8 +191,7 @@ export default class SeasonPreview extends Vue {
           itemDate = `${item.startDate.day}-${itemDate}`;
         }
         const startDateTimestamp = moment(itemDate, dateFormat).format('X');
-        const startDate = moment(itemDate, dateFormat).format(outputFormat)
-          || this.$t('misc.dates.dateUnknown');
+        const startDate = moment(itemDate, dateFormat).format(outputFormat) || this.$t('misc.dates.dateUnknown');
         const coverImage = item.coverImage.extraLarge;
 
         return {
@@ -227,19 +222,15 @@ export default class SeasonPreview extends Vue {
   }
 
   private async created() {
-    if (
-      this.$route.query
-      && this.$route.query.year
-      && this.$route.query.season
-    ) {
+    if (this.$route.query && this.$route.query.year && this.$route.query.season) {
       const { year, season } = this.$route.query;
       this.seasonYear = parseInt(year as string, 10);
       this.season = this.isValidSeason(season.toString().toUpperCase())
-        ? season.toString().toUpperCase() as AniListSeason
+        ? (season.toString().toUpperCase() as AniListSeason)
         : this.getCurrentSeason();
     }
 
-    eventBus.$on('changeSorting', (item: { sortBy: string, direction: string }) => {
+    eventBus.$on('changeSorting', (item: { sortBy: string; direction: string }) => {
       this.sortBy = item.sortBy;
       this.sortDirection = item.direction;
     });
@@ -291,9 +282,7 @@ export default class SeasonPreview extends Vue {
     if (query.season) {
       const season = (query.season as string).toUpperCase();
 
-      this.season = this.isValidSeason(season)
-        ? season as AniListSeason
-        : this.getCurrentSeason();
+      this.season = this.isValidSeason(season) ? (season as AniListSeason) : this.getCurrentSeason();
     }
 
     next();
@@ -310,32 +299,31 @@ export default class SeasonPreview extends Vue {
     // Spring months
     return currentMonth >= 3 && currentMonth < 6
       ? AniListSeason.SPRING
-      // Summer months
-      : currentMonth >= 6 && currentMonth < 9
-        ? AniListSeason.SUMMER
-        // Fall months
-        : currentMonth >= 9 && currentMonth < 12
-          ? AniListSeason.FALL
-          : AniListSeason.WINTER;
+      : // Summer months
+      currentMonth >= 6 && currentMonth < 9
+      ? AniListSeason.SUMMER
+      : // Fall months
+      currentMonth >= 9 && currentMonth < 12
+      ? AniListSeason.FALL
+      : AniListSeason.WINTER;
   }
 
   isValidSeason(value: string): boolean {
-    return [
-      AniListSeason.SPRING,
-      AniListSeason.WINTER,
-      AniListSeason.SUMMER,
-      AniListSeason.FALL,
-    ].find((item) => item === value.toUpperCase()) !== undefined;
+    return (
+      [AniListSeason.SPRING, AniListSeason.WINTER, AniListSeason.SUMMER, AniListSeason.FALL].find(
+        (item) => item === value.toUpperCase()
+      ) !== undefined
+    );
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @media (min-width: 1480px) and (max-width: 1920px) {
-  .lg5-custom[class*="col-"] {
-      width: 20% !important;
-      max-width: 20% !important;
-      flex-basis: 20% !important;
+  .lg5-custom[class*='col-'] {
+    width: 20% !important;
+    max-width: 20% !important;
+    flex-basis: 20% !important;
   }
 }
 </style>

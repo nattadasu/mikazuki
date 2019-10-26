@@ -17,7 +17,5 @@ export default (axios: AxiosInstance) => {
     return config;
   });
 
-  axios.interceptors.response.use(
-    (response) => response.data.data
-  );
+  axios.interceptors.response.use((response) => response.data.data);
 };

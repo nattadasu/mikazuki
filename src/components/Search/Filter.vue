@@ -59,30 +59,34 @@ import { AniListListStatus } from '@/modules/AniList/types';
 
 @Component
 export default class SearchFilter extends Vue {
-  private listStatus = [{
-    text: this.$root.$t('misc.aniList.listStatusses.watching'),
-    value: AniListListStatus.CURRENT,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.completed'),
-    value: AniListListStatus.COMPLETED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.dropped'),
-    value: AniListListStatus.DROPPED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.paused'),
-    value: AniListListStatus.PAUSED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.planning'),
-    value: AniListListStatus.PLANNING,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.repeating'),
-    value: AniListListStatus.REPEATING,
-  }];
-
-  private genres = [
-    'Action',
-    'Mystery',
+  private listStatus = [
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.watching'),
+      value: AniListListStatus.CURRENT,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.completed'),
+      value: AniListListStatus.COMPLETED,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.dropped'),
+      value: AniListListStatus.DROPPED,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.paused'),
+      value: AniListListStatus.PAUSED,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.planning'),
+      value: AniListListStatus.PLANNING,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.repeating'),
+      value: AniListListStatus.REPEATING,
+    },
   ];
+
+  private genres = ['Action', 'Mystery'];
 
   @Prop()
   private listValues!: AniListListStatus[];

@@ -125,18 +125,19 @@ export default class UserSettings extends VuexModule {
 
     // Amount of minutes x 60 seconds
     this._setTimeUntilRefresh(this.refreshRate * 60);
-    this._setRefreshTimer(setInterval(() => {
-      this._setTimeUntilRefresh(this._timeUntilRefresh - 1);
-      if (this.timeUntilRefresh <= 0 && this._refreshTimer) {
-        clearInterval(this._refreshTimer);
-        this._setRefreshTimer(null);
+    this._setRefreshTimer(
+      setInterval(() => {
+        this._setTimeUntilRefresh(this._timeUntilRefresh - 1);
+        if (this.timeUntilRefresh <= 0 && this._refreshTimer) {
+          clearInterval(this._refreshTimer);
+          this._setRefreshTimer(null);
 
-        eventHandler.refreshAniListData()
-          .then(() => {
+          eventHandler.refreshAniListData().then(() => {
             this.restartRefreshTimer();
           });
-      }
-    }, 1000));
+        }
+      }, 1000)
+    );
   }
 
   @action public async destroyRefreshTimer(): Promise<void> {

@@ -4,13 +4,7 @@
       <v-icon>mdi-arrow-left</v-icon>
     </v-btn>
 
-    <v-text-field
-      v-model="year"
-      solo
-      flat
-      :placeholder="currentYear"
-      @keydown.enter="updateSeasonPreview"
-    />
+    <v-text-field v-model="year" solo flat :placeholder="currentYear" @keydown.enter="updateSeasonPreview" />
 
     <v-btn text icon :disabled="!navigationEnabled" @click="nextYear">
       <v-icon>mdi-arrow-right</v-icon>
@@ -65,19 +59,24 @@ export default class SeasonPreviewToolbar extends Vue {
   private created(): void {
     const { query } = this.$route;
 
-    this.items = [{
-      title: this.$t('misc.aniList.seasons.winter').toString(),
-      value: AniListSeason.WINTER,
-    }, {
-      title: this.$t('misc.aniList.seasons.spring').toString(),
-      value: AniListSeason.SPRING,
-    }, {
-      title: this.$t('misc.aniList.seasons.summer').toString(),
-      value: AniListSeason.SUMMER,
-    }, {
-      title: this.$t('misc.aniList.seasons.fall').toString(),
-      value: AniListSeason.FALL,
-    }];
+    this.items = [
+      {
+        title: this.$t('misc.aniList.seasons.winter').toString(),
+        value: AniListSeason.WINTER,
+      },
+      {
+        title: this.$t('misc.aniList.seasons.spring').toString(),
+        value: AniListSeason.SPRING,
+      },
+      {
+        title: this.$t('misc.aniList.seasons.summer').toString(),
+        value: AniListSeason.SUMMER,
+      },
+      {
+        title: this.$t('misc.aniList.seasons.fall').toString(),
+        value: AniListSeason.FALL,
+      },
+    ];
 
     if (!query || (!query.year && !query.season)) {
       const currentSeasonValue = this.getCurrentSeason();
@@ -94,8 +93,8 @@ export default class SeasonPreviewToolbar extends Vue {
 
     if (query.season) {
       this.selectedSeason = this.isValidSeason(query.season.toString().toUpperCase())
-        ? this.items.find((item) => item.value === query.season) as SeasonItemProperties
-        : this.items.find((item) => item.value === this.getCurrentSeason()) as SeasonItemProperties;
+        ? (this.items.find((item) => item.value === query.season) as SeasonItemProperties)
+        : (this.items.find((item) => item.value === this.getCurrentSeason()) as SeasonItemProperties);
     }
   }
 
@@ -144,7 +143,7 @@ export default class SeasonPreviewToolbar extends Vue {
   private updateSeasonPreview(): void {
     // Full-width characters convert to half-width
     // @TODO: Move to a globally available library
-    const input = this.year.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (s) => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
+    const input = this.year.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (s) => String.fromCharCode(s.charCodeAt(0) - 0xfee0));
     // If the input is no number, replace it with the current year
     const year = parseInt(input, 10) || new Date().getUTCFullYear();
 
@@ -174,19 +173,18 @@ export default class SeasonPreviewToolbar extends Vue {
     return currentMonth >= 0 && currentMonth <= 2
       ? AniListSeason.WINTER
       : currentMonth >= 3 && currentMonth <= 5
-        ? AniListSeason.SPRING
-        : currentMonth >= 6 && currentMonth <= 8
-          ? AniListSeason.SUMMER
-          : AniListSeason.FALL;
+      ? AniListSeason.SPRING
+      : currentMonth >= 6 && currentMonth <= 8
+      ? AniListSeason.SUMMER
+      : AniListSeason.FALL;
   }
 
   isValidSeason(value: string): boolean {
-    return [
-      AniListSeason.SPRING,
-      AniListSeason.WINTER,
-      AniListSeason.SUMMER,
-      AniListSeason.FALL,
-    ].find((item) => item === value.toUpperCase()) !== undefined;
+    return (
+      [AniListSeason.SPRING, AniListSeason.WINTER, AniListSeason.SUMMER, AniListSeason.FALL].find(
+        (item) => item === value.toUpperCase()
+      ) !== undefined
+    );
   }
 }
 </script>

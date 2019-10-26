@@ -15,23 +15,11 @@
 
           <v-col :cols="12" :md="9">
             <v-row dense>
-              <v-col
-                :cols="12"
-                :sm="6"
-                :order="2"
-                :order-md="1"
-                :class="$vuetify.breakpoint.mdAndUp ? 'py-0' : ''"
-              >
+              <v-col :cols="12" :sm="6" :order="2" :order-md="1" :class="$vuetify.breakpoint.mdAndUp ? 'py-0' : ''">
                 <MediaDetails :item="item" />
               </v-col>
 
-              <v-col
-                :cols="12"
-                :sm="6"
-                :order="1"
-                :order-md="2"
-                :class="$vuetify.breakpoint.mdAndUp ? 'py-0' : ''"
-              >
+              <v-col :cols="12" :sm="6" :order="1" :order-md="2" :class="$vuetify.breakpoint.mdAndUp ? 'py-0' : ''">
                 <UserListSettings :item="item" @updated="updateItem" />
               </v-col>
             </v-row>
@@ -144,20 +132,16 @@ export default class DetailView extends Vue {
     const endDateBeforeNow: boolean = this.isDateBeforeNow(media.endDate);
     const airingTime = this.getAiringDate(startDate, endDate, media, startDateBeforeNow, endDateBeforeNow);
 
-    const synonyms = media.synonyms && media.synonyms.length
-      ? media.synonyms.join(', ')
-      : null;
+    const synonyms = media.synonyms && media.synonyms.length ? media.synonyms.join(', ') : null;
 
-    const genres = media.genres && media.genres.length
-      ? media.genres.join(', ')
-      : null;
+    const genres = media.genres && media.genres.length ? media.genres.join(', ') : null;
 
     const listEntry = this.entry.id
       ? {
-        progress: this.entry.progress,
-        score: this.entry.score,
-        status: this.entry.status,
-      }
+          progress: this.entry.progress,
+          score: this.entry.score,
+          status: this.entry.status,
+        }
       : null;
 
     return {
@@ -182,22 +166,41 @@ export default class DetailView extends Vue {
     };
   }
 
-  private isDateBeforeNow({ day, month, year }: { day: number | null, month: number | null, year: number | null }): boolean {
+  private isDateBeforeNow({
+    day,
+    month,
+    year,
+  }: {
+    day: number | null;
+    month: number | null;
+    year: number | null;
+  }): boolean {
     const now = moment();
 
     if (!year && !month && !day) {
       return false;
-    } if (year && !month && !day) {
+    }
+    if (year && !month && !day) {
       return now.isBefore(moment(year, 'YYYY'));
-    } if (year && month && !day) {
+    }
+    if (year && month && !day) {
       return now.isBefore(moment(`${month}-${year}`, 'M-YYYY'));
-    } if (year && month && day) {
+    }
+    if (year && month && day) {
       return now.isBefore(moment(`${day}-${month}-${year}`, 'D-M-YYYY'));
     }
     return false;
   }
 
-  private getReadableDate({ day, month, year }: { day: number | null, month: number | null, year: number | null }): string | null {
+  private getReadableDate({
+    day,
+    month,
+    year,
+  }: {
+    day: number | null;
+    month: number | null;
+    year: number | null;
+  }): string | null {
     let format: string = '';
 
     if (!year && !month && !day) {
@@ -221,7 +224,13 @@ export default class DetailView extends Vue {
     return moment(`${day}-${month}-${year}`, 'D-M-YYYY').format(format);
   }
 
-  private getAiringDate(startDate: string | null, endDate: string | null, media: IAniListMedia, startDateBeforeNow: boolean, endDateBeforeNow: boolean): string {
+  private getAiringDate(
+    startDate: string | null,
+    endDate: string | null,
+    media: IAniListMedia,
+    startDateBeforeNow: boolean,
+    endDateBeforeNow: boolean
+  ): string {
     let airingTime = '';
 
     if (startDate && endDate) {
@@ -270,5 +279,4 @@ export default class DetailView extends Vue {
 .v-card {
   border-radius: 5px;
 }
-
 </style>

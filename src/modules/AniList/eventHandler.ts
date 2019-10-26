@@ -10,8 +10,7 @@ export default {
     }
 
     try {
-      const { accessToken } = userStore.session;
-      const user = await API.getUser(accessToken);
+      const user = await NewAPI.getUser();
 
       const userName = (user as IAniListUser).name;
       const userList = await NewAPI.getUserList(userName, AniListType.ANIME);
@@ -35,9 +34,9 @@ export default {
     }
 
     try {
-      const { accessToken, user } = userStore.session;
+      const { user } = userStore.session;
       const userName = (user as IAniListUser).name;
-      const userList = await API.getUserList(userName, AniListType.ANIME, accessToken);
+      const userList = await NewAPI.getUserList(userName, AniListType.ANIME);
 
       if (userList) {
         aniListStore.setAniListData(userList);

@@ -50,13 +50,7 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn
-                block
-                text
-                color="green"
-                :loading="isLoading"
-                @click="search"
-              >
+              <v-btn block text color="green" :loading="isLoading" @click="search">
                 <v-icon left>
                   mdi-magnify
                 </v-icon>
@@ -119,9 +113,7 @@
                   </v-tooltip>
 
                   <template v-if="result.mediaListEntry">
-                    <v-icon color="green" class="pr-1">
-                      mdi-account
-                    </v-icon>{{ result.mediaListEntry.score }}
+                    <v-icon color="green" class="pr-1"> mdi-account </v-icon>{{ result.mediaListEntry.score }}
                   </template>
                   <v-icon color="yellow lighten-1" class="pr-1">
                     mdi-account-group

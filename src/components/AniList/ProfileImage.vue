@@ -39,11 +39,7 @@ export default class ProfileImage extends Vue {
 
 <style lang="scss" scoped>
 .shadowed {
-  color: #FFF;
-  text-shadow:
-    -1px 1px 2px #000,
-    1px 1px 2px #000,
-    1px -1px 0 #000,
-    -1px -1px 0 #000;
+  color: #fff;
+  text-shadow: -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;
 }
 </style>

@@ -3,29 +3,13 @@
     <v-card flat>
       <v-card-text>
         <v-container fill-height grid-list-xl>
-          <v-layout
-            v-if="!isAuthenticated"
-            class="ma-4"
-            fill-height
-            justify-center
-            align-center
-          >
+          <v-layout v-if="!isAuthenticated" class="ma-4" fill-height justify-center align-center>
             <v-btn color="primary" @click="loginToAniList">
               {{ $t('actions.login') }}
             </v-btn>
           </v-layout>
-          <v-layout
-            v-else
-            fill-height
-            justify-center
-            align-center
-            wrap
-          >
-            <v-flex
-              xs12
-              sm5
-              text-center
-            >
+          <v-layout v-else fill-height justify-center align-center wrap>
+            <v-flex xs12 sm5 text-center>
               <v-layout column>
                 <v-flex>
                   {{ $t('pages.settings.aniList.loggedInAs', [currentUser.name]) }}
@@ -37,11 +21,7 @@
                 </v-flex>
               </v-layout>
             </v-flex>
-            <v-flex
-              xs12
-              sm5
-              offset-sm2
-            >
+            <v-flex xs12 sm5 offset-sm2>
               <v-text-field
                 v-model="currentAniListRefreshRate"
                 type="number"

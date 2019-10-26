@@ -13,10 +13,7 @@
             <v-divider />
 
             <v-row justify="center" class="px-1 py-2">
-              <v-col
-                :cols="12"
-                :md="4"
-              >
+              <v-col :cols="12" :md="4">
                 <div class="headline">
                   <v-icon large color="blue darken-1">
                     mdi-rocket
@@ -31,10 +28,7 @@
                 </v-list>
               </v-col>
 
-              <v-col
-                :cols="12"
-                :md="4"
-              >
+              <v-col :cols="12" :md="4">
                 <div class="headline">
                   <v-icon large color="warning">
                     mdi-bandage
@@ -49,10 +43,7 @@
                 </v-list>
               </v-col>
 
-              <v-col
-                :cols="12"
-                :md="4"
-              >
+              <v-col :cols="12" :md="4">
                 <div class="headline">
                   <v-icon large color="error">
                     mdi-delete

@@ -1,8 +1,5 @@
 <template>
-  <notifications
-    classes="zerotwo-notifications"
-    position="top center"
-  />
+  <notifications classes="zerotwo-notifications" position="top center" />
 </template>
 
 <script lang="ts">
@@ -18,8 +15,8 @@ export default class ZeroTwoNotifications extends Vue {}
   margin: 0 5px 5px;
   font-size: 15px;
   color: #ffffff;
-  background: #44A4FC !important;
-  border-left: 5px solid #187FE7;
+  background: #44a4fc !important;
+  border-left: 5px solid #187fe7;
 
   .notification-title {
     font-size: 20px;
@@ -31,13 +28,13 @@ export default class ZeroTwoNotifications extends Vue {}
   }
 
   &.error {
-    background: #E54D42 !important;
-    border-left-color: #B82E24;
+    background: #e54d42 !important;
+    border-left-color: #b82e24;
   }
 
   &.success {
-    background: #68CD86 !important;
-    border-left-color: #42A85F;
+    background: #68cd86 !important;
+    border-left-color: #42a85f;
   }
 }
 </style>

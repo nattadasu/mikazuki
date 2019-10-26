@@ -4,10 +4,7 @@
       <v-card-text>
         <v-container fill-height grid-list-xl>
           <v-layout wrap>
-            <v-flex
-              xs12
-              sm5
-            >
+            <v-flex xs12 sm5>
               <v-select
                 :items="languages"
                 item-text="original"
@@ -28,13 +25,7 @@
               </v-select>
             </v-flex>
 
-            <v-flex
-              xs12
-              sm5
-              offset-sm2
-              justify-center
-              align-center
-            >
+            <v-flex xs12 sm5 offset-sm2 justify-center align-center>
               <v-switch v-model="darkMode" :label="$t('pages.settings.appSettings.darkMode')" />
             </v-flex>
           </v-layout>

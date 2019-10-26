@@ -3,12 +3,7 @@
     <v-card tile raised>
       <v-card-text>
         <v-tabs v-model="tabs" grow>
-          <v-tab
-            v-for="tab in settingsTabs"
-            :key="tab.key"
-            :disabled="tab.disabled"
-            ripple
-          >
+          <v-tab v-for="tab in settingsTabs" :key="tab.key" :disabled="tab.disabled" ripple>
             {{ tab.value }}
           </v-tab>
 
@@ -62,13 +57,7 @@ export default class Settings extends Vue {
    * @returns {ISettingTab[]} the Settings tabs
    */
   private get settingsTabs(): ISettingTab[] {
-    return [
-      this.appSettingsTab,
-      this.aniListTab,
-      this.aboutTab,
-      this.changelogTab,
-      this.specialThanksTab,
-    ];
+    return [this.appSettingsTab, this.aniListTab, this.aboutTab, this.changelogTab, this.specialThanksTab];
   }
 
   private get appSettingsTab(): ISettingTab {

@@ -198,28 +198,45 @@ export default class UserListSettings extends Vue {
       const progress = !this.progress ? 0 : this.progress;
 
       try {
-        const update = await API.updateEntry(entryId, progress, score, status);
-        if (update) {
-          if (status === AniListListStatus.COMPLETED) {
-            this.$notify({
-              title: this.$t('notifications.aniList.successTitle') as string,
-              text: this.$t('notifications.aniList.completeUpdateText', [
-                this.item.userPreferredTitle,
-                this.progress,
-              ]) as string,
-            });
-          } else {
-            this.$notify({
-              title: this.$t('notifications.aniList.successTitle') as string,
-              text: this.$t('notifications.aniList.simpleUpdateText', [
-                this.item.userPreferredTitle,
-                this.progress,
-              ]) as string,
-            });
-          }
-          aniListEventHandler.refreshLists();
-          this.$emit('updated');
+        let completedAt = undefined;
+        let startedAt = undefined;
+        let notification = '';
+        const now = new Date();
+
+        if (status === AniListListStatus.CURRENT) {
+          startedAt = {
+            year: now.getUTCFullYear(),
+            month: now.getUTCMonth() + 1,
+            day: now.getUTCDate(),
+          };
+          notification = 'simpleUpdateText';
+        } else if (status === AniListListStatus.COMPLETED) {
+          completedAt = {
+            year: now.getUTCFullYear(),
+            month: now.getUTCMonth() + 1,
+            day: now.getUTCDate(),
+          };
+          notification = 'completeUpdateText';
         }
+
+        await this.$http.updateEntry({
+          entryId,
+          progress,
+          score,
+          status,
+          completedAt,
+        });
+
+        await aniListEventHandler.refreshLists();
+        this.$emit('updated');
+
+        this.$notify({
+          title: this.$t('notifications.aniList.successTitle') as string,
+          text: this.$t(`notifications.aniList.${notification}`, [
+            this.item.userPreferredTitle,
+            this.progress,
+          ]) as string,
+        });
       } catch (error) {
         this.$notify({
           title: this.$t('errors.updateFailed.title') as string,
@@ -237,18 +254,16 @@ export default class UserListSettings extends Vue {
     }
 
     await appStore.setLoadingState(true);
+
     try {
       const { entryId } = this.item;
 
-      if (await API.removeEntry(entryId)) {
-        this.$notify({
-          title: this.$t('notifications.aniList.successTitle') as string,
-          text: this.$t('notifications.aniList.removeEntry', [this.item.userPreferredTitle]) as string,
-        });
-        this.$emit('updated');
-      } else {
-        throw new Error();
-      }
+      await this.$http.removeEntry(entryId);
+      this.$notify({
+        title: this.$t('notifications.aniList.successTitle') as string,
+        text: this.$t('notifications.aniList.removeEntry', [this.item.userPreferredTitle]) as string,
+      });
+      this.$emit('updated');
     } catch (error) {
       this.$notify({
         title: this.$t('errors.updateFailed.title') as string,
@@ -256,6 +271,7 @@ export default class UserListSettings extends Vue {
         type: 'error',
       });
     }
+
     await appStore.setLoadingState(false);
   }
 

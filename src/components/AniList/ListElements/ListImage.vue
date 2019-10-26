@@ -62,8 +62,7 @@ export default class ListImage extends Vue {
       .map((item: IAniListMediaStudioNode) => item.name);
 
     if (!animationStudios.length) {
-      animationStudios = this.studios.nodes
-        .map((item: IAniListMediaStudioNode) => item.name);
+      animationStudios = this.studios.nodes.map((item: IAniListMediaStudioNode) => item.name);
     }
 
     return animationStudios[0];
@@ -85,10 +84,10 @@ export default class ListImage extends Vue {
 .anime-image-container {
   & .titled {
     &.shadowed {
-      background-color: rgba(0, 0, 0, .65);
+      background-color: rgba(0, 0, 0, 0.65);
     }
     &.lightened {
-      background-color: rgba(255, 255, 255, .85);
+      background-color: rgba(255, 255, 255, 0.85);
     }
 
     position: absolute;
@@ -96,32 +95,32 @@ export default class ListImage extends Vue {
     width: 100%;
     max-height: 19%;
 
-    transition: .25s ease-in-out;
+    transition: 0.25s ease-in-out;
   }
 
   & .titled-mobile {
     &.shadowed {
-      background-color: rgba(0, 0, 0, .65);
+      background-color: rgba(0, 0, 0, 0.65);
     }
     &.lightened {
-      background-color: rgba(255, 255, 255, .85);
+      background-color: rgba(255, 255, 255, 0.85);
     }
 
     position: absolute;
     bottom: 0;
     width: 100%;
 
-    transition: .25s ease-in-out;
+    transition: 0.25s ease-in-out;
   }
 
   &:hover > .titled {
     max-height: 75%;
 
     &.shadowed {
-      background-color: rgba(0, 0, 0, .85);
+      background-color: rgba(0, 0, 0, 0.85);
     }
     &.lightened {
-      background-color: rgba(255, 255, 255, .95);
+      background-color: rgba(255, 255, 255, 0.95);
     }
   }
 }

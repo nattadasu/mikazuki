@@ -1,8 +1,5 @@
 import { action, mutation, createModule } from 'vuex-class-component';
-import {
-  IAniListActivity,
-  IAniListMediaListCollection,
-} from '@/modules/AniList/types';
+import { IAniListActivity, IAniListMediaListCollection } from '@/modules/AniList/types';
 
 /**
  * @module AniListStore
