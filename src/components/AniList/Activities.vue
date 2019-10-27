@@ -1,67 +1,60 @@
 <template>
   <v-container class="py-0 px-1" fluid>
-    <v-row no-gutters>
-      <v-col v-for="activity in activities" :key="activity.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
-        <v-card class="ma-2">
-          <ListImage :image-link="activity.coverImage" :ani-list-id="activity.mediaId" name />
+    <v-row>
+      <v-col cols="12" lg="6" v-for="activity in activities" :key="activity.id">
+        <v-row no-gutters>
+          <v-col cols="auto" class="flex-shrink-1">
+            <v-avatar class="first border-radius" tile size="175">
+              <v-img :src="activity.coverImage" />
+            </v-avatar>
+          </v-col>
 
-          <v-card-text>
-            <template v-if="activity.completed">
-              {{ activity.userName }}: {{ $t('pages.aniList.home.activities.completed', [activity.title]) }}
-            </template>
-            <template v-else-if="activity.dropped">
-              {{ activity.userName }}: {{ $t('pages.aniList.home.activities.dropped', [activity.title]) }}
-            </template>
-            <!-- Watching exclusive -->
-            <template v-else-if="activity.plansToWatch">
-              {{ activity.userName }}:
-              {{ $t('pages.aniList.home.activities.plansToWatch', [activity.title]) }}
-            </template>
-            <template v-else-if="activity.watchedEpisode">
-              {{ activity.userName }}:
-              {{ $t('pages.aniList.home.activities.watchedEpisode', [activity.title, activity.progress]) }}
-            </template>
-            <template v-else-if="activity.pausedWatching">
-              {{ activity.userName }}:
-              {{ $t('pages.aniList.home.activities.pausedWatching', [activity.title]) }}
-            </template>
-            <template v-else-if="activity.rewatched">
-              {{ activity.userName }}:
-              {{ $t('pages.aniList.home.activities.rewatchedEpisode', [activity.title, activity.progress]) }}
-            </template>
-            <!-- Reading exclusive -->
-            <template v-else-if="activity.readChapter">
-              {{ activity.userName }}:
-              {{ $t('pages.aniList.home.activities.readChapter', [activity.title, activity.progress]) }}
-            </template>
-            <template v-else-if="activity.plansToRead">
-              {{ activity.userName }}:
-              {{ $t('pages.aniList.home.activities.plansToRead', [activity.title]) }}
-            </template>
-            <template v-else-if="activity.rereadChapter">
-              {{ activity.userName }}:
-              {{ $t('pages.aniList.home.activities.rereadChapter', [activity.title, activity.progress]) }}
-            </template>
-            <template v-else-if="activity.pausedReading">
-              {{ activity.userName }}:
-              {{ $t('pages.aniList.home.activities.pausedReading', [activity.title]) }}
-            </template>
-          </v-card-text>
+          <v-col :cols="true" class="grey second border-radius darken-3 flex-grow-1">
+            <v-card-title class="headline">
+              {{ activity.userName }}
 
-          <v-divider class="mx-4" />
+              <v-spacer />
+              <div class="caption">
+                {{ activity.createdAt }}
+              </div>
+            </v-card-title>
 
-          <v-card-actions>
-            <div class="flex-grow-1" />
-
-            <v-chip v-if="activity.isAnime" color="primary">
-              {{ $t('pages.aniList.home.activities.badges.anime') }}
-            </v-chip>
-
-            <v-chip v-if="activity.isManga" color="accent">
-              {{ $t('pages.aniList.home.activities.badges.manga') }}
-            </v-chip>
-          </v-card-actions>
-        </v-card>
+            <v-card-subtitle>
+              <template v-if="activity.completed">
+                {{ $t('pages.aniList.home.activities.completed', [activity.title]) }}
+              </template>
+              <template v-else-if="activity.dropped">
+                {{ $t('pages.aniList.home.activities.dropped', [activity.title]) }}
+              </template>
+              <!-- Watching exclusive -->
+              <template v-else-if="activity.plansToWatch">
+                {{ $t('pages.aniList.home.activities.plansToWatch', [activity.title]) }}
+              </template>
+              <template v-else-if="activity.watchedEpisode">
+                {{ $t('pages.aniList.home.activities.watchedEpisode', [activity.title, activity.progress]) }}
+              </template>
+              <template v-else-if="activity.pausedWatching">
+                {{ $t('pages.aniList.home.activities.pausedWatching', [activity.title]) }}
+              </template>
+              <template v-else-if="activity.rewatched">
+                {{ $t('pages.aniList.home.activities.rewatchedEpisode', [activity.title, activity.progress]) }}
+              </template>
+              <!-- Reading exclusive -->
+              <template v-else-if="activity.readChapter">
+                {{ $t('pages.aniList.home.activities.readChapter', [activity.title, activity.progress]) }}
+              </template>
+              <template v-else-if="activity.plansToRead">
+                {{ $t('pages.aniList.home.activities.plansToRead', [activity.title]) }}
+              </template>
+              <template v-else-if="activity.rereadChapter">
+                {{ $t('pages.aniList.home.activities.rereadChapter', [activity.title, activity.progress]) }}
+              </template>
+              <template v-else-if="activity.pausedReading">
+                {{ $t('pages.aniList.home.activities.pausedReading', [activity.title]) }}
+              </template>
+            </v-card-subtitle>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -78,13 +71,14 @@ import { aniListStore } from '@/store';
 export default class Activities extends Vue {
   private get activities() {
     return aniListStore.latestActivities.map((activity) => ({
+      id: activity.id,
       mediaId: activity.media.id,
       isAnime: activity.media.type === AniListType.ANIME,
       isManga: activity.media.type === AniListType.MANGA,
       title: activity.media.title.userPreferred,
       progress: activity.progress,
       userName: activity.user.name,
-      createdAt: moment(activity.createdAt).fromNow(),
+      createdAt: moment(activity.createdAt * 1000).fromNow(),
       coverImage: activity.media.coverImage.extraLarge,
       // Status
       completed: activity.status === 'completed',
@@ -110,6 +104,16 @@ export default class Activities extends Vue {
     width: 20% !important;
     max-width: 20% !important;
     flex-basis: 20% !important;
+  }
+}
+
+.border-radius {
+  &.second {
+    border-radius: 0 1em 1em 0;
+  }
+
+  &.first {
+    border-radius: 1em 0 0 1em;
   }
 }
 </style>

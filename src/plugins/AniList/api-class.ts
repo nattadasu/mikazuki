@@ -13,6 +13,7 @@ import {
   AniListListStatus,
   IAniListSearchResult,
   IAniListActivity,
+  IAniListMediaDate,
 } from '@/modules/AniList/types';
 // #endregion
 
@@ -55,12 +56,6 @@ interface ActivitiesParams {
   isFollowing?: boolean;
 }
 
-interface FuzzyDateInput {
-  year: number;
-  month: number;
-  day: number;
-}
-
 interface AddEntryParams {
   mediaId: number;
   status: AniListListStatus;
@@ -73,8 +68,8 @@ interface UpdateEntryParams {
   progress: number;
   score?: number;
   status?: AniListListStatus;
-  startedAt?: FuzzyDateInput;
-  completedAt?: FuzzyDateInput;
+  startedAt?: IAniListMediaDate;
+  completedAt?: IAniListMediaDate;
 }
 
 export default class AniListAPI {
