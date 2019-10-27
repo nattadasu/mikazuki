@@ -1,6 +1,6 @@
-query GetActivities($page: Int!, $perPage: Int!, $userId: Int!) {
+query GetActivities($page: Int!, $perPage: Int!, $isFollowing: Boolean) {
   page: Page(page: $page, perPage: $perPage) {
-    activities(userId: $userId, sort: ID_DESC) {
+    activities(isFollowing: $isFollowing, sort: [ID_DESC]) {
       ... on ListActivity {
         id
         media {
@@ -12,6 +12,12 @@ query GetActivities($page: Int!, $perPage: Int!, $userId: Int!) {
             extraLarge
           }
           type
+        }
+        user {
+          name
+          avatar {
+            large
+          }
         }
         progress
         status

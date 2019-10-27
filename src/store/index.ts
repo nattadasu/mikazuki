@@ -13,13 +13,13 @@ Vue.use(Vuex);
 const localPersist = new VuexPersistence({
   storage: window.localStorage,
   key: 'userSettings',
-  modules: ['userSettings', 'app'],
+  modules: ['userSettings', 'appStore'],
 });
 
 const sessionPersist = new VuexPersistence({
   storage: window.sessionStorage,
   key: 'rest',
-  modules: ['aniList'],
+  modules: ['aniListStore'],
 });
 
 export const store: any = new Vuex.Store({

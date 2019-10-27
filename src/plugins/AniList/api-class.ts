@@ -12,6 +12,7 @@ import {
   IAniListEntry,
   AniListListStatus,
   IAniListSearchResult,
+  IAniListActivity,
 } from '@/modules/AniList/types';
 // #endregion
 
@@ -20,6 +21,7 @@ import getAnimeInfo from './queries/getAnimeInfo.graphql';
 import getListEntry from './queries/getListEntry.graphql';
 import getUserList from './queries/getUserList.graphql';
 import getUser from './queries/getUser.graphql';
+import getLatestActivities from './queries/getLatestActivities.graphql';
 import getSeasonPreview from './queries/getSeasonPreview.graphql';
 import searchAnime from './queries/searchAnime.graphql';
 // #endregion
@@ -31,13 +33,26 @@ import removeEntry from './mutations/removeEntry.graphql';
 // #endregion
 
 // #region Responses
-import { UserListResponse, UserResponse, SeasonPreviewResponse, MediaResponse, SearchResponse } from './responses';
+import {
+  UserListResponse,
+  UserResponse,
+  SeasonPreviewResponse,
+  MediaResponse,
+  SearchResponse,
+  LatestActivitiesResponse,
+} from './responses';
 // #endregion
 
 interface SearchFilters {
   isAdult: string;
   listStatus: AniListListStatus[];
   genres: string[];
+}
+
+interface ActivitiesParams {
+  page: number;
+  perPage: number;
+  isFollowing?: boolean;
 }
 
 interface FuzzyDateInput {
@@ -79,6 +94,23 @@ export default class AniListAPI {
     const response = await axios.post<UserResponse>('/', { query: getUser });
 
     return response.user;
+  }
+
+  public async getLatestActivities(
+    userId: number,
+    { page, perPage, isFollowing }: ActivitiesParams = { page: 1, perPage: 10, isFollowing: true }
+  ): Promise<IAniListActivity[]> {
+    const response = await axios.post<LatestActivitiesResponse>('/', {
+      query: getLatestActivities,
+      variables: {
+        userId,
+        page,
+        perPage,
+        isFollowing,
+      },
+    });
+
+    return response.page.activities;
   }
 
   public async getSeasonPreview(seasonYear: number, season: AniListSeason): Promise<IAniListSeasonPreview> {

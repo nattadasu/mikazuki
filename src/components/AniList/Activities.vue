@@ -3,39 +3,47 @@
     <v-row no-gutters>
       <v-col v-for="activity in activities" :key="activity.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
         <v-card class="ma-2">
-          <ListImage :image-link="activity.coverImage" :ani-list-id="activity.mediaId" name="" />
+          <ListImage :image-link="activity.coverImage" :ani-list-id="activity.mediaId" name />
 
           <v-card-text>
             <template v-if="activity.completed">
-              {{ $t('pages.aniList.home.activities.completed', [activity.title]) }}
+              {{ activity.userName }}: {{ $t('pages.aniList.home.activities.completed', [activity.title]) }}
             </template>
             <template v-else-if="activity.dropped">
-              {{ $t('pages.aniList.home.activities.dropped', [activity.title]) }}
+              {{ activity.userName }}: {{ $t('pages.aniList.home.activities.dropped', [activity.title]) }}
             </template>
             <!-- Watching exclusive -->
             <template v-else-if="activity.plansToWatch">
+              {{ activity.userName }}:
               {{ $t('pages.aniList.home.activities.plansToWatch', [activity.title]) }}
             </template>
             <template v-else-if="activity.watchedEpisode">
+              {{ activity.userName }}:
               {{ $t('pages.aniList.home.activities.watchedEpisode', [activity.title, activity.progress]) }}
             </template>
             <template v-else-if="activity.pausedWatching">
+              {{ activity.userName }}:
               {{ $t('pages.aniList.home.activities.pausedWatching', [activity.title]) }}
             </template>
             <template v-else-if="activity.rewatched">
-              {{ $t('pages.aniList.home.activities.rewatched', [activity.title, activity.progress]) }}
+              {{ activity.userName }}:
+              {{ $t('pages.aniList.home.activities.rewatchedEpisode', [activity.title, activity.progress]) }}
             </template>
             <!-- Reading exclusive -->
             <template v-else-if="activity.readChapter">
+              {{ activity.userName }}:
               {{ $t('pages.aniList.home.activities.readChapter', [activity.title, activity.progress]) }}
             </template>
             <template v-else-if="activity.plansToRead">
+              {{ activity.userName }}:
               {{ $t('pages.aniList.home.activities.plansToRead', [activity.title]) }}
             </template>
             <template v-else-if="activity.rereadChapter">
+              {{ activity.userName }}:
               {{ $t('pages.aniList.home.activities.rereadChapter', [activity.title, activity.progress]) }}
             </template>
             <template v-else-if="activity.pausedReading">
+              {{ activity.userName }}:
               {{ $t('pages.aniList.home.activities.pausedReading', [activity.title]) }}
             </template>
           </v-card-text>
@@ -75,6 +83,7 @@ export default class Activities extends Vue {
       isManga: activity.media.type === AniListType.MANGA,
       title: activity.media.title.userPreferred,
       progress: activity.progress,
+      userName: activity.user.name,
       createdAt: moment(activity.createdAt).fromNow(),
       coverImage: activity.media.coverImage.extraLarge,
       // Status
@@ -84,7 +93,7 @@ export default class Activities extends Vue {
       watchedEpisode: activity.status === 'watched episode',
       plansToWatch: activity.status === 'plans to watch',
       pausedWatching: activity.status === 'paused watching',
-      rewatched: activity.status === 'rewatched',
+      rewatched: activity.status === 'rewatched episode',
       // Reading exclusive
       readChapter: activity.status === 'read chapter',
       plansToRead: activity.status === 'plans to read',

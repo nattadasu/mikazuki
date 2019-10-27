@@ -1,6 +1,5 @@
 import { userStore, aniListStore } from '@/store';
 import { API as NewAPI } from '@/plugins/AniList';
-import API from './API';
 import { IAniListUser, AniListType } from './types';
 
 export default {
@@ -16,7 +15,7 @@ export default {
       const userList = await NewAPI.getUserList(userName, AniListType.ANIME);
 
       const userId = (user as IAniListUser).id;
-      const latestActivities = await API.getLatestActivities(userId, 0, 10);
+      const latestActivities = await NewAPI.getLatestActivities(userId, { page: 1, perPage: 10, isFollowing: true });
 
       if (userList && user && latestActivities) {
         await userStore.setUser(user);
