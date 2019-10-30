@@ -40,40 +40,14 @@
           />
 
           <div v-if="scoreSystem !== POINT_100" class="text-center ma-auto">
-            <div class="body-1 text-xs-left pl-1">
-              {{ $t('pages.aniList.detailView.ownScore') }} ({{ score }})
-            </div>
-            <v-rating
-              v-if="scoreSystem === POINT_10_DECIMAL"
-              v-model="score"
-              length="10"
-              hover
-              half-increments
-            />
+            <div class="body-1 text-xs-left pl-1">{{ $t('pages.aniList.detailView.ownScore') }} ({{ score }})</div>
+            <v-rating v-if="scoreSystem === POINT_10_DECIMAL" v-model="score" length="10" hover half-increments />
 
-            <v-rating
-              v-if="scoreSystem === POINT_10"
-              v-model="score"
-              length="10"
-              hover
-              dense
-            />
+            <v-rating v-if="scoreSystem === POINT_10" v-model="score" length="10" hover dense />
 
-            <v-rating
-              v-if="scoreSystem === POINT_5"
-              v-model="score"
-              length="5"
-              hover
-              dense
-            />
+            <v-rating v-if="scoreSystem === POINT_5" v-model="score" length="5" hover dense />
 
-            <v-rating
-              v-if="scoreSystem === POINT_3"
-              v-model="score"
-              length="3"
-              hover
-              dense
-            />
+            <v-rating v-if="scoreSystem === POINT_3" v-model="score" length="3" hover dense />
           </div>
         </v-flex>
       </v-layout>
@@ -114,58 +88,64 @@
 <script lang="ts">
 import { isNumber } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import API from '@/modules/AniList/API';
-import { AniListScoreFormat, AniListListStatus } from '@/modules/AniList/types';
+import { AniListScoreFormat, AniListListStatus } from '@/types';
 import { appStore, userStore } from '@/store';
-import aniListEventHandler from '@/modules/AniList/eventHandler';
+import aniListEventHandler from '@/plugins/AniList/eventHandler';
 
 @Component
 export default class UserListSettings extends Vue {
   @Prop()
-  private item!: any;
+  item!: any;
   // @TODO: Give item a proper type
 
-  private status: AniListListStatus = AniListListStatus.PLANNING;
+  status: AniListListStatus = AniListListStatus.PLANNING;
 
-  private progress: number = 0;
+  progress: number = 0;
 
-  private score: number = 0;
+  score: number = 0;
 
-  private readonly POINT_100 = AniListScoreFormat.POINT_100;
+  readonly POINT_100 = AniListScoreFormat.POINT_100;
 
-  private readonly POINT_10_DECIMAL = AniListScoreFormat.POINT_10_DECIMAL;
+  readonly POINT_10_DECIMAL = AniListScoreFormat.POINT_10_DECIMAL;
 
-  private readonly POINT_10 = AniListScoreFormat.POINT_10;
+  readonly POINT_10 = AniListScoreFormat.POINT_10;
 
-  private readonly POINT_5 = AniListScoreFormat.POINT_5;
+  readonly POINT_5 = AniListScoreFormat.POINT_5;
 
-  private readonly POINT_3 = AniListScoreFormat.POINT_3;
+  readonly POINT_3 = AniListScoreFormat.POINT_3;
 
-  private readonly listStatusses = [{
-    text: this.$root.$t('misc.aniList.listStatusses.watching'),
-    value: AniListListStatus.CURRENT,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.completed'),
-    value: AniListListStatus.COMPLETED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.dropped'),
-    value: AniListListStatus.DROPPED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.paused'),
-    value: AniListListStatus.PAUSED,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.planning'),
-    value: AniListListStatus.PLANNING,
-  }, {
-    text: this.$root.$t('misc.aniList.listStatusses.repeating'),
-    value: AniListListStatus.REPEATING,
-  }];
+  readonly listStatusses = [
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.watching'),
+      value: AniListListStatus.CURRENT,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.completed'),
+      value: AniListListStatus.COMPLETED,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.dropped'),
+      value: AniListListStatus.DROPPED,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.paused'),
+      value: AniListListStatus.PAUSED,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.planning'),
+      value: AniListListStatus.PLANNING,
+    },
+    {
+      text: this.$root.$t('misc.aniList.listStatusses.repeating'),
+      value: AniListListStatus.REPEATING,
+    },
+  ];
 
-  private readonly rules = {
+  readonly rules = {
     required: (value: any) => !!value || this.$root.$t('misc.rules.required'),
   };
 
-  private created() {
+  created() {
     if (this.item && this.item.listEntry) {
       this.score = this.item.listEntry.score;
       this.status = this.item.listEntry.status;
@@ -173,11 +153,11 @@ export default class UserListSettings extends Vue {
     }
   }
 
-  private get loading(): boolean {
+  get loading(): boolean {
     return appStore.isLoading;
   }
 
-  private get scoreSystem(): AniListScoreFormat | null {
+  get scoreSystem(): AniListScoreFormat | null {
     if (!this.item) {
       return null;
     }
@@ -187,28 +167,28 @@ export default class UserListSettings extends Vue {
     return scoreFormat === AniListScoreFormat.POINT_3
       ? AniListScoreFormat.POINT_3
       : scoreFormat === AniListScoreFormat.POINT_5
-        ? AniListScoreFormat.POINT_5
-        : scoreFormat === AniListScoreFormat.POINT_10
-          ? AniListScoreFormat.POINT_10
-          : scoreFormat === AniListScoreFormat.POINT_10_DECIMAL
-            ? AniListScoreFormat.POINT_10_DECIMAL
-            : AniListScoreFormat.POINT_100;
+      ? AniListScoreFormat.POINT_5
+      : scoreFormat === AniListScoreFormat.POINT_10
+      ? AniListScoreFormat.POINT_10
+      : scoreFormat === AniListScoreFormat.POINT_10_DECIMAL
+      ? AniListScoreFormat.POINT_10_DECIMAL
+      : AniListScoreFormat.POINT_100;
   }
 
-  private getMask(input: number | string): string | undefined {
+  getMask(input: number | string): string | undefined {
     if (!isNumber(input)) {
       return '#####';
     }
     return '#'.repeat(input);
   }
 
-  private checkStatus(status: AniListListStatus) {
+  checkStatus(status: AniListListStatus) {
     if (status === AniListListStatus.COMPLETED && typeof this.item.episodes === 'number') {
       this.progress = this.item.episodes;
     }
   }
 
-  private async saveChanges(): Promise<void> {
+  async saveChanges(): Promise<void> {
     await appStore.setLoadingState(true);
     if (this.item && this.item.listEntry) {
       const { entryId } = this.item;
@@ -217,22 +197,45 @@ export default class UserListSettings extends Vue {
       const progress = !this.progress ? 0 : this.progress;
 
       try {
-        const update = await API.updateEntry(entryId, progress, score, status);
-        if (update) {
-          if (status === AniListListStatus.COMPLETED) {
-            this.$notify({
-              title: this.$t('notifications.aniList.successTitle') as string,
-              text: this.$t('notifications.aniList.completeUpdateText', [this.item.userPreferredTitle, this.progress]) as string,
-            });
-          } else {
-            this.$notify({
-              title: this.$t('notifications.aniList.successTitle') as string,
-              text: this.$t('notifications.aniList.simpleUpdateText', [this.item.userPreferredTitle, this.progress]) as string,
-            });
-          }
-          aniListEventHandler.refreshLists();
-          this.$emit('updated');
+        let completedAt = undefined;
+        let startedAt = undefined;
+        let notification = '';
+        const now = new Date();
+
+        if (status === AniListListStatus.CURRENT) {
+          startedAt = {
+            year: now.getUTCFullYear(),
+            month: now.getUTCMonth() + 1,
+            day: now.getUTCDate(),
+          };
+          notification = 'simpleUpdateText';
+        } else if (status === AniListListStatus.COMPLETED) {
+          completedAt = {
+            year: now.getUTCFullYear(),
+            month: now.getUTCMonth() + 1,
+            day: now.getUTCDate(),
+          };
+          notification = 'completeUpdateText';
         }
+
+        await this.$http.updateEntry({
+          entryId,
+          progress,
+          score,
+          status,
+          completedAt,
+        });
+
+        await aniListEventHandler.refreshLists();
+        this.$emit('updated');
+
+        this.$notify({
+          title: this.$t('notifications.aniList.successTitle') as string,
+          text: this.$t(`notifications.aniList.${notification}`, [
+            this.item.userPreferredTitle,
+            this.progress,
+          ]) as string,
+        });
       } catch (error) {
         this.$notify({
           title: this.$t('errors.updateFailed.title') as string,
@@ -244,24 +247,22 @@ export default class UserListSettings extends Vue {
     await appStore.setLoadingState(false);
   }
 
-  private async removeFromList(): Promise<void> {
+  async removeFromList(): Promise<void> {
     if (!this.item || !this.item.listEntry) {
       return;
     }
 
     await appStore.setLoadingState(true);
+
     try {
       const { entryId } = this.item;
 
-      if (await API.removeEntry(entryId)) {
-        this.$notify({
-          title: this.$t('notifications.aniList.successTitle') as string,
-          text: this.$t('notifications.aniList.removeEntry', [this.item.userPreferredTitle]) as string,
-        });
-        this.$emit('updated');
-      } else {
-        throw new Error();
-      }
+      await this.$http.removeEntry(entryId);
+      this.$notify({
+        title: this.$t('notifications.aniList.successTitle') as string,
+        text: this.$t('notifications.aniList.removeEntry', [this.item.userPreferredTitle]) as string,
+      });
+      this.$emit('updated');
     } catch (error) {
       this.$notify({
         title: this.$t('errors.updateFailed.title') as string,
@@ -269,10 +270,11 @@ export default class UserListSettings extends Vue {
         type: 'error',
       });
     }
+
     await appStore.setLoadingState(false);
   }
 
-  private async addToList(): Promise<void> {
+  async addToList(): Promise<void> {
     if (!this.item || this.item.listEntry) {
       this.$notify({
         title: 'FATAL ERROR (100)',
@@ -290,16 +292,13 @@ export default class UserListSettings extends Vue {
       const score = !this.score ? 0 : this.score;
       const progress = !this.progress ? 0 : this.progress;
 
-      if (await API.addEntry(mediaId, status, score, progress)) {
-        this.$notify({
-          title: this.$t('notifications.aniList.successTitle') as string,
-          text: this.$t('notifications.aniList.addedToList', [this.item.userPreferredTitle]) as string,
-        });
-        aniListEventHandler.refreshLists();
-        this.$emit('updated');
-      } else {
-        throw new Error();
-      }
+      await this.$http.addEntry({ mediaId, status, score, progress });
+      this.$notify({
+        title: this.$t('notifications.aniList.successTitle') as string,
+        text: this.$t('notifications.aniList.addedToList', [this.item.userPreferredTitle]) as string,
+      });
+      aniListEventHandler.refreshLists();
+      this.$emit('updated');
     } catch (error) {
       this.$notify({
         title: this.$t('errors.updateFailed.title') as string,

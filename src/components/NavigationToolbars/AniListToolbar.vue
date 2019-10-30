@@ -15,7 +15,8 @@
           <v-btn text exact :to="{ name: 'Watching' }" v-on="{ ...toolTip }">
             <v-icon color="green">
               mdi-play
-            </v-icon> ({{ watchingAmount }})
+            </v-icon>
+            ({{ watchingAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.watching') }}</span>
@@ -26,7 +27,8 @@
           <v-btn text exact :to="{ name: 'Repeating' }" v-on="{ ...toolTip }">
             <v-icon color="green darken-3">
               mdi-repeat
-            </v-icon> ({{ repeatingAmount }})
+            </v-icon>
+            ({{ repeatingAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.repeating') }}</span>
@@ -37,7 +39,8 @@
           <v-btn text exact :to="{ name: 'Completed' }" v-on="{ ...toolTip }">
             <v-icon color="blue">
               mdi-check
-            </v-icon> ({{ completedAmount }})
+            </v-icon>
+            ({{ completedAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.completed') }}</span>
@@ -48,7 +51,8 @@
           <v-btn text exact :to="{ name: 'Paused' }" v-on="{ ...toolTip }">
             <v-icon color="yellow darken-2">
               mdi-pause
-            </v-icon> ({{ pausedAmount }})
+            </v-icon>
+            ({{ pausedAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.paused') }}</span>
@@ -59,7 +63,8 @@
           <v-btn text exact :to="{ name: 'Dropped' }" v-on="{ ...toolTip }">
             <v-icon color="red darken-1">
               mdi-stop
-            </v-icon> ({{ droppedAmount }})
+            </v-icon>
+            ({{ droppedAmount }})
           </v-btn>
         </template>
         <span>{{ $t('menus.aniList.dropped') }}</span>
@@ -81,53 +86,53 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 // Custom Components
-import { AniListListStatus } from '@/modules/AniList/types';
+import { AniListListStatus } from '@/types';
 import { aniListStore, userStore } from '@/store';
 
 @Component
 export default class AniListToolbar extends Vue {
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
   }
 
-  private get watchingAmount(): number {
+  get watchingAmount(): number {
     const status: AniListListStatus = AniListListStatus.CURRENT;
-    const element = aniListStore.aniListData.lists.find(list => list.status === status);
+    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get repeatingAmount(): number {
+  get repeatingAmount(): number {
     const status: AniListListStatus = AniListListStatus.REPEATING;
-    const element = aniListStore.aniListData.lists.find(list => list.status === status);
+    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get completedAmount(): number {
+  get completedAmount(): number {
     const status: AniListListStatus = AniListListStatus.COMPLETED;
-    const element = aniListStore.aniListData.lists.find(list => list.status === status);
+    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get pausedAmount(): number {
+  get pausedAmount(): number {
     const status: AniListListStatus = AniListListStatus.PAUSED;
-    const element = aniListStore.aniListData.lists.find(list => list.status === status);
+    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get droppedAmount(): number {
+  get droppedAmount(): number {
     const status: AniListListStatus = AniListListStatus.DROPPED;
-    const element = aniListStore.aniListData.lists.find(list => list.status === status);
+    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get planningAmount(): number {
+  get planningAmount(): number {
     const status: AniListListStatus = AniListListStatus.PLANNING;
-    const element = aniListStore.aniListData.lists.find(list => list.status === status);
+    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }

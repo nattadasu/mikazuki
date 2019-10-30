@@ -8,6 +8,7 @@ import App from './App.vue';
 import { i18n } from './i18n';
 import router from './router';
 import { store } from './store';
+import AniListAPI from './plugins/AniList';
 
 // Styles & Fonts
 import '@/assets/scss/extra.scss';
@@ -23,6 +24,7 @@ const vuetify = new Vuetify({
 });
 
 Vue.use(Notification);
+Vue.use(AniListAPI);
 
 Vue.config.productionTip = false;
 

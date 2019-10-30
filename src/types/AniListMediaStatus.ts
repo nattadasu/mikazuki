@@ -1,0 +1,6 @@
+export enum AniListMediaStatus {
+  FINISHED = 'FINISHED',
+  RELEASING = 'RELEASING',
+  NOT_YET_RELEASED = 'NOT_YET_RELEASED',
+  CANCELLED = 'CANCELLED',
+}

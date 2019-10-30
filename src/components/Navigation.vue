@@ -1,17 +1,6 @@
 <template>
-  <v-app-bar
-    app
-    fixed
-    flat
-    dense
-  >
-    <v-navigation-drawer
-      v-model="navigationDrawer"
-      temporary
-      app
-      hide-overlay
-      :right="$vuetify.rtl"
-    >
+  <v-app-bar app fixed flat dense>
+    <v-navigation-drawer v-model="navigationDrawer" temporary app hide-overlay :right="$vuetify.rtl">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
@@ -27,11 +16,7 @@
 
       <v-list dense nav shaped>
         <v-list-item-group v-model="item" color="primary">
-          <v-list-item
-            v-for="(item, index) in mainMenuItems"
-            :key="index"
-            @click="navigateTo(item.location)"
-          >
+          <v-list-item v-for="(item, index) in mainMenuItems" :key="index" @click="navigateTo(item.location)">
             <v-list-item-icon>
               <v-icon v-text="item.icon" />
             </v-list-item-icon>
@@ -100,7 +85,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { RawLocation, Route } from 'vue-router';
 
 // Custom Components
-import { AniListListStatus } from '@/modules/AniList/types';
+import { AniListListStatus } from '@/types';
 import { userStore, appStore } from '@/store';
 
 // Navigation Toolbars
@@ -137,54 +122,65 @@ export default class Navigation extends Vue {
 
   item = 0;
 
-  mainMenuItems: Array<{ title: string, location: RawLocation, routeName: string, icon: string }> = [{
-    title: 'menus.aniList.home',
-    location: { name: 'Home' },
-    routeName: 'Home',
-    icon: 'mdi-home',
-  }, {
-    title: 'menus.aniList.seasonPreview',
-    location: { name: 'SeasonPreview' },
-    routeName: 'SeasonPreview',
-    icon: 'mdi-calendar-month',
-  }, {
-    title: 'menus.settings.title',
-    location: { name: 'Settings' },
-    routeName: 'Settings',
-    icon: 'mdi-settings',
-  }];
+  mainMenuItems: Array<{ title: string; location: RawLocation; routeName: string; icon: string }> = [
+    {
+      title: 'menus.aniList.home',
+      location: { name: 'Home' },
+      routeName: 'Home',
+      icon: 'mdi-home',
+    },
+    {
+      title: 'menus.aniList.seasonPreview',
+      location: { name: 'SeasonPreview' },
+      routeName: 'SeasonPreview',
+      icon: 'mdi-calendar-month',
+    },
+    {
+      title: 'menus.settings.title',
+      location: { name: 'Settings' },
+      routeName: 'Settings',
+      icon: 'mdi-settings',
+    },
+  ];
 
-  aniListMenuItems: Array<{ title: string, location: RawLocation, routeName: string, icon: string }> = [{
-    title: 'menus.aniList.watching',
-    location: { name: 'Watching' },
-    routeName: 'Watching',
-    icon: 'mdi-play',
-  }, {
-    title: 'menus.aniList.repeating',
-    location: { name: 'Repeating' },
-    routeName: 'Repeating',
-    icon: 'mdi-repeat',
-  }, {
-    title: 'menus.aniList.completed',
-    location: { name: 'Completed' },
-    routeName: 'Completed',
-    icon: 'mdi-check',
-  }, {
-    title: 'menus.aniList.paused',
-    location: { name: 'Paused' },
-    routeName: 'Paused',
-    icon: 'mdi-pause',
-  }, {
-    title: 'menus.aniList.dropped',
-    location: { name: 'Dropped' },
-    routeName: 'Dropped',
-    icon: 'mdi-stop',
-  }, {
-    title: 'menus.aniList.planning',
-    location: { name: 'Planning' },
-    routeName: 'Planning',
-    icon: 'mdi-menu',
-  }];
+  aniListMenuItems: Array<{ title: string; location: RawLocation; routeName: string; icon: string }> = [
+    {
+      title: 'menus.aniList.watching',
+      location: { name: 'Watching' },
+      routeName: 'Watching',
+      icon: 'mdi-play',
+    },
+    {
+      title: 'menus.aniList.repeating',
+      location: { name: 'Repeating' },
+      routeName: 'Repeating',
+      icon: 'mdi-repeat',
+    },
+    {
+      title: 'menus.aniList.completed',
+      location: { name: 'Completed' },
+      routeName: 'Completed',
+      icon: 'mdi-check',
+    },
+    {
+      title: 'menus.aniList.paused',
+      location: { name: 'Paused' },
+      routeName: 'Paused',
+      icon: 'mdi-pause',
+    },
+    {
+      title: 'menus.aniList.dropped',
+      location: { name: 'Dropped' },
+      routeName: 'Dropped',
+      icon: 'mdi-stop',
+    },
+    {
+      title: 'menus.aniList.planning',
+      location: { name: 'Planning' },
+      routeName: 'Planning',
+      icon: 'mdi-menu',
+    },
+  ];
 
   get isMediaPage(): boolean {
     return this.$route.meta && this.$route.meta.mediaPage;
@@ -231,10 +227,10 @@ export default class Navigation extends Vue {
   created() {
     const currentRouteName = this.$route.name;
 
-    this.item = this.mainMenuItems.findIndex(item => item.routeName === currentRouteName);
+    this.item = this.mainMenuItems.findIndex((item) => item.routeName === currentRouteName);
 
     if (this.item === -1) {
-      this.item = this.aniListMenuItems.findIndex(item => item.routeName === currentRouteName);
+      this.item = this.aniListMenuItems.findIndex((item) => item.routeName === currentRouteName);
 
       if (this.item !== -1) {
         this.item += 2;
@@ -250,10 +246,10 @@ export default class Navigation extends Vue {
   routeChanged() {
     const currentRouteName = this.$route.name;
 
-    this.item = this.mainMenuItems.findIndex(item => item.routeName === currentRouteName);
+    this.item = this.mainMenuItems.findIndex((item) => item.routeName === currentRouteName);
 
     if (this.item === -1) {
-      this.item = this.aniListMenuItems.findIndex(item => item.routeName === currentRouteName);
+      this.item = this.aniListMenuItems.findIndex((item) => item.routeName === currentRouteName);
 
       if (this.item !== -1) {
         this.item += 2;

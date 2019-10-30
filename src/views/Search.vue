@@ -50,13 +50,7 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn
-                block
-                text
-                color="green"
-                :loading="isLoading"
-                @click="search"
-              >
+              <v-btn block text color="green" :loading="isLoading" @click="search">
                 <v-icon left>
                   mdi-magnify
                 </v-icon>
@@ -80,7 +74,7 @@
             <ListImage
               :image-link="result.coverImage.extraLarge"
               :ani-list-id="result.id"
-              :name="result.title.romaji"
+              :name="result.title.userPreferred"
               :studios="result.studios"
             />
 
@@ -119,9 +113,7 @@
                   </v-tooltip>
 
                   <template v-if="result.mediaListEntry">
-                    <v-icon color="green" class="pr-1">
-                      mdi-account
-                    </v-icon>{{ result.mediaListEntry.score }}
+                    <v-icon color="green" class="pr-1"> mdi-account </v-icon>{{ result.mediaListEntry.score }}
                   </template>
                   <v-icon color="yellow lighten-1" class="pr-1">
                     mdi-account-group
@@ -183,10 +175,19 @@ import { Route } from 'vue-router';
 import AdultToolTip from '@/components/AniList/ListElements/AdultToolTip.vue';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import ProgressCircle from '@/components/AniList/ListElements/ProgressCircle.vue';
-import API from '@/modules/AniList/API';
-import { AniListListStatus, IAniListSearchResult } from '@/modules/AniList/types';
+import { AniListListStatus, IAniListSearchResult } from '@/types';
 import { appStore } from '@/store';
 import SearchFilter from '@/components/Search/Filter.vue';
+
+type IAniListExtendedSearchResult = IAniListSearchResult & {
+  isWatching: boolean;
+  isRepeating: boolean;
+  isCompleted: boolean;
+  isPlanning: boolean;
+  isDropped: boolean;
+  isPaused: boolean;
+  progressPercentage?: number;
+};
 
 @Component({
   components: {
@@ -198,7 +199,7 @@ import SearchFilter from '@/components/Search/Filter.vue';
 })
 export default class Search extends Vue {
   searchInput: string = '';
-  searchResults: IAniListSearchResult[] = [];
+  searchResults: IAniListExtendedSearchResult[] = [];
   listValues: AniListListStatus[] = [];
   genreValues = [];
   adultContentValue = 'both';
@@ -230,36 +231,38 @@ export default class Search extends Vue {
     try {
       await appStore.setLoadingState(true);
 
-      const results = (await API.searchAnime(this.searchInput, filters)) || [];
+      const results = await this.$http.searchAnime(this.searchInput, filters);
 
-      this.searchResults = results.map((result) => {
-        const object = Object.assign(
-          {},
-          {
-            isWatching: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.CURRENT,
-            isRepeating: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.REPEATING,
-            isCompleted: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.COMPLETED,
-            isDropped: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.DROPPED,
-            isPaused: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PAUSED,
-            isPlanning: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PLANNING,
-          },
-          result
-        );
-
-        appStore.setLoadingState(false);
-
-        if (result.mediaListEntry) {
-          return Object.assign(
+      this.searchResults = results.map(
+        (result): IAniListExtendedSearchResult => {
+          const object = Object.assign(
             {},
             {
-              progressPercentage: this.calculateProgressPercentage(result),
+              isWatching: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.CURRENT,
+              isRepeating: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.REPEATING,
+              isCompleted: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.COMPLETED,
+              isDropped: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.DROPPED,
+              isPaused: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PAUSED,
+              isPlanning: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PLANNING,
             },
-            object
+            result
           );
-        }
 
-        return object;
-      });
+          appStore.setLoadingState(false);
+
+          if (result.mediaListEntry) {
+            return Object.assign(
+              {},
+              {
+                progressPercentage: this.calculateProgressPercentage(result),
+              },
+              object
+            );
+          }
+
+          return object;
+        }
+      );
     } catch (error) {
       this.$notify({
         type: 'error',

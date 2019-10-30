@@ -1,17 +1,9 @@
 <template>
   <v-tooltip bottom>
     <template v-slot:activator="{ on: toolTip }">
-      <v-btn
-        v-if="isAuthenticated"
-        text
-        icon
-        v-on="{ ...toolTip }"
-        @click="refreshData"
-      >
+      <v-btn v-if="isAuthenticated" text icon v-on="{ ...toolTip }" @click="refreshData">
         <v-progress-circular :rotate="-90" :width="2" :color="colorCode" :value="timeUntilRefreshPercentage">
-          <v-icon style="vertical-align: text-top" size="18">
-            mdi-sync {{ isLoading ? 'mdi-spin' : '' }}
-          </v-icon>
+          <v-icon style="vertical-align: text-top" size="18"> mdi-sync {{ isLoading ? 'mdi-spin' : '' }} </v-icon>
         </v-progress-circular>
       </v-btn>
     </template>
@@ -25,41 +17,42 @@ import { Component, Vue } from 'vue-property-decorator';
 
 // Custom Components
 import { appStore, userStore } from '@/store';
-import aniListEventHandler from '@/modules/AniList/eventHandler';
+import aniListEventHandler from '@/plugins/AniList/eventHandler';
 
 @Component
 export default class Refresh extends Vue {
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
   }
 
-  private get isLoading(): boolean {
+  get isLoading(): boolean {
     return appStore.isLoading;
   }
 
-  private get colorCode(): string {
+  get colorCode(): string {
     if (this.timeUntilRefreshPercentage < 60 && this.timeUntilRefreshPercentage > 30) {
       return 'warning';
-    } if (this.timeUntilRefreshPercentage < 30) {
+    }
+    if (this.timeUntilRefreshPercentage < 30) {
       return 'error';
     }
     return 'success';
   }
 
-  private get timeUntilRefresh(): string {
+  get timeUntilRefresh(): string {
     const time = userStore.timeUntilRefresh * 1000;
 
     return moment(time).format('mm:ss');
   }
 
-  private get timeUntilRefreshPercentage(): number {
+  get timeUntilRefreshPercentage(): number {
     const fullTime = userStore.refreshRate * 60;
     const currentTime = userStore.timeUntilRefresh;
 
     return (currentTime / fullTime) * 100;
   }
 
-  private async refreshData() {
+  async refreshData() {
     await appStore.setLoadingState(true);
 
     // AniList

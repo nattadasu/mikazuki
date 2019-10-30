@@ -4,10 +4,7 @@
       <v-card-text>
         <v-container fill-height grid-list-xl>
           <v-layout wrap>
-            <v-flex
-              xs12
-              sm5
-            >
+            <v-flex xs12 sm5>
               <v-select
                 :items="languages"
                 item-text="original"
@@ -28,13 +25,7 @@
               </v-select>
             </v-flex>
 
-            <v-flex
-              xs12
-              sm5
-              offset-sm2
-              justify-center
-              align-center
-            >
+            <v-flex xs12 sm5 offset-sm2 justify-center align-center>
               <v-switch v-model="darkMode" :label="$t('pages.settings.appSettings.darkMode')" />
             </v-flex>
           </v-layout>
@@ -51,12 +42,12 @@ import { appStore } from '@/store';
 
 @Component
 export default class AppSettings extends Vue {
-  private _locale: string = '';
+  _locale: string = '';
 
   @Prop(String)
-  private tabKey!: string;
+  tabKey!: string;
 
-  private get languages(): any {
+  get languages(): any {
     const { messages } = this.$i18n;
     const languages = map(messages, (value, key) => {
       const locale = key;
@@ -73,11 +64,11 @@ export default class AppSettings extends Vue {
     return languages;
   }
 
-  private get darkMode(): boolean {
+  get darkMode(): boolean {
     return appStore.darkMode;
   }
 
-  private set darkMode(state: boolean) {
+  set darkMode(state: boolean) {
     appStore.setDarkMode(state);
   }
 
@@ -85,16 +76,15 @@ export default class AppSettings extends Vue {
    * @method created is being called before mount
    * @protected
    */
-  protected created(): void {
+  created(): void {
     this._locale = appStore.language as string;
   }
 
   /**
    * @method setLanguage
-   * @private
    * @param {string} newLanguage contains the locale value of the new language
    */
-  private setLanguage(newLanguage: string): void {
+  setLanguage(newLanguage: string): void {
     appStore.setLanguage(newLanguage);
     this._locale = newLanguage;
   }

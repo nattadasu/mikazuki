@@ -1,14 +1,5 @@
 <template>
-  <v-btn
-    v-if="isSortingPage"
-    bottom
-    color="info"
-    fab
-    fixed
-    large
-    right
-    @click="jumpToTop"
-  >
+  <v-btn v-if="isSortingPage" bottom color="info" fab fixed large right @click="jumpToTop">
     <v-icon>mdi-arrow-up</v-icon>
   </v-btn>
 </template>

@@ -5,28 +5,11 @@
         <v-card-text class="background" :style="`background-image: url(${currentUser.bannerImage})`">
           <v-container fluid>
             <v-row>
-              <v-col
-                cols="8"
-                sm="6"
-                md="4"
-                lg="3"
-                xl="2"
-              >
+              <v-col cols="8" sm="6" md="4" lg="3" xl="2">
                 <ProfileImage />
               </v-col>
 
-              <v-col
-                cols="4"
-                sm="3"
-                md="3"
-                lg="3"
-                xl="3"
-                offset="0"
-                offset-sm="2"
-                offset-md="5"
-                offset-lg="6"
-                offset-xl="7"
-              >
+              <v-col cols="4" sm="3" offset="0" offset-sm="2" offset-md="5" offset-lg="6" offset-xl="7">
                 <v-img
                   class="pointer-on-hover"
                   :src="require('@/assets/logos/Ko-fi-Support-Button.png')"
@@ -40,7 +23,7 @@
       <v-container v-if="isAuthenticated" class="fill-height" style="flex-grow: 1" fluid>
         <v-card-text>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="12" sm="12" md="9" lg="6">
               <div class="title">
                 {{ $t('pages.aniList.home.activities.headline') }}
               </div>
@@ -83,7 +66,7 @@ import { userStore } from '@/store';
   },
 })
 export default class Home extends Vue {
-  private async beforeMount() {
+  async beforeMount() {
     if ('login' in this.$route.query) {
       const { access_token: accessToken } = this.$route.query;
 
@@ -96,15 +79,15 @@ export default class Home extends Vue {
     }
   }
 
-  private get currentUser() {
+  get currentUser() {
     return userStore.session.user;
   }
 
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
   }
 
-  private openSupportPage(): void {
+  openSupportPage(): void {
     window.open('https://ko-fi.com/nicoaiko', '_blank');
   }
 }

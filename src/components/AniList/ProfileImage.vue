@@ -23,15 +23,15 @@ import { userStore, appStore } from '@/store';
 
 @Component
 export default class ProfileImage extends Vue {
-  private get avatarUrl(): string {
+  get avatarUrl(): string {
     return userStore.session.user.avatar.large;
   }
 
-  private get userName(): string {
+  get userName(): string {
     return userStore.session.user.name;
   }
 
-  private get isDarkMode(): boolean {
+  get isDarkMode(): boolean {
     return appStore.darkMode;
   }
 }
@@ -39,11 +39,7 @@ export default class ProfileImage extends Vue {
 
 <style lang="scss" scoped>
 .shadowed {
-  color: #FFF;
-  text-shadow:
-    -1px 1px 2px #000,
-    1px 1px 2px #000,
-    1px -1px 0 #000,
-    -1px -1px 0 #000;
+  color: #fff;
+  text-shadow: -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;
 }
 </style>

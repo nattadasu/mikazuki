@@ -28,31 +28,31 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
-import { IAniListMediaStudio, IAniListMediaStudioNode } from '../../../modules/AniList/types';
+import { IAniListMediaStudio, IAniListMediaStudioNode } from '../../../types';
 
 @Component
 export default class ListImage extends Vue {
   @Prop(String)
-  private imageLink!: string;
+  imageLink!: string;
 
   @Prop(Number)
-  private aniListId!: number;
+  aniListId!: number;
 
   @Prop(String)
-  private name!: string;
+  name!: string;
 
   @Prop()
-  private studios!: IAniListMediaStudio;
+  studios!: IAniListMediaStudio;
 
-  public get darkMode(): boolean {
+  get darkMode(): boolean {
     return this.$vuetify.theme.dark;
   }
 
-  public get isMobile(): boolean {
+  get isMobile(): boolean {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
-  public get concatenatedStudios(): string {
+  get concatenatedStudios(): string {
     if (!this.studios || !this.studios.nodes || !this.studios.nodes.length) {
       return '';
     }
@@ -62,14 +62,13 @@ export default class ListImage extends Vue {
       .map((item: IAniListMediaStudioNode) => item.name);
 
     if (!animationStudios.length) {
-      animationStudios = this.studios.nodes
-        .map((item: IAniListMediaStudioNode) => item.name);
+      animationStudios = this.studios.nodes.map((item: IAniListMediaStudioNode) => item.name);
     }
 
     return animationStudios[0];
   }
 
-  private moveToDetails(id: number) {
+  moveToDetails(id: number) {
     const aniListId = id.toString();
     const location: RawLocation = { name: 'DetailView', params: { id: aniListId } };
     this.$router.push(location);
@@ -85,43 +84,43 @@ export default class ListImage extends Vue {
 .anime-image-container {
   & .titled {
     &.shadowed {
-      background-color: rgba(0, 0, 0, .65);
+      background-color: rgba(0, 0, 0, 0.65);
     }
     &.lightened {
-      background-color: rgba(255, 255, 255, .85);
+      background-color: rgba(255, 255, 255, 0.85);
     }
 
     position: absolute;
     bottom: 0;
     width: 100%;
-    max-height: 20%;
+    max-height: 19%;
 
-    transition: .25s ease-in-out;
+    transition: 0.25s ease-in-out;
   }
 
   & .titled-mobile {
     &.shadowed {
-      background-color: rgba(0, 0, 0, .65);
+      background-color: rgba(0, 0, 0, 0.65);
     }
     &.lightened {
-      background-color: rgba(255, 255, 255, .85);
+      background-color: rgba(255, 255, 255, 0.85);
     }
 
     position: absolute;
     bottom: 0;
     width: 100%;
 
-    transition: .25s ease-in-out;
+    transition: 0.25s ease-in-out;
   }
 
   &:hover > .titled {
     max-height: 75%;
 
     &.shadowed {
-      background-color: rgba(0, 0, 0, .85);
+      background-color: rgba(0, 0, 0, 0.85);
     }
     &.lightened {
-      background-color: rgba(255, 255, 255, .95);
+      background-color: rgba(255, 255, 255, 0.95);
     }
   }
 }

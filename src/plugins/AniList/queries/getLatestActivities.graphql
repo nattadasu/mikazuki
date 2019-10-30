@@ -1,0 +1,29 @@
+query GetActivities($page: Int!, $perPage: Int!, $isFollowing: Boolean) {
+  page: Page(page: $page, perPage: $perPage) {
+    activities(isFollowing: $isFollowing, sort: [ID_DESC]) {
+      ... on ListActivity {
+        id
+        media {
+          id
+          title {
+            userPreferred
+          }
+          coverImage {
+            extraLarge
+          }
+          type
+        }
+        user {
+          name
+          avatar {
+            large
+          }
+        }
+        progress
+        status
+        type
+        createdAt
+      }
+    }
+  }
+}

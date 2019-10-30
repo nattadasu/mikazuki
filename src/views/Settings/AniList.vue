@@ -3,29 +3,13 @@
     <v-card flat>
       <v-card-text>
         <v-container fill-height grid-list-xl>
-          <v-layout
-            v-if="!isAuthenticated"
-            class="ma-4"
-            fill-height
-            justify-center
-            align-center
-          >
+          <v-layout v-if="!isAuthenticated" class="ma-4" fill-height justify-center align-center>
             <v-btn color="primary" @click="loginToAniList">
               {{ $t('actions.login') }}
             </v-btn>
           </v-layout>
-          <v-layout
-            v-else
-            fill-height
-            justify-center
-            align-center
-            wrap
-          >
-            <v-flex
-              xs12
-              sm5
-              text-center
-            >
+          <v-layout v-else fill-height justify-center align-center wrap>
+            <v-flex xs12 sm5 text-center>
               <v-layout column>
                 <v-flex>
                   {{ $t('pages.settings.aniList.loggedInAs', [currentUser.name]) }}
@@ -37,11 +21,7 @@
                 </v-flex>
               </v-layout>
             </v-flex>
-            <v-flex
-              xs12
-              sm5
-              offset-sm2
-            >
+            <v-flex xs12 sm5 offset-sm2>
               <v-text-field
                 v-model="currentAniListRefreshRate"
                 type="number"
@@ -65,30 +45,30 @@ import { format, parse } from 'url';
 import request from 'request';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { appStore, userStore } from '@/store';
-import { IAniListUser } from '@/modules/AniList/types';
+import { IAniListUser } from '@/types';
 
 @Component
 export default class AniListSettings extends Vue {
   @Prop(String)
-  private tabKey!: string;
+  tabKey!: string;
 
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore && userStore.isAuthenticated;
   }
 
-  private get currentUser(): IAniListUser {
+  get currentUser(): IAniListUser {
     return userStore.session.user;
   }
 
-  private get currentAniListRefreshRate(): number {
+  get currentAniListRefreshRate(): number {
     return userStore.refreshRate;
   }
 
-  private set currentAniListRefreshRate(refreshRate: number) {
+  set currentAniListRefreshRate(refreshRate: number) {
     userStore.setRefreshRate(refreshRate);
   }
 
-  private loginToAniList() {
+  loginToAniList() {
     if (!userStore.isAuthenticated) {
       const oauthConfig = {
         clientId: process.env.VUE_APP_CLIENT_ID,
@@ -104,7 +84,7 @@ export default class AniListSettings extends Vue {
     }
   }
 
-  private async logout() {
+  async logout() {
     if (!userStore.isAuthenticated) {
       return;
     }

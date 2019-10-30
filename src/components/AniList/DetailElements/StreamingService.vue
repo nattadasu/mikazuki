@@ -19,7 +19,12 @@
               <v-flex xs12>
                 <v-layout fill-height justify-start align-end>
                   <v-flex xs4>
-                    <v-img v-if="episode.site === 'Crunchyroll'" height="50" class="background-shadowed" :src="require('@/assets/logos/Crunchyroll.svg')" />
+                    <v-img
+                      v-if="episode.site === 'Crunchyroll'"
+                      height="50"
+                      class="background-shadowed"
+                      :src="require('@/assets/logos/Crunchyroll.svg')"
+                    />
                     <!-- <span class="title shadowed">{{ episode.site }}</span> -->
                   </v-flex>
                 </v-layout>
@@ -49,7 +54,12 @@
                 <v-flex xs12>
                   <v-layout fill-height justify-start align-end>
                     <v-flex xs4>
-                      <v-img v-if="episode.site === 'Crunchyroll'" height="50" class="background-shadowed" :src="require('@/assets/logos/Crunchyroll.svg')" />
+                      <v-img
+                        v-if="episode.site === 'Crunchyroll'"
+                        height="50"
+                        class="background-shadowed"
+                        :src="require('@/assets/logos/Crunchyroll.svg')"
+                      />
                       <!-- <span class="title shadowed">{{ episode.site }}</span> -->
                     </v-flex>
                   </v-layout>
@@ -70,15 +80,15 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class StreamingService extends Vue {
   @Prop()
-  private item!: any;
+  item!: any;
 
-  private streamingEpisodesExpanded: boolean = false;
+  streamingEpisodesExpanded: boolean = false;
 
-  private openInBrowser(link: string) {
+  openInBrowser(link: string) {
     window.open(link, '_blank');
   }
 
-  private getReadableDateByTimestamp(timestamp?: number): string | null {
+  getReadableDateByTimestamp(timestamp?: number): string | null {
     if (!timestamp) {
       return null;
     }
@@ -97,23 +107,12 @@ export default class StreamingService extends Vue {
 
 <style lang="scss" scoped>
 .shadowed {
-  color: #FFF;
-  text-shadow:
-    -1px 1px 4px #000,
-    1px 1px 4px #000,
-    1px -1px 4px #000,
-    -1px -1px 4px #000,
-    -2px 2px 4px #000,
-    2px 2px 4px #000,
-    2px -2px 4px #000,
-    -2px -2px 4px #000;
+  color: #fff;
+  text-shadow: -1px 1px 4px #000, 1px 1px 4px #000, 1px -1px 4px #000, -1px -1px 4px #000, -2px 2px 4px #000,
+    2px 2px 4px #000, 2px -2px 4px #000, -2px -2px 4px #000;
 }
 .background-shadowed {
-  filter:
-    drop-shadow(-1px 1px 1px rgba(0,0,0,0.75))
-    drop-shadow(1px -1px 1px rgba(0,0,0,0.75))
-    drop-shadow(1px 1px 1px rgba(0,0,0,0.75))
-    drop-shadow(-1px -1px 1px rgba(0,0,0,0.75))
-  ;
+  filter: drop-shadow(-1px 1px 1px rgba(0, 0, 0, 0.75)) drop-shadow(1px -1px 1px rgba(0, 0, 0, 0.75))
+    drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.75)) drop-shadow(-1px -1px 1px rgba(0, 0, 0, 0.75));
 }
 </style>

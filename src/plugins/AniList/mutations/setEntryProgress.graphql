@@ -1,0 +1,10 @@
+mutation setEntryProgress($entryId: Int!, $progress: Int!, $status: MediaListStatus, $startedDate: FuzzyDateInput, $completedDate: FuzzyDateInput) {
+  SaveMediaListEntry(id: $entryId, progress: $progress) {
+    media {
+      title {
+        userPreferred
+      }
+    }
+    progress
+  }
+}

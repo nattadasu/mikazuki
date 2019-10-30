@@ -1,13 +1,6 @@
 <template>
   <v-layout align-center justify-end>
-    ({{ score }})<v-rating
-      :length="ratingStarAmount"
-      half-increments
-      dense
-      small
-      readonly
-      :value="scoreStars"
-    />
+    ({{ score }})<v-rating :length="ratingStarAmount" half-increments dense small readonly :value="scoreStars" />
   </v-layout>
 </template>
 
@@ -17,12 +10,12 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class StarRating extends Vue {
   @Prop(Number)
-  private score!: number;
+  score!: number;
 
   @Prop(Number)
-  private ratingStarAmount!: number;
+  ratingStarAmount!: number;
 
   @Prop(Number)
-  private scoreStars!: number;
+  scoreStars!: number;
 }
 </script>

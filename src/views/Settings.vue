@@ -3,12 +3,7 @@
     <v-card tile raised>
       <v-card-text>
         <v-tabs v-model="tabs" grow>
-          <v-tab
-            v-for="tab in settingsTabs"
-            :key="tab.key"
-            :disabled="tab.disabled"
-            ripple
-          >
+          <v-tab v-for="tab in settingsTabs" :key="tab.key" :disabled="tab.disabled" ripple>
             {{ tab.value }}
           </v-tab>
 
@@ -54,52 +49,45 @@ interface ISettingTab {
   },
 })
 export default class Settings extends Vue {
-  private tabs = null;
+  tabs = null;
 
   /**
    * @function settingsTabs
-   * @private
    * @returns {ISettingTab[]} the Settings tabs
    */
-  private get settingsTabs(): ISettingTab[] {
-    return [
-      this.appSettingsTab,
-      this.aniListTab,
-      this.aboutTab,
-      this.changelogTab,
-      this.specialThanksTab,
-    ];
+  get settingsTabs(): ISettingTab[] {
+    return [this.appSettingsTab, this.aniListTab, this.aboutTab, this.changelogTab, this.specialThanksTab];
   }
 
-  private get appSettingsTab(): ISettingTab {
+  get appSettingsTab(): ISettingTab {
     return {
       key: 'appSettings',
       value: this.$t('menus.settings.appSettings'),
     };
   }
 
-  private get aniListTab(): ISettingTab {
+  get aniListTab(): ISettingTab {
     return {
       key: 'aniList',
       value: this.$t('menus.settings.aniList'),
     };
   }
 
-  private get aboutTab(): ISettingTab {
+  get aboutTab(): ISettingTab {
     return {
       key: 'about',
       value: this.$t('menus.settings.about'),
     };
   }
 
-  private get changelogTab(): ISettingTab {
+  get changelogTab(): ISettingTab {
     return {
       key: 'changelog',
       value: this.$t('menus.settings.changelog'),
     };
   }
 
-  private get specialThanksTab(): ISettingTab {
+  get specialThanksTab(): ISettingTab {
     return {
       key: 'specialThanks',
       value: this.$t('menus.settings.specialThanks'),
