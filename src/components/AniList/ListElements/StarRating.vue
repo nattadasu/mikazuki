@@ -10,12 +10,12 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class StarRating extends Vue {
   @Prop(Number)
-  private score!: number;
+  score!: number;
 
   @Prop(Number)
-  private ratingStarAmount!: number;
+  ratingStarAmount!: number;
 
   @Prop(Number)
-  private scoreStars!: number;
+  scoreStars!: number;
 }
 </script>

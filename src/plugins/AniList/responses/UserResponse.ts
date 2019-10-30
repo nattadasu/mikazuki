@@ -1,4 +1,4 @@
-import { IAniListUser } from '@/modules/AniList/types';
+import { IAniListUser } from '@/types';
 
 export interface UserResponse {
   user: IAniListUser;

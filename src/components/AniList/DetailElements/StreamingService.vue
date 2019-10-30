@@ -80,15 +80,15 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class StreamingService extends Vue {
   @Prop()
-  private item!: any;
+  item!: any;
 
-  private streamingEpisodesExpanded: boolean = false;
+  streamingEpisodesExpanded: boolean = false;
 
-  private openInBrowser(link: string) {
+  openInBrowser(link: string) {
     window.open(link, '_blank');
   }
 
-  private getReadableDateByTimestamp(timestamp?: number): string | null {
+  getReadableDateByTimestamp(timestamp?: number): string | null {
     if (!timestamp) {
       return null;
     }

@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <Navigation @navigationDrawerUpdated="navigationDrawer = !navigationDrawer" />
+    <Navigation />
     <router-view :key="$route.path" />
     <ZeroTwoNotifications position="top center" />
     <TopButton />
@@ -12,7 +12,7 @@ import moment from 'moment';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { validLanguageCodes } from './i18n';
 import { appStore, userStore } from './store';
-import aniListEventHandler from '@/modules/AniList/eventHandler';
+import aniListEventHandler from '@/plugins/AniList/eventHandler';
 
 // Components
 import Navigation from '@/components/Navigation.vue';
@@ -27,20 +27,20 @@ import ZeroTwoNotifications from '@/components/Notifications.vue';
   },
 })
 export default class App extends Vue {
-  public get locale(): string | undefined {
+  get locale(): string | undefined {
     return appStore.language;
   }
 
-  public get darkMode(): boolean {
+  get darkMode(): boolean {
     return appStore.darkMode;
   }
 
-  public get loggedIntoAniList(): boolean {
+  get loggedIntoAniList(): boolean {
     return userStore.isAuthenticated;
   }
 
   @Watch('loggedIntoAniList')
-  public async loggedInStateChanged(newState: boolean) {
+  async loggedInStateChanged(newState: boolean) {
     if (newState) {
       await appStore.setLoadingState(true);
       await aniListEventHandler.refreshAniListData();
@@ -57,7 +57,7 @@ export default class App extends Vue {
    * @param {string | undefined} newLocale
    */
   @Watch('locale')
-  public localeChanged(newLocale: string | undefined) {
+  localeChanged(newLocale: string | undefined) {
     const root = document.getElementsByTagName('html')[0];
 
     this.$i18n.locale = newLocale && validLanguageCodes.includes(newLocale) ? newLocale : this.$i18n.fallbackLocale;
@@ -68,11 +68,11 @@ export default class App extends Vue {
   }
 
   @Watch('darkMode')
-  public darkModeChanged(newValue: boolean) {
+  darkModeChanged(newValue: boolean) {
     this.$vuetify.theme.dark = newValue;
   }
 
-  private async created() {
+  async created() {
     if (!this.locale) {
       if (window.navigator.languages && window.navigator.languages.length) {
         await appStore.setLanguage(window.navigator.languages[0]);
@@ -99,11 +99,11 @@ export default class App extends Vue {
     }
   }
 
-  private async beforeDestroy() {
+  async beforeDestroy() {
     await userStore.destroyRefreshTimer();
   }
 
-  private getLocaleBasedFontFace(locale: string): string {
+  getLocaleBasedFontFace(locale: string): string {
     let fontFace = '';
 
     switch (locale) {
@@ -135,15 +135,11 @@ export default class App extends Vue {
     return fontFace;
   }
 
-  private isRTLLanguage(locale: string): boolean {
+  isRTLLanguage(locale: string): boolean {
     let rtl = false;
 
-    switch (locale) {
-      case 'ar':
-        rtl = true;
-        break;
-      default:
-        break;
+    if (locale === 'ar') {
+      rtl = true;
     }
 
     return rtl;

@@ -1,5 +1,5 @@
 import { RouteConfig } from 'vue-router';
-import { AniListListStatus } from '@/modules/AniList/types';
+import { AniListListStatus } from '@/types';
 import AniList from '@/views/AniList/AniList.vue';
 import DetailView from '@/views/AniList/DetailView.vue';
 import Home from '@/views/AniList/Home.vue';

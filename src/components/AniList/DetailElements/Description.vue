@@ -18,6 +18,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class Description extends Vue {
   @Prop()
-  private item!: any;
+  item!: any;
 }
 </script>

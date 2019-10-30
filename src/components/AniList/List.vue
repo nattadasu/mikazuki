@@ -67,10 +67,9 @@ import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
 import EventBus from '@/eventBus';
-import API from '@/modules/AniList/API';
-import { AniListListStatus, AniListMediaStatus, AniListScoreFormat, IAniListEntry } from '@/modules/AniList/types';
+import { AniListListStatus, AniListMediaStatus, AniListScoreFormat, IAniListEntry } from '@/types';
 import { aniListStore, appStore, userStore } from '@/store';
-import aniListEventHandler from '@/modules/AniList/eventHandler';
+import aniListEventHandler from '@/plugins/AniList/eventHandler';
 import AdultToolTip from './ListElements/AdultToolTip.vue';
 import EpisodeState from './ListElements/EpisodeState.vue';
 import ListImage from './ListElements/ListImage.vue';
@@ -99,41 +98,41 @@ interface UpdatePayloadProperties {
 })
 export default class List extends Vue {
   // TODO: Make this a non-static number via Store
-  private startAmount: number = 20;
+  startAmount: number = 20;
 
-  private currentIndex: number = 0;
+  currentIndex: number = 0;
 
   // Contains the Timer ID
-  private updateTimer: NodeJS.Timeout | null = null;
+  updateTimer: NodeJS.Timeout | null = null;
 
-  private updatePayload: any[] = [];
+  updatePayload: any[] = [];
 
-  private updateInterval = 750;
+  updateInterval = 750;
 
-  private snackbarColor: string = 'success';
+  snackbarColor: string = 'success';
 
-  private isSnackbarVisible: boolean = false;
+  isSnackbarVisible: boolean = false;
 
-  private snackbarText: string = '';
+  snackbarText: string = '';
 
-  private sortDirection: string = 'asc';
+  sortDirection: string = 'asc';
 
-  private sortBy: string = 'title';
+  sortBy: string = 'title';
 
-  private genreFilters: string[] = [];
+  genreFilters: string[] = [];
 
   @Prop()
-  private readonly status!: AniListListStatus;
+  readonly status!: AniListListStatus;
 
-  private get ratingStarAmount(): number {
+  get ratingStarAmount(): number {
     return userStore.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3 ? 3 : 5;
   }
 
-  private get isLoading(): boolean {
+  get isLoading(): boolean {
     return appStore.isLoading;
   }
 
-  private get listData() {
+  get listData() {
     if (!aniListStore.aniListData.lists.length) {
       return [];
     }
@@ -203,7 +202,7 @@ export default class List extends Vue {
     return newEntries;
   }
 
-  private async created() {
+  async created() {
     // Infinite Scrolling
     window.onscroll = async () => {
       const bottomOfWindow =
@@ -223,7 +222,7 @@ export default class List extends Vue {
     });
   }
 
-  private getScoreStarValue(score: number): number {
+  getScoreStarValue(score: number): number {
     if (!score) {
       return 0;
     }
@@ -244,7 +243,7 @@ export default class List extends Vue {
     }
   }
 
-  private calculateProgressPercentage(entry: IAniListEntry): number {
+  calculateProgressPercentage(entry: IAniListEntry): number {
     const { episodes } = entry.media;
     const { nextAiringEpisode } = entry.media;
     const currentProgress = entry.progress;
@@ -276,7 +275,7 @@ export default class List extends Vue {
     return 75;
   }
 
-  private calculateMissingEpisodes(entry: IAniListEntry): number | null {
+  calculateMissingEpisodes(entry: IAniListEntry): number | null {
     const { nextAiringEpisode } = entry.media;
     const currentProgress = entry.progress;
 
@@ -292,7 +291,7 @@ export default class List extends Vue {
     return nextEpisode - 1 > 0 && nextEpisode - 1 - currentProgress > 0 ? nextEpisode - 1 - currentProgress : null;
   }
 
-  private increaseCurrentEpisodeProgress(entryId: number): void {
+  increaseCurrentEpisodeProgress(entryId: number): void {
     const listEntry = this.listData.find((entry) => entry.id === entryId);
 
     if (!listEntry) {
@@ -310,7 +309,7 @@ export default class List extends Vue {
     this.startUpdateTimer(listEntry);
   }
 
-  private startUpdateTimer(listEntry: any) {
+  startUpdateTimer(listEntry: any) {
     if (this.updateTimer) {
       clearTimeout(this.updateTimer);
     }
@@ -330,7 +329,7 @@ export default class List extends Vue {
     this.updateTimer = setTimeout(this.updateChanges, this.updateInterval);
   }
 
-  private async updateChanges() {
+  async updateChanges() {
     if (isEmpty(this.updatePayload)) {
       return;
     }

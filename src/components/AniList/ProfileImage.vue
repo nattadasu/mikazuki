@@ -23,15 +23,15 @@ import { userStore, appStore } from '@/store';
 
 @Component
 export default class ProfileImage extends Vue {
-  private get avatarUrl(): string {
+  get avatarUrl(): string {
     return userStore.session.user.avatar.large;
   }
 
-  private get userName(): string {
+  get userName(): string {
     return userStore.session.user.name;
   }
 
-  private get isDarkMode(): boolean {
+  get isDarkMode(): boolean {
     return appStore.darkMode;
   }
 }

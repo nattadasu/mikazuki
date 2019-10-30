@@ -32,41 +32,41 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator';
-import { AniListListStatus } from '@/modules/AniList/types';
+import { AniListListStatus } from '@/types';
 
 type AlphaNumerical = number | string;
 
 @Component
 export default class ProgressCircle extends Vue {
-  private indeterminate: boolean = false;
+  indeterminate: boolean = false;
 
-  private get completedList(): boolean {
+  get completedList(): boolean {
     return this.status === AniListListStatus.COMPLETED;
   }
 
   @Prop(Number)
-  private progressPercentage!: number;
+  progressPercentage!: number;
 
   @Prop(Number)
-  private currentProgress!: number;
+  currentProgress!: number;
 
   @Prop(Number)
-  private entryId!: number;
+  entryId!: number;
 
   @Prop(String)
-  private status!: string;
+  status!: string;
 
   @Prop([Number, String])
-  private episodeAmount!: AlphaNumerical;
+  episodeAmount!: AlphaNumerical;
 
   @Emit('increase')
-  private increaseEpisodeCounter() {
+  increaseEpisodeCounter() {
     this.indeterminate = true;
     return this.entryId;
   }
 
   @Watch('currentProgress')
-  private onCurrentProgressChange() {
+  onCurrentProgressChange() {
     this.indeterminate = false;
   }
 }

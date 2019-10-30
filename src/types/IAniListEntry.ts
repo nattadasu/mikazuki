@@ -1,4 +1,4 @@
-import { AniListListStatus, IAniListMedia } from '.';
+import { AniListListStatus, IAniListMedia } from './index';
 
 export interface IAniListEntry {
   /**

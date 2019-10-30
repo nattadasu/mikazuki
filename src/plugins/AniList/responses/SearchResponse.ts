@@ -1,4 +1,4 @@
-import { IAniListSearchResult } from '@/modules/AniList/types';
+import { IAniListSearchResult } from '@/types';
 
 export interface SearchResponse {
   page: {

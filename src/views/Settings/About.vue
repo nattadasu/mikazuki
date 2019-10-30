@@ -70,33 +70,33 @@ import { version } from '../../../package.json';
 @Component
 export default class AboutSettings extends Vue {
   @Prop(String)
-  private tabKey!: string;
+  tabKey!: string;
 
-  private githubPage: URL = new URL('https://github.com/nicoaiko/zerotwo');
+  githubPage: URL = new URL('https://github.com/nicoaiko/zerotwo');
 
-  private discordPage: URL = new URL('https://discord.gg/sTpR4Gw');
+  discordPage: URL = new URL('https://discord.gg/sTpR4Gw');
 
-  private zeroTwoPage: URL = new URL('https://www.zerotwo.org');
+  zeroTwoPage: URL = new URL('https://www.zerotwo.org');
 
-  private aniListPage: URL = new URL('https://anilist.co');
+  aniListPage: URL = new URL('https://anilist.co');
 
-  private get currentAppVersion(): string {
+  get currentAppVersion(): string {
     return version;
   }
 
-  private openGitHub() {
+  openGitHub() {
     window.open(this.githubPage.toString(), '_blank');
   }
 
-  private openDiscord() {
+  openDiscord() {
     window.open(this.discordPage.toString(), '_blank');
   }
 
-  private openZeroTwo() {
+  openZeroTwo() {
     window.open(this.zeroTwoPage.toString(), '_blank');
   }
 
-  private openAniList() {
+  openAniList() {
     window.open(this.aniListPage.toString(), '_blank');
   }
 }

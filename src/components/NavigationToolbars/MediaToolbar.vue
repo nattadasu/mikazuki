@@ -14,7 +14,7 @@ import { aniListStore } from '@/store';
 
 @Component
 export default class MediaToolbar extends Vue {
-  private get currentMediaTitle(): string | null {
+  get currentMediaTitle(): string | null {
     return aniListStore.currentMediaTitle;
   }
 }

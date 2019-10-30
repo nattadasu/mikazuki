@@ -55,11 +55,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { AniListListStatus } from '@/modules/AniList/types';
+import { AniListListStatus } from '@/types';
 
 @Component
 export default class SearchFilter extends Vue {
-  private listStatus = [
+  listStatus = [
     {
       text: this.$root.$t('misc.aniList.listStatusses.watching'),
       value: AniListListStatus.CURRENT,
@@ -86,24 +86,24 @@ export default class SearchFilter extends Vue {
     },
   ];
 
-  private genres = ['Action', 'Mystery'];
+  genres = ['Action', 'Mystery'];
 
   @Prop()
-  private listValues!: AniListListStatus[];
+  listValues!: AniListListStatus[];
 
   @Prop(Array)
-  private genreValues!: string[];
+  genreValues!: string[];
 
   @Prop(String)
-  private adultContentValue!: string;
+  adultContentValue!: string;
 
-  private genreSearch = null;
+  genreSearch = null;
 
-  private get localGenreValues(): string[] {
+  get localGenreValues(): string[] {
     return this.genreValues;
   }
 
-  private set localGenreValues(value: string[]) {
+  set localGenreValues(value: string[]) {
     if (value.length > 3) {
       this.$nextTick(() => this.localGenreValues.pop());
     }
@@ -111,19 +111,19 @@ export default class SearchFilter extends Vue {
     this.$emit('genreValuesChanged', value);
   }
 
-  private get localListValues(): AniListListStatus[] {
+  get localListValues(): AniListListStatus[] {
     return this.listValues;
   }
 
-  private set localListValues(value: AniListListStatus[]) {
+  set localListValues(value: AniListListStatus[]) {
     this.$emit('listValuesChanged', value);
   }
 
-  private get localAdultContent(): string {
+  get localAdultContent(): string {
     return this.adultContentValue;
   }
 
-  private set localAdultContent(value: string) {
+  set localAdultContent(value: string) {
     this.$emit('adultContentValueChanged', value);
   }
 }

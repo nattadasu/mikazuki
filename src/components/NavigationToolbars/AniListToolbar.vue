@@ -86,51 +86,51 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 // Custom Components
-import { AniListListStatus } from '@/modules/AniList/types';
+import { AniListListStatus } from '@/types';
 import { aniListStore, userStore } from '@/store';
 
 @Component
 export default class AniListToolbar extends Vue {
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
   }
 
-  private get watchingAmount(): number {
+  get watchingAmount(): number {
     const status: AniListListStatus = AniListListStatus.CURRENT;
     const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get repeatingAmount(): number {
+  get repeatingAmount(): number {
     const status: AniListListStatus = AniListListStatus.REPEATING;
     const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get completedAmount(): number {
+  get completedAmount(): number {
     const status: AniListListStatus = AniListListStatus.COMPLETED;
     const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get pausedAmount(): number {
+  get pausedAmount(): number {
     const status: AniListListStatus = AniListListStatus.PAUSED;
     const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get droppedAmount(): number {
+  get droppedAmount(): number {
     const status: AniListListStatus = AniListListStatus.DROPPED;
     const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
-  private get planningAmount(): number {
+  get planningAmount(): number {
     const status: AniListListStatus = AniListListStatus.PLANNING;
     const element = aniListStore.aniListData.lists.find((list) => list.status === status);
 

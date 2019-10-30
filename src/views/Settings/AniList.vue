@@ -45,30 +45,30 @@ import { format, parse } from 'url';
 import request from 'request';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { appStore, userStore } from '@/store';
-import { IAniListUser } from '@/modules/AniList/types';
+import { IAniListUser } from '@/types';
 
 @Component
 export default class AniListSettings extends Vue {
   @Prop(String)
-  private tabKey!: string;
+  tabKey!: string;
 
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore && userStore.isAuthenticated;
   }
 
-  private get currentUser(): IAniListUser {
+  get currentUser(): IAniListUser {
     return userStore.session.user;
   }
 
-  private get currentAniListRefreshRate(): number {
+  get currentAniListRefreshRate(): number {
     return userStore.refreshRate;
   }
 
-  private set currentAniListRefreshRate(refreshRate: number) {
+  set currentAniListRefreshRate(refreshRate: number) {
     userStore.setRefreshRate(refreshRate);
   }
 
-  private loginToAniList() {
+  loginToAniList() {
     if (!userStore.isAuthenticated) {
       const oauthConfig = {
         clientId: process.env.VUE_APP_CLIENT_ID,
@@ -84,7 +84,7 @@ export default class AniListSettings extends Vue {
     }
   }
 
-  private async logout() {
+  async logout() {
     if (!userStore.isAuthenticated) {
       return;
     }

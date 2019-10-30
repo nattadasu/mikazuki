@@ -82,21 +82,21 @@ import supporters from '@/assets/support/supporters.json';
 @Component
 export default class SpecialThanksSettings extends Vue {
   @Prop(String)
-  private tabKey!: string;
+  tabKey!: string;
 
-  private get currentLanguage(): string {
+  get currentLanguage(): string {
     return this.$i18n.locale;
   }
 
-  private get getSpecialThanks() {
+  get getSpecialThanks() {
     return specialThanks;
   }
 
-  private get getSupporters() {
+  get getSupporters() {
     return supporters;
   }
 
-  private OpenKofiPage(): void {
+  OpenKofiPage(): void {
     window.open('https://ko-fi.com/nicoaiko', '_blank');
   }
 }

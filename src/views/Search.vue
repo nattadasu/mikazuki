@@ -175,8 +175,7 @@ import { Route } from 'vue-router';
 import AdultToolTip from '@/components/AniList/ListElements/AdultToolTip.vue';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import ProgressCircle from '@/components/AniList/ListElements/ProgressCircle.vue';
-import API from '@/modules/AniList/API';
-import { AniListListStatus, IAniListSearchResult } from '@/modules/AniList/types';
+import { AniListListStatus, IAniListSearchResult } from '@/types';
 import { appStore } from '@/store';
 import SearchFilter from '@/components/Search/Filter.vue';
 

@@ -98,31 +98,31 @@ interface SelectItem {
 
 @Component
 export default class Sort extends Vue {
-  private genres = ['Action', 'Mystery'];
+  genres = ['Action', 'Mystery'];
 
-  private genreValues = [];
+  genreValues = [];
 
-  private genreSearch = null;
+  genreSearch = null;
 
-  private sortMenu: boolean = false;
+  sortMenu: boolean = false;
 
-  private direction: string = 'asc';
+  direction: string = 'asc';
 
-  private sortItem: string = 'title';
+  sortItem: string = 'title';
 
   adultContent: string = 'without';
 
-  private created() {
+  created() {
     EventBus.$on('resetAllSorts', () => {
       this.resetFilters(false);
     });
   }
 
-  private get isSortingPage(): boolean {
+  get isSortingPage(): boolean {
     return this.$route.meta && this.$route.meta.sortingPage;
   }
 
-  private get sortingItems(): SelectItem[] {
+  get sortingItems(): SelectItem[] {
     const items: SelectItem[] = [];
 
     switch (this.$route.name) {
@@ -178,14 +178,14 @@ export default class Sort extends Vue {
     return items;
   }
 
-  private changeSorting(value: any) {
+  changeSorting(value: any) {
     EventBus.$emit('changeSorting', {
       sortBy: value,
       direction: this.direction,
     });
   }
 
-  private changeDirection(value: string) {
+  changeDirection(value: string) {
     if (!this.sortItem) {
       this.sortItem = this.sortingItems[0].value;
     }
@@ -196,7 +196,7 @@ export default class Sort extends Vue {
     });
   }
 
-  private changeGenres(values: string[]) {
+  changeGenres(values: string[]) {
     EventBus.$emit('changeFiltering', {
       genres: values,
     });
@@ -208,7 +208,7 @@ export default class Sort extends Vue {
     });
   }
 
-  private resetFilters(emitEvents: boolean = true): void {
+  resetFilters(emitEvents: boolean = true): void {
     this.genreValues = [];
     this.sortItem = 'title';
     this.direction = 'asc';
@@ -223,7 +223,7 @@ export default class Sort extends Vue {
   }
 
   @Watch('genreValues')
-  private onGenreValuesChange(value: string[]) {
+  onGenreValuesChange(value: string[]) {
     if (value.length > 3) {
       this.$nextTick(() => this.genreValues.pop());
     }

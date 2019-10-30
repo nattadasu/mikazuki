@@ -1,6 +1,6 @@
 import { IAniListMediaTitle } from './IAniListMediaTitle';
 import { IAniListMediaDate } from './IAniListMediaDate';
-import { IAniListStreamingEpisode } from '.';
+import { IAniListStreamingEpisode } from './index';
 import { IAniListCoverImage } from './IAniListCoverImage';
 import { IAniListNextAiringEpisode } from './IAniListNextAiringEpisode';
 import { IAniListMediaStudio } from './IAniListMediaStudio';

@@ -66,7 +66,7 @@ import { userStore } from '@/store';
   },
 })
 export default class Home extends Vue {
-  private async beforeMount() {
+  async beforeMount() {
     if ('login' in this.$route.query) {
       const { access_token: accessToken } = this.$route.query;
 
@@ -79,15 +79,15 @@ export default class Home extends Vue {
     }
   }
 
-  private get currentUser() {
+  get currentUser() {
     return userStore.session.user;
   }
 
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
   }
 
-  private openSupportPage(): void {
+  openSupportPage(): void {
     window.open('https://ko-fi.com/nicoaiko', '_blank');
   }
 }

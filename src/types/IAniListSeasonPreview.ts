@@ -1,4 +1,4 @@
-import { AniListSeason, IAniListSeasonPreviewMedia } from '.';
+import { AniListSeason, IAniListSeasonPreviewMedia } from './index';
 
 export interface IAniListSeasonPreview {
   season: AniListSeason;

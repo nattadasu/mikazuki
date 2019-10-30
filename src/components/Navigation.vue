@@ -85,7 +85,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { RawLocation, Route } from 'vue-router';
 
 // Custom Components
-import { AniListListStatus } from '@/modules/AniList/types';
+import { AniListListStatus } from '@/types';
 import { userStore, appStore } from '@/store';
 
 // Navigation Toolbars

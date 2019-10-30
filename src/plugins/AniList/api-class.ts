@@ -14,7 +14,7 @@ import {
   IAniListSearchResult,
   IAniListActivity,
   IAniListMediaDate,
-} from '@/modules/AniList/types';
+} from '@/types';
 // #endregion
 
 // #region Queries

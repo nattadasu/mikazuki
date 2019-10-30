@@ -10,7 +10,7 @@ import { Component, Vue } from 'vue-property-decorator';
 // Custom Components
 import List from '@/components/AniList/List.vue';
 import EventBus from '@/eventBus';
-import { AniListListStatus } from '@/modules/AniList/types';
+import { AniListListStatus } from '@/types';
 
 @Component({
   components: {
@@ -26,9 +26,9 @@ import { AniListListStatus } from '@/modules/AniList/types';
   },
 })
 export default class AniList extends Vue {
-  private status!: AniListListStatus;
+  status!: AniListListStatus;
 
-  private created() {
+  created() {
     this.status = this.$route.meta.status;
   }
 }

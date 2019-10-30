@@ -1,6 +1,6 @@
 import { IAniListUserAvatar } from './IAniListUserAvatar';
 import { IAniListUserMediaListOptions } from './IAniListUserMediaListOptions';
-import { IAniListUserOptions } from '.';
+import { IAniListUserOptions } from './index';
 import { IAniListUserStats } from './IAniListUserStats';
 
 export interface IAniListUser {

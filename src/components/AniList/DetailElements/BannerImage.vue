@@ -14,7 +14,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class BannerImage extends Vue {
   @Prop()
-  private item!: any;
+  item!: any;
 }
 </script>
 

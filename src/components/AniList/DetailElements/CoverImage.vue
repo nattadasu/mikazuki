@@ -16,6 +16,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class CoverImage extends Vue {
   @Prop()
-  private coverImage!: string;
+  coverImage!: string;
 }
 </script>

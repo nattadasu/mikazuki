@@ -2,7 +2,7 @@ import { IAniListMediaTitle } from './IAniListMediaTitle';
 import { IAniListMediaDate } from './IAniListMediaDate';
 import { AniListSeason } from './AniListSeason';
 import { AniListMediaStatus } from './AniListMediaStatus';
-import { IAniListMediaStudio, IAniListNextAiringEpisode } from '.';
+import { IAniListMediaStudio, IAniListNextAiringEpisode } from './index';
 import { AniListFormat } from './AniListFormat';
 import { AniListType } from './AniListType';
 import { IAniListCoverImage } from './IAniListCoverImage';

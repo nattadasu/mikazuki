@@ -2,7 +2,7 @@ import { IAniListMediaTitle } from './IAniListMediaTitle';
 import { IAniListCoverImage } from './IAniListCoverImage';
 import { IAniListEntry } from './IAniListEntry';
 import { IAniListNextAiringEpisode } from './IAniListNextAiringEpisode';
-import { IAniListMediaStudio } from '.';
+import { IAniListMediaStudio } from './index';
 
 export interface IAniListSearchResult {
   id: number;

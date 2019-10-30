@@ -10,9 +10,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class EpisodeState extends Vue {
   @Prop(String)
-  private nextEpisode!: string | null;
+  nextEpisode!: string | null;
 
   @Prop(String)
-  private status!: string;
+  status!: string;
 }
 </script>

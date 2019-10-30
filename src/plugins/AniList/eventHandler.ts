@@ -1,6 +1,6 @@
 import { userStore, aniListStore } from '@/store';
-import { API } from '@/plugins/AniList';
-import { IAniListUser, AniListType } from './types';
+import { API } from '@/plugins/AniList/index';
+import { IAniListUser, AniListType } from '@/types';
 
 export default {
   async refreshAniListData(): Promise<void> {
@@ -38,7 +38,7 @@ export default {
       const userList = await API.getUserList(userName, AniListType.ANIME);
 
       if (userList) {
-        aniListStore.setAniListData(userList);
+        await aniListStore.setAniListData(userList);
       }
     } catch (error) {
       //

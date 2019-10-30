@@ -88,34 +88,33 @@
 <script lang="ts">
 import { isNumber } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import API from '@/modules/AniList/API';
-import { AniListScoreFormat, AniListListStatus } from '@/modules/AniList/types';
+import { AniListScoreFormat, AniListListStatus } from '@/types';
 import { appStore, userStore } from '@/store';
-import aniListEventHandler from '@/modules/AniList/eventHandler';
+import aniListEventHandler from '@/plugins/AniList/eventHandler';
 
 @Component
 export default class UserListSettings extends Vue {
   @Prop()
-  private item!: any;
+  item!: any;
   // @TODO: Give item a proper type
 
-  private status: AniListListStatus = AniListListStatus.PLANNING;
+  status: AniListListStatus = AniListListStatus.PLANNING;
 
-  private progress: number = 0;
+  progress: number = 0;
 
-  private score: number = 0;
+  score: number = 0;
 
-  private readonly POINT_100 = AniListScoreFormat.POINT_100;
+  readonly POINT_100 = AniListScoreFormat.POINT_100;
 
-  private readonly POINT_10_DECIMAL = AniListScoreFormat.POINT_10_DECIMAL;
+  readonly POINT_10_DECIMAL = AniListScoreFormat.POINT_10_DECIMAL;
 
-  private readonly POINT_10 = AniListScoreFormat.POINT_10;
+  readonly POINT_10 = AniListScoreFormat.POINT_10;
 
-  private readonly POINT_5 = AniListScoreFormat.POINT_5;
+  readonly POINT_5 = AniListScoreFormat.POINT_5;
 
-  private readonly POINT_3 = AniListScoreFormat.POINT_3;
+  readonly POINT_3 = AniListScoreFormat.POINT_3;
 
-  private readonly listStatusses = [
+  readonly listStatusses = [
     {
       text: this.$root.$t('misc.aniList.listStatusses.watching'),
       value: AniListListStatus.CURRENT,
@@ -142,11 +141,11 @@ export default class UserListSettings extends Vue {
     },
   ];
 
-  private readonly rules = {
+  readonly rules = {
     required: (value: any) => !!value || this.$root.$t('misc.rules.required'),
   };
 
-  private created() {
+  created() {
     if (this.item && this.item.listEntry) {
       this.score = this.item.listEntry.score;
       this.status = this.item.listEntry.status;
@@ -154,11 +153,11 @@ export default class UserListSettings extends Vue {
     }
   }
 
-  private get loading(): boolean {
+  get loading(): boolean {
     return appStore.isLoading;
   }
 
-  private get scoreSystem(): AniListScoreFormat | null {
+  get scoreSystem(): AniListScoreFormat | null {
     if (!this.item) {
       return null;
     }
@@ -176,20 +175,20 @@ export default class UserListSettings extends Vue {
       : AniListScoreFormat.POINT_100;
   }
 
-  private getMask(input: number | string): string | undefined {
+  getMask(input: number | string): string | undefined {
     if (!isNumber(input)) {
       return '#####';
     }
     return '#'.repeat(input);
   }
 
-  private checkStatus(status: AniListListStatus) {
+  checkStatus(status: AniListListStatus) {
     if (status === AniListListStatus.COMPLETED && typeof this.item.episodes === 'number') {
       this.progress = this.item.episodes;
     }
   }
 
-  private async saveChanges(): Promise<void> {
+  async saveChanges(): Promise<void> {
     await appStore.setLoadingState(true);
     if (this.item && this.item.listEntry) {
       const { entryId } = this.item;
@@ -248,7 +247,7 @@ export default class UserListSettings extends Vue {
     await appStore.setLoadingState(false);
   }
 
-  private async removeFromList(): Promise<void> {
+  async removeFromList(): Promise<void> {
     if (!this.item || !this.item.listEntry) {
       return;
     }
@@ -275,7 +274,7 @@ export default class UserListSettings extends Vue {
     await appStore.setLoadingState(false);
   }
 
-  private async addToList(): Promise<void> {
+  async addToList(): Promise<void> {
     if (!this.item || this.item.listEntry) {
       this.$notify({
         title: 'FATAL ERROR (100)',

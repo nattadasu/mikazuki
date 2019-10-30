@@ -72,25 +72,25 @@ import latestChangelog from '@/assets/changelogs/latest.json';
 @Component
 export default class ChangelogSettings extends Vue {
   @Prop(String)
-  private tabKey!: string;
+  tabKey!: string;
 
-  private get version(): string {
+  get version(): string {
     return latestChangelog.version;
   }
 
-  private get currentLanguage(): string {
+  get currentLanguage(): string {
     return this.$i18n.locale;
   }
 
-  private get englishNew() {
+  get englishNew() {
     return latestChangelog.NEW;
   }
 
-  private get englishFix() {
+  get englishFix() {
     return latestChangelog.FIX;
   }
 
-  private get englishRemove() {
+  get englishRemove() {
     return latestChangelog.REMOVE;
   }
 }

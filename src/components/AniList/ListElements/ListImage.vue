@@ -28,31 +28,31 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
-import { IAniListMediaStudio, IAniListMediaStudioNode } from '../../../modules/AniList/types';
+import { IAniListMediaStudio, IAniListMediaStudioNode } from '../../../types';
 
 @Component
 export default class ListImage extends Vue {
   @Prop(String)
-  private imageLink!: string;
+  imageLink!: string;
 
   @Prop(Number)
-  private aniListId!: number;
+  aniListId!: number;
 
   @Prop(String)
-  private name!: string;
+  name!: string;
 
   @Prop()
-  private studios!: IAniListMediaStudio;
+  studios!: IAniListMediaStudio;
 
-  public get darkMode(): boolean {
+  get darkMode(): boolean {
     return this.$vuetify.theme.dark;
   }
 
-  public get isMobile(): boolean {
+  get isMobile(): boolean {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
-  public get concatenatedStudios(): string {
+  get concatenatedStudios(): string {
     if (!this.studios || !this.studios.nodes || !this.studios.nodes.length) {
       return '';
     }
@@ -68,7 +68,7 @@ export default class ListImage extends Vue {
     return animationStudios[0];
   }
 
-  private moveToDetails(id: number) {
+  moveToDetails(id: number) {
     const aniListId = id.toString();
     const location: RawLocation = { name: 'DetailView', params: { id: aniListId } };
     this.$router.push(location);

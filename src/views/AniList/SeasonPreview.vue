@@ -100,8 +100,7 @@ import { Route } from 'vue-router';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import AddButton from '@/components/AniList/SeasonPreview/AddButton.vue';
 import eventBus from '@/eventBus';
-import API from '@/modules/AniList/API';
-import { AniListListStatus, AniListSeason, IAniListEntry, IAniListSeasonPreviewMedia } from '@/modules/AniList/types';
+import { AniListListStatus, AniListSeason, IAniListEntry, IAniListSeasonPreviewMedia } from '@/types';
 import { aniListStore, appStore, userStore } from '@/store';
 
 interface UpdateSeasonProperties {
@@ -118,29 +117,29 @@ Component.registerHooks(['beforeRouteUpdate', 'beforeRouteLeave']);
   },
 })
 export default class SeasonPreview extends Vue {
-  private media: IAniListSeasonPreviewMedia[] = [];
+  media: IAniListSeasonPreviewMedia[] = [];
 
-  private seasonYear: number = new Date().getUTCFullYear();
+  seasonYear: number = new Date().getUTCFullYear();
 
-  private season: AniListSeason = this.getCurrentSeason();
+  season: AniListSeason = this.getCurrentSeason();
 
-  private sortDirection: string = 'asc';
+  sortDirection: string = 'asc';
 
-  private sortBy: string = 'title';
+  sortBy: string = 'title';
 
-  private genreFilters: string[] = [];
+  genreFilters: string[] = [];
 
   adultContentFilter: string = 'without';
 
-  private get appLoading(): boolean {
+  get appLoading(): boolean {
     return appStore.isLoading;
   }
 
-  private get isAuthenticated(): boolean {
+  get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
   }
 
-  private get preparedMedia() {
+  get preparedMedia() {
     const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
 
     // @TODO: Give entry a type!
@@ -221,7 +220,7 @@ export default class SeasonPreview extends Vue {
       .value();
   }
 
-  private async created() {
+  async created() {
     if (this.$route.query && this.$route.query.year && this.$route.query.season) {
       const { year, season } = this.$route.query;
       this.seasonYear = parseInt(year as string, 10);
@@ -271,7 +270,7 @@ export default class SeasonPreview extends Vue {
     }
   }
 
-  private beforeRouteUpdate(to: Route, from: Route, next: any) {
+  beforeRouteUpdate(to: Route, from: Route, next: any) {
     eventBus.$emit('resetAllSorts');
 
     const { query } = to;
@@ -288,12 +287,12 @@ export default class SeasonPreview extends Vue {
     next();
   }
 
-  private beforeRouteLeave(to: Route, from: Route, next: any) {
+  beforeRouteLeave(to: Route, from: Route, next: any) {
     eventBus.$emit('resetAllSorts');
     next();
   }
 
-  private getCurrentSeason(): AniListSeason {
+  getCurrentSeason(): AniListSeason {
     const currentMonth = new Date().getUTCMonth();
 
     // Spring months

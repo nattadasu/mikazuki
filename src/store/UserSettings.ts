@@ -1,6 +1,6 @@
 import { action, mutation, createModule } from 'vuex-class-component';
-import { IAniListSession, AniListScoreFormat, IAniListUser } from '@/modules/AniList/types';
-import eventHandler from '@/modules/AniList/eventHandler';
+import { IAniListSession, AniListScoreFormat, IAniListUser } from '@/types';
+import eventHandler from '@/plugins/AniList/eventHandler';
 
 const VuexModule = createModule({
   namespaced: true,

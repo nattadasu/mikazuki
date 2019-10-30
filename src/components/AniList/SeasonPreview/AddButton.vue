@@ -15,8 +15,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { AniListListStatus } from '@/modules/AniList/types';
-import AniListAPI from '@/modules/AniList/API';
+import { AniListListStatus } from '@/types';
 import { userStore, appStore } from '@/store';
 
 @Component

@@ -4,9 +4,7 @@
       <v-col cols="12" lg="6" v-for="activity in activities" :key="activity.id">
         <v-row no-gutters>
           <v-col cols="auto" class="flex-shrink-1">
-            <v-avatar class="first border-radius" tile size="175">
-              <v-img :src="activity.coverImage" />
-            </v-avatar>
+            <v-img height="150" width="150" class="first border-radius" :src="activity.coverImage" />
           </v-col>
 
           <v-col :cols="true" class="grey second border-radius darken-3 flex-grow-1">
@@ -64,12 +62,12 @@
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
-import { IAniListActivity, AniListType } from '@/modules/AniList/types';
+import { IAniListActivity, AniListType } from '@/types';
 import { aniListStore } from '@/store';
 
 @Component({ components: { ListImage } })
 export default class Activities extends Vue {
-  private get activities() {
+  get activities() {
     return aniListStore.latestActivities.map((activity) => ({
       id: activity.id,
       mediaId: activity.media.id,

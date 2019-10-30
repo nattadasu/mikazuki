@@ -1,4 +1,4 @@
-import { IAniListSeasonPreviewMedia } from '@/modules/AniList/types';
+import { IAniListSeasonPreviewMedia } from '@/types';
 
 export interface SeasonPreviewResponse {
   page: {

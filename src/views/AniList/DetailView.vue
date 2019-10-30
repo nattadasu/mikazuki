@@ -48,8 +48,7 @@ import Loading from '@/components/AniList/DetailElements/Loading.vue';
 import MediaDetails from '@/components/AniList/DetailElements/MediaDetails.vue';
 import StreamingService from '@/components/AniList/DetailElements/StreamingService.vue';
 import UserListSettings from '@/components/AniList/DetailElements/UserListSettings.vue';
-import API from '@/modules/AniList/API';
-import { IAniListEntry, IAniListMedia } from '@/modules/AniList/types';
+import { IAniListEntry, IAniListMedia } from '@/types';
 import { aniListStore, appStore } from '@/store';
 
 @Component({
@@ -64,9 +63,9 @@ import { aniListStore, appStore } from '@/store';
   },
 })
 export default class DetailView extends Vue {
-  private entry: IAniListEntry | null = null;
+  entry: IAniListEntry | null = null;
 
-  private async created() {
+  async created() {
     await appStore.setLoadingState(true);
     const aniListId = parseInt(this.$route.params.id, 10);
 
@@ -88,7 +87,7 @@ export default class DetailView extends Vue {
     await appStore.setLoadingState(false);
   }
 
-  private async updateItem(): Promise<void> {
+  async updateItem(): Promise<void> {
     await appStore.setLoadingState(true);
 
     const aniListId = parseInt(this.$route.params.id, 10);
@@ -111,7 +110,7 @@ export default class DetailView extends Vue {
     await appStore.setLoadingState(false);
   }
 
-  private async loadListEntry(aniListId: number): Promise<void> {
+  async loadListEntry(aniListId: number): Promise<void> {
     this.entry = await this.$http.getListEntryByMediaId(aniListId);
 
     // Media does not exist
@@ -120,7 +119,7 @@ export default class DetailView extends Vue {
     }
   }
 
-  private get item() {
+  get item() {
     if (!this.entry || !this.entry.media) {
       return null;
     }
@@ -166,15 +165,7 @@ export default class DetailView extends Vue {
     };
   }
 
-  private isDateBeforeNow({
-    day,
-    month,
-    year,
-  }: {
-    day: number | null;
-    month: number | null;
-    year: number | null;
-  }): boolean {
+  isDateBeforeNow({ day, month, year }: { day: number | null; month: number | null; year: number | null }): boolean {
     const now = moment();
 
     if (!year && !month && !day) {
@@ -192,7 +183,7 @@ export default class DetailView extends Vue {
     return false;
   }
 
-  private getReadableDate({
+  getReadableDate({
     day,
     month,
     year,
@@ -224,7 +215,7 @@ export default class DetailView extends Vue {
     return moment(`${day}-${month}-${year}`, 'D-M-YYYY').format(format);
   }
 
-  private getAiringDate(
+  getAiringDate(
     startDate: string | null,
     endDate: string | null,
     media: IAniListMedia,
