@@ -10,6 +10,9 @@ export default {
 
     try {
       const user = await API.getUser();
+      const { stats, statistics } = await API.getUserStatistics();
+      user.statistics = statistics;
+      user.stats.activityHistory = stats.activityHistory;
 
       const userName = (user as IAniListUser).name;
       const userList = await API.getUserList(userName, AniListType.ANIME);

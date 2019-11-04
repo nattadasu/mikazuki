@@ -14,6 +14,8 @@ import {
   IAniListSearchResult,
   IAniListActivity,
   IAniListMediaDate,
+  IAniListUserStats,
+  IAniListUserStatistics,
 } from '@/types';
 // #endregion
 
@@ -23,6 +25,7 @@ import getListEntry from './queries/getListEntry.graphql';
 import getUserList from './queries/getUserList.graphql';
 import getUser from './queries/getUser.graphql';
 import getLatestActivities from './queries/getLatestActivities.graphql';
+import getUserStatistics from './queries/getUserStatistics.graphql';
 import getSeasonPreview from './queries/getSeasonPreview.graphql';
 import searchAnime from './queries/searchAnime.graphql';
 // #endregion
@@ -106,6 +109,17 @@ export default class AniListAPI {
     });
 
     return response.page.activities;
+  }
+
+  public async getUserStatistics(): Promise<{ stats: IAniListUserStats; statistics: IAniListUserStatistics }> {
+    const response = await axios.post<UserResponse>('/', {
+      query: getUserStatistics,
+    });
+
+    return {
+      stats: response.user.stats,
+      statistics: response.user.statistics,
+    };
   }
 
   public async getSeasonPreview(seasonYear: number, season: AniListSeason): Promise<IAniListSeasonPreview> {

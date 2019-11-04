@@ -2,6 +2,7 @@ import { IAniListUserAvatar } from './IAniListUserAvatar';
 import { IAniListUserMediaListOptions } from './IAniListUserMediaListOptions';
 import { IAniListUserOptions } from './index';
 import { IAniListUserStats } from './IAniListUserStats';
+import { IAniListUserStatistics } from '@/types/IAniListUserStatistics';
 
 export interface IAniListUser {
   /**
@@ -32,4 +33,6 @@ export interface IAniListUser {
    * @var {IAniListUserStats} stats contains the user's stats information
    */
   stats: IAniListUserStats;
+
+  statistics: IAniListUserStatistics;
 }

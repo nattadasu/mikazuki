@@ -79,6 +79,13 @@
             "anime": "أنمي",
             "manga": "مانغا"
           },
+          "statistics": {
+            "totalAnime": "Total Anime",
+            "totalManga": "Total Manga",
+            "daysWatched": "Days Watched",
+            "meanScore": "Mean Score",
+            "chaptersRead": "Chapters Read"
+          },
           "headline": "أحدث الأنشطة",
           "completed": "منجز {0}",
           "plansToWatch": "مخطط للمشاهدة {0}",

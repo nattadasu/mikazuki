@@ -1,0 +1,27 @@
+query {
+  user: Viewer {
+    statistics {
+      anime {
+        count
+        meanScore
+        standardDeviation
+        minutesWatched
+        episodesWatched
+      }
+      manga {
+        count
+        meanScore
+        standardDeviation
+        chaptersRead
+        volumesRead
+      }
+    }
+    stats {
+      activityHistory {
+        date
+        amount
+        level
+      }
+    }
+  }
+}

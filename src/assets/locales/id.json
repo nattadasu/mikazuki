@@ -79,6 +79,13 @@
             "anime": "Anime",
             "manga": "Manga"
           },
+          "statistics": {
+            "totalAnime": "Total Anime",
+            "totalManga": "Total Manga",
+            "daysWatched": "Days Watched",
+            "meanScore": "Mean Score",
+            "chaptersRead": "Chapters Read"
+          },
           "headline": "Aktivitas Terbaru",
           "completed": "Selesai {0}",
           "plansToWatch": "Direncanakan {0}",
