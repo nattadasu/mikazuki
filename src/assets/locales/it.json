@@ -84,7 +84,8 @@
             "totalManga": "Total Manga",
             "daysWatched": "Days Watched",
             "meanScore": "Mean Score",
-            "chaptersRead": "Chapters Read"
+            "chaptersRead": "Chapters Read",
+            "activityHistory": "Activity History"
           },
           "headline": "Attività Recenti",
           "completed": "{0} completato",
@@ -232,6 +233,7 @@
       }
     },
     "dates": {
+      "dayMonthNumeric": "DD/MM",
       "full": "Do MMMM YYYY",
       "monthAndYear": "MMMM YYYY",
       "yearOnly": "YYYY",

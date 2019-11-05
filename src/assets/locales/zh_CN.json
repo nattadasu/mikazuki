@@ -84,7 +84,8 @@
             "totalManga": "Total Manga",
             "daysWatched": "Days Watched",
             "meanScore": "Mean Score",
-            "chaptersRead": "Chapters Read"
+            "chaptersRead": "Chapters Read",
+            "activityHistory": "Activity History"
           },
           "headline": "最新动态",
           "completed": "已看完 {0}",
@@ -232,6 +233,7 @@
       }
     },
     "dates": {
+      "dayMonthNumeric": "MM/DD",
       "full": "YYYY/MM/DD",
       "monthAndYear": "YYYY/MM",
       "yearOnly": "YYYY",

@@ -143,6 +143,30 @@
                     </v-card-actions>
                   </v-card>
                 </v-col>
+
+                <v-col cols="12">
+                  <v-card>
+                    <v-card-title>{{ $t('pages.aniList.home.activities.statistics.activityHistory') }}</v-card-title>
+
+                    <v-card-text>
+                      <v-sparkline
+                        :value="activityHistoryValues"
+                        :show-labels="true"
+                        :gradient="['#2196f3']"
+                        auto-draw
+                        line-width="1"
+                        smooth="5"
+                        label-size="4"
+                        padding="12"
+                        stroke-linecap="round"
+                      >
+                        <template v-slot:label="item">
+                          {{ activityHistoryDates[item.index] }}: {{ item.value }}
+                        </template>
+                      </v-sparkline>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
               </v-row>
             </v-col>
           </v-row>
@@ -170,6 +194,7 @@
 </template>
 
 <script lang="ts">
+import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import Activities from '@/components/AniList/Activities.vue';
 import ProfileImage from '@/components/AniList/ProfileImage.vue';
@@ -197,6 +222,53 @@ export default class Home extends Vue {
 
   get currentUser() {
     return userStore.session.user;
+  }
+
+  get activityHistoryItems() {
+    const history = this.currentUser.stats.activityHistory;
+    const timestamp = moment()
+      .subtract(15, 'days')
+      .unix();
+
+    const relevantItems = history.filter((item) => item.date >= timestamp);
+
+    if (relevantItems.length !== 15) {
+      let dateSubstract = 1;
+      while (dateSubstract <= 15) {
+        const checkDate = moment().subtract(dateSubstract, 'days');
+        const dateExists = relevantItems.some((item) => {
+          const date = moment(item.date, 'X');
+
+          return date.date() === checkDate.date();
+        });
+
+        if (!dateExists) {
+          const index = relevantItems.findIndex((item) => {
+            return moment(item.date, 'X').isAfter(checkDate);
+          });
+          if (index <= 0) {
+            dateSubstract++;
+            continue;
+          }
+
+          relevantItems.splice(index, 0, { date: checkDate.unix(), amount: 0, level: 1 });
+        }
+
+        dateSubstract++;
+      }
+    }
+
+    return relevantItems;
+  }
+
+  get activityHistoryValues() {
+    return this.activityHistoryItems.map((item) => item.amount);
+  }
+
+  get activityHistoryDates() {
+    return this.activityHistoryItems.map((item) =>
+      moment(item.date, 'X').format(this.$t('misc.dates.dayMonthNumeric') as string)
+    );
   }
 
   get daysWatched() {

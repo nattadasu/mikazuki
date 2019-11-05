@@ -84,7 +84,8 @@
             "totalManga": "Manga totale",
             "daysWatched": "Jours regardés",
             "meanScore": "Score moyen",
-            "chaptersRead": "Chapitres lirés"
+            "chaptersRead": "Chapitres lirés",
+            "activityHistory": "Histoire d'activité"
           },
           "headline": "Dernières activitiés",
           "completed": "Terminé {0}",
@@ -232,6 +233,7 @@
       }
     },
     "dates": {
+      "dayMonthNumeric": "DD/MM",
       "full": "Do MMMM YYYY",
       "monthAndYear": "MMMM YYYY",
       "yearOnly": "YYYY",

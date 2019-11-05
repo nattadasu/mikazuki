@@ -84,7 +84,8 @@
             "totalManga": "Total Manga",
             "daysWatched": "Days Watched",
             "meanScore": "Mean Score",
-            "chaptersRead": "Chapters Read"
+            "chaptersRead": "Chapters Read",
+            "activityHistory": "Activity History"
           },
           "headline": "Aktivitas Terbaru",
           "completed": "Selesai {0}",
@@ -232,6 +233,7 @@
       }
     },
     "dates": {
+      "dayMonthNumeric": "MM/DD",
       "full": "Do MMMM YYYY",
       "monthAndYear": "MMMM YYYY",
       "yearOnly": "YYYY",
