@@ -156,9 +156,10 @@
                         auto-draw
                         line-width="1"
                         smooth="5"
-                        label-size="4"
+                        :label-size="4"
                         padding="12"
                         stroke-linecap="round"
+                        type="bar"
                       >
                         <template v-slot:label="item">
                           {{ activityHistoryDates[item.index] }}: {{ item.value }}
