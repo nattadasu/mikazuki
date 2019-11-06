@@ -233,7 +233,7 @@
       }
     },
     "dates": {
-      "dayMonthNumeric": "MM月DD日",
+      "dayMonthNumeric": "MM/DD",
       "full": "YYYY年MM月DD日",
       "monthAndYear": "YYYY年MM月",
       "yearOnly": "YYYY年",
