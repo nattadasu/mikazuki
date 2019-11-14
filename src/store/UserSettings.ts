@@ -45,6 +45,7 @@ export default class UserSettings extends VuexModule {
           meanScore: 0,
           minutesWatched: 0,
           standardDeviation: 0,
+          genres: [],
         },
         manga: {
           chaptersRead: 0,

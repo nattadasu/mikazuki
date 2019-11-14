@@ -85,7 +85,8 @@
             "daysWatched": "Days Watched",
             "meanScore": "Mean Score",
             "chaptersRead": "Chapters Read",
-            "activityHistory": "Activity History"
+            "activityHistory": "Activity History",
+            "genreOverview": "Genre Overview"
           },
           "headline": "最新动态",
           "completed": "已看完 {0}",

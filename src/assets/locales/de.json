@@ -85,7 +85,8 @@
             "daysWatched": "Geguckt in Tagen",
             "meanScore": "Ø Bewertung",
             "chaptersRead": "Gelesene Kapitel",
-            "activityHistory": "Aktivitätshistorie"
+            "activityHistory": "Aktivitätshistorie",
+            "genreOverview": "Genreübersicht"
           },
           "headline": "Neuste Aktivitäten",
           "completed": "{0} fertig geguckt",

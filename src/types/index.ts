@@ -10,6 +10,7 @@ export { IAniListActivityHistory } from './IAniListActivityHistory';
 export { IAniListAnimeStatistics } from './IAniListAnimeStatistics';
 export { IAniListCoverImage } from './IAniListCoverImage';
 export { IAniListEntry } from './IAniListEntry';
+export { IAniListGenreStatistic } from './IAniListGenreStatistic';
 export { IAniListList } from './IAniListList';
 export { IAniListMangaStatistics } from './IAniListMangaStatistics';
 export { IAniListMedia } from './IAniListMedia';

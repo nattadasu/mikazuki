@@ -85,7 +85,8 @@
             "daysWatched": "見たアニメの日数計",
             "meanScore": "評価平均値",
             "chaptersRead": "読んだ漫画章の数",
-            "activityHistory": "アクティビティー歴史"
+            "activityHistory": "アクティビティー歴史",
+            "genreOverview": "ジャンル概要"
           },
           "headline": "最近の更新",
           "completed": "{0}を終了しました",

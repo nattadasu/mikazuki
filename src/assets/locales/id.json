@@ -85,7 +85,8 @@
             "daysWatched": "Days Watched",
             "meanScore": "Mean Score",
             "chaptersRead": "Chapters Read",
-            "activityHistory": "Activity History"
+            "activityHistory": "Activity History",
+            "genreOverview": "Genre Overview"
           },
           "headline": "Aktivitas Terbaru",
           "completed": "Selesai {0}",

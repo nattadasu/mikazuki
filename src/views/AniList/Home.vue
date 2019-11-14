@@ -23,16 +23,13 @@
       <v-container v-if="isAuthenticated" class="fill-height" style="flex-grow: 1" fluid>
         <v-card-text>
           <v-row>
-            <v-col cols="12" sm="12" md="9" lg="6">
-              <!--              <div class="title">-->
-              <!--                {{ $t('pages.aniList.home.activities.headline') }}-->
-              <!--              </div>-->
+            <v-col cols="12" xl="6">
               <Activities />
             </v-col>
 
-            <v-col cols="12" md="3" lg="6">
+            <v-col cols="12" xl="6">
               <v-row>
-                <v-col cols="12" lg="6">
+                <v-col cols="12" xl="6">
                   <v-card>
                     <v-card-text>
                       <v-row>
@@ -88,7 +85,7 @@
                   </v-card>
                 </v-col>
 
-                <v-col cols="12" lg="6">
+                <v-col cols="12" xl="6">
                   <v-card>
                     <v-card-text>
                       <v-row>
@@ -168,6 +165,31 @@
                     </v-card-text>
                   </v-card>
                 </v-col>
+
+                <v-col cols="12">
+                  <v-card>
+                    <v-card-title>{{ $t('pages.aniList.home.activities.statistics.genreOverview') }}</v-card-title>
+
+                    <v-card-text>
+                      <v-sparkline
+                        :value="genreOverviewValues"
+                        :show-labels="true"
+                        :gradient="['#2196f3']"
+                        auto-draw
+                        line-width="1"
+                        smooth="5"
+                        label-size="3.5"
+                        padding="12"
+                        stroke-linecap="round"
+                        type="bar"
+                      >
+                        <template v-slot:label="item">
+                          {{ genreOverviewLabels[item.index] }}: {{ item.value }}
+                        </template>
+                      </v-sparkline>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
               </v-row>
             </v-col>
           </v-row>
@@ -184,7 +206,7 @@
         </v-card-title>
         <v-card-text>
           <div class="body-2">
-            <p v-for="(item, index) in $t('pages.aniList.home.howToAuthenticate.text')" :key="index">
+            <p v-for="(item, index) in howToAuthenticateText" :key="index">
               {{ item }}
             </p>
           </div>
@@ -223,6 +245,20 @@ export default class Home extends Vue {
 
   get currentUser() {
     return userStore.session.user;
+  }
+
+  get howToAuthenticateText() {
+    const howToAuthenticate = this.$t('pages.aniList.home.howToAuthenticate.text');
+
+    return howToAuthenticate.valueOf() as string[];
+  }
+
+  get genreOverviewValues() {
+    return this.currentUser.statistics.anime.genres.slice(0, 10).map((item) => item.count);
+  }
+
+  get genreOverviewLabels() {
+    return this.currentUser.statistics.anime.genres.slice(0, 10).map((item) => item.genre);
   }
 
   get activityHistoryItems() {

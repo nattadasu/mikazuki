@@ -85,7 +85,8 @@
             "daysWatched": "Days Watched",
             "meanScore": "Mean Score",
             "chaptersRead": "Chapters Read",
-            "activityHistory": "Activity History"
+            "activityHistory": "Activity History",
+            "genreOverview": "Genre Overview"
           },
           "headline": "Attività Recenti",
           "completed": "{0} completato",
