@@ -79,6 +79,15 @@
             "anime": "Anime",
             "manga": "Manga"
           },
+          "statistics": {
+            "totalAnime": "Total Anime",
+            "totalManga": "Total Manga",
+            "daysWatched": "Days Watched",
+            "meanScore": "Mean Score",
+            "chaptersRead": "Chapters Read",
+            "activityHistory": "Activity History",
+            "genreOverview": "Genre Overview"
+          },
           "headline": "Latest Activities",
           "completed": "Completed {0}",
           "plansToWatch": "Plans to watch {0}",
@@ -225,6 +234,7 @@
       }
     },
     "dates": {
+      "dayMonthNumeric": "DD/MM",
       "full": "MMMM Do YYYY",
       "monthAndYear": "MMMM YYYY",
       "yearOnly": "YYYY",

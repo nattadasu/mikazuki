@@ -33,9 +33,27 @@ export default class UserSettings extends VuexModule {
       name: '',
       stats: {
         watchedTime: 0,
+        activityHistory: [],
       },
       options: {
         displayAdultContent: false,
+      },
+      statistics: {
+        anime: {
+          count: 0,
+          episodesWatched: 0,
+          meanScore: 0,
+          minutesWatched: 0,
+          standardDeviation: 0,
+          genres: [],
+        },
+        manga: {
+          chaptersRead: 0,
+          count: 0,
+          meanScore: 0,
+          standardDeviation: 0,
+          volumesRead: 0,
+        },
       },
     },
   };

@@ -79,6 +79,15 @@
             "anime": "动画",
             "manga": "漫画/小说"
           },
+          "statistics": {
+            "totalAnime": "Total Anime",
+            "totalManga": "Total Manga",
+            "daysWatched": "Days Watched",
+            "meanScore": "Mean Score",
+            "chaptersRead": "Chapters Read",
+            "activityHistory": "Activity History",
+            "genreOverview": "Genre Overview"
+          },
           "headline": "最新动态",
           "completed": "已看完 {0}",
           "plansToWatch": "准备看 {0}",
@@ -225,6 +234,7 @@
       }
     },
     "dates": {
+      "dayMonthNumeric": "MM/DD",
       "full": "YYYY/MM/DD",
       "monthAndYear": "YYYY/MM",
       "yearOnly": "YYYY",
