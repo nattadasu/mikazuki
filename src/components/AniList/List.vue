@@ -103,7 +103,7 @@ export default class List extends Vue {
   currentIndex: number = 0;
 
   // Contains the Timer ID
-  updateTimer: NodeJS.Timeout | null = null;
+  updateTimer: number | null = null;
 
   updatePayload: any[] = [];
 
@@ -326,7 +326,7 @@ export default class List extends Vue {
     };
 
     this.updatePayload.push(entry);
-    this.updateTimer = setTimeout(this.updateChanges, this.updateInterval);
+    this.updateTimer = setTimeout(this.updateChanges, this.updateInterval) as any;
   }
 
   async updateChanges() {

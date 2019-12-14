@@ -3,7 +3,6 @@ import { IAniListSession, AniListScoreFormat, IAniListUser } from '@/types';
 import eventHandler from '@/plugins/AniList/eventHandler';
 
 const VuexModule = createModule({
-  namespaced: true,
   strict: false,
 });
 
@@ -66,9 +65,9 @@ export default class UserSettings extends VuexModule {
 
   /**
    * @private
-   * @var {NodeJS.Timeout | null} _refreshTimer contains the timer id for the AniList timer
+   * @var {number | null} _refreshTimer contains the timer id for the AniList timer
    */
-  private _refreshTimer: NodeJS.Timeout | null = null;
+  private _refreshTimer: number | null = null;
 
   /**
    * @method refreshRate
@@ -154,7 +153,7 @@ export default class UserSettings extends VuexModule {
             this.restartRefreshTimer();
           });
         }
-      }, 1000)
+      }, 1000) as any
     );
   }
 
@@ -196,7 +195,7 @@ export default class UserSettings extends VuexModule {
     this._refreshRate = refreshRate;
   }
 
-  @mutation protected _setRefreshTimer(timeoutId: NodeJS.Timeout | null): void {
+  @mutation protected _setRefreshTimer(timeoutId: number | null): void {
     this._refreshTimer = timeoutId;
   }
 }

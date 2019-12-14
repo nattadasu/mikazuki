@@ -13,9 +13,7 @@
                 :label="$t('pages.settings.appSettings.chooseLanguage')"
                 @change="setLanguage"
               >
-                <template v-slot:selection="data">
-                  {{ data.item.original }} ({{ data.item.english }})
-                </template>
+                <template v-slot:selection="data">{{ data.item.original }} ({{ data.item.english }})</template>
                 <template v-slot:item="data">
                   <v-list-item-content>
                     <v-list-item-title>{{ data.item.original }}</v-list-item-title>

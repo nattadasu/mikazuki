@@ -5,7 +5,6 @@ import { action, mutation, createModule } from 'vuex-class-component';
  */
 
 const VuexModule = createModule({
-  namespaced: true,
   strict: false,
 });
 
