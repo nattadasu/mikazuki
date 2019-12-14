@@ -7,7 +7,6 @@ import { IAniListActivity, IAniListMediaListCollection } from '@/types';
  */
 
 const VuexModule = createModule({
-  namespaced: true,
   strict: false,
 });
 
