@@ -7,7 +7,7 @@
             {{ currentRouteName }}
           </v-list-item-title>
           <v-list-item-subtitle>
-            {{ $t('menus.navigationDrawer.timeUntilNextRefresh', [timeUntilRefresh]) }}
+            {{ $t('menus.navigationDrawer.timeUntilNextRefresh', [timerText]) }}
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -85,6 +85,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { RawLocation, Route } from 'vue-router';
 
 // Custom Components
+import { refreshTimer } from '@/plugins/refreshTimer';
 import { AniListListStatus } from '@/types';
 import { userStore, appStore } from '@/store';
 
@@ -118,6 +119,7 @@ import SortButton from './NavigationToolbars/Items/Sort.vue';
   },
 })
 export default class Navigation extends Vue {
+  readonly refreshTimer = refreshTimer;
   navigationDrawer: boolean = false;
 
   item = 0;
@@ -218,8 +220,12 @@ export default class Navigation extends Vue {
     return userStore.isAuthenticated;
   }
 
-  get timeUntilRefresh(): string {
-    const time = userStore.timeUntilRefresh * 1000;
+  get timeUntilRefresh(): number {
+    return this.refreshTimer.timeUntilRefresh;
+  }
+
+  get timerText(): string {
+    const time = this.timeUntilRefresh * 1000;
 
     return moment(time).format('mm:ss');
   }

@@ -1,6 +1,5 @@
 import { action, mutation, createModule } from 'vuex-class-component';
 import { IAniListSession, AniListScoreFormat, IAniListUser } from '@/types';
-import eventHandler from '@/plugins/AniList/eventHandler';
 
 const VuexModule = createModule({
   strict: false,
@@ -58,18 +57,6 @@ export default class UserSettings extends VuexModule {
   };
 
   /**
-   * @private
-   * @var {number} _timeUntilRefresh contains the amount of seconds until the next refresh
-   */
-  private _timeUntilRefresh: number = 0;
-
-  /**
-   * @private
-   * @var {number | null} _refreshTimer contains the timer id for the AniList timer
-   */
-  private _refreshTimer: number | null = null;
-
-  /**
    * @method refreshRate
    * @returns {number} the current user's set refresh rate (in minutes)
    */
@@ -97,17 +84,12 @@ export default class UserSettings extends VuexModule {
     return !!this._session.accessToken;
   }
 
-  public get timeUntilRefresh(): number {
-    return this._timeUntilRefresh;
-  }
-
   public get allowAdultContent(): boolean {
     return this._session.user.options.displayAdultContent;
   }
 
   @action public async logout(): Promise<void> {
     await this.$store.dispatch('setCurrentMediaTitle', '');
-    await this.destroyRefreshTimer();
     await this.setSession('');
     await this.setRefreshRate(15);
 
@@ -134,37 +116,6 @@ export default class UserSettings extends VuexModule {
     this._setRefreshRate(refreshRate);
   }
 
-  @action public async restartRefreshTimer(): Promise<void> {
-    if (this._refreshTimer) {
-      clearInterval(this._refreshTimer);
-      this._setRefreshTimer(null);
-    }
-
-    // Amount of minutes x 60 seconds
-    this._setTimeUntilRefresh(this.refreshRate * 60);
-    this._setRefreshTimer(
-      setInterval(() => {
-        this._setTimeUntilRefresh(this._timeUntilRefresh - 1);
-        if (this.timeUntilRefresh <= 0 && this._refreshTimer) {
-          clearInterval(this._refreshTimer);
-          this._setRefreshTimer(null);
-
-          eventHandler.refreshAniListData().then(() => {
-            this.restartRefreshTimer();
-          });
-        }
-      }, 1000) as any
-    );
-  }
-
-  @action public async destroyRefreshTimer(): Promise<void> {
-    if (this._refreshTimer) {
-      clearInterval(this._refreshTimer);
-    }
-    this._setTimeUntilRefresh(0);
-    this._setRefreshTimer(null);
-  }
-
   /**
    * @protected
    * @method _setSession
@@ -187,15 +138,7 @@ export default class UserSettings extends VuexModule {
     this._session.user = data;
   }
 
-  @mutation protected _setTimeUntilRefresh(time: number): void {
-    this._timeUntilRefresh = time;
-  }
-
   @mutation protected _setRefreshRate(refreshRate: number): void {
     this._refreshRate = refreshRate;
-  }
-
-  @mutation protected _setRefreshTimer(timeoutId: number | null): void {
-    this._refreshTimer = timeoutId;
   }
 }

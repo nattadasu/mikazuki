@@ -1,8 +1,61 @@
 mutation addEntry($mediaId: Int!, $status: MediaListStatus!, $progress: Int, $score: Float) {
-  response: SaveMediaListEntry(mediaId: $mediaId, status: $status, score: $score, progress: $progress) {
+  media: SaveMediaListEntry(mediaId: $mediaId, status: $status, score: $score, progress: $progress) {
+    id
+    progress
+    score
+    status
+    updatedAt
     media {
+      id
       title {
+        romaji
+        english
+        native
         userPreferred
+      }
+      description(asHtml: false)
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      season
+      status
+      format
+      type
+      episodes
+      isLicensed
+      updatedAt
+      coverImage {
+        extraLarge
+        large
+        medium
+      }
+      studios(isMain: true) {
+        nodes {
+          name
+          isAnimationStudio
+        }
+      }
+      bannerImage
+      genres
+      synonyms
+      averageScore
+      favourites
+      isAdult
+      nextAiringEpisode {
+        id
+      }
+      streamingEpisodes {
+        title
+        thumbnail
+        url
+        site
       }
     }
   }
