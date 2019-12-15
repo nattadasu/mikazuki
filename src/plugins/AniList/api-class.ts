@@ -206,8 +206,8 @@ export default class AniListAPI {
     return searchResults;
   }
 
-  public async addEntry({ mediaId, status, score, progress }: AddEntryParams): Promise<void> {
-    await axios.post('/', {
+  public async addEntry({ mediaId, status, score, progress }: AddEntryParams): Promise<IAniListEntry> {
+    const response = await axios.post<MediaResponse<IAniListEntry>>('/', {
       query: addEntry,
       variables: {
         mediaId,
@@ -216,6 +216,8 @@ export default class AniListAPI {
         progress,
       },
     });
+
+    return response.media;
   }
 
   public async updateEntry({

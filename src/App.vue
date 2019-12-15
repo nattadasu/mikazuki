@@ -12,9 +12,8 @@ import moment from 'moment';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { validLanguageCodes } from './i18n';
 import { appStore, userStore } from './store';
-import aniListEventHandler from '@/plugins/AniList/eventHandler';
-
-// Components
+import eventHandler from '@/plugins/AniList/eventHandler';
+import { RefreshTimer, refreshTimer } from '@/plugins/refreshTimer';
 import Navigation from '@/components/Navigation.vue';
 import TopButton from '@/components/TopButton.vue';
 import ZeroTwoNotifications from '@/components/Notifications.vue';
@@ -27,6 +26,8 @@ import ZeroTwoNotifications from '@/components/Notifications.vue';
   },
 })
 export default class App extends Vue {
+  readonly refreshTimer = refreshTimer;
+
   get locale(): string | undefined {
     return appStore.language;
   }
@@ -40,14 +41,11 @@ export default class App extends Vue {
   }
 
   @Watch('loggedIntoAniList')
-  async loggedInStateChanged(newState: boolean) {
-    if (newState) {
-      await appStore.setLoadingState(true);
-      await aniListEventHandler.refreshAniListData();
-      await userStore.restartRefreshTimer();
-      await appStore.setLoadingState(false);
+  loggedInStateChanged(value: boolean) {
+    if (value) {
+      this.refreshTimer.setRefreshRate(userStore.refreshRate).restartTimer();
     } else {
-      await userStore.destroyRefreshTimer();
+      this.refreshTimer.resetTimer();
     }
   }
 
@@ -92,15 +90,13 @@ export default class App extends Vue {
     moment.locale(this.$i18n.locale);
 
     if (userStore.isAuthenticated) {
-      await appStore.setLoadingState(true);
-      await aniListEventHandler.refreshAniListData();
-      await userStore.restartRefreshTimer();
-      await appStore.setLoadingState(false);
+      this.refreshTimer.setRefreshRate(userStore.refreshRate).restartTimer();
+      await eventHandler.refreshAniListData();
     }
   }
 
   async beforeDestroy() {
-    await userStore.destroyRefreshTimer();
+    this.refreshTimer.resetTimer();
   }
 
   getLocaleBasedFontFace(locale: string): string {

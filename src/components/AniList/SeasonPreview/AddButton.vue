@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { AniListListStatus } from '@/types';
-import { userStore, appStore } from '@/store';
+import { userStore, appStore, aniListStore } from '@/store';
 
 @Component
 export default class SeasonPreviewAddButton extends Vue {
@@ -39,20 +39,15 @@ export default class SeasonPreviewAddButton extends Vue {
     this.isLoading = true;
 
     try {
-      await this.$http.addEntry({
+      const entry = await this.$http.addEntry({
         mediaId: item.id,
         status: AniListListStatus.PLANNING,
       });
 
       this.isAdded = true;
 
-      // We don't want to reload everytime a media is added to planned list
-      // so we just set the refresh timer to half a minute, which is enough time
-      // to think about adding another anime to the planned list which then resets the timer again
-      const tempRefreshRate = userStore.refreshRate;
-      await userStore.setRefreshRate(0.5);
-      await userStore.restartRefreshTimer();
-      await userStore.setRefreshRate(tempRefreshRate);
+      const planningList = aniListStore.aniListData.lists.find((list) => list.status === AniListListStatus.PLANNING);
+      planningList?.entries.push(entry);
     } catch (error) {
       this.$notify({
         title: this.$t('errors.updateFailed.title') as string,

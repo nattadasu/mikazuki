@@ -7,7 +7,7 @@
         </v-progress-circular>
       </v-btn>
     </template>
-    <span>({{ timeUntilRefresh }})</span>
+    <span>({{ timerText }})</span>
   </v-tooltip>
 </template>
 
@@ -18,9 +18,12 @@ import { Component, Vue } from 'vue-property-decorator';
 // Custom Components
 import { appStore, userStore } from '@/store';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
+import { refreshTimer } from '@/plugins/refreshTimer';
 
 @Component
 export default class Refresh extends Vue {
+  readonly refreshTimer = refreshTimer;
+
   get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
   }
@@ -39,15 +42,19 @@ export default class Refresh extends Vue {
     return 'success';
   }
 
-  get timeUntilRefresh(): string {
-    const time = userStore.timeUntilRefresh * 1000;
+  get timeUntilRefresh(): number {
+    return this.refreshTimer.timeUntilRefresh;
+  }
+
+  get timerText(): string {
+    const time = this.timeUntilRefresh * 1000;
 
     return moment(time).format('mm:ss');
   }
 
   get timeUntilRefreshPercentage(): number {
-    const fullTime = userStore.refreshRate * 60;
-    const currentTime = userStore.timeUntilRefresh;
+    const fullTime = this.refreshTimer.refreshRate * 60;
+    const currentTime = this.timeUntilRefresh;
 
     return (currentTime / fullTime) * 100;
   }
@@ -57,11 +64,10 @@ export default class Refresh extends Vue {
 
     // AniList
     try {
+      this.refreshTimer.restartTimer();
       await aniListEventHandler.refreshAniListData();
-      await userStore.restartRefreshTimer();
-      this.$forceUpdate();
     } catch (error) {
-      //
+      // TODO: Build central error message management
     }
 
     await appStore.setLoadingState(false);
