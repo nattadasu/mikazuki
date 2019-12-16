@@ -1,6 +1,12 @@
 <template>
   <v-container class="py-0 px-1" fluid>
     <v-row>
+      <v-col cols="12" v-if="!activities.length" align-self="center" justify-self="center">
+        <span class="font-weight-bold">
+          {{ $t('$vuetify.noDataText') }}
+        </span>
+      </v-col>
+
       <v-col cols="12" lg="6" v-for="activity in activities" :key="activity.id">
         <v-card max-height="150">
           <v-container class="pa-0">
