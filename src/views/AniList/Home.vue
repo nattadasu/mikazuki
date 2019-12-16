@@ -150,7 +150,6 @@
                         :value="activityHistoryValues"
                         :show-labels="true"
                         :gradient="['#2196f3']"
-                        auto-draw
                         line-width="1"
                         smooth="5"
                         :label-size="4"
@@ -175,7 +174,6 @@
                         :value="genreOverviewValues"
                         :show-labels="true"
                         :gradient="['#2196f3']"
-                        auto-draw
                         line-width="1"
                         smooth="5"
                         label-size="3.5"
