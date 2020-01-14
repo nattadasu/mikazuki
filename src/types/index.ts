@@ -31,3 +31,6 @@ export { IAniListUserMediaListOptions } from './IAniListUserMediaListOptions';
 export { IAniListUserOptions } from './IAniListUserOptions';
 export { IAniListUserStats } from './IAniListUserStats';
 export { IAniListUserStatistics } from './IAniListUserStatistics';
+
+// ZeroTwo-only
+export { ZeroTwoListDataItem } from './ZeroTwoListDataItem';

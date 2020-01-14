@@ -111,9 +111,9 @@
       },
       "list": {
         "airingFinished": "放送終了",
-        "missingEpisodes": "１つのｴﾋﾟｿｰﾄﾞが見残る | {count}つのｴﾋﾟｿｰﾄﾞが見残る",
-        "notYetAired": "まだ放送していませんでした。",
-        "nextAiringEpisode": "第{0}話は{1}に放送"
+        "missingEpisodes": "あと一つ|あと{count}つ",
+        "notYetAired": "放送予定",
+        "nextAiringEpisode": "第{0}話は{1}"
       },
       "detailView": {
         "airedOn": "{0}に放送された",

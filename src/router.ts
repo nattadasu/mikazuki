@@ -7,6 +7,15 @@ import Settings from '@/views/Settings.vue';
 Vue.use(Router);
 
 const router = new Router({
+  scrollBehavior(to, from, savedPosition) {
+    if (from.name === 'DetailView') {
+      return {
+        selector: from.params.id,
+      };
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
   routes: [
     ...AniList,
     {

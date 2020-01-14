@@ -1,18 +1,48 @@
 <template>
-  <span v-if="nextEpisode" class="success--text">{{ nextEpisode }}</span>
-  <span v-else-if="status === 'FINISHED'" class="info--text">{{ $t('pages.aniList.list.airingFinished') }}</span>
-  <span v-else-if="status === 'NOT_YET_RELEASED'" class="info--text">{{ $t('pages.aniList.list.notYetAired') }}</span>
+  <span v-if="nextEpisode" class="success--text">
+    <v-icon color="success" small>mdi-calendar</v-icon>
+    {{ nextEpisode }}
+  </span>
+
+  <span v-else-if="status === 'FINISHED'" class="info--text">
+    <v-icon color="info" small>mdi-check</v-icon>
+    {{ $t('pages.aniList.list.airingFinished') }}
+  </span>
+
+  <span v-else-if="status === 'NOT_YET_RELEASED'" class="info--text">
+    <v-icon color="info" small>mdi-clock</v-icon>
+    {{ $t('pages.aniList.list.notYetAired') }}
+  </span>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { ZeroTwoListDataItem } from '@/types';
+import moment from 'moment';
 
 @Component
 export default class EpisodeState extends Vue {
-  @Prop(String)
-  nextEpisode!: string | null;
+  @Prop(Object) item!: ZeroTwoListDataItem;
 
-  @Prop(String)
-  status!: string;
+  get nextEpisode(): string | null {
+    return this.item.media.nextAiringEpisode
+      ? this.$root
+          .$t('pages.aniList.list.nextAiringEpisode', [
+            this.item.media.nextAiringEpisode.episode,
+            moment(this.item.media.nextAiringEpisode.airingAt, 'X').fromNow(),
+          ])
+          .toString()
+      : null;
+  }
+
+  get status(): string {
+    return this.item.media.status;
+  }
 }
 </script>
+
+<style scoped lang="scss">
+span {
+  vertical-align: middle !important;
+}
+</style>

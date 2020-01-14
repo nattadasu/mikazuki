@@ -110,10 +110,10 @@
         }
       },
       "list": {
-        "airingFinished": "Transmissão finalizada",
-        "missingEpisodes": "Um episódio para assistir | {count} episódios para assistir",
+        "airingFinished": "Finalizada",
+        "missingEpisodes": "Ainda 1 ep. | Ainda {count} eps.",
         "notYetAired": "Ainda não foi ao ar",
-        "nextAiringEpisode": "O episódio {0} lança {1}"
+        "nextAiringEpisode": "E{0} {1}"
       },
       "detailView": {
         "airedOn": "Foi ao ar em {0}",

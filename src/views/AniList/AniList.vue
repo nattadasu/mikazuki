@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <List :status="status" />
+    <List :last-route="lastRoute" :status="status" />
   </v-content>
 </template>
 
@@ -11,10 +11,17 @@ import { Component, Vue } from 'vue-property-decorator';
 import List from '@/components/AniList/List.vue';
 import EventBus from '@/eventBus';
 import { AniListListStatus } from '@/types';
+import { Route } from 'vue-router';
 
 @Component({
   components: {
     List,
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log('called');
+    next((vm: any) => {
+      vm.lastRoute = from;
+    });
   },
   beforeRouteUpdate(to, from, next) {
     EventBus.$emit('resetAllSorts');
@@ -27,6 +34,7 @@ import { AniListListStatus } from '@/types';
 })
 export default class AniList extends Vue {
   status!: AniListListStatus;
+  lastRoute: Route | null = null;
 
   created() {
     this.status = this.$route.meta.status;

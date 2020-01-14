@@ -111,9 +111,9 @@
       },
       "list": {
         "airingFinished": "Diffusion terminée",
-        "missingEpisodes": "Un épisode à regarder | {count} épisodes à regarder",
+        "missingEpisodes": "Un ép. à regarder | {count} éps. à regarder",
         "notYetAired": "Pas encore diffusé",
-        "nextAiringEpisode": "L'épisode {0} sera diffusé le {1}"
+        "nextAiringEpisode": "É{0} {1}"
       },
       "detailView": {
         "airedOn": "Diffusé le {0}",

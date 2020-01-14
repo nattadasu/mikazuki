@@ -113,7 +113,7 @@
         "airingFinished": "Selesai ditayangkan",
         "missingEpisodes": "Satu episode untuk dinonton | {count} episode untuk dinonton",
         "notYetAired": "Belum ditayangkan",
-        "nextAiringEpisode": "Episode {0} akan ditayangkan {1}"
+        "nextAiringEpisode": "E{0} {1}"
       },
       "detailView": {
         "airedOn": "Ditayangkan pada {0}",

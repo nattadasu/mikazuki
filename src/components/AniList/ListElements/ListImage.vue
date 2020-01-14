@@ -7,13 +7,13 @@
     @click.native="moveToDetails(aniListId)"
   >
     <template v-slot:placeholder>
-      <v-layout fill-height align-center justify-center ma-0>
+      <v-container class="pa-0 justify-center fill-height align-center">
         <v-progress-circular indeterminate color="grey lighten-5" />
-      </v-layout>
+      </v-container>
     </template>
     <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">
       <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} ${isMobile ? 'titled-mobile' : 'titled'}`">
-        <v-col cols="12">
+        <v-col cols="12" class="pb-2">
           <span class="title">{{ name }}</span>
         </v-col>
         <v-spacer v-if="concatenatedStudios.length" />
@@ -28,21 +28,28 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
-import { IAniListMediaStudio, IAniListMediaStudioNode } from '../../../types';
+import { IAniListMediaStudio, IAniListMediaStudioNode, ZeroTwoListDataItem } from '../../../types';
 
 @Component
 export default class ListImage extends Vue {
-  @Prop(String)
-  imageLink!: string;
+  @Prop(Object) item!: ZeroTwoListDataItem;
+  @Prop(Boolean) showStudios!: boolean;
 
-  @Prop(Number)
-  aniListId!: number;
+  get aniListId(): number {
+    return this.item.media.id;
+  }
 
-  @Prop(String)
-  name!: string;
+  get name(): string {
+    return this.item.media.title.userPreferred;
+  }
 
-  @Prop()
-  studios!: IAniListMediaStudio;
+  get imageLink(): string {
+    return this.item.media.coverImage.extraLarge;
+  }
+
+  get studios(): IAniListMediaStudio {
+    return this.item.media.studios;
+  }
 
   get darkMode(): boolean {
     return this.$vuetify.theme.dark;
@@ -53,7 +60,7 @@ export default class ListImage extends Vue {
   }
 
   get concatenatedStudios(): string {
-    if (!this.studios || !this.studios.nodes || !this.studios.nodes.length) {
+    if (!this.studios || !this.studios.nodes || !this.studios.nodes.length || !this.showStudios) {
       return '';
     }
 
@@ -93,7 +100,7 @@ export default class ListImage extends Vue {
     position: absolute;
     bottom: 0;
     width: 100%;
-    max-height: 19%;
+    max-height: 52px;
 
     transition: 0.25s ease-in-out;
   }

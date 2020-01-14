@@ -1,20 +1,25 @@
 <template>
   <span v-if="missingEpisodes" class="info--text">
+    <v-icon small color="info">mdi-fast-forward</v-icon>
     {{ $tc('pages.aniList.list.missingEpisodes', missingEpisodes, [missingEpisodes]) }}
   </span>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { IAniListEntry, IAniListNextAiringEpisode } from '@/types';
+import { IAniListEntry, IAniListNextAiringEpisode, ZeroTwoListDataItem } from '@/types';
 
 @Component
 export default class MissingEpisodes extends Vue {
-  @Prop(Object)
-  nextAiringEpisode!: IAniListNextAiringEpisode;
+  @Prop(Object) item!: ZeroTwoListDataItem;
 
-  @Prop(Number)
-  currentProgress!: number;
+  get nextAiringEpisode(): IAniListNextAiringEpisode {
+    return this.item.media.nextAiringEpisode;
+  }
+
+  get currentProgress(): number {
+    return this.item.entry.progress;
+  }
 
   get missingEpisodes(): number {
     const { currentProgress, nextAiringEpisode } = this;
@@ -31,3 +36,9 @@ export default class MissingEpisodes extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+span {
+  vertical-align: middle !important;
+}
+</style>
