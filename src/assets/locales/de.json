@@ -174,7 +174,9 @@
         "loggedInAs": "Eingeloggt als {0}",
         "refreshRate": "Aktualisierungsintervall",
         "refreshRateSuffix": "Minuten",
-        "refreshRateHint": "Dieses Intervall bestimmt die Dauer (in Minuten) bis zur nächsten Synchronisation mit dem AniList-Server. Änderungen des Intervalls treten nach der nächsten Synchronisation in Kraft."
+        "refreshRateHint": "Dieses Intervall bestimmt die Dauer (in Minuten) bis zur nächsten Synchronisation mit dem AniList-Server. Änderungen des Intervalls treten nach der nächsten Synchronisation in Kraft.",
+        "listItemAmount": "Anzahl der Listenelemente",
+        "listItemAmountHint": "Dieser Wert bestimmt die Anzahl der beim Aufruf einer Liste angezeigten Elemente."
       },
       "appSettings": {
         "chooseLanguage": "Sprache wählen (Choose language)",
@@ -231,6 +233,12 @@
         "fall": "Herbst",
         "autumn": "Herbst",
         "winter": "Winter"
+      },
+      "mediaStatus": {
+        "finished": "ABGESCHLOSSEN",
+        "releasing": "LAUFEND",
+        "not_yet_released": "NOCH NICHT ANGEFANGEN",
+        "cancelled": "ABGESETZT"
       }
     },
     "dates": {

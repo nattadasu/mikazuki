@@ -174,7 +174,9 @@
         "loggedInAs": "用户 {0} 已登录",
         "refreshRate": "刷新率",
         "refreshRateSuffix": "分钟",
-        "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。"
+        "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。",
+        "listItemAmount": "Amount of initial items in lists",
+        "listItemAmountHint": "This value determines the amount of items initially shown when navigating to a list."
       },
       "appSettings": {
         "chooseLanguage": "语言选择",
@@ -231,6 +233,12 @@
         "fall": "秋",
         "autumn": "秋",
         "winter": "冬"
+      },
+      "mediaStatus": {
+        "finished": "FINISHED",
+        "releasing": "RELEASING",
+        "not_yet_released": "NOT YET RELEASED",
+        "cancelled": "CANCELLED"
       }
     },
     "dates": {

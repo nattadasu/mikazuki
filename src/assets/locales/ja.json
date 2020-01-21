@@ -174,7 +174,9 @@
         "loggedInAs": "{0}として認識しました",
         "refreshRate": "更新のインターバル",
         "refreshRateSuffix": "分",
-        "refreshRateHint": "このインターバルは「AniList」のサーバーとの次の更新までの時間を決まります。変更したインターバルは次の更新から発動します。"
+        "refreshRateHint": "このインターバルは「AniList」のサーバーとの次の更新までの時間を決まります。変更したインターバルは次の更新から発動します。",
+        "listItemAmount": "リストアイテム数",
+        "listItemAmountHint": "リストページに入る時に、最初のリストアイテム数を決めてください。"
       },
       "appSettings": {
         "chooseLanguage": "言語を選択してください (Choose language)",
@@ -231,6 +233,12 @@
         "fall": "秋",
         "autumn": "秋",
         "winter": "冬"
+      },
+      "mediaStatus": {
+        "finished": "終了",
+        "releasing": "放送中",
+        "not_yet_released": "放送予定",
+        "cancelled": "中止"
       }
     },
     "dates": {

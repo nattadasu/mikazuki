@@ -174,7 +174,9 @@
         "loggedInAs": "Masuk sebagai {0}",
         "refreshRate": "Jarak penyegaran",
         "refreshRateSuffix": "minit",
-        "refreshRateHint": "Selang masa tentukan bilangan minit hingga penyegerakan berikutnya terhadap server AniList. Perubahan selang masa akan digunakan selepas penyegerakan seterusnya."
+        "refreshRateHint": "Selang masa tentukan bilangan minit hingga penyegerakan berikutnya terhadap server AniList. Perubahan selang masa akan digunakan selepas penyegerakan seterusnya.",
+        "listItemAmount": "Amount of initial items in lists",
+        "listItemAmountHint": "This value determines the amount of items initially shown when navigating to a list."
       },
       "appSettings": {
         "chooseLanguage": "Pilih bahasa",
@@ -231,6 +233,12 @@
         "fall": "Fall",
         "autumn": "Autumn",
         "winter": "Winter"
+      },
+      "mediaStatus": {
+        "finished": "FINISHED",
+        "releasing": "RELEASING",
+        "not_yet_released": "NOT YET RELEASED",
+        "cancelled": "CANCELLED"
       }
     },
     "dates": {

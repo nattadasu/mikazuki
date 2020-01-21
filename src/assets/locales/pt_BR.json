@@ -174,7 +174,9 @@
         "loggedInAs": "Sessão iniciada como {0}",
         "refreshRate": "Taxa de atualização",
         "refreshRateSuffix": "minutos",
-        "refreshRateHint": "Este intervalo determina a quantidade de minutos até a próxima sincronização com os servidores do AniList. Alterações no intervalo serão aplicadas após a próxima sincronização."
+        "refreshRateHint": "Este intervalo determina a quantidade de minutos até a próxima sincronização com os servidores do AniList. Alterações no intervalo serão aplicadas após a próxima sincronização.",
+        "listItemAmount": "Amount of initial items in lists",
+        "listItemAmountHint": "This value determines the amount of items initially shown when navigating to a list."
       },
       "appSettings": {
         "chooseLanguage": "Selecionar idioma",
@@ -231,6 +233,12 @@
         "fall": "Outono",
         "autumn": "Outono",
         "winter": "Inverno"
+      },
+      "mediaStatus": {
+        "finished": "FINISHED",
+        "releasing": "RELEASING",
+        "not_yet_released": "NOT YET RELEASED",
+        "cancelled": "CANCELLED"
       }
     },
     "dates": {
