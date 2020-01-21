@@ -3,16 +3,6 @@
     <v-icon color="success" small>mdi-calendar</v-icon>
     {{ nextEpisode }}
   </span>
-
-  <span v-else-if="status === 'FINISHED'" class="info--text">
-    <v-icon color="info" small>mdi-check</v-icon>
-    {{ $t('pages.aniList.list.airingFinished') }}
-  </span>
-
-  <span v-else-if="status === 'NOT_YET_RELEASED'" class="info--text">
-    <v-icon color="info" small>mdi-clock</v-icon>
-    {{ $t('pages.aniList.list.notYetAired') }}
-  </span>
 </template>
 
 <script lang="ts">

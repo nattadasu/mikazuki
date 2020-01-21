@@ -11,6 +11,14 @@
         <v-progress-circular indeterminate color="grey lighten-5" />
       </v-container>
     </template>
+
+    <v-container class="fluid media-status-indicator">
+      <v-chip small :ripple="false" link :color="mediaStatusChipColor">
+        <v-icon small left>{{ mediaStatusIcon }}</v-icon>
+        {{ $t(`misc.aniList.mediaStatus.${item.media.status.toString().toLowerCase()}`) }}
+      </v-chip>
+    </v-container>
+
     <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">
       <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} ${isMobile ? 'titled-mobile' : 'titled'}`">
         <v-col cols="12" class="pb-2">
@@ -28,7 +36,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
-import { IAniListMediaStudio, IAniListMediaStudioNode, ZeroTwoListDataItem } from '../../../types';
+import { AniListMediaStatus, IAniListMediaStudio, IAniListMediaStudioNode, ZeroTwoListDataItem } from '../../../types';
 
 @Component
 export default class ListImage extends Vue {
@@ -49,6 +57,26 @@ export default class ListImage extends Vue {
 
   get studios(): IAniListMediaStudio {
     return this.item.media.studios;
+  }
+
+  get mediaStatusIcon(): string {
+    return this.item.media.status === AniListMediaStatus.CANCELLED
+      ? 'mdi-close'
+      : this.item.media.status === AniListMediaStatus.NOT_YET_RELEASED
+      ? 'mdi-calendar'
+      : this.item.media.status === AniListMediaStatus.RELEASING
+      ? 'mdi-antenna'
+      : 'mdi-check';
+  }
+
+  get mediaStatusChipColor(): string {
+    return this.item.media.status === AniListMediaStatus.CANCELLED
+      ? 'red darken-2'
+      : this.item.media.status === AniListMediaStatus.NOT_YET_RELEASED
+      ? 'yellow darken-4'
+      : this.item.media.status === AniListMediaStatus.RELEASING
+      ? 'success'
+      : 'info';
   }
 
   get darkMode(): boolean {

@@ -16,9 +16,8 @@
       </v-col>
       <template v-if="!isLoading">
         <v-col
-          v-for="(item, index) in listData"
+          v-for="item in slicedListData"
           :key="item.entry.id"
-          v-show="index <= (currentIndex + 1) * startAmount"
           class="lg5-custom"
           cols="12"
           sm="6"
@@ -26,35 +25,37 @@
           lg="3"
           xl="2"
         >
-          <v-card raised class="ma-2" :id="item.entry.id">
-            <ListImage :item="item" :show-studios="false" />
+          <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+            <v-card raised class="ma-2" :id="item.entry.id">
+              <ListImage :item="item" :show-studios="false" />
 
-            <v-card-text class="py-0">
-              <v-row>
-                <v-col cols="4">
-                  <ProgressCircle :item="item" :status="status" :increase-episode="increaseEpisode" />
-                </v-col>
+              <v-card-text class="py-0">
+                <v-row>
+                  <v-col cols="4">
+                    <ProgressCircle :item="item" :status="status" :increase-episode="increaseEpisode" />
+                  </v-col>
 
-                <v-col :cols="item.media.isAdult ? 6 : 8" class="text-center">
-                  <v-row align="center" justify="end">
-                    <v-col cols="12" class="py-0">
-                      <EpisodeState :item="item" />
-                    </v-col>
-                    <v-col cols="12" class="py-0">
-                      <MissingEpisodes :item="item" />
-                    </v-col>
-                    <v-col cols="12" class="py-0">
-                      <StarRating :item="item" :rating-star-amount="ratingStarAmount" />
-                    </v-col>
-                  </v-row>
-                </v-col>
+                  <v-col :cols="item.media.isAdult ? 6 : 8" class="text-center">
+                    <v-row align="center" justify="end">
+                      <v-col cols="12" class="py-0">
+                        <EpisodeState :item="item" />
+                      </v-col>
+                      <v-col cols="12" class="py-0">
+                        <MissingEpisodes :item="item" />
+                      </v-col>
+                      <v-col cols="12" class="py-0">
+                        <StarRating :item="item" :rating-star-amount="ratingStarAmount" />
+                      </v-col>
+                    </v-row>
+                  </v-col>
 
-                <v-col cols="2" v-if="item.media.isAdult">
-                  <AdultToolTip />
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
+                  <v-col cols="2" v-if="item.media.isAdult">
+                    <AdultToolTip />
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-lazy>
         </v-col>
       </template>
       <v-snackbar v-model="isSnackbarVisible" top :color="snackbarColor" :timeout="3500">
@@ -65,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { chain, isEmpty, reduce, get, includes } from 'lodash';
+import { chain, isEmpty, reduce, orderBy, get, includes } from 'lodash';
 import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation, Route } from 'vue-router';
@@ -102,34 +103,24 @@ interface UpdatePayloadProperties {
   },
 })
 export default class List extends Vue {
-  // TODO: Make this a non-static number via Store
-  startAmount: number = 20;
-
   currentIndex: number = 0;
-
   // Contains the Timer ID
   updateTimer: number | null = null;
-
   updatePayload: any[] = [];
-
   updateInterval = 750;
-
   snackbarColor: string = 'success';
-
   isSnackbarVisible: boolean = false;
-
   snackbarText: string = '';
-
   sortDirection: string = 'asc';
-
-  sortBy: string = 'title';
-
+  sortBy: string = 'title.userPreferred';
   genreFilters: string[] = [];
-
-  @Prop()
-  readonly status!: AniListListStatus;
-
+  mediaShowMode: string = 'non-explicit';
+  @Prop() readonly status!: AniListListStatus;
   @Prop(Object) readonly lastRoute!: Route | null;
+
+  get startAmount(): number {
+    return userStore.listItemAmount;
+  }
 
   get ratingStarAmount(): number {
     return userStore.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3 ? 3 : 5;
@@ -144,84 +135,52 @@ export default class List extends Vue {
       return [];
     }
 
-    return this.currentList.entries.map(
-      (entry: IAniListEntry): ZeroTwoListDataItem => {
-        const { media } = entry;
-        const { year, month, day } = media.startDate;
-        const image = media.coverImage.extraLarge;
+    const mappedEntries = this.currentList.entries
+      .map(
+        (entry: IAniListEntry): ZeroTwoListDataItem => {
+          const { media } = entry;
+          const { year, month, day } = media.startDate;
+          const image = media.coverImage.extraLarge;
 
-        return {
-          entry,
-          media,
-          image,
-          startDate: new Date(year, month, day),
-        };
-      }
-    );
+          return {
+            entry,
+            media,
+            image,
+            startDate: new Date(year, month, day),
+          };
+        }
+      )
+      .filter((entry: ZeroTwoListDataItem) => {
+        const { isAdult } = entry.media;
+        if (isAdult) {
+          if (this.mediaShowMode === 'non-explicit') {
+            return false;
+          }
+        } else {
+          if (this.mediaShowMode === 'explicit') {
+            return false;
+          }
+        }
+
+        if (this.genreFilters.length) {
+          return this.genreFilters.every((genre) => entry.media.genres.includes(genre));
+        }
+
+        return true;
+      });
+
+    const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
+
+    return orderBy(mappedEntries, (entry: ZeroTwoListDataItem) => get(entry.media, this.sortBy), [sortDirection]);
+  }
+
+  get slicedListData(): ZeroTwoListDataItem[] {
+    return this.listData.slice(0, (this.currentIndex + 1) * this.startAmount);
   }
 
   get emptyList(): boolean {
     return this.listData.length === 0;
   }
-
-  // get listData() {
-  //   let newEntries = listElement.entries.map((entry) => {
-  //     const { media } = entry;
-  //     const scoreStars = this.getScoreStarValue(entry.score);
-  //     const imageLink = media.coverImage.extraLarge;
-
-  //     const nextEpisode = media.nextAiringEpisode
-  //       ? this.$root.$t('pages.aniList.list.nextAiringEpisode', [
-  //           media.nextAiringEpisode.episode,
-  //           moment(media.nextAiringEpisode.airingAt, 'X').fromNow(),
-  //         ])
-  //       : null;
-  //     const progressPercentage = this.calculateProgressPercentage(entry);
-  //     const missingEpisodes = this.calculateMissingEpisodes(entry);
-
-  //     const { year, month, day } = entry.media.startDate;
-
-  //     return {
-  //       aniListId: media.id,
-  //       currentProgress: entry.progress,
-  //       entry,
-  //       episodeAmount: media.episodes || '?',
-  //       forAdults: media.isAdult,
-  //       genres: media.genres,
-  //       id: entry.id,
-  //       imageLink,
-  //       mediaStatus: media.status,
-  //       missingEpisodes,
-  //       nextAiringEpisode: media.nextAiringEpisode,
-  //       nextEpisode,
-  //       progressPercentage,
-  //       score: entry.score,
-  //       scoreStars,
-  //       startDate: new Date(year, month, day),
-  //       status: entry.status,
-  //       studios: media.studios,
-  //       title: media.title.userPreferred,
-  //     };
-  //   });
-
-  //   const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
-
-  //   // @TODO: Give entry a type!
-  //   const filterGenres = (entry: any): boolean => {
-  //     if (!this.genreFilters.length) {
-  //       return true;
-  //     }
-
-  //     return this.genreFilters.every((genre) => includes(entry.genres, genre));
-  //   };
-
-  //   newEntries = chain(newEntries)
-  //     .filter(filterGenres)
-  //     .orderBy((entry) => get(entry, this.sortBy), [sortDirection])
-  //     .value();
-
-  //   return newEntries;
-  // }
 
   get currentList() {
     return aniListStore.aniListData.lists.find((list) => list.status === this.status);
@@ -237,30 +196,26 @@ export default class List extends Vue {
       }
     };
 
-    // EventBus.$on('changeSorting', (item: { sortBy: string; direction: string }) => {
-    //   this.sortBy = item.sortBy;
-    //   this.sortDirection = item.direction;
-    // });
+    EventBus.$on('changeSorting', (item: { sortBy: string; direction: string }) => {
+      this.sortBy = item.sortBy;
+      this.sortDirection = item.direction;
+    });
 
-    // EventBus.$on('changeFiltering', (item: { genres: string[] }) => {
-    //   this.genreFilters = item.genres;
-    // });
+    EventBus.$on('changeFiltering', (item: { genres: string[] }) => {
+      this.genreFilters = item.genres;
+    });
 
     await appStore.setLoadingState(false);
   }
 
   mounted() {
     // console.log(this.lastRoute);
-
     // if (this.lastRoute) {
     //   const { id } = this.lastRoute.params;
     //   const idx = this.currentList?.entries.findIndex((entry) => entry.id === +id);
-
     //   if (idx !== undefined && idx !== -1) {
     //     const multiplyer = (idx % this.startAmount) + 1;
-
     //     console.log(multiplyer);
-
     //     this.currentIndex = this.startAmount * multiplyer;
     //   }
     // }

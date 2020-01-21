@@ -18,7 +18,6 @@ import { Route } from 'vue-router';
     List,
   },
   beforeRouteEnter(to, from, next) {
-    console.log('called');
     next((vm: any) => {
       vm.lastRoute = from;
     });

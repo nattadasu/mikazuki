@@ -14,6 +14,12 @@ export default class UserSettings extends VuexModule {
 
   /**
    * @private
+   * @var {number} _listItemAmount contains the amount of items that should be shown initially when navigating to a list route
+   */
+  private _listItemAmount: number = 50;
+
+  /**
+   * @private
    * @var {IAniListSession} _session contains the user's session
    */
   private _session: IAniListSession = {
@@ -62,6 +68,10 @@ export default class UserSettings extends VuexModule {
    */
   public get refreshRate(): number {
     return this._refreshRate;
+  }
+
+  public get listItemAmount(): number {
+    return this._listItemAmount;
   }
 
   /**
@@ -116,6 +126,10 @@ export default class UserSettings extends VuexModule {
     this._setRefreshRate(refreshRate);
   }
 
+  @action public async setListItemAmount(value: number): Promise<void> {
+    this._setListItemAmount(value);
+  }
+
   /**
    * @protected
    * @method _setSession
@@ -140,5 +154,9 @@ export default class UserSettings extends VuexModule {
 
   @mutation protected _setRefreshRate(refreshRate: number): void {
     this._refreshRate = refreshRate;
+  }
+
+  @mutation protected _setListItemAmount(value: number): void {
+    this._listItemAmount = value;
   }
 }

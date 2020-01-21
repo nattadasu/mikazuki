@@ -8,60 +8,62 @@
       </v-col>
 
       <v-col cols="12" lg="6" v-for="activity in activities" :key="activity.id">
-        <v-card max-height="150">
-          <v-container class="pa-0">
-            <v-row no-gutters>
-              <v-col cols="4">
-                <v-img height="150" :src="activity.coverImage" />
-              </v-col>
-              <v-col cols="8">
-                <v-card-title class="headline">
-                  {{ activity.userName }}
+        <v-slide-y-reverse-transition>
+          <v-card max-height="150">
+            <v-container class="pa-0">
+              <v-row no-gutters>
+                <v-col cols="4">
+                  <v-img height="150" :src="activity.coverImage" />
+                </v-col>
+                <v-col cols="8">
+                  <v-card-title class="headline">
+                    {{ activity.userName }}
 
-                  <v-spacer />
-                  <div class="caption">
-                    {{ activity.createdAt }}
-                  </div>
-                </v-card-title>
+                    <v-spacer />
+                    <div class="caption">
+                      {{ activity.createdAt }}
+                    </div>
+                  </v-card-title>
 
-                <v-card-subtitle>
-                  <template v-if="activity.completed">
-                    {{ $t('pages.aniList.home.activities.completed', [activity.title]) }}
-                  </template>
-                  <template v-else-if="activity.dropped">
-                    {{ $t('pages.aniList.home.activities.dropped', [activity.title]) }}
-                  </template>
-                  <!-- Watching exclusive -->
-                  <template v-else-if="activity.plansToWatch">
-                    {{ $t('pages.aniList.home.activities.plansToWatch', [activity.title]) }}
-                  </template>
-                  <template v-else-if="activity.watchedEpisode">
-                    {{ $t('pages.aniList.home.activities.watchedEpisode', [activity.title, activity.progress]) }}
-                  </template>
-                  <template v-else-if="activity.pausedWatching">
-                    {{ $t('pages.aniList.home.activities.pausedWatching', [activity.title]) }}
-                  </template>
-                  <template v-else-if="activity.rewatched">
-                    {{ $t('pages.aniList.home.activities.rewatchedEpisode', [activity.title, activity.progress]) }}
-                  </template>
-                  <!-- Reading exclusive -->
-                  <template v-else-if="activity.readChapter">
-                    {{ $t('pages.aniList.home.activities.readChapter', [activity.title, activity.progress]) }}
-                  </template>
-                  <template v-else-if="activity.plansToRead">
-                    {{ $t('pages.aniList.home.activities.plansToRead', [activity.title]) }}
-                  </template>
-                  <template v-else-if="activity.rereadChapter">
-                    {{ $t('pages.aniList.home.activities.rereadChapter', [activity.title, activity.progress]) }}
-                  </template>
-                  <template v-else-if="activity.pausedReading">
-                    {{ $t('pages.aniList.home.activities.pausedReading', [activity.title]) }}
-                  </template>
-                </v-card-subtitle>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
+                  <v-card-subtitle>
+                    <template v-if="activity.completed">
+                      {{ $t('pages.aniList.home.activities.completed', [activity.title]) }}
+                    </template>
+                    <template v-else-if="activity.dropped">
+                      {{ $t('pages.aniList.home.activities.dropped', [activity.title]) }}
+                    </template>
+                    <!-- Watching exclusive -->
+                    <template v-else-if="activity.plansToWatch">
+                      {{ $t('pages.aniList.home.activities.plansToWatch', [activity.title]) }}
+                    </template>
+                    <template v-else-if="activity.watchedEpisode">
+                      {{ $t('pages.aniList.home.activities.watchedEpisode', [activity.title, activity.progress]) }}
+                    </template>
+                    <template v-else-if="activity.pausedWatching">
+                      {{ $t('pages.aniList.home.activities.pausedWatching', [activity.title]) }}
+                    </template>
+                    <template v-else-if="activity.rewatched">
+                      {{ $t('pages.aniList.home.activities.rewatchedEpisode', [activity.title, activity.progress]) }}
+                    </template>
+                    <!-- Reading exclusive -->
+                    <template v-else-if="activity.readChapter">
+                      {{ $t('pages.aniList.home.activities.readChapter', [activity.title, activity.progress]) }}
+                    </template>
+                    <template v-else-if="activity.plansToRead">
+                      {{ $t('pages.aniList.home.activities.plansToRead', [activity.title]) }}
+                    </template>
+                    <template v-else-if="activity.rereadChapter">
+                      {{ $t('pages.aniList.home.activities.rereadChapter', [activity.title, activity.progress]) }}
+                    </template>
+                    <template v-else-if="activity.pausedReading">
+                      {{ $t('pages.aniList.home.activities.pausedReading', [activity.title]) }}
+                    </template>
+                  </v-card-subtitle>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-slide-y-reverse-transition>
       </v-col>
     </v-row>
   </v-container>
