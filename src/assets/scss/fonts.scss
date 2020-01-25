@@ -20,7 +20,7 @@ $japanese-default-typo: 'Noto Sans JP, Hiragino Maru Gothic ProN, ヒラギノ�
   font-family: unquote($default-typo), unquote($japanese-default-typo) !important;
 }
 %font-face-ar {
-  font-family: 'Geeza Pro', unquote($default-typo) !important;
+  font-family: 'Segoe UI', 'Geeza Pro', unquote($default-typo) !important;
 }
 %font-face-ru {
   font-family: 'Charcoal', 'Geneva', unquote($default-typo) !important;

@@ -44,7 +44,14 @@
                         <MissingEpisodes :item="item" />
                       </v-col>
                       <v-col cols="12" class="py-0">
-                        <StarRating :item="item" :rating-star-amount="ratingStarAmount" />
+                        <v-row justify="center">
+                          <v-col cols="auto" align-self="end" class="py-0 pr-0">
+                            <span class="grey--text text--lighten-2 caption">({{ item.entry.score }})</span>
+                          </v-col>
+                          <v-col cols="auto" class="py-0 pl-1">
+                            <StarRating :item="item" :rating-star-amount="ratingStarAmount" />
+                          </v-col>
+                        </v-row>
                       </v-col>
                     </v-row>
                   </v-col>

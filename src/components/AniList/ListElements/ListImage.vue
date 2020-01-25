@@ -13,10 +13,15 @@
     </template>
 
     <v-container class="fluid media-status-indicator">
-      <v-chip small :ripple="false" link :color="mediaStatusChipColor">
-        <v-icon small left>{{ mediaStatusIcon }}</v-icon>
-        {{ $t(`misc.aniList.mediaStatus.${item.media.status.toString().toLowerCase()}`) }}
-      </v-chip>
+      <v-hover v-slot:default="{ hover }">
+        <v-chip small :ripple="false" link :color="mediaStatusChipColor">
+          <v-icon small :left="hover">{{ mediaStatusIcon }}</v-icon>
+
+          <v-expand-x-transition>
+            <span v-if="hover">{{ $t(`misc.aniList.mediaStatus.${item.media.status.toString().toLowerCase()}`) }}</span>
+          </v-expand-x-transition>
+        </v-chip>
+      </v-hover>
     </v-container>
 
     <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">

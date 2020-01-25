@@ -1,10 +1,5 @@
 <template>
-  <v-tooltip top>
-    <template v-slot:activator="{ on }">
-      <v-rating :length="ratingStarAmount" half-increments dense small readonly :value="scoreStars" v-on="on" />
-    </template>
-    <span>{{ score }}</span>
-  </v-tooltip>
+  <v-rating :length="ratingStarAmount" half-increments dense small readonly :value="scoreStars" />
 </template>
 
 <script lang="ts">
