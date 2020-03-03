@@ -1,6 +1,6 @@
 <template>
   <span v-if="missingEpisodes" class="info--text">
-    <v-icon small color="info">mdi-fast-forward</v-icon>
+    <v-icon size="18" color="info">mdi-fast-forward</v-icon>
     {{ $tc('pages.aniList.list.missingEpisodes', missingEpisodes, [missingEpisodes]) }}
   </span>
 </template>
@@ -36,9 +36,3 @@ export default class MissingEpisodes extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-span {
-  vertical-align: middle !important;
-}
-</style>
