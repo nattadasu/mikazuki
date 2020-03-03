@@ -26,13 +26,20 @@ query getSeasonAnime($seasonYear: Int, $season: MediaSeason, $page: Int) {
       }
       bannerImage
       genres
+      status
       nextAiringEpisode {
         episode
         timeUntilAiring
+        airingAt
       }
       isAdult
       isLocked
       description
+      mediaListEntry {
+        id
+        progress
+        score
+      }
     }
   }
 }

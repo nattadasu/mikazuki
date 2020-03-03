@@ -111,7 +111,7 @@
       },
       "list": {
         "airingFinished": "Selesai siaran",
-        "missingEpisodes": "Satu episod untuk dinonton | {count} episod untuk dinonton",
+        "missingEpisodes": "{count} episod",
         "notYetAired": "Belum ditayangkan",
         "nextAiringEpisode": "E{0} {1}"
       },

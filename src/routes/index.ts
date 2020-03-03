@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import AniList from '@/routes/AniList';
-import Search from '@/views/Search.vue';
-import Settings from '@/views/Settings.vue';
-import FirstPage from '@/views/FirstPage.vue';
+import beforeEachInterceptor from './beforeEachInterceptor';
+import AniList from './AniList';
+import Search from '@/components/Search/Search.vue';
+import Settings from '@/components/Settings/Settings.vue';
+import FirstPage from '@/components/FirstPage/FirstPage.vue';
 
 Vue.use(Router);
 
@@ -16,6 +17,7 @@ const router = new Router({
       component: FirstPage,
       meta: {
         routeName: 'firstPage',
+        requireUnauthorizedState: true,
       },
     },
     {
@@ -24,6 +26,7 @@ const router = new Router({
       component: Settings,
       meta: {
         routeName: 'settings',
+        allowUnauthorizedState: true,
       },
     },
     {
@@ -46,5 +49,7 @@ const router = new Router({
     },
   ],
 });
+
+beforeEachInterceptor(router);
 
 export default router;

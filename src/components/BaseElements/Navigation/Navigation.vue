@@ -61,7 +61,7 @@
       <SortButton v-if="isSortingPage" />
       <SearchButton v-if="isAuthenticated" />
 
-      <AniListRefresh />
+      <AniListRefresh v-if="isAuthenticated" />
 
       <SettingsButton v-if="$vuetify.breakpoint.mdAndUp" />
     </v-toolbar-items>

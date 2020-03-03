@@ -65,7 +65,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { version } from '../../../package.json';
+import { version } from '@/../package.json';
 
 @Component
 export default class AboutSettings extends Vue {

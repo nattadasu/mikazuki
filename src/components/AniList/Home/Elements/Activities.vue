@@ -72,7 +72,7 @@
 <script lang="ts">
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
-import ListImage from '@/components/AniList/ListElements/ListImage.vue';
+import ListImage from '@/components/AniList/List/Elements/ListElements/ListImage.vue';
 import { IAniListActivity, AniListType } from '@/types';
 import { aniListStore } from '@/store';
 

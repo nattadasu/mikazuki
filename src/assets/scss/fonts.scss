@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Nutito";
+  font-family: "Nunito";
   font-weight: normal;
   font-style: normal;
   src: url("../fonts/Nunito-Regular.ttf") format("truetype");
@@ -75,4 +75,8 @@ html.font-face-kr * {
   &[class^='display-'] {
     @extend %font-face-kr;
   }
+}
+
+.episodeCount {
+  font-family: unquote($default-typo);
 }

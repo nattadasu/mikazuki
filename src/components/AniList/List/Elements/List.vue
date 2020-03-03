@@ -57,18 +57,20 @@ import {
 } from '@/types';
 import { aniListStore, appStore, userStore } from '@/store';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
-import AdultToolTip from './ListElements/AdultToolTip.vue';
-import EpisodeState from './ListElements/EpisodeState.vue';
-import ListImage from './ListElements/ListImage.vue';
-import MissingEpisodes from './ListElements/MissingEpisodes.vue';
-import ProgressCircle from './ListElements/ProgressCircle.vue';
-import StarRating from './ListElements/StarRating.vue';
-import Loading from '@/components/NavigationToolbars/Items/Loading.vue';
-import ProgressBar from '@/components/AniList/ListElements/ProgressBar.vue';
+import {
+  AdultTooltip,
+  EpisodeState,
+  ListImage,
+  MissingEpisodes,
+  ProgressBar,
+  ProgressCircle,
+  StarRating,
+} from './ListElements';
+import Loading from '@/components/BaseElements/Navigation/NavigationToolbars/Items/Loading.vue';
 
 @Component({
   components: {
-    AdultToolTip,
+    AdultTooltip,
     EpisodeState,
     ListImage,
     MissingEpisodes,

@@ -217,8 +217,8 @@
 <script lang="ts">
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
-import Activities from '@/components/AniList/Activities.vue';
-import ProfileImage from '@/components/AniList/ProfileImage.vue';
+import Activities from './Elements/Activities.vue';
+import ProfileImage from './Elements/ProfileImage.vue';
 import { userStore } from '@/store';
 
 @Component({

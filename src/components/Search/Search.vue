@@ -172,12 +172,12 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Route } from 'vue-router';
-import AdultToolTip from '@/components/AniList/ListElements/AdultToolTip.vue';
-import ListImage from '@/components/AniList/ListElements/ListImage.vue';
-import ProgressCircle from '@/components/AniList/ListElements/ProgressCircle.vue';
+import AdultTooltip from '../AniList/List/Elements/ListElements/AdultTooltip.vue';
+import ListImage from '../AniList/List/Elements/ListElements/ListImage.vue';
+import ProgressCircle from '../AniList/List/Elements/ListElements/ProgressCircle.vue';
 import { AniListListStatus, IAniListSearchResult } from '@/types';
 import { appStore } from '@/store';
-import SearchFilter from '@/components/Search/Filter.vue';
+import SearchFilter from './Elements/Filter.vue';
 
 type IAniListExtendedSearchResult = IAniListSearchResult & {
   isWatching: boolean;
@@ -191,7 +191,7 @@ type IAniListExtendedSearchResult = IAniListSearchResult & {
 
 @Component({
   components: {
-    AdultToolTip,
+    AdultTooltip,
     ListImage,
     ProgressCircle,
     SearchFilter,

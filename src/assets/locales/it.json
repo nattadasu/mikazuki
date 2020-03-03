@@ -111,7 +111,7 @@
       },
       "list": {
         "airingFinished": "Terminata",
-        "missingEpisodes": "Ancora un episodio | Ancora {count} episodi",
+        "missingEpisodes": "Un episodio | {count} episodi",
         "notYetAired": "Non ancora trasmesso",
         "nextAiringEpisode": "E{0} {1}"
       },

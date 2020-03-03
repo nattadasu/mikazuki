@@ -1,20 +1,13 @@
 <template>
   <v-progress-linear color="success darken-3" :value="percentage" :indeterminate="indeterminate" :height="25">
-    <v-row align="center">
-      <v-col cols="auto">
-        <span class="pl-3 white--text">{{ currentProgress }} / {{ episodeAmount }}</span>
-      </v-col>
-
-      <v-spacer />
-
-      <v-col cols="auto">
-        <v-btn v-if="!completedList" small text icon @click="increaseEpisodeCounter">
-          <v-icon size="18">
-            mdi-plus
-          </v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
+    <v-container class="ma-0 pa-0 d-flex flex-row align-center align-self-baseline justify-space-between">
+      <span class="pl-3 white--text episodeCount">{{ currentProgress }} / {{ episodeAmount }}</span>
+      <v-btn v-if="!completedList" small text icon @click="increaseEpisodeCounter">
+        <v-icon size="18">
+          mdi-plus
+        </v-icon>
+      </v-btn>
+    </v-container>
   </v-progress-linear>
 </template>
 

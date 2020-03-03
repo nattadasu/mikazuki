@@ -27,11 +27,11 @@
 <script lang="ts">
 import { TranslateResult } from 'vue-i18n';
 import { Component, Vue } from 'vue-property-decorator';
-import AppSettings from './Settings/AppSettings.vue';
-import AniList from './Settings/AniList.vue';
-import About from './Settings/About.vue';
-import Changelog from './Settings/Changelog.vue';
-import SpecialThanks from './Settings/SpecialThanks.vue';
+import AppSettings from './Elements/AppSettings.vue';
+import AniList from './Elements/AniList.vue';
+import About from './Elements/About.vue';
+import Changelog from './Elements/Changelog.vue';
+import SpecialThanks from './Elements/SpecialThanks.vue';
 
 interface ISettingTab {
   key: string;

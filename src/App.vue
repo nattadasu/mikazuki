@@ -14,9 +14,9 @@ import { validLanguageCodes } from './i18n';
 import { appStore, userStore } from './store';
 import eventHandler from '@/plugins/AniList/eventHandler';
 import { RefreshTimer, refreshTimer } from '@/plugins/refreshTimer';
-import Navigation from '@/components/Navigation.vue';
-import TopButton from '@/components/TopButton.vue';
-import ZeroTwoNotifications from '@/components/Notifications.vue';
+import Navigation from '@/components/BaseElements/Navigation/Navigation.vue';
+import TopButton from '@/components/BaseElements/TopButton.vue';
+import ZeroTwoNotifications from '@/components/BaseElements/Notifications.vue';
 
 @Component({
   components: {

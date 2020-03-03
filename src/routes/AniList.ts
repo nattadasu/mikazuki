@@ -1,9 +1,9 @@
 import { RouteConfig } from 'vue-router';
 import { AniListListStatus } from '@/types';
-import AniList from '@/views/AniList/AniList.vue';
-import DetailView from '@/views/AniList/DetailView.vue';
-import Home from '@/views/AniList/Home.vue';
-import SeasonPreview from '@/views/AniList/SeasonPreview.vue';
+import AniList from '@/components/AniList/List/AniList.vue';
+import DetailView from '@/components/AniList/DetailView/DetailView.vue';
+import Home from '@/components/AniList/Home/Home.vue';
+import SeasonPreview from '@/components/AniList/SeasonPreview/SeasonPreview.vue';
 
 const routes: RouteConfig[] = [
   {

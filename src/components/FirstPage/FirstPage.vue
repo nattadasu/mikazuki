@@ -1,9 +1,11 @@
 <template>
   <v-content>
-    <v-container fluid class="text-center">
+    <!-- <v-container fluid class="text-center">
       <h1>{{ $t('alerts.unauthenticated') }}</h1>
-    </v-container>
-    <v-container fluid class="fill-height justify-content-center">
+    </v-container> -->
+    <v-container fluid class="fill-height align-start justify-center">
+      <h1 class="text-center">{{ $t('alerts.unauthenticated') }}</h1>
+
       <v-btn color="primary" @click="loginToAniList">
         {{ $t('actions.login') }}
       </v-btn>

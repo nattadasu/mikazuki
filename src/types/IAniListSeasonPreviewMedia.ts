@@ -4,6 +4,8 @@ import { IAniListStreamingEpisode } from './index';
 import { IAniListCoverImage } from './IAniListCoverImage';
 import { IAniListNextAiringEpisode } from './IAniListNextAiringEpisode';
 import { IAniListMediaStudio } from './IAniListMediaStudio';
+import { IAniListEntry } from './IAniListEntry';
+import { AniListMediaStatus } from './AniListMediaStatus';
 
 export interface IAniListSeasonPreviewMedia {
   /**
@@ -22,6 +24,10 @@ export interface IAniListSeasonPreviewMedia {
    * @var {number} episodes contains the amount of episodes the media is going to have.
    */
   episodes: number;
+  /**
+   * @var {AniListMediaStatus} status contains the media's status
+   */
+  status: AniListMediaStatus;
   /**
    * @var {IAniListStreamingEpisode[]} streamingEpisodes contains info about streaming services
    */
@@ -58,4 +64,8 @@ export interface IAniListSeasonPreviewMedia {
    * @var {IAniListMediaStudio} studios contains the media's studios
    */
   studios: IAniListMediaStudio;
+  /**
+   * @var {IAniListEntry | null} mediaListEntry contains null if not in list or entry data
+   */
+  mediaListEntry: IAniListEntry | null;
 }

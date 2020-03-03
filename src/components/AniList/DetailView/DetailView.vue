@@ -41,13 +41,22 @@
 <script lang="ts">
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
-import BannerImage from '@/components/AniList/DetailElements/BannerImage.vue';
-import CoverImage from '@/components/AniList/DetailElements/CoverImage.vue';
-import Description from '@/components/AniList/DetailElements/Description.vue';
-import Loading from '@/components/AniList/DetailElements/Loading.vue';
-import MediaDetails from '@/components/AniList/DetailElements/MediaDetails.vue';
-import StreamingService from '@/components/AniList/DetailElements/StreamingService.vue';
-import UserListSettings from '@/components/AniList/DetailElements/UserListSettings.vue';
+import {
+  BannerImage,
+  CoverImage,
+  Description,
+  Loading,
+  MediaDetails,
+  StreamingService,
+  UserListSettings,
+} from './Elements';
+// import BannerImage from './Elements/BannerImage.vue';
+// import CoverImage from './Elements/CoverImage.vue';
+// import Description from './Elements/Description.vue';
+// import Loading from './Elements/Loading.vue';
+// import MediaDetails from './Elements/MediaDetails.vue';
+// import StreamingService from './Elements/StreamingService.vue';
+// import UserListSettings from './Elements/UserListSettings.vue';
 import { IAniListEntry, IAniListMedia } from '@/types';
 import { aniListStore, appStore } from '@/store';
 

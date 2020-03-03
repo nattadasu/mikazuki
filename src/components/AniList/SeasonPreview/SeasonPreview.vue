@@ -2,16 +2,11 @@
   <v-content>
     <v-container fluid class="py-0 px-1">
       <v-row no-gutters>
-        <v-col v-for="item in preparedMedia" :key="item.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
+        <v-col v-for="item in media" :key="item.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card raised class="ma-2">
-            <ListImage
-              :image-link="item.coverImage"
-              :name="item.title"
-              :ani-list-id="item.id"
-              :studios="item.studios"
-            />
+            <ListImage :item="item" :show-studios="true" />
 
-            <v-card-text>
+            <!-- <v-card-text>
               <v-layout row fill-height align-center>
                 <v-layout column class="px-2" justify-start>
                   <v-flex class="subtitle-1 grey--text">
@@ -37,7 +32,7 @@
                   </v-flex>
                 </template>
               </v-layout>
-            </v-card-text>
+            </v-card-text> -->
 
             <v-card-actions class="icon-actionize">
               <v-row class="pa-1">
@@ -84,7 +79,7 @@
             </v-card-actions>
           </v-card>
         </v-col>
-        <v-col v-if="!preparedMedia.length" cols="12" class="text-center display-2 ma-4">
+        <v-col v-if="!media.length" cols="12" class="text-center display-2 ma-4">
           {{ $t('$vuetify.noDataText') }}
         </v-col>
       </v-row>
@@ -97,10 +92,16 @@ import { chain, includes, get } from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import { Route } from 'vue-router';
-import ListImage from '@/components/AniList/ListElements/ListImage.vue';
-import AddButton from '@/components/AniList/SeasonPreview/AddButton.vue';
+import ListImage from './Elements/ListImage.vue';
+import AddButton from './Elements/AddButton.vue';
 import eventBus from '@/eventBus';
-import { AniListListStatus, AniListSeason, IAniListEntry, IAniListSeasonPreviewMedia } from '@/types';
+import {
+  AniListListStatus,
+  AniListSeason,
+  IAniListEntry,
+  IAniListSeasonPreviewMedia,
+  ZeroTwoListDataItem,
+} from '@/types';
 import { aniListStore, appStore, userStore } from '@/store';
 
 interface UpdateSeasonProperties {
@@ -118,17 +119,11 @@ Component.registerHooks(['beforeRouteUpdate', 'beforeRouteLeave']);
 })
 export default class SeasonPreview extends Vue {
   media: IAniListSeasonPreviewMedia[] = [];
-
   seasonYear: number = new Date().getUTCFullYear();
-
   season: AniListSeason = this.getCurrentSeason();
-
   sortDirection: string = 'asc';
-
   sortBy: string = 'title';
-
   genreFilters: string[] = [];
-
   adultContentFilter: string = 'without';
 
   get appLoading(): boolean {
@@ -139,7 +134,7 @@ export default class SeasonPreview extends Vue {
     return userStore.isAuthenticated;
   }
 
-  get preparedMedia() {
+  get _preparedMedia() {
     const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
 
     // @TODO: Give entry a type!

@@ -111,7 +111,7 @@
       },
       "list": {
         "airingFinished": "Airing finished",
-        "missingEpisodes": "One episode to go | {count} episodes to go",
+        "missingEpisodes": "One episode to go | {count} eps. to go",
         "notYetAired": "Not yet aired",
         "nextAiringEpisode": "E{0} {1}"
       },
@@ -204,6 +204,7 @@
       "planning": "Planning"
     },
     "detailView": "Detail View",
+    "firstPage": "First Steps",
     "search": "Search",
     "seasonPreview": "Season Preview",
     "settings": "Settings"

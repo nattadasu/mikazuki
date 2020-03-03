@@ -8,7 +8,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 // Custom Components
-import List from '@/components/AniList/List.vue';
+import List from './Elements/List.vue';
 import EventBus from '@/eventBus';
 import { AniListListStatus } from '@/types';
 import { Route } from 'vue-router';
