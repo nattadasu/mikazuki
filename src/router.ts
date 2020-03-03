@@ -3,21 +3,21 @@ import Router from 'vue-router';
 import AniList from '@/routes/AniList';
 import Search from '@/views/Search.vue';
 import Settings from '@/views/Settings.vue';
+import FirstPage from '@/views/FirstPage.vue';
 
 Vue.use(Router);
 
 const router = new Router({
-  scrollBehavior(to, from, savedPosition) {
-    if (from.name === 'DetailView') {
-      return {
-        selector: from.params.id,
-      };
-    } else {
-      return { x: 0, y: 0 };
-    }
-  },
   routes: [
     ...AniList,
+    {
+      path: '/',
+      name: 'FirstPage',
+      component: FirstPage,
+      meta: {
+        routeName: 'firstPage',
+      },
+    },
     {
       path: '/settings',
       name: 'Settings',
@@ -42,7 +42,7 @@ const router = new Router({
     },
     {
       path: '*',
-      redirect: '/aniList',
+      redirect: '/',
     },
   ],
 });
