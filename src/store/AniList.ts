@@ -1,5 +1,5 @@
 import { action, mutation, createModule } from 'vuex-class-component';
-import { IAniListActivity, IAniListMediaListCollection } from '@/types';
+import { IAniListActivity, IAniListMediaListCollection, ZeroTwoUpdateBucketItem } from '@/types';
 
 /**
  * @module AniListStore
@@ -30,6 +30,12 @@ export default class AniListStore extends VuexModule {
   private _currentMediaTitle: string | null = null;
 
   /**
+   * @private
+   * @var {ZeroTwoUpdateBucket} _updateBucket contains all updates that should be triggered and sent to AniList
+   */
+  private _updateBucket: ZeroTwoUpdateBucketItem[] = [];
+
+  /**
    * @getter
    * @method aniListData
    * @returns {IAniListMediaListCollection} the current user's AniList data
@@ -51,6 +57,10 @@ export default class AniListStore extends VuexModule {
     return this._currentMediaTitle;
   }
 
+  public get updateBucket(): ZeroTwoUpdateBucketItem[] {
+    return this._updateBucket;
+  }
+
   @action public async setAniListData(data: IAniListMediaListCollection): Promise<void> {
     this._setAniListData(data);
   }
@@ -63,8 +73,21 @@ export default class AniListStore extends VuexModule {
     this._setCurrentMediaTitle(title);
   }
 
+  @action public async addToUpdateBucket(item: ZeroTwoUpdateBucketItem): Promise<void> {
+    this._addToUpdateBucket(item);
+  }
+
+  @action public async removeFromUpdateBucket(item: ZeroTwoUpdateBucketItem): Promise<void> {
+    this._removeFromUpdateBucket(item);
+  }
+
+  @action public async setUpdateBucket(items: ZeroTwoUpdateBucketItem[]): Promise<void> {
+    this._setUpdateBucket(items);
+  }
+
   @action public async resetAllData(): Promise<void> {
     this._setAniListData({ lists: [] });
+    this._setUpdateBucket([]);
     this._setLatestActivities([]);
     this._setCurrentMediaTitle(null);
   }
@@ -87,5 +110,21 @@ export default class AniListStore extends VuexModule {
 
   @mutation protected _setCurrentMediaTitle(title: string | null): void {
     this._currentMediaTitle = title;
+  }
+
+  @mutation protected _setUpdateBucket(items: ZeroTwoUpdateBucketItem[]): void {
+    this._updateBucket = items;
+  }
+
+  @mutation protected _addToUpdateBucket(item: ZeroTwoUpdateBucketItem): void {
+    this._updateBucket.push(item);
+  }
+
+  @mutation protected _removeFromUpdateBucket(item: ZeroTwoUpdateBucketItem): void {
+    const idx = this._updateBucket.findIndex((_item) => _item.id === item.id);
+
+    if (idx !== -1) {
+      this._updateBucket.splice(idx, 1);
+    }
   }
 }

@@ -34,3 +34,4 @@ export { IAniListUserStatistics } from './IAniListUserStatistics';
 
 // ZeroTwo-only
 export { ZeroTwoListDataItem } from './ZeroTwoListDataItem';
+export * from './ZeroTwoUpdateBucketItem';
