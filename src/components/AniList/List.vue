@@ -25,42 +25,11 @@
           lg="3"
           xl="2"
         >
-          <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
-            <v-card raised class="ma-2" :id="item.entry.id">
+          <v-lazy :value="false" :options="{ threshold: 0.5 }" transition="fade-transition">
+            <v-card flat outlined class="ma-2" :id="item.entry.id">
               <ListImage :item="item" :show-studios="false" />
 
-              <v-card-text class="py-0">
-                <v-row>
-                  <v-col cols="4">
-                    <ProgressCircle :item="item" :status="status" :increase-episode="increaseEpisode" />
-                  </v-col>
-
-                  <v-col :cols="item.media.isAdult ? 6 : 8" class="text-center">
-                    <v-row align="center" justify="end">
-                      <v-col cols="12" class="py-0">
-                        <EpisodeState :item="item" />
-                      </v-col>
-                      <v-col cols="12" class="py-0">
-                        <MissingEpisodes :item="item" />
-                      </v-col>
-                      <v-col cols="12" class="py-0">
-                        <v-row justify="center">
-                          <v-col cols="auto" align-self="end" class="py-0 pr-0">
-                            <span class="grey--text text--lighten-2 caption">({{ item.entry.score }})</span>
-                          </v-col>
-                          <v-col cols="auto" class="py-0 pl-1">
-                            <StarRating :item="item" :rating-star-amount="ratingStarAmount" />
-                          </v-col>
-                        </v-row>
-                      </v-col>
-                    </v-row>
-                  </v-col>
-
-                  <v-col cols="2" v-if="item.media.isAdult">
-                    <AdultToolTip />
-                  </v-col>
-                </v-row>
-              </v-card-text>
+              <ProgressBar :item="item" :status="status" :increase-episode="increaseEpisode" />
             </v-card>
           </v-lazy>
         </v-col>
@@ -78,7 +47,14 @@ import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation, Route } from 'vue-router';
 import EventBus from '@/eventBus';
-import { AniListListStatus, AniListMediaStatus, AniListScoreFormat, IAniListEntry, ZeroTwoListDataItem } from '@/types';
+import {
+  AniListListStatus,
+  AniListMediaStatus,
+  AniListScoreFormat,
+  IAniListEntry,
+  ZeroTwoListDataItem,
+  ZeroTwoUpdateBucketItem,
+} from '@/types';
 import { aniListStore, appStore, userStore } from '@/store';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
 import AdultToolTip from './ListElements/AdultToolTip.vue';
@@ -88,15 +64,7 @@ import MissingEpisodes from './ListElements/MissingEpisodes.vue';
 import ProgressCircle from './ListElements/ProgressCircle.vue';
 import StarRating from './ListElements/StarRating.vue';
 import Loading from '@/components/NavigationToolbars/Items/Loading.vue';
-
-interface UpdatePayloadProperties {
-  id: number | null;
-  title: string | null;
-  status: AniListListStatus | null;
-  progress: number | null;
-  score: number | null;
-  changeFrom: number;
-}
+import ProgressBar from '@/components/AniList/ListElements/ProgressBar.vue';
 
 @Component({
   components: {
@@ -107,13 +75,16 @@ interface UpdatePayloadProperties {
     ProgressCircle,
     StarRating,
     Loading,
+    ProgressBar,
   },
 })
 export default class List extends Vue {
+  @Prop() readonly status!: AniListListStatus;
+  @Prop(Object) readonly lastRoute!: Route | null;
   currentIndex: number = 0;
   // Contains the Timer ID
   updateTimer: number | null = null;
-  updatePayload: any[] = [];
+  updatePayload: ZeroTwoUpdateBucketItem[] = [];
   updateInterval = 750;
   snackbarColor: string = 'success';
   isSnackbarVisible: boolean = false;
@@ -122,8 +93,6 @@ export default class List extends Vue {
   sortBy: string = 'title.userPreferred';
   genreFilters: string[] = [];
   mediaShowMode: string = 'non-explicit';
-  @Prop() readonly status!: AniListListStatus;
-  @Prop(Object) readonly lastRoute!: Route | null;
 
   get startAmount(): number {
     return userStore.listItemAmount;
@@ -213,19 +182,6 @@ export default class List extends Vue {
     });
 
     await appStore.setLoadingState(false);
-  }
-
-  mounted() {
-    // console.log(this.lastRoute);
-    // if (this.lastRoute) {
-    //   const { id } = this.lastRoute.params;
-    //   const idx = this.currentList?.entries.findIndex((entry) => entry.id === +id);
-    //   if (idx !== undefined && idx !== -1) {
-    //     const multiplyer = (idx % this.startAmount) + 1;
-    //     console.log(multiplyer);
-    //     this.currentIndex = this.startAmount * multiplyer;
-    //   }
-    // }
   }
 
   getScoreStarValue(score: number): number {
@@ -347,10 +303,11 @@ export default class List extends Vue {
       .map((group) =>
         reduce(
           group,
-          (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) =>
+          (accumulator: ZeroTwoUpdateBucketItem, item: ZeroTwoUpdateBucketItem) =>
             item.changeFrom > accumulator.changeFrom ? item : accumulator,
           {
             id: null,
+            mediaId: null,
             title: null,
             status: null,
             progress: null,
@@ -394,7 +351,6 @@ export default class List extends Vue {
     Promise.all(entries)
       .then(() => aniListEventHandler.refreshLists())
       .then(() => {
-        console.log('here', this.updatePayload);
         let updateText = '';
 
         chain(this.updatePayload)
@@ -402,10 +358,11 @@ export default class List extends Vue {
           .map((group) =>
             reduce(
               group,
-              (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) =>
+              (accumulator: ZeroTwoUpdateBucketItem, item: ZeroTwoUpdateBucketItem) =>
                 item.changeFrom > accumulator.changeFrom ? item : accumulator,
               {
                 id: null,
+                mediaId: null,
                 title: null,
                 status: null,
                 progress: null,
@@ -417,7 +374,6 @@ export default class List extends Vue {
           .filter((group) => !!group.id)
           .value()
           .forEach((item) => {
-            console.log('herer');
             updateText = item.status === AniListListStatus.COMPLETED ? 'completeUpdateText' : 'simpleUpdateText';
             this.$notify({
               title: this.$t('notifications.aniList.successTitle') as string,
