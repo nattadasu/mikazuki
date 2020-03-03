@@ -16,27 +16,16 @@
 
       <v-list dense nav shaped>
         <v-list-item-group v-model="item" color="primary">
-          <v-list-item v-for="(item, index) in mainMenuItems" :key="index" @click="navigateTo(item.location)">
-            <v-list-item-icon>
-              <v-icon v-text="item.icon" />
-            </v-list-item-icon>
+          <template v-for="(item, index) in navItems">
+            <v-divider v-if="item.title === 'divider'" :key="index" />
+            <v-list-item :key="index" @click="navigateTo(item.location)" v-else>
+              <v-list-item-icon>
+                <v-icon v-text="item.icon" />
+              </v-list-item-icon>
 
-            <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
-          </v-list-item>
-
-          <v-divider class="py-1" />
-
-          <v-list-item
-            v-for="(item, index) in aniListMenuItems"
-            :key="index + mainMenuItems.length"
-            @click="navigateTo(item.location)"
-          >
-            <v-list-item-icon>
-              <v-icon v-text="item.icon" />
-            </v-list-item-icon>
-
-            <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
-          </v-list-item>
+              <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
+            </v-list-item>
+          </template>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -230,37 +219,16 @@ export default class Navigation extends Vue {
     return moment(time).format('mm:ss');
   }
 
-  created() {
-    const currentRouteName = this.$route.name;
-
-    this.item = this.mainMenuItems.findIndex((item) => item.routeName === currentRouteName);
-
-    if (this.item === -1) {
-      this.item = this.aniListMenuItems.findIndex((item) => item.routeName === currentRouteName);
-
-      if (this.item !== -1) {
-        this.item += 2;
-      }
-    }
+  get navItems(): Array<{ title: string; location: RawLocation; routeName: string; icon: string }> {
+    return [
+      ...this.mainMenuItems,
+      { title: 'divider', location: {}, routeName: '', icon: '' },
+      ...this.aniListMenuItems,
+    ];
   }
 
   navigateTo(location: RawLocation) {
     this.$router.push(location);
-  }
-
-  @Watch('currentRouteName')
-  routeChanged() {
-    const currentRouteName = this.$route.name;
-
-    this.item = this.mainMenuItems.findIndex((item) => item.routeName === currentRouteName);
-
-    if (this.item === -1) {
-      this.item = this.aniListMenuItems.findIndex((item) => item.routeName === currentRouteName);
-
-      if (this.item !== -1) {
-        this.item += 2;
-      }
-    }
   }
 }
 </script>
