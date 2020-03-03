@@ -2,7 +2,7 @@
   <v-content>
     <v-container fluid class="py-0 px-1">
       <v-row no-gutters>
-        <v-col v-for="item in media" :key="item.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
+        <v-col v-for="item in slicedMedia" :key="item.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card raised class="ma-2">
             <ListImage :item="item" :show-studios="true" />
 
@@ -125,6 +125,7 @@ export default class SeasonPreview extends Vue {
   sortBy: string = 'title';
   genreFilters: string[] = [];
   adultContentFilter: string = 'without';
+  currentIndex: number = 0;
 
   get appLoading(): boolean {
     return appStore.isLoading;
@@ -132,6 +133,20 @@ export default class SeasonPreview extends Vue {
 
   get isAuthenticated(): boolean {
     return userStore.isAuthenticated;
+  }
+
+  get startAmount(): number {
+    return userStore.listItemAmount;
+  }
+
+  get preparedMedia(): IAniListSeasonPreviewMedia[] {
+    return chain(this.media)
+      .orderBy((item) => get(item, 'title.userPreferred'), ['asc'])
+      .value();
+  }
+
+  get slicedMedia(): IAniListSeasonPreviewMedia[] {
+    return this.preparedMedia.slice(0, (this.currentIndex + 1) * this.startAmount);
   }
 
   get _preparedMedia() {
