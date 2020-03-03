@@ -20,7 +20,7 @@ export default class Back extends Vue {
   navigateBack(): void {
     if (this.lastRoutes && this.lastRoutes.length) {
       const lastRoute = this.lastRoutes.pop() as Route;
-      this.$router.push(lastRoute);
+      this.$router.push(lastRoute.fullPath);
 
       // Due to hitting back actually uses "push"
       // Our current route is being saved in our storage.
