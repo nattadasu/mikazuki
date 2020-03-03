@@ -17,11 +17,6 @@ import { Route } from 'vue-router';
   components: {
     List,
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm: any) => {
-      vm.lastRoute = from;
-    });
-  },
   beforeRouteUpdate(to, from, next) {
     EventBus.$emit('resetAllSorts');
     next();
