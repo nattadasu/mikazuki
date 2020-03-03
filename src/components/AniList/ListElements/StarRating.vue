@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts">
+// TODO: To be deleted!
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { AniListScoreFormat, ZeroTwoListDataItem } from '@/types';
 import { userStore } from '@/store';
