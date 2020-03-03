@@ -1,5 +1,5 @@
 <template>
-  <v-menu v-model="sortMenu" :close-on-content-click="false" offset-y absolute>
+  <v-menu v-model="sortMenu" :close-on-content-click="false" offset-y>
     <template v-slot:activator="{ on: sortWindow }">
       <v-tooltip bottom>
         <template v-slot:activator="{ on: toolTip }">
