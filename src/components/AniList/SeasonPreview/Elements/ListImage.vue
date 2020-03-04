@@ -42,7 +42,7 @@
       </v-row>
     </v-container>
 
-    <v-container class="fluid pt-1">
+    <v-container class="fluid py-1">
       <v-row justify="space-between">
         <v-col cols="auto" class="py-0">
           <template v-if="nextEpisode">
@@ -65,6 +65,24 @@
 
               <v-expand-x-transition>
                 <span v-if="hover || isMobile">{{ item.episodes || '?' }}</span>
+              </v-expand-x-transition>
+            </v-chip>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container class="fluid pt-1" v-if="item.isAdult">
+      <v-row justify="space-between">
+        <v-col cols="auto" class="py-0"></v-col>
+
+        <v-col cols="auto" class="py-0">
+          <v-hover v-slot:default="{ hover }">
+            <v-chip small :ripple="false" link color="error darken-2">
+              <v-icon small :left="hover || isMobile">mdi-alert</v-icon>
+
+              <v-expand-x-transition>
+                <span v-if="hover || isMobile">{{ $t('pages.seasonPreview.adultContent') }}</span>
               </v-expand-x-transition>
             </v-chip>
           </v-hover>

@@ -164,7 +164,8 @@
     },
     "seasonPreview": {
       "episodes": "エピソード数：？ | エピソード数：1 | エピソード数：{count}",
-      "startDate": "放送開始日："
+      "startDate": "放送開始日：",
+      "adultContent": "Not suitable for people underage"
     },
     "settings": {
       "aboutZeroTwo": {

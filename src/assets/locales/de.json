@@ -164,7 +164,8 @@
     },
     "seasonPreview": {
       "episodes": "? Episoden | 1 Episode | {count} Episoden",
-      "startDate": "Serienstart:"
+      "startDate": "Serienstart:",
+      "adultContent": "Enthält nicht-jugendfreie Inhalte"
     },
     "settings": {
       "aboutZeroTwo": {
