@@ -6,34 +6,6 @@
           <v-card raised class="ma-2">
             <ListImage :item="item" :show-studios="true" />
 
-            <!-- <v-card-text>
-              <v-layout row fill-height align-center>
-                <v-layout column class="px-2" justify-start>
-                  <v-flex class="subtitle-1 grey--text">
-                    {{ $tc('pages.seasonPreview.episodes', item.episodes) }}
-                  </v-flex>
-                  <v-flex class="subtitle-1 grey--text">
-                    {{ $t('pages.seasonPreview.startDate') }} {{ item.startDate }}
-                  </v-flex>
-                </v-layout>
-
-                <template v-if="item.isAdult">
-                  <v-flex class="mx-2 text-right">
-                    <v-divider vertical inset />
-
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on }">
-                        <v-icon large color="error" v-on="on">
-                          mdi-alert
-                        </v-icon>
-                      </template>
-                      <span>{{ $t('alerts.adultContent') }}</span>
-                    </v-tooltip>
-                  </v-flex>
-                </template>
-              </v-layout>
-            </v-card-text> -->
-
             <v-card-actions class="icon-actionize">
               <v-row class="pa-1">
                 <v-col class="text-center">
