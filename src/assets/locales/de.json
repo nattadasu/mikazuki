@@ -238,7 +238,7 @@
       "mediaStatus": {
         "finished": "ABGESCHLOSSEN",
         "releasing": "LAUFEND",
-        "not_yet_released": "NOCH NICHT ANGEFANGEN",
+        "not_yet_released": "AUSSTRAHLUNG GEPLANT",
         "cancelled": "ABGESETZT"
       }
     },
