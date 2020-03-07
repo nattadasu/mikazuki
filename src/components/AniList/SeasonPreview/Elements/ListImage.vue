@@ -4,6 +4,7 @@
     height="250px"
     position="50% 35%"
     class="pointerCursor"
+    :class="{ nsfw: item.isAdult }"
     @click.native="moveToDetails(aniListId)"
   >
     <template v-slot:placeholder>
@@ -15,29 +16,17 @@
     <v-container class="fluid pb-1 media-status-indicator">
       <v-row justify="space-between">
         <v-col cols="auto" class="py-0">
-          <v-hover v-slot:default="{ hover }">
-            <v-chip small :ripple="false" link color="info darken-2">
-              <v-expand-x-transition>
-                <span v-if="hover || isMobile">{{ startDate }}</span>
-              </v-expand-x-transition>
-
-              <v-icon small :right="hover || isMobile">mdi-calendar</v-icon>
-            </v-chip>
-          </v-hover>
+          <v-chip small :ripple="false" link color="info darken-2">
+            <span>{{ startDate }}</span>
+            <v-icon small right>mdi-calendar</v-icon>
+          </v-chip>
         </v-col>
 
         <v-col cols="auto" class="py-0">
-          <v-hover v-slot:default="{ hover }">
-            <v-chip small :ripple="false" link :color="mediaStatusChipColor">
-              <v-icon small :left="hover || isMobile">{{ mediaStatusIcon }}</v-icon>
-
-              <v-expand-x-transition>
-                <span v-if="hover || isMobile">{{
-                  $t(`misc.aniList.mediaStatus.${item.status.toString().toLowerCase()}`)
-                }}</span>
-              </v-expand-x-transition>
-            </v-chip>
-          </v-hover>
+          <v-chip small :ripple="false" link :color="mediaStatusChipColor">
+            <v-icon small left>{{ mediaStatusIcon }}</v-icon>
+            <span>{{ $t(`misc.aniList.mediaStatus.${item.status.toString().toLowerCase()}`) }}</span>
+          </v-chip>
         </v-col>
       </v-row>
     </v-container>
@@ -46,28 +35,18 @@
       <v-row justify="space-between">
         <v-col cols="auto" class="py-0">
           <template v-if="nextEpisode">
-            <v-hover v-slot:default="{ hover }">
-              <v-chip small :ripple="false" link color="indigo">
-                <v-expand-x-transition>
-                  <span v-if="hover || isMobile">{{ nextEpisode }}</span>
-                </v-expand-x-transition>
-
-                <v-icon small :right="hover || isMobile">mdi-skip-next</v-icon>
-              </v-chip>
-            </v-hover>
+            <v-chip small :ripple="false" link color="indigo">
+              <span>{{ nextEpisode }}</span>
+              <v-icon small right>mdi-skip-next</v-icon>
+            </v-chip>
           </template>
         </v-col>
 
         <v-col cols="auto" class="py-0">
-          <v-hover v-slot:default="{ hover }">
-            <v-chip small :ripple="false" link>
-              <v-icon small :left="hover || isMobile">mdi-television-classic</v-icon>
-
-              <v-expand-x-transition>
-                <span v-if="hover || isMobile">{{ item.episodes || '?' }}</span>
-              </v-expand-x-transition>
-            </v-chip>
-          </v-hover>
+          <v-chip small :ripple="false" link>
+            <v-icon small left>mdi-television-classic</v-icon>
+            <span>{{ item.episodes || '?' }}</span>
+          </v-chip>
         </v-col>
       </v-row>
     </v-container>
@@ -77,15 +56,10 @@
         <v-col cols="auto" class="py-0"></v-col>
 
         <v-col cols="auto" class="py-0">
-          <v-hover v-slot:default="{ hover }">
-            <v-chip small :ripple="false" link color="error darken-2">
-              <v-icon small :left="hover || isMobile">mdi-alert</v-icon>
-
-              <v-expand-x-transition>
-                <span v-if="hover || isMobile">{{ $t('pages.seasonPreview.adultContent') }}</span>
-              </v-expand-x-transition>
-            </v-chip>
-          </v-hover>
+          <v-chip small :ripple="false" link color="error darken-2">
+            <v-icon small left>mdi-alert</v-icon>
+            <span>{{ $t('pages.seasonPreview.adultContent') }}</span>
+          </v-chip>
         </v-col>
       </v-row>
     </v-container>
@@ -140,9 +114,17 @@ export default class ListImage extends Vue {
   }
 
   get startDate(): string {
-    return moment([this.item.startDate.year, this.item.startDate.month, this.item.startDate.day]).format(
-      this.$t('misc.dates.full') as string
-    );
+    if (this.item.startDate.day) {
+      return moment([this.item.startDate.year, this.item.startDate.month - 1, this.item.startDate.day]).format(
+        this.$t('misc.dates.full') as string
+      );
+    } else if (this.item.startDate.month != null) {
+      return moment([this.item.startDate.year, this.item.startDate.month - 1]).format(
+        this.$t('misc.dates.monthAndYear') as string
+      );
+    } else {
+      return moment([this.item.startDate.year]).format(this.$t('misc.dates.yearOnly') as string);
+    }
   }
 
   get aniListId(): number {
@@ -212,6 +194,13 @@ export default class ListImage extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.v-image.nsfw > .v-image__image {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+</style>
 
 <style lang="scss" scoped>
 .pointerCursor {

@@ -6,49 +6,7 @@
           <v-card raised class="ma-2">
             <ListImage :item="item" :show-studios="true" />
 
-            <v-card-actions class="icon-actionize">
-              <v-row class="pa-1">
-                <v-col class="text-center">
-                  <v-icon :color="item.isWatching ? 'green' : 'grey darken-2'">
-                    mdi-play
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isRepeating ? 'green darken-3' : 'grey darken-2'">
-                    mdi-repeat
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isCompleted ? 'blue' : 'grey darken-2'">
-                    mdi-check
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isPaused ? 'yellow darken-2' : 'grey darken-2'">
-                    mdi-pause
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isDropped ? 'red darken-1' : 'grey darken-2'">
-                    mdi-stop
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isPlanning ? '' : 'grey darken-2'">
-                    mdi-playlist-plus
-                  </v-icon>
-                </v-col>
-              </v-row>
-            </v-card-actions>
-
-            <v-card-actions v-if="isAuthenticated">
-              <AddButton :item="item" />
-            </v-card-actions>
+            <add-button :item="item" />
           </v-card>
         </v-col>
         <v-col v-if="!media.length" cols="12" class="text-center display-2 ma-4">
@@ -203,6 +161,15 @@ export default class SeasonPreview extends Vue {
   }
 
   async created() {
+    // Infinite Scrolling
+    window.onscroll = async () => {
+      const bottomOfWindow =
+        document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+      if (bottomOfWindow) {
+        this.currentIndex += this.startAmount;
+      }
+    };
+
     if (this.$route.query && this.$route.query.year && this.$route.query.season) {
       const { year, season } = this.$route.query;
       this.seasonYear = parseInt(year as string, 10);
