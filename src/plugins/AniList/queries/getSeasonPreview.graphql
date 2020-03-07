@@ -39,6 +39,7 @@ query getSeasonAnime($seasonYear: Int, $season: MediaSeason, $page: Int) {
         id
         progress
         score
+        status
       }
     }
   }
