@@ -66,6 +66,8 @@
     </template>
 
     <v-toolbar-items>
+      <TransferMessageBox />
+
       <LoadingIndicator />
 
       <BackButton v-if="$vuetify.breakpoint.mdAndUp && (isMediaPage || isSettingsPage || isSearchablePage)" />
@@ -94,6 +96,8 @@ import AniListToolbar from './NavigationToolbars/AniListToolbar.vue';
 import MediaToolbar from './NavigationToolbars/MediaToolbar.vue';
 import SeasonPreviewToolbar from './NavigationToolbars/SeasonPreviewToolbar.vue';
 
+import TransferMessageBox from './TransferMessageBox.vue';
+
 // Navigation Items
 import AniListRefresh from './NavigationToolbars/Items/AniList/Refresh.vue';
 import BackButton from './NavigationToolbars/Items/Back.vue';
@@ -116,6 +120,7 @@ import SortButton from './NavigationToolbars/Items/Sort.vue';
     SortButton,
     // AniList Buttons
     AniListRefresh,
+    TransferMessageBox,
   },
 })
 export default class Navigation extends Vue {
