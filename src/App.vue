@@ -13,7 +13,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { validLanguageCodes } from './i18n';
 import { appStore, userStore } from './store';
 import eventHandler from '@/plugins/AniList/eventHandler';
-import { RefreshTimer, refreshTimer } from '@/plugins/refreshTimer';
+import { refreshTimer } from '@/plugins/refreshTimer';
 import Navigation from '@/components/Navigation.vue';
 import TopButton from '@/components/TopButton.vue';
 import ZeroTwoNotifications from '@/components/Notifications.vue';

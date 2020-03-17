@@ -43,7 +43,8 @@
 import { map } from 'lodash';
 import { format, parse } from 'url';
 import request from 'request';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { refreshTimer } from '@/plugins/refreshTimer';
 import { appStore, userStore } from '@/store';
 import { IAniListUser } from '@/types';
 
@@ -96,6 +97,14 @@ export default class AniListSettings extends Vue {
     await appStore.setLoadingState(false);
 
     this.$router.push({ name: 'Home' });
+  }
+
+  @Watch('currentAniListRefreshRate')
+  onCurrentAniListRefreshRateChange(item: number | undefined) {
+    if (item !== undefined) {
+      refreshTimer.setRefreshRate(item);
+      refreshTimer.restartTimer();
+    }
   }
 }
 </script>
