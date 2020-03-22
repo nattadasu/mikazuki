@@ -6,7 +6,7 @@
           <v-card raised class="ma-2">
             <ListImage :item="item" :show-studios="true" />
 
-            <add-button :item="item" />
+            <add-button :item="item" @set-status="setStatus" />
           </v-card>
         </v-col>
         <v-col v-if="!media.length" cols="12" class="text-center display-2 ma-4">
@@ -262,6 +262,32 @@ export default class SeasonPreview extends Vue {
         (item) => item === value.toUpperCase()
       ) !== undefined
     );
+  }
+
+  async setStatus({ mediaId, status, entryId }: { mediaId: number; status: AniListListStatus; entryId?: number }) {
+    try {
+      await appStore.setLoadingState(true);
+      if (entryId) {
+        await this.$http.updateEntryStatus({
+          entryId,
+          status,
+        });
+      } else {
+        await this.$http.addEntry({
+          mediaId,
+          status,
+        });
+      }
+    } catch (error) {
+      console.error('setStatus failed!', error);
+      this.$notify({
+        type: 'error',
+        title: 'TODO',
+        text: 'To be translated...',
+      });
+    } finally {
+      await appStore.setLoadingState(false);
+    }
   }
 }
 </script>

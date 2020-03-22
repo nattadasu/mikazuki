@@ -34,6 +34,7 @@ import searchAnime from './queries/searchAnime.graphql';
 import addEntry from './mutations/addEntry.graphql';
 import updateEntry from './mutations/updateEntry.graphql';
 import removeEntry from './mutations/removeEntry.graphql';
+import updateEntryStatus from './mutations/updateEntryStatus.graphql';
 // #endregion
 
 // #region Responses
@@ -73,6 +74,11 @@ interface UpdateEntryParams {
   status?: AniListListStatus;
   startedAt?: IAniListMediaDate;
   completedAt?: IAniListMediaDate;
+}
+
+interface UpdateEntryStatusParams {
+  entryId: number;
+  status: AniListListStatus;
 }
 
 export default class AniListAPI {
@@ -237,6 +243,16 @@ export default class AniListAPI {
         status,
         startedAt,
         completedAt,
+      },
+    });
+  }
+
+  public async updateEntryStatus({ entryId, status }: UpdateEntryStatusParams): Promise<void> {
+    await axios.post('/', {
+      query: updateEntryStatus,
+      variables: {
+        entryId,
+        status,
       },
     });
   }

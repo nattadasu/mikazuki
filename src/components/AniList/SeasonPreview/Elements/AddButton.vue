@@ -2,7 +2,7 @@
   <v-card-actions class="icon-actionize py-1">
     <v-select solo hide-details dense flat :items="items" v-model="itemListStatus" menu-props="auto, offset-y" />
 
-    <v-btn color="success" class="ml-1" small text :disabled="!canPressAddButton">
+    <v-btn color="success" class="ml-1" small text :disabled="!canPressAddButton" @click="setStatus">
       <v-icon left>mdi-plus</v-icon>
       {{ buttonText }}
     </v-btn>
@@ -70,31 +70,13 @@ export default class SeasonPreviewAddButton extends Vue {
     ];
   }
 
-  // async addMediaToPlanList(item: any): Promise<void> {
-  //   await appStore.setLoadingState(true);
-  //   this.isLoading = true;
-
-  //   try {
-  //     const entry = await this.$http.addEntry({
-  //       mediaId: item.id,
-  //       status: AniListListStatus.PLANNING,
-  //     });
-
-  //     this.isAdded = true;
-
-  //     const planningList = aniListStore.aniListData.lists.find((list) => list.status === AniListListStatus.PLANNING);
-  //     planningList?.entries.push(entry);
-  //   } catch (error) {
-  //     this.$notify({
-  //       title: this.$t('errors.updateFailed.title') as string,
-  //       text: this.$t('errors.updateFailed.text') as string,
-  //       type: 'error',
-  //     });
-  //   }
-
-  //   // eslint-disable-next-line no-param-reassign
-  //   this.isLoading = false;
-  //   await appStore.setLoadingState(false);
-  // }
+  @Emit()
+  setStatus() {
+    return {
+      mediaId: this.item.id,
+      status: this.itemListStatus,
+      entryId: this.item.mediaListEntry?.id ?? undefined,
+    };
+  }
 }
 </script>

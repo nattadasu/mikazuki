@@ -1,0 +1,5 @@
+mutation updateEntry($entryId: Int!, $status: MediaListStatus) {
+  SaveMediaListEntry(id: $entryId, status: $status) {
+    id
+  }
+}
