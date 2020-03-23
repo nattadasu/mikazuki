@@ -1,12 +1,12 @@
 <template>
-  <v-dialog width="500">
+  <v-dialog width="650">
     <template v-slot:activator="{ on }">
       <v-btn icon v-on="on">
         <v-icon color="error">mdi-alert</v-icon>
       </v-btn>
     </template>
 
-    <v-card>
+    <v-card class="direction-ltr">
       <v-card-title>
         <v-icon large left color="error">mdi-alert</v-icon>
         {{ $t('transfer.title') }}
@@ -33,3 +33,9 @@ export default class TransferMessageBox extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.direction-ltr {
+  direction: ltr;
+}
+</style>

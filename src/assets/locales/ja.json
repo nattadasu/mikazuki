@@ -50,7 +50,7 @@
     "search": "詳細検索",
     "settings": {
       "title": "環境設定",
-      "about": "ゼロツーについて",
+      "about": "三日月について",
       "aniList": "AniList",
       "appSettings": "環境設定",
       "changelog": "最新更新情報",
@@ -167,7 +167,7 @@
       "startDate": "放送開始日："
     },
     "settings": {
-      "aboutZeroTwo": {
+      "about": {
         "version": "バージョン"
       },
       "aniList": {

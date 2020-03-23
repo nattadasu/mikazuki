@@ -3,17 +3,18 @@
     <v-card flat>
       <v-card-text class="px-0">
         <v-container fill-height>
-          <v-layout align-center justify-center wrap fill-height>
-            <v-flex xs12>
+          <v-row align="center" justify="center">
+            <v-col cols="12">
               <h2 class="display-3 text-center">
-                {{ $t('pages.settings.aboutZeroTwo.version') }}
+                {{ $t('pages.settings.about.version') }}
               </h2>
               <h3 class="display-2 text-center">
                 {{ currentAppVersion }}
               </h3>
-            </v-flex>
-            <v-flex xs2>
-              <a href="#" class="headline" @click="openGitHub">
+            </v-col>
+
+            <v-col cols="3" class="text-center">
+              <a :href="githubPage" target="_blank" class="headline">
                 <v-img :src="require('@/assets/logos/github-logo.png')" alt="GitHub">
                   <template v-slot:placeholder>
                     <v-row align="center" justify="center" ma-0>
@@ -22,9 +23,10 @@
                   </template>
                 </v-img>
               </a>
-            </v-flex>
-            <v-flex xs2 offset-xs1>
-              <a href="#" class="headline" @click="openDiscord">
+            </v-col>
+
+            <v-col cols="3" class="text-center">
+              <a :href="discordPage" target="_blank" class="headline">
                 <v-img :src="require('@/assets/logos/discord-blurple-logo.png')" alt="Discord">
                   <template v-slot:placeholder>
                     <v-row align="center" justify="center" ma-0>
@@ -33,10 +35,11 @@
                   </template>
                 </v-img>
               </a>
-            </v-flex>
-            <v-flex xs2 offset-xs1>
-              <a href="#" class="headline" @click="openZeroTwo">
-                <v-img :src="require('@/assets/logos/ZeroTwoAppIcon_1024.png')" alt="ZeroTwo">
+            </v-col>
+
+            <v-col cols="3" class="text-center">
+              <a :href="appHomepage" target="_blank" class="headline">
+                <v-img :src="require('@/assets/logos/AppIcon.png')" alt="Mikazuki">
                   <template v-slot:placeholder>
                     <v-row align="center" justify="center" ma-0>
                       <v-progress-circular indeterminate color="grey lighten-5" />
@@ -44,9 +47,10 @@
                   </template>
                 </v-img>
               </a>
-            </v-flex>
-            <v-flex xs2 offset-xs1>
-              <a href="#" class="headline" @click="openAniList">
+            </v-col>
+
+            <v-col cols="3" class="text-center">
+              <a :href="aniListPage" target="_blank" class="headline">
                 <v-img :src="require('@/assets/logos/AniListLogo.svg')" alt="AniList">
                   <template v-slot:placeholder>
                     <v-row align="center" justify="center" ma-0>
@@ -55,8 +59,8 @@
                   </template>
                 </v-img>
               </a>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </v-container>
       </v-card-text>
     </v-card>
@@ -69,15 +73,10 @@ import { version } from '../../../package.json';
 
 @Component
 export default class AboutSettings extends Vue {
-  @Prop(String)
-  tabKey!: string;
-
-  githubPage: URL = new URL('https://github.com/nicoaiko/zerotwo');
-
+  @Prop(String) tabKey!: string;
+  githubPage: URL = new URL('https://github.com/nicoaiko/mikazuki');
   discordPage: URL = new URL('https://discord.gg/sTpR4Gw');
-
-  zeroTwoPage: URL = new URL('https://www.zerotwo.org');
-
+  appHomepage: URL = new URL('https://www.mikazuki.moe');
   aniListPage: URL = new URL('https://anilist.co');
 
   get currentAppVersion(): string {
@@ -90,10 +89,6 @@ export default class AboutSettings extends Vue {
 
   openDiscord() {
     window.open(this.discordPage.toString(), '_blank');
-  }
-
-  openZeroTwo() {
-    window.open(this.zeroTwoPage.toString(), '_blank');
   }
 
   openAniList() {

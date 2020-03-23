@@ -50,7 +50,7 @@
     "search": "详细搜索",
     "settings": {
       "title": "设置",
-      "about": "关于 ZeroTwo",
+      "about": "关于 Mikazuki",
       "aniList": "AniList",
       "appSettings": "软件设置",
       "changelog": "最近更新",
@@ -167,7 +167,7 @@
       "startDate": "开始放映于："
     },
     "settings": {
-      "aboutZeroTwo": {
+      "about": {
         "version": "版本"
       },
       "aniList": {

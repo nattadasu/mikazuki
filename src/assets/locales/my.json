@@ -50,7 +50,7 @@
     "search": "Carian Terperinci",
     "settings": {
       "title": "Tetapan",
-      "about": "Mengenai ZeroTwo",
+      "about": "Mengenai Mikazuki",
       "aniList": "AniList",
       "appSettings": "Tetapan Aplikasi",
       "changelog": "Pindaan Terakhir",
@@ -167,7 +167,7 @@
       "startDate": "Mulai disiarkan:"
     },
     "settings": {
-      "aboutZeroTwo": {
+      "about": {
         "version": "Versi"
       },
       "aniList": {

@@ -50,7 +50,7 @@
     "search": "Recherche détaillée",
     "settings": {
       "title": "Paramètres",
-      "about": "À propos de ZeroTwo",
+      "about": "À propos de Mikazuki",
       "aniList": "AniList",
       "appSettings": "Paramètres de l'App",
       "changelog": "Derniers changement",
@@ -167,7 +167,7 @@
       "startDate": "Début de diffusion:"
     },
     "settings": {
-      "aboutZeroTwo": {
+      "about": {
         "version": "Version"
       },
       "aniList": {

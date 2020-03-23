@@ -50,7 +50,7 @@
     "search": "Pencarian Terperinci",
     "settings": {
       "title": "Pengaturan",
-      "about": "Tentang ZeroTwo",
+      "about": "Tentang Mikazuki",
       "aniList": "AniList",
       "appSettings": "Pengaturan Aplikasi",
       "changelog": "Perubahan Terakhir",
@@ -167,7 +167,7 @@
       "startDate": "Mulai ditayangkan:"
     },
     "settings": {
-      "aboutZeroTwo": {
+      "about": {
         "version": "Versi"
       },
       "aniList": {

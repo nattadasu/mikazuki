@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Route } from 'vue-router';
+import { Route, RawLocation } from 'vue-router';
 
 @Component
 export default class Back extends Vue {
@@ -19,7 +19,7 @@ export default class Back extends Vue {
 
   navigateBack(): void {
     if (this.lastRoutes && this.lastRoutes.length) {
-      const lastRoute = this.lastRoutes.pop() as Route;
+      const lastRoute = this.lastRoutes.pop() as RawLocation;
       this.$router.push(lastRoute);
 
       // Due to hitting back actually uses "push"

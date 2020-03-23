@@ -1,4 +1,5 @@
 import axios from './connection';
+import { userStore } from '@/store';
 
 // #region AniList Types
 import {
@@ -165,9 +166,11 @@ export default class AniListAPI {
   }
 
   public async getListEntryByMediaId(mediaId: number): Promise<IAniListEntry> {
+    const { id: userId } = userStore.session.user;
+
     const response = await axios.post<MediaResponse<IAniListEntry>>('/', {
       query: getListEntry,
-      variables: { mediaId },
+      variables: { mediaId, userId },
     });
 
     return response.media;
