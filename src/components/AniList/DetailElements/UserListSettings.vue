@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading">
+  <v-card :loading="isLoading">
     <v-card-title primary-title>
       {{ $t('pages.aniList.detailView.ownInformation') }}
     </v-card-title>
@@ -88,12 +88,20 @@
 <script lang="ts">
 import { isNumber } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { AniListScoreFormat, AniListListStatus } from '@/types';
-import { appStore, userStore } from '@/store';
+import { mapGetters } from 'vuex';
+import { AniListScoreFormat, AniListListStatus, IAniListSession } from '@/types';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('app', ['isLoading']),
+    ...mapGetters('userSettings', ['session']),
+  },
+})
 export default class UserListSettings extends Vue {
+  readonly isLoading!: boolean;
+  readonly session!: IAniListSession;
+
   @Prop()
   item!: any;
   // @TODO: Give item a proper type
@@ -153,16 +161,12 @@ export default class UserListSettings extends Vue {
     }
   }
 
-  get loading(): boolean {
-    return appStore.isLoading;
-  }
-
   get scoreSystem(): AniListScoreFormat | null {
     if (!this.item) {
       return null;
     }
 
-    const { scoreFormat } = userStore.session.user.mediaListOptions;
+    const { scoreFormat } = this.session.user.mediaListOptions;
 
     return scoreFormat === AniListScoreFormat.POINT_3
       ? AniListScoreFormat.POINT_3
@@ -189,7 +193,7 @@ export default class UserListSettings extends Vue {
   }
 
   async saveChanges(): Promise<void> {
-    await appStore.setLoadingState(true);
+    this.$store.commit('app/setLoadingState', true);
     if (this.item && this.item.listEntry) {
       const { entryId } = this.item;
       const status = !this.status ? AniListListStatus.PLANNING : this.status;
@@ -223,6 +227,7 @@ export default class UserListSettings extends Vue {
           progress,
           score,
           status,
+          startedAt,
           completedAt,
         });
 
@@ -244,7 +249,7 @@ export default class UserListSettings extends Vue {
         });
       }
     }
-    await appStore.setLoadingState(false);
+    this.$store.commit('app/setLoadingState', false);
   }
 
   async removeFromList(): Promise<void> {
@@ -252,7 +257,7 @@ export default class UserListSettings extends Vue {
       return;
     }
 
-    await appStore.setLoadingState(true);
+    this.$store.commit('app/setLoadingState', true);
 
     try {
       const { entryId } = this.item;
@@ -271,7 +276,7 @@ export default class UserListSettings extends Vue {
       });
     }
 
-    await appStore.setLoadingState(false);
+    this.$store.commit('app/setLoadingState', false);
   }
 
   async addToList(): Promise<void> {
@@ -285,7 +290,7 @@ export default class UserListSettings extends Vue {
       return;
     }
 
-    await appStore.setLoadingState(true);
+    this.$store.commit('app/setLoadingState', true);
     try {
       const { mediaId } = this.item;
       const status = !this.status ? AniListListStatus.PLANNING : this.status;
@@ -306,7 +311,7 @@ export default class UserListSettings extends Vue {
         type: 'error',
       });
     }
-    await appStore.setLoadingState(false);
+    this.$store.commit('app/setLoadingState', false);
   }
 }
 </script>

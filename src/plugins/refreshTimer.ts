@@ -61,8 +61,6 @@ export class RefreshTimer {
       }
     }, 1000) as any;
 
-    console.trace(`Started interval with timer id ${this.timer} and refresh rate of ${this.refreshRate} minutes`);
-
     return this;
   }
 
@@ -76,7 +74,6 @@ export class RefreshTimer {
   resetTimer() {
     if (this.timer > -1) {
       clearInterval(this.timer);
-      console.trace(`Clearing interval of timer id ${this.timer}`);
       this._timer = -1;
       this.setTimeUntilRefresh(0);
     }

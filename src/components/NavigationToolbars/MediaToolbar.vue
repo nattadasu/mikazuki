@@ -8,14 +8,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 
-// Custom Components
-import { aniListStore } from '@/store';
-
-@Component
+@Component({
+  computed: {
+    ...mapGetters(['aniList/currentMediaTitle']),
+  },
+})
 export default class MediaToolbar extends Vue {
-  get currentMediaTitle(): string | null {
-    return aniListStore.currentMediaTitle;
-  }
+  readonly currentMediaTitle!: string;
 }
 </script>

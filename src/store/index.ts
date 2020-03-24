@@ -1,48 +1,42 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersistence from 'vuex-persist';
-import { createProxy, extractVuexModule } from 'vuex-class-component';
-
-// Custom Stores
-import AniListModule from './AniList';
-import AppModule from './App';
-import UserModule from './UserSettings';
+import appModule from './modules/app';
+import aniListModule from './modules/aniList';
+import userSettingsModule from './modules/userSettings';
+import { RootState } from './types';
 
 Vue.use(Vuex);
 
-const localPersist = new VuexPersistence({
+const { plugin: localPersist } = new VuexPersistence<RootState>({
   storage: window.localStorage,
-  key: 'userSettings',
-  modules: ['userSettings', 'appStore'],
+  key: 'mikazuki-localstorage',
+  modules: ['app', 'userSettings'],
 });
 
-const sessionPersist = new VuexPersistence({
+const { plugin: sessionPersist } = new VuexPersistence<RootState>({
   storage: window.sessionStorage,
-  key: 'rest',
-  modules: ['aniListStore'],
+  key: 'mikazuki-sessionstorage',
+  modules: ['aniList'],
 });
 
-export const store: any = new Vuex.Store({
-  state: {},
-  modules: {
-    ...extractVuexModule(AniListModule),
-    ...extractVuexModule(AppModule),
-    ...extractVuexModule(UserModule),
+const plugins = [localPersist, sessionPersist];
+
+const store = new Vuex.Store<RootState>({
+  actions: {
+    async resetAllData({ dispatch }) {
+      await dispatch('aniList/resetAllData');
+      // TODO: Add resetAllData for other modules as well
+
+      return Promise.resolve();
+    },
   },
-  // To keep mutated changes in local Storage
-  plugins: [localPersist.plugin, sessionPersist.plugin],
+  modules: {
+    app: appModule,
+    aniList: aniListModule,
+    userSettings: userSettingsModule,
+  },
+  plugins,
 });
 
-/**
- * @module UserSettings This module consists of all user settings
- * @description This creates a proxy for the Vue Templates to use.
- */
-export const userStore = createProxy(store, UserModule);
-/**
- * @module AppStore This module contains all general App data
- */
-export const appStore = createProxy(store, AppModule);
-/**
- * @module AniListStore This module contains all data concerning AniList
- */
-export const aniListStore = createProxy(store, AniListModule);
+export default store;

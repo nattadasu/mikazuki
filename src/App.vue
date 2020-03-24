@@ -10,8 +10,8 @@
 <script lang="ts">
 import moment from 'moment';
 import { Component, Vue, Watch } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 import { validLanguageCodes } from './i18n';
-import { appStore, userStore } from './store';
 import eventHandler from '@/plugins/AniList/eventHandler';
 import { refreshTimer } from '@/plugins/refreshTimer';
 import Navigation from '@/components/Navigation.vue';
@@ -24,37 +24,30 @@ import ZeroTwoNotifications from '@/components/Notifications.vue';
     TopButton,
     ZeroTwoNotifications,
   },
+  computed: {
+    ...mapGetters('app', ['language', 'darkMode']),
+    ...mapGetters('userSettings', ['isAuthenticated', 'refreshRate']),
+  },
 })
 export default class App extends Vue {
   readonly refreshTimer = refreshTimer;
+  readonly language!: string;
+  readonly darkMode!: boolean;
+  readonly isAuthenticated!: boolean;
+  readonly refreshRate!: number;
 
-  get locale(): string | undefined {
-    return appStore.language;
-  }
-
-  get darkMode(): boolean {
-    return appStore.darkMode;
-  }
-
-  get loggedIntoAniList(): boolean {
-    return userStore.isAuthenticated;
-  }
-
-  @Watch('loggedIntoAniList')
+  @Watch('isAuthenticated')
   loggedInStateChanged(value: boolean) {
     if (value) {
-      this.refreshTimer.setRefreshRate(userStore.refreshRate).restartTimer();
+      eventHandler.refreshAniListData().then(() => {
+        this.refreshTimer.setRefreshRate(this.refreshRate).restartTimer();
+      });
     } else {
       this.refreshTimer.resetTimer();
     }
   }
 
-  /**
-   * @description Watches changes of locale
-   * @see {@link store/App.ts}
-   * @param {string | undefined} newLocale
-   */
-  @Watch('locale')
+  @Watch('language')
   localeChanged(newLocale: string | undefined) {
     const root = document.getElementsByTagName('html')[0];
 
@@ -71,26 +64,26 @@ export default class App extends Vue {
   }
 
   async created() {
-    if (!this.locale) {
+    if (!this.language) {
       if (window.navigator.languages && window.navigator.languages.length) {
-        await appStore.setLanguage(window.navigator.languages[0]);
+        this.$store.commit('app/setLanguage', window.navigator.languages[0]);
       } else {
-        await appStore.setLanguage(window.navigator.language);
+        this.$store.commit('app/setLanguage', window.navigator.language);
       }
     } else {
-      this.$i18n.locale = this.locale;
+      this.$i18n.locale = this.language;
     }
 
     const root = document.getElementsByTagName('html')[0];
     root.setAttribute('class', `font-face-${this.getLocaleBasedFontFace(this.$i18n.locale)}`);
 
-    this.$vuetify.theme.dark = appStore.darkMode;
+    this.$vuetify.theme.dark = this.darkMode;
     this.$vuetify.rtl = this.isRTLLanguage(this.$i18n.locale);
 
     moment.locale(this.$i18n.locale);
 
-    if (userStore.isAuthenticated) {
-      this.refreshTimer.setRefreshRate(userStore.refreshRate).restartTimer();
+    if (this.isAuthenticated) {
+      this.refreshTimer.setRefreshRate(this.refreshRate).restartTimer();
       await eventHandler.refreshAniListData();
     }
   }
@@ -100,7 +93,7 @@ export default class App extends Vue {
   }
 
   getLocaleBasedFontFace(locale: string): string {
-    let fontFace = '';
+    let fontFace;
 
     switch (locale) {
       case 'ja': // Japanese

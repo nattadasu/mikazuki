@@ -19,20 +19,25 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { userStore, appStore } from '@/store';
+import { mapGetters } from 'vuex';
+import { IAniListSession } from '@/types';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('userSettings', ['session']),
+    ...mapGetters('app', ['darkMode']),
+  },
+})
 export default class ProfileImage extends Vue {
+  readonly darkMode!: boolean;
+  readonly session!: IAniListSession;
+
   get avatarUrl(): string {
-    return userStore.session.user.avatar.large;
+    return this.session.user.avatar.large;
   }
 
   get userName(): string {
-    return userStore.session.user.name;
-  }
-
-  get isDarkMode(): boolean {
-    return appStore.darkMode;
+    return this.session.user.name;
   }
 }
 </script>

@@ -1,12 +1,12 @@
 import { AxiosInstance } from 'axios';
-import { userStore } from '@/store';
+import store from '@/store';
 
 export default (axios: AxiosInstance) => {
   // Automatically add Authorization token if available
   axios.interceptors.request.use((config) => {
-    if (userStore.accessToken) {
+    if (store.state.userSettings._session.accessToken) {
       // eslint-disable-next-line no-param-reassign
-      config.headers.Authorization = `Bearer ${userStore.accessToken}`;
+      config.headers.Authorization = `Bearer ${store.state.userSettings._session.accessToken}`;
     }
 
     if (config.data.query && config.data.query.loc) {

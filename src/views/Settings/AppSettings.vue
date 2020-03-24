@@ -11,7 +11,7 @@
                 :value="_locale"
                 dense
                 :label="$t('pages.settings.appSettings.chooseLanguage')"
-                @change="setLanguage"
+                @change="_setLanguage"
               >
                 <template v-slot:selection="data">{{ data.item.original }} ({{ data.item.english }})</template>
                 <template v-slot:item="data">
@@ -24,7 +24,7 @@
             </v-flex>
 
             <v-flex xs12 sm5 offset-sm2 justify-center align-center>
-              <v-switch v-model="darkMode" :label="$t('pages.settings.appSettings.darkMode')" />
+              <v-switch v-model="_darkMode" :label="$t('pages.settings.appSettings.darkMode')" />
             </v-flex>
           </v-layout>
         </v-container>
@@ -36,10 +36,17 @@
 <script lang="ts">
 import { map } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { appStore } from '@/store';
+import { mapGetters } from 'vuex';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('app', ['darkMode', 'language']),
+  },
+})
 export default class AppSettings extends Vue {
+  readonly darkMode!: boolean;
+  readonly language!: string;
+
   _locale: string = '';
 
   @Prop(String)
@@ -47,7 +54,7 @@ export default class AppSettings extends Vue {
 
   get languages(): any {
     const { messages } = this.$i18n;
-    const languages = map(messages, (value, key) => {
+    return map(messages, (value, key) => {
       const locale = key;
       const original = value.originalReading;
       const english = value.englishReading;
@@ -58,16 +65,14 @@ export default class AppSettings extends Vue {
         english,
       };
     });
-
-    return languages;
   }
 
-  get darkMode(): boolean {
-    return appStore.darkMode;
+  get _darkMode(): boolean {
+    return this.darkMode;
   }
 
-  set darkMode(state: boolean) {
-    appStore.setDarkMode(state);
+  set _darkMode(state: boolean) {
+    this.$store.commit('app/setDarkMode', state);
   }
 
   /**
@@ -75,15 +80,15 @@ export default class AppSettings extends Vue {
    * @protected
    */
   created(): void {
-    this._locale = appStore.language as string;
+    this._locale = this.language;
   }
 
   /**
    * @method setLanguage
    * @param {string} newLanguage contains the locale value of the new language
    */
-  setLanguage(newLanguage: string): void {
-    appStore.setLanguage(newLanguage);
+  _setLanguage(newLanguage: string): void {
+    this.$store.commit('app/setLanguage', newLanguage);
     this._locale = newLanguage;
   }
 }
