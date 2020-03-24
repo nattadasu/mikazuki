@@ -84,12 +84,11 @@
 <script lang="ts">
 import moment from 'moment';
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { RawLocation, Route } from 'vue-router';
+import { RawLocation } from 'vue-router';
+import { mapGetters } from 'vuex';
 
 // Custom Components
 import { refreshTimer } from '@/plugins/refreshTimer';
-import { AniListListStatus } from '@/types';
-import { userStore, appStore } from '@/store';
 
 // Navigation Toolbars
 import AniListToolbar from './NavigationToolbars/AniListToolbar.vue';
@@ -122,9 +121,13 @@ import SortButton from './NavigationToolbars/Items/Sort.vue';
     AniListRefresh,
     TransferMessageBox,
   },
+  computed: {
+    ...mapGetters('userSettings', ['isAuthenticated']),
+  },
 })
 export default class Navigation extends Vue {
   readonly refreshTimer = refreshTimer;
+  readonly isAuthenticated!: boolean;
   navigationDrawer: boolean = false;
 
   item = 0;
@@ -219,10 +222,6 @@ export default class Navigation extends Vue {
     const currentRoute = this.$route.path;
 
     return currentRoute.startsWith('/aniList');
-  }
-
-  get isAuthenticated(): boolean {
-    return userStore.isAuthenticated;
   }
 
   get timeUntilRefresh(): number {

@@ -14,23 +14,20 @@
 <script lang="ts">
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
-
-// Custom Components
-import { appStore, userStore } from '@/store';
+import { mapGetters } from 'vuex';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
 import { refreshTimer } from '@/plugins/refreshTimer';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('userSettings', ['isAuthenticated']),
+    ...mapGetters('app', ['isLoading']),
+  },
+})
 export default class Refresh extends Vue {
   readonly refreshTimer = refreshTimer;
-
-  get isAuthenticated(): boolean {
-    return userStore.isAuthenticated;
-  }
-
-  get isLoading(): boolean {
-    return appStore.isLoading;
-  }
+  readonly isAuthenticated!: boolean;
+  readonly isLoading!: boolean;
 
   get colorCode(): string {
     if (this.timeUntilRefreshPercentage < 60 && this.timeUntilRefreshPercentage > 30) {
@@ -60,7 +57,7 @@ export default class Refresh extends Vue {
   }
 
   async refreshData() {
-    await appStore.setLoadingState(true);
+    this.$store.commit('app/setLoadingState', true);
 
     // AniList
     try {
@@ -70,7 +67,7 @@ export default class Refresh extends Vue {
       // TODO: Build central error message management
     }
 
-    await appStore.setLoadingState(false);
+    this.$store.commit('app/setLoadingState', false);
   }
 }
 </script>

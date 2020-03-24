@@ -65,10 +65,15 @@
 import { chain, isEmpty, reduce, get, includes } from 'lodash';
 import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { RawLocation } from 'vue-router';
+import { mapGetters } from 'vuex';
 import EventBus from '@/eventBus';
-import { AniListListStatus, AniListMediaStatus, AniListScoreFormat, IAniListEntry } from '@/types';
-import { aniListStore, appStore, userStore } from '@/store';
+import {
+  AniListListStatus,
+  AniListScoreFormat,
+  IAniListEntry,
+  IAniListSession,
+  IAniListMediaListCollection,
+} from '@/types';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
 import AdultToolTip from './ListElements/AdultToolTip.vue';
 import EpisodeState from './ListElements/EpisodeState.vue';
@@ -94,6 +99,11 @@ interface UpdatePayloadProperties {
     MissingEpisodes,
     ProgressCircle,
     StarRating,
+  },
+  computed: {
+    ...mapGetters('app', ['isLoading']),
+    ...mapGetters('aniList', ['aniListData']),
+    ...mapGetters('userSettings', ['session']),
   },
 })
 export default class List extends Vue {
@@ -121,23 +131,23 @@ export default class List extends Vue {
 
   genreFilters: string[] = [];
 
+  readonly session!: IAniListSession;
+  readonly isLoading!: boolean;
+  readonly aniListData!: IAniListMediaListCollection;
+
   @Prop()
   readonly status!: AniListListStatus;
 
   get ratingStarAmount(): number {
-    return userStore.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3 ? 3 : 5;
-  }
-
-  get isLoading(): boolean {
-    return appStore.isLoading;
+    return this.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3 ? 3 : 5;
   }
 
   get listData() {
-    if (!aniListStore.aniListData.lists.length) {
+    if (!this.aniListData.lists.length) {
       return [];
     }
 
-    const listElement = aniListStore.aniListData.lists.find((list) => list.status === this.status);
+    const listElement = this.aniListData.lists.find((list) => list.status === this.status);
 
     if (!listElement) {
       return [];
@@ -227,7 +237,7 @@ export default class List extends Vue {
       return 0;
     }
 
-    const userScoringSystem = userStore.session.user.mediaListOptions.scoreFormat;
+    const userScoringSystem = this.session.user.mediaListOptions.scoreFormat;
 
     switch (userScoringSystem) {
       case AniListScoreFormat.POINT_100:
@@ -353,7 +363,7 @@ export default class List extends Vue {
       )
       .filter((group) => !!group.id)
       .map(async (entry) => {
-        const { id, title, status, progress, score } = entry;
+        const { id, status, progress, score } = entry;
 
         if (!id || progress === null) {
           return;
@@ -388,7 +398,7 @@ export default class List extends Vue {
     Promise.all(entries)
       .then(() => {
         let updateText = '';
-        const entries = chain(this.updatePayload)
+        chain(this.updatePayload)
           .groupBy((value) => value.id)
           .map((group) =>
             reduce(

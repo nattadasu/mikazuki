@@ -15,11 +15,17 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { AniListListStatus } from '@/types';
-import { userStore, appStore, aniListStore } from '@/store';
+import { mapGetters } from 'vuex';
+import { AniListListStatus, IAniListMediaListCollection } from '@/types';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters(['aniList/aniListData']),
+  },
+})
 export default class SeasonPreviewAddButton extends Vue {
+  readonly aniListData!: IAniListMediaListCollection;
+
   @Prop() item!: any;
 
   isLoading: boolean = false;
@@ -35,7 +41,7 @@ export default class SeasonPreviewAddButton extends Vue {
   }
 
   async addMediaToPlanList(item: any): Promise<void> {
-    await appStore.setLoadingState(true);
+    this.$store.commit('app/setLoadingState', true);
     this.isLoading = true;
 
     try {
@@ -46,7 +52,7 @@ export default class SeasonPreviewAddButton extends Vue {
 
       this.isAdded = true;
 
-      const planningList = aniListStore.aniListData.lists.find((list) => list.status === AniListListStatus.PLANNING);
+      const planningList = this.aniListData.lists.find((list) => list.status === AniListListStatus.PLANNING);
       planningList?.entries.push(entry);
     } catch (error) {
       this.$notify({
@@ -56,9 +62,8 @@ export default class SeasonPreviewAddButton extends Vue {
       });
     }
 
-    // eslint-disable-next-line no-param-reassign
     this.isLoading = false;
-    await appStore.setLoadingState(false);
+    this.$store.commit('app/setLoadingState', false);
   }
 }
 </script>

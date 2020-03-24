@@ -6,14 +6,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 
-// Custom Components
-import { appStore } from '@/store';
-
-@Component
+@Component({
+  computed: {
+    ...mapGetters(['app/isLoading']),
+  },
+})
 export default class Loading extends Vue {
-  get isLoading(): boolean {
-    return appStore.isLoading;
-  }
+  readonly isLoading: boolean = false;
 }
 </script>

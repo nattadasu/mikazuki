@@ -172,11 +172,11 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Route } from 'vue-router';
+import { mapGetters } from 'vuex';
 import AdultToolTip from '@/components/AniList/ListElements/AdultToolTip.vue';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import ProgressCircle from '@/components/AniList/ListElements/ProgressCircle.vue';
 import { AniListListStatus, IAniListSearchResult } from '@/types';
-import { appStore } from '@/store';
 import SearchFilter from '@/components/Search/Filter.vue';
 
 type IAniListExtendedSearchResult = IAniListSearchResult & {
@@ -196,18 +196,19 @@ type IAniListExtendedSearchResult = IAniListSearchResult & {
     ProgressCircle,
     SearchFilter,
   },
+  computed: {
+    ...mapGetters(['app/isLoading']),
+  },
 })
 export default class Search extends Vue {
+  readonly isLoading!: boolean;
+
   searchInput: string = '';
   searchResults: IAniListExtendedSearchResult[] = [];
   listValues: AniListListStatus[] = [];
   genreValues = [];
   adultContentValue = 'both';
   panel = null;
-
-  get isLoading(): boolean {
-    return appStore.isLoading;
-  }
 
   created() {
     if (this.$route.query && this.$route.query.query) {
@@ -229,7 +230,7 @@ export default class Search extends Vue {
     };
 
     try {
-      await appStore.setLoadingState(true);
+      this.$store.commit('app/setLoadingState', true);
 
       const results = await this.$http.searchAnime(this.searchInput, filters);
 
@@ -248,7 +249,7 @@ export default class Search extends Vue {
             result
           );
 
-          appStore.setLoadingState(false);
+          this.$store.commit('app/setLoadingState', false);
 
           if (result.mediaListEntry) {
             return Object.assign(
@@ -270,7 +271,7 @@ export default class Search extends Vue {
         text: error,
       });
 
-      await appStore.setLoadingState(false);
+      this.$store.commit('app/setLoadingState', false);
     }
   }
 

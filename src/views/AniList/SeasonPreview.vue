@@ -96,12 +96,12 @@
 import { chain, includes, get } from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 import { Route } from 'vue-router';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import AddButton from '@/components/AniList/SeasonPreview/AddButton.vue';
 import eventBus from '@/eventBus';
-import { AniListListStatus, AniListSeason, IAniListEntry, IAniListSeasonPreviewMedia } from '@/types';
-import { aniListStore, appStore, userStore } from '@/store';
+import { AniListSeason, IAniListEntry, IAniListMediaListCollection, IAniListSeasonPreviewMedia } from '@/types';
 
 interface UpdateSeasonProperties {
   year: number;
@@ -115,8 +115,18 @@ Component.registerHooks(['beforeRouteUpdate', 'beforeRouteLeave']);
     ListImage,
     AddButton,
   },
+  computed: {
+    ...mapGetters('app', ['isLoading']),
+    ...mapGetters('userSettings', ['isAuthenticated', 'allowAdultContent']),
+    ...mapGetters('aniList', ['aniListData']),
+  },
 })
 export default class SeasonPreview extends Vue {
+  readonly isLoading!: boolean;
+  readonly isAuthenticated!: boolean;
+  readonly allowAdultContent!: boolean;
+  readonly aniListData!: IAniListMediaListCollection;
+
   media: IAniListSeasonPreviewMedia[] = [];
 
   seasonYear: number = new Date().getUTCFullYear();
@@ -130,14 +140,6 @@ export default class SeasonPreview extends Vue {
   genreFilters: string[] = [];
 
   adultContentFilter: string = 'without';
-
-  get appLoading(): boolean {
-    return appStore.isLoading;
-  }
-
-  get isAuthenticated(): boolean {
-    return userStore.isAuthenticated;
-  }
 
   get preparedMedia() {
     const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
@@ -159,7 +161,7 @@ export default class SeasonPreview extends Vue {
     }
 
     return chain(media)
-      .filter((item) => !item.isAdult || (item.isAdult && userStore.allowAdultContent))
+      .filter((item) => !item.isAdult || (item.isAdult && this.allowAdultContent))
       .map((item) => {
         const outputFormat = item.startDate.day
           ? (this.$t('misc.dates.full') as string)
@@ -168,7 +170,7 @@ export default class SeasonPreview extends Vue {
           : item.startDate.year
           ? (this.$t('misc.dates.yearOnly') as string)
           : undefined;
-        const usersListStatus = !!aniListStore.aniListData.lists.find(
+        const usersListStatus = !!this.aniListData.lists.find(
           (list) => !!list.entries.find((entry: IAniListEntry) => entry.media.id === item.id)
         );
 
@@ -244,7 +246,7 @@ export default class SeasonPreview extends Vue {
 
     // Listen to event
     eventBus.$on('updateSeason', async (season: UpdateSeasonProperties) => {
-      await appStore.setLoadingState(true);
+      this.$store.commit('app/setLoadingState', true);
       try {
         const preview = await this.$http.getSeasonPreview(season.year, season.season);
         if (!preview) {
@@ -255,7 +257,7 @@ export default class SeasonPreview extends Vue {
       } catch (error) {
         this.media = [];
       }
-      await appStore.setLoadingState(false);
+      this.$store.commit('app/setLoadingState', false);
     });
 
     try {
