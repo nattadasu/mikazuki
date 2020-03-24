@@ -1,5 +1,5 @@
-query GetByMediaId($mediaId: Int!) {
-  media: MediaList(mediaId: $mediaId) {
+query GetByMediaId($mediaId: Int!, $userId: Int!) {
+  media: MediaList(mediaId: $mediaId, userId: $userId) {
     id
     progress
     score

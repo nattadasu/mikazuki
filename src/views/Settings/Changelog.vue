@@ -52,6 +52,10 @@
                 </div>
 
                 <v-list>
+                  <v-list-item v-if="!englishRemove.length">
+                    <v-list-item-content>- / -</v-list-item-content>
+                  </v-list-item>
+
                   <v-list-item v-for="(item, index) in englishRemove" :key="`remove-${index}`">
                     <v-list-item-content>{{ item[currentLanguage] || item.en }}</v-list-item-content>
                   </v-list-item>
