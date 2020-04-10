@@ -1,0 +1,257 @@
+{
+  "originalReading": "Español de México",
+  "englishReading": "Spanish (Mexico)",
+  "actions": {
+    "add": "Agregar",
+    "added": "Agregado a la lista",
+    "addToPlanToWatch": "Add to plan to watch",
+    "back": "Volver",
+    "fastSearch": "Buscar... \u23ce",
+    "loading": "Cargando...",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "remove": "Remover",
+    "reset": "Reinicializar",
+    "save": "Guardar",
+    "search": "Buscar",
+    "sort": "Ordenar y filtrar",
+    "toPageTop": "Ir al inicio de la página"
+  },
+  "alerts": {
+    "adultContent": "Este contenido es para adultos. Se recomienda discreción.",
+    "noDescription": "Descripción no disponible.",
+    "noEnglishTitle": "Título en inglés no disponible.",
+    "noInformation": "Información no disponible.",
+    "noSynonyms": "No hay sinónimos disponibles.",
+    "notYetInList": "Este contenido todavía no está en tu lista.",
+    "unauthenticated": "¡No estás autenticado!",
+    "unknown": "Desconocido"
+  },
+  "errors": {
+    "updateFailed": {
+      "title": "Actualización fallida",
+      "text": "No se ha conseguido sincronizar la actualización realizada. Compruebe la disponibilidad de AniList o su conexión a internet."
+    }
+  },
+  "menus": {
+    "navigationDrawer": {
+      "timeUntilNextRefresh": "Próxima actualización de la lista en: {0}"
+    },
+    "aniList": {
+      "completed": "Completado",
+      "dropped": "Abandonado",
+      "home": "Página inicial",
+      "paused": "Pausado",
+      "planning": "Planeado",
+      "repeating": "Repitiendo",
+      "seasonPreview": "Adelanto de temporada",
+      "watching": "Mirando"
+    },
+    "search": "Busca detallada",
+    "settings": {
+      "title": "Configuración",
+      "about": "Acerca de Mikazuki",
+      "aniList": "AniList",
+      "appSettings": "Configuración de la app",
+      "changelog": "Últimos cambios",
+      "specialThanks": "Agradecimentos especiales"
+    }
+  },
+  "components": {
+    "sorting": {
+      "directions": {
+        "ascending": "Ascendente",
+        "descending": "Descendente"
+      },
+      "sortingLabel": "Ordenar por",
+      "title": "Título",
+      "score": "Puntuación",
+      "progress": "Progreso",
+      "startingDate": "Fecha de inicio",
+      "episodeAmount": "Cantidad de episodios"
+    }
+  },
+  "pages": {
+    "aniList": {
+      "home": {
+        "activities": {
+          "badges": {
+            "anime": "Anime",
+            "manga": "Manga"
+          },
+          "statistics": {
+            "totalAnime": "Anime en total",
+            "totalManga": "Manga en total",
+            "daysWatched": "Días mirados",
+            "meanScore": "Puntuación promedio",
+            "chaptersRead": "Capítulos leídos",
+            "activityHistory": "Historial de actividad",
+            "genreOverview": "Descripción del género"
+          },
+          "headline": "Últimas Actividades",
+          "completed": "{0} completado",
+          "plansToWatch": "Planea ver {0}",
+          "watchedEpisode": "Visto episodio {1} de {0}",
+          "dropped": "Abandonado {0}",
+          "rewatchedEpisode": "Repetido episodio {1} de {0}",
+          "pausedWatching": "Pausado {0}",
+          "readChapter": "Leído capítulo {1} de {0}",
+          "plansToRead": "Planea leer {0}",
+          "rereadChapter": "Releído capítulo {1} de {0}",
+          "pausedReading": "Lectura pausada de {0}"
+        },
+        "howToAuthenticate": {
+          "header": "Cómo iniciar sesión:",
+          "text": [
+            "Navegue hasta la página de configuración (el engranaje en la esquina superior derecha) y luego en la pestaña \"AniList\".",
+            "Allí encontrará un botón llamado \"Iniciar sesión\" que abrirá una ventana para iniciar sesión en AniList.",
+            "Luego de introducir los datos de usuario, la ventana se cerrará y el proceso de inicio de sesión debería concluir exitosamente."
+          ]
+        }
+      },
+      "list": {
+        "airingFinished": "Emisión terminada",
+        "missingEpisodes": "Un episodio por ver | {count} episodios por ver",
+        "notYetAired": "Aún no emitido",
+        "nextAiringEpisode": "El episodio {0} se emitirá el {1}"
+      },
+      "detailView": {
+        "airedOn": "Emitido el {0}",
+        "airedOnTo": "{0} hasta {1}",
+        "airesFromTo": "Se emite desde el {0} al {1}",
+        "airesOn": "Se emite el {0}",
+        "airingStartedOn": "Comenzó el {0}",
+        "airingStartsOnDay": "Comienza el {0}",
+        "airingStartsInMonthYear": "Comienza en {0}",
+        "airingStartsInYear": "Comienza en {0}",
+        "airingTime": "Fecha de emisión",
+        "airingWithUnknownStart": "? - {0}",
+        "description": "Descripción",
+        "englishTitle": "Título en inglés",
+        "episodes": "Episodios",
+        "genres": "Géneros",
+        "nativeTitle": "Título original",
+        "ownInformation": "Información para tu lista",
+        "ownProgress": "Progreso",
+        "ownStatus": "Estado",
+        "ownScore": "Puntuación",
+        "romajiTitle": "Título en rōmaji",
+        "score": "{0} / {1} puntos",
+        "scoreLabel": "Puntuación promedio",
+        "streamingSubheader": "Servicios de transmisión",
+        "synonyms": "Sinónimos"
+      }
+    },
+    "search": {
+      "searchQuery": "Buscar...",
+      "searchFilter": "Filtro de búsqueda",
+      "adultContent": {
+        "label": "Contenido adulto",
+        "hint": "Deje en blanco para buscar contenido tanto adulto como no-adulto",
+        "both": "Sin filtro",
+        "onlyNonAdult": "Solo contenido no-adulto",
+        "onlyAdult": "Solo contenido adulto"
+      },
+      "inList": {
+        "label": "En la lista",
+        "hint": "Deje en blanco para buscar contenido por fuera de su lista"
+      },
+      "genres": {
+        "label": "Géneros",
+        "hint": "Máx. 3",
+        "noMatch": "Ningún género coincide con \"<strong>{0}</strong>\". Presione <kbd>enter</kbd> para crearlo."
+      }
+    },
+    "seasonPreview": {
+      "episodes": "? episodios | 1 episodio | {count} episodios",
+      "startDate": "Comienza a emitir:"
+    },
+    "settings": {
+      "about": {
+        "version": "Versión"
+      },
+      "aniList": {
+        "loggedInAs": "Iniciado sesión como {0}",
+        "refreshRate": "Frecuencia de actualización",
+        "refreshRateSuffix": "minutos",
+        "refreshRateHint": "Este intervalo determina el tiempo en minutos entre sincronizaciones con los servidores de AniList. Los cambios realizados a este intervalo se verán reflejados después de la próxima sincronización."
+      },
+      "appSettings": {
+        "chooseLanguage": "Elija lenguaje",
+        "darkMode": "Modo oscuro"
+      },
+      "changelog": {
+        "new": "NUEVO",
+        "fix": "CORREGIDO",
+        "remove": "REMOVIDO",
+        "version": "Versión",
+        "changesIn": "Últimos cambios en {0}"
+      },
+      "specialThanks": "Agradecimientos especiales",
+      "supporters": "Supporters"
+    }
+  },
+  "routes": {
+    "aniList": {
+      "home": "Página principal",
+      "watching": "Mirando",
+      "repeating": "Repitiendo",
+      "completed": "Completado",
+      "paused": "Pausado",
+      "dropped": "Abandonado",
+      "planning": "Planeado"
+    },
+    "detailView": "Vista de detalle",
+    "search": "Búsqueda",
+    "seasonPreview": "Adelanto de temporada",
+    "settings": "Configuración"
+  },
+  "notifications": {
+    "aniList": {
+      "successTitle": "Sincronización exitosa",
+      "completeUpdateText": "{0} fue completada exitosamente con la sincronización al episodio {1}.",
+      "simpleUpdateText": "{0} fue sincronizado exitosamente al episodio {1}.",
+      "addedToList": "{0} fue agregado a tu lista exitosamente.",
+      "removeEntry": "{0} fue removido a tu lista exitosamente."
+    }
+  },
+  "misc": {
+    "aniList": {
+      "listStatusses": {
+        "completed": "Completado",
+        "dropped": "Abandonado",
+        "paused": "Pausado",
+        "planning": "Planeado",
+        "repeating": "Repitiendo",
+        "watching": "Mirando"
+      },
+      "seasons": {
+        "spring": "Primavera",
+        "summer": "Verano",
+        "fall": "Otoño",
+        "autumn": "Otoño",
+        "winter": "Invierno"
+      }
+    },
+    "dates": {
+      "dayMonthNumeric": "DD/MM",
+      "full": "DD [de] MMMM [de] YYYY",
+      "monthAndYear": "MMMM [de] YYYY",
+      "yearOnly": "YYYY",
+      "dateUnknown": "Fecha desconocida"
+    },
+    "rules": {
+      "required": "Estos datos deben ser completados."
+    },
+    "modules": {
+      "aniList": "AniList"
+    }
+  },
+  "$vuetify": {
+    "noDataText": "Sin datos"
+  },
+  "transfer": {
+    "title": "ZeroTwo se convierte en Mikazuki",
+    "text": "Queridos usuarios de ZeroTwo\nLas personas que siguen la información de actualizaciones en el servidor de Discord ya deben saber que he tenido planes de renombrar ZeroTwo desde hace un tiempo.\nLa razón para renombrar ZeroTwo es simplemente que el nuevo nombre simplemente es más neutral y más cómodo, en cuanto se refiere a mis sentimientos personales.\nUsando una encuesta en Discord, se decidió por mayoría usar mikazuki.moe como el nuevo dominio\nComenzando el 7 de April de 2020, zerotwo.org será discontinuada y no será posible acceder, mientras que mikazuki.moe ya está disponible hoy.\nPara continuar usando ZeroTwo, ahora llamada Mikazuki, por favor diríjase a mikazuki.moe.\nTenga en consideración que tendrá que volver a iniciar sesión en mikazuki.moe, ya que no se pueden transferir esos datos desde zerotwo.org a mikazuki.moe.\nSus configuraciones, como por ejemplo el intervalo de refresco, deben ser configurados nuevamente.\n\nNicoAiko\nDesarrollador principal de Mikazuki"
+  }
+}
