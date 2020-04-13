@@ -4,7 +4,7 @@
   "actions": {
     "add": "Agregar",
     "added": "Agregado a la lista",
-    "addToPlanToWatch": "Add to plan to watch",
+    "addToPlanToWatch": "Añadir a planeados",
     "back": "Volver",
     "fastSearch": "Buscar... \u23ce",
     "loading": "Cargando...",
@@ -188,7 +188,7 @@
         "changesIn": "Últimos cambios en {0}"
       },
       "specialThanks": "Agradecimientos especiales",
-      "supporters": "Supporters"
+      "supporters": "Apoyado por"
     }
   },
   "routes": {
