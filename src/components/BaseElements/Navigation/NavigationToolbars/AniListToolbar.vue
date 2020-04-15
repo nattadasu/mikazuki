@@ -84,55 +84,57 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
+import { AniListListStatus, IAniListMediaListCollection } from '@/types';
 
-// Custom Components
-import { AniListListStatus } from '@/types';
-import { aniListStore, userStore } from '@/store';
-
-@Component
+@Component({
+  computed: {
+    ...mapGetters('userSettings', ['isAuthenticated']),
+    ...mapGetters('aniList', ['aniListData']),
+  },
+})
 export default class AniListToolbar extends Vue {
-  get isAuthenticated(): boolean {
-    return userStore.isAuthenticated;
-  }
+  readonly isAuthenticated!: boolean;
+  readonly aniListData!: IAniListMediaListCollection;
 
   get watchingAmount(): number {
     const status: AniListListStatus = AniListListStatus.CURRENT;
-    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
+    const element = this.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
   get repeatingAmount(): number {
     const status: AniListListStatus = AniListListStatus.REPEATING;
-    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
+    const element = this.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
   get completedAmount(): number {
     const status: AniListListStatus = AniListListStatus.COMPLETED;
-    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
+    const element = this.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
   get pausedAmount(): number {
     const status: AniListListStatus = AniListListStatus.PAUSED;
-    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
+    const element = this.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
   get droppedAmount(): number {
     const status: AniListListStatus = AniListListStatus.DROPPED;
-    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
+    const element = this.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }
 
   get planningAmount(): number {
     const status: AniListListStatus = AniListListStatus.PLANNING;
-    const element = aniListStore.aniListData.lists.find((list) => list.status === status);
+    const element = this.aniListData.lists.find((list) => list.status === status);
 
     return element ? element.entries.length : 0;
   }

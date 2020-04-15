@@ -156,6 +156,7 @@
                         padding="12"
                         stroke-linecap="round"
                         type="bar"
+                        :color="darkMode ? 'white' : 'black'"
                       >
                         <template v-slot:label="item">
                           {{ activityHistoryDates[item.index] }}: {{ item.value }}
@@ -180,6 +181,7 @@
                         padding="12"
                         stroke-linecap="round"
                         type="bar"
+                        :color="darkMode ? 'white' : 'black'"
                       >
                         <template v-slot:label="item">
                           {{ genreOverviewLabels[item.index] }}: {{ item.value }}
@@ -217,17 +219,26 @@
 <script lang="ts">
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
-import Activities from './Elements/Activities.vue';
-import ProfileImage from './Elements/ProfileImage.vue';
-import { userStore } from '@/store';
+import { mapGetters } from 'vuex';
+import Activities from '@/components/AniList/Activities.vue';
+import ProfileImage from '@/components/AniList/ProfileImage.vue';
+import { IAniListSession } from '@/types';
 
 @Component({
   components: {
     Activities,
     ProfileImage,
   },
+  computed: {
+    ...mapGetters('app', ['darkMode']),
+    ...mapGetters('userSettings', ['session', 'isAuthenticated']),
+  },
 })
 export default class Home extends Vue {
+  readonly darkMode!: boolean;
+  readonly session!: IAniListSession;
+  readonly isAuthenticated!: boolean;
+
   async beforeMount() {
     if ('login' in this.$route.query) {
       const { access_token: accessToken } = this.$route.query;
@@ -236,13 +247,13 @@ export default class Home extends Vue {
         await this.$router.replace({ name: 'Home' });
       }
 
-      await userStore.setSession(accessToken as string);
+      this.$store.commit('userSettings/setSession', accessToken as string);
       await this.$router.replace({ name: 'Home' });
     }
   }
 
   get currentUser() {
-    return userStore.session.user;
+    return this.session.user;
   }
 
   get howToAuthenticateText() {
@@ -441,10 +452,6 @@ export default class Home extends Vue {
 
   get animeSliderLabels() {
     return [this.getAnimeDaysWatchedMin, this.getAnimeDaysWatchedMiddle, this.getAnimeDaysWatchedMax];
-  }
-
-  get isAuthenticated(): boolean {
-    return userStore.isAuthenticated;
   }
 
   openSupportPage(): void {

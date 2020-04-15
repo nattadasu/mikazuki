@@ -21,18 +21,18 @@
 import { chain, includes, get } from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 import { Route } from 'vue-router';
 import ListImage from './Elements/ListImage.vue';
 import AddButton from './Elements/AddButton.vue';
 import eventBus from '@/eventBus';
 import {
-  AniListListStatus,
   AniListSeason,
   IAniListEntry,
+  IAniListMediaListCollection,
   IAniListSeasonPreviewMedia,
-  ZeroTwoListDataItem,
+  AniListListStatus,
 } from '@/types';
-import { aniListStore, appStore, userStore } from '@/store';
 
 interface UpdateSeasonProperties {
   year: number;
@@ -46,8 +46,20 @@ Component.registerHooks(['beforeRouteUpdate', 'beforeRouteLeave']);
     ListImage,
     AddButton,
   },
+  computed: {
+    ...mapGetters('app', ['isLoading']),
+    ...mapGetters('userSettings', ['isAuthenticated', 'allowAdultContent']),
+    ...mapGetters('aniList', ['aniListData']),
+  },
 })
 export default class SeasonPreview extends Vue {
+  readonly isLoading!: boolean;
+  readonly isAuthenticated!: boolean;
+  readonly allowAdultContent!: boolean;
+  readonly aniListData!: IAniListMediaListCollection;
+
+  // TODO: Add to Settings
+  readonly startAmount = 20;
   media: IAniListSeasonPreviewMedia[] = [];
   seasonYear: number = new Date().getUTCFullYear();
   season: AniListSeason = this.getCurrentSeason();
@@ -57,29 +69,7 @@ export default class SeasonPreview extends Vue {
   adultContentFilter: string = 'without';
   currentIndex: number = 0;
 
-  get appLoading(): boolean {
-    return appStore.isLoading;
-  }
-
-  get isAuthenticated(): boolean {
-    return userStore.isAuthenticated;
-  }
-
-  get startAmount(): number {
-    return userStore.listItemAmount;
-  }
-
-  get preparedMedia(): IAniListSeasonPreviewMedia[] {
-    return chain(this.media)
-      .orderBy((item) => get(item, 'title.userPreferred'), ['asc'])
-      .value();
-  }
-
-  get slicedMedia(): IAniListSeasonPreviewMedia[] {
-    return this.preparedMedia.slice(0, (this.currentIndex + 1) * this.startAmount);
-  }
-
-  get _preparedMedia() {
+  get preparedMedia() {
     const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
 
     // @TODO: Give entry a type!
@@ -99,7 +89,7 @@ export default class SeasonPreview extends Vue {
     }
 
     return chain(media)
-      .filter((item) => !item.isAdult || (item.isAdult && userStore.allowAdultContent))
+      .filter((item) => !item.isAdult || (item.isAdult && this.allowAdultContent))
       .map((item) => {
         const outputFormat = item.startDate.day
           ? (this.$t('misc.dates.full') as string)
@@ -108,7 +98,7 @@ export default class SeasonPreview extends Vue {
           : item.startDate.year
           ? (this.$t('misc.dates.yearOnly') as string)
           : undefined;
-        const usersListStatus = !!aniListStore.aniListData.lists.find(
+        const usersListStatus = !!this.aniListData.lists.find(
           (list) => !!list.entries.find((entry: IAniListEntry) => entry.media.id === item.id)
         );
 
@@ -193,7 +183,7 @@ export default class SeasonPreview extends Vue {
 
     // Listen to event
     eventBus.$on('updateSeason', async (season: UpdateSeasonProperties) => {
-      await appStore.setLoadingState(true);
+      this.$store.commit('app/setLoadingState', true);
       try {
         const preview = await this.$http.getSeasonPreview(season.year, season.season);
         if (!preview) {
@@ -204,7 +194,7 @@ export default class SeasonPreview extends Vue {
       } catch (error) {
         this.media = [];
       }
-      await appStore.setLoadingState(false);
+      this.$store.commit('app/setLoadingState', false);
     });
 
     try {
@@ -266,7 +256,7 @@ export default class SeasonPreview extends Vue {
 
   async setStatus({ mediaId, status, entryId }: { mediaId: number; status: AniListListStatus; entryId?: number }) {
     try {
-      await appStore.setLoadingState(true);
+      await this.$store.dispatch('setLoadingState', true);
       if (entryId) {
         await this.$http.updateEntryStatus({
           entryId,
@@ -286,7 +276,7 @@ export default class SeasonPreview extends Vue {
         text: 'To be translated...',
       });
     } finally {
-      await appStore.setLoadingState(false);
+      await this.$store.dispatch('setLoadingState', false);
     }
   }
 }

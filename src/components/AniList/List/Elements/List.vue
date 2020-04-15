@@ -45,17 +45,17 @@
 import { chain, isEmpty, reduce, orderBy, get, includes } from 'lodash';
 import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { RawLocation, Route } from 'vue-router';
+import { mapGetters } from 'vuex';
 import EventBus from '@/eventBus';
 import {
   AniListListStatus,
-  AniListMediaStatus,
   AniListScoreFormat,
   IAniListEntry,
-  ZeroTwoListDataItem,
+  IAniListSession,
+  IAniListMediaListCollection,
   ZeroTwoUpdateBucketItem,
+  ZeroTwoListDataItem,
 } from '@/types';
-import { aniListStore, appStore, userStore } from '@/store';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
 import {
   AdultTooltip,
@@ -67,6 +67,7 @@ import {
   StarRating,
 } from './ListElements';
 import Loading from '@/components/BaseElements/Navigation/NavigationToolbars/Items/Loading.vue';
+import { Route } from 'vue-router';
 
 @Component({
   components: {
@@ -79,11 +80,18 @@ import Loading from '@/components/BaseElements/Navigation/NavigationToolbars/Ite
     Loading,
     ProgressBar,
   },
+  computed: {
+    ...mapGetters('app', ['isLoading']),
+    ...mapGetters('aniList', ['aniListData']),
+    ...mapGetters('userSettings', ['session']),
+  },
 })
 export default class List extends Vue {
-  @Prop() readonly status!: AniListListStatus;
+  @Prop(String) readonly status!: AniListListStatus;
   @Prop(Object) readonly lastRoute!: Route | null;
   currentIndex: number = 0;
+  // TODO: Add startAmount to settings
+  readonly startAmount = 20;
   // Contains the Timer ID
   updateTimer: number | null = null;
   updatePayload: ZeroTwoUpdateBucketItem[] = [];
@@ -96,16 +104,12 @@ export default class List extends Vue {
   genreFilters: string[] = [];
   mediaShowMode: string = 'non-explicit';
 
-  get startAmount(): number {
-    return userStore.listItemAmount;
-  }
+  readonly session!: IAniListSession;
+  readonly isLoading!: boolean;
+  readonly aniListData!: IAniListMediaListCollection;
 
   get ratingStarAmount(): number {
-    return userStore.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3 ? 3 : 5;
-  }
-
-  get isLoading(): boolean {
-    return appStore.isLoading;
+    return this.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3 ? 3 : 5;
   }
 
   get listData(): ZeroTwoListDataItem[] {
@@ -161,7 +165,7 @@ export default class List extends Vue {
   }
 
   get currentList() {
-    return aniListStore.aniListData.lists.find((list) => list.status === this.status);
+    return this.aniListData.lists.find((list) => list.status === this.status);
   }
 
   async created() {
@@ -183,7 +187,7 @@ export default class List extends Vue {
       this.genreFilters = item.genres;
     });
 
-    await appStore.setLoadingState(false);
+    await this.$store.dispatch('setLoadingState', false);
   }
 
   getScoreStarValue(score: number): number {
@@ -191,7 +195,7 @@ export default class List extends Vue {
       return 0;
     }
 
-    const userScoringSystem = userStore.session.user.mediaListOptions.scoreFormat;
+    const userScoringSystem = this.session.user.mediaListOptions.scoreFormat;
 
     switch (userScoringSystem) {
       case AniListScoreFormat.POINT_100:
@@ -354,7 +358,6 @@ export default class List extends Vue {
       .then(() => aniListEventHandler.refreshLists())
       .then(() => {
         let updateText = '';
-
         chain(this.updatePayload)
           .groupBy((value) => value.id)
           .map((group) =>

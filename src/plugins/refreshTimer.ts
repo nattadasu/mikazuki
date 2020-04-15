@@ -1,12 +1,21 @@
 import eventHandler from '@/plugins/AniList/eventHandler';
 
 export class RefreshTimer {
+  private static instance: RefreshTimer;
   private _timer: number = -1;
   private _refreshRate: number = 15;
   private _timeUntilRefresh: number = 0;
 
-  constructor(refreshRate?: number) {
+  private constructor(refreshRate?: number) {
     this.setRefreshRate(refreshRate ?? 15);
+  }
+
+  public static getInstance(refreshRate?: number): RefreshTimer {
+    if (!RefreshTimer.instance) {
+      RefreshTimer.instance = new RefreshTimer(refreshRate);
+    }
+
+    return RefreshTimer.instance;
   }
 
   get timer(): number {
@@ -73,4 +82,4 @@ export class RefreshTimer {
   }
 }
 
-export const refreshTimer = new RefreshTimer();
+export const refreshTimer = RefreshTimer.getInstance();

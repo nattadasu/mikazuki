@@ -1,14 +1,15 @@
-import { userStore, aniListStore } from '@/store';
+import store from '@/store';
 import { API } from '@/plugins/AniList/index';
 import { IAniListUser, AniListType } from '@/types';
 
 export default {
   async refreshAniListData(): Promise<void> {
-    if (!userStore.session.accessToken) {
+    if (!store.state.userSettings._session.accessToken) {
       return;
     }
 
     try {
+      store.commit('app/setLoadingState', true);
       const user = await API.getUser();
       const { stats, statistics } = await API.getUserStatistics();
       user.statistics = statistics;
@@ -21,30 +22,35 @@ export default {
       const latestActivities = await API.getLatestActivities(userId, { page: 1, perPage: 10, isFollowing: true });
 
       if (userList && user && latestActivities) {
-        await userStore.setUser(user);
-        await aniListStore.setAniListData(userList);
-        await aniListStore.setLatestActivities(latestActivities);
+        store.commit('userSettings/setUser', user);
+        store.commit('aniList/setAniListData', userList);
+        store.commit('aniList/setLatestActivities', latestActivities);
       }
     } catch (error) {
       //
+    } finally {
+      store.commit('app/setLoadingState', false);
     }
   },
 
   async refreshLists(): Promise<void> {
-    if (!userStore.session.accessToken) {
+    if (!store.state.userSettings._session.accessToken) {
       return;
     }
 
     try {
-      const { user } = userStore.session;
+      store.commit('app/setLoadingState', true);
+      const { user } = store.state.userSettings._session;
       const userName = (user as IAniListUser).name;
       const userList = await API.getUserList(userName, AniListType.ANIME);
 
       if (userList) {
-        await aniListStore.setAniListData(userList);
+        store.commit('aniList/setAniListData', userList);
       }
     } catch (error) {
       //
+    } finally {
+      store.commit('app/setLoadingState', false);
     }
   },
 };
