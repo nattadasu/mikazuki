@@ -18,7 +18,7 @@ function loadLocaleMessages(): LocaleMessages {
   return messages;
 }
 
-export const validLanguageCodes: string[] = ['ar', 'de', 'en', 'fr', 'id', 'it', 'ja', 'my', 'pt_BR', 'zh_CN'];
+export const validLanguageCodes: string[] = ['ar', 'de', 'en', 'es_MX', 'fr', 'id', 'it', 'ja', 'my', 'pt_BR', 'zh_CN'];
 
 export const i18n = new VueI18n({
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
