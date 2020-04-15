@@ -41,6 +41,7 @@ const defaultUser = {
 
 const state: UserSettingsState = {
   _refreshRate: 15,
+  _listItemAmount: 20,
   _session: {
     accessToken: '',
     user: {
@@ -86,6 +87,9 @@ const getters: GetterTree<UserSettingsState, RootState> = {
   refreshRate(state): number {
     return state._refreshRate;
   },
+  listItemAmount(state): number {
+    return state._listItemAmount;
+  },
   session(state): IAniListSession {
     return state._session;
   },
@@ -110,6 +114,9 @@ const mutations: MutationTree<UserSettingsState> = {
   setRefreshRate(state, rate: number) {
     state._refreshRate = rate;
   },
+  setListItemAmount(state, amount: number) {
+    state._listItemAmount = amount;
+  },
 };
 
 const actions: ActionTree<UserSettingsState, RootState> = {
@@ -125,6 +132,11 @@ const actions: ActionTree<UserSettingsState, RootState> = {
   },
   async setRefreshRate({ commit }, payload: number): Promise<void> {
     commit('setRefreshRate', payload);
+
+    return Promise.resolve();
+  },
+  async setListItemAmount({ commit }, payload: number): Promise<void> {
+    commit('setListItemAmount', payload);
 
     return Promise.resolve();
   },

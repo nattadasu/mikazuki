@@ -171,11 +171,11 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Route } from 'vue-router';
 import { mapGetters } from 'vuex';
-import AdultToolTip from '@/components/AniList/ListElements/AdultToolTip.vue';
-import ListImage from '@/components/AniList/ListElements/ListImage.vue';
-import ProgressCircle from '@/components/AniList/ListElements/ProgressCircle.vue';
+import AdultToolTip from '@/components/AniList/List/Elements/ListElements/AdultToolTip.vue';
+import ListImage from '@/components/AniList/List/Elements/ListElements/ListImage.vue';
+import ProgressCircle from '@/components/AniList/List/Elements/ListElements/ProgressCircle.vue';
 import { AniListListStatus, IAniListSearchResult } from '@/types';
-import SearchFilter from '@/components/Search/Filter.vue';
+import SearchFilter from '@/components/Search/Elements/Filter.vue';
 
 type IAniListExtendedSearchResult = IAniListSearchResult & {
   isWatching: boolean;

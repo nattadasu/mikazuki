@@ -18,7 +18,7 @@
         <v-list-item-group v-model="item" color="primary">
           <template v-for="(item, index) in navItems">
             <v-divider v-if="item.title === 'divider'" :key="index" />
-            <v-list-item :key="index" @click="navigateTo(item.location)" v-else>
+            <v-list-item :key="index" :to="item.location" v-else exact>
               <v-list-item-icon>
                 <v-icon v-text="item.icon" />
               </v-list-item-icon>
@@ -84,7 +84,7 @@ import AniListToolbar from './NavigationToolbars/AniListToolbar.vue';
 import MediaToolbar from './NavigationToolbars/MediaToolbar.vue';
 import SeasonPreviewToolbar from './NavigationToolbars/SeasonPreviewToolbar.vue';
 
-import TransferMessageBox from './TransferMessageBox.vue';
+import TransferMessageBox from '@/components/TransferMessageBox.vue';
 
 // Navigation Items
 import AniListRefresh from './NavigationToolbars/Items/AniList/Refresh.vue';
@@ -138,7 +138,7 @@ export default class Navigation extends Vue {
       title: 'menus.settings.title',
       location: { name: 'Settings' },
       routeName: 'Settings',
-      icon: 'mdi-settings',
+      icon: 'mdi-cog',
     },
   ];
 

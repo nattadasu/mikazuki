@@ -1,9 +1,8 @@
 import VueRouter from 'vue-router';
-import { userStore } from '@/store';
 
 export default (router: VueRouter): void => {
   router.beforeEach((to, from, next) => {
-    const { isAuthenticated } = userStore;
+    const isAuthenticated = router.app.$store.getters['userSettings/isAuthenticated'];
 
     // If the user is authenticated to AniList, but the target page
     // requires the user to be unauthorized, we want to prevent the user

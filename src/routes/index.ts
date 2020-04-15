@@ -17,7 +17,7 @@ const router = new Router({
       component: FirstPage,
       meta: {
         routeName: 'firstPage',
-        requireUnauthorizedState: true,
+        allowUnauthorizedState: true,
       },
     },
     {

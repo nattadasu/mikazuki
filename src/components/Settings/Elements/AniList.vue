@@ -55,40 +55,43 @@
 <script lang="ts">
 import { format } from 'url';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { appStore, userStore } from '@/store';
-import { IAniListUser } from '@/types';
+import { mapGetters } from 'vuex';
+import { IAniListUser, IAniListSession } from '@/types';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('userSettings', ['isAuthenticated', 'session', 'refreshRate', 'listItemAmount']),
+  },
+})
 export default class AniListSettings extends Vue {
-  @Prop(String)
-  tabKey!: string;
-
-  get isAuthenticated(): boolean {
-    return userStore && userStore.isAuthenticated;
-  }
+  @Prop(String) tabKey!: string;
+  readonly isAuthenticated!: boolean;
+  readonly session!: IAniListSession;
+  readonly refreshRate!: number;
+  readonly listItemAmount!: number;
 
   get currentUser(): IAniListUser {
-    return userStore.session.user;
+    return this.session.user;
   }
 
   get currentAniListRefreshRate(): number {
-    return userStore.refreshRate;
+    return this.refreshRate;
   }
 
   set currentAniListRefreshRate(refreshRate: number) {
-    userStore.setRefreshRate(refreshRate);
+    this.$store.dispatch('userSettings/setRefreshRate', refreshRate);
   }
 
   get userListItemAmount(): number {
-    return userStore.listItemAmount;
+    return this.listItemAmount;
   }
 
   set userListItemAmount(value: number) {
-    userStore.setListItemAmount(value);
+    this.$store.dispatch('userSettings/setListItemAmount', value);
   }
 
   loginToAniList() {
-    if (!userStore.isAuthenticated) {
+    if (!this.isAuthenticated) {
       const oauthConfig = {
         clientId: process.env.VUE_APP_CLIENT_ID,
         redirectUri: process.env.VUE_APP_REDIRECT_HOST,
@@ -104,15 +107,13 @@ export default class AniListSettings extends Vue {
   }
 
   async logout() {
-    if (!userStore.isAuthenticated) {
+    if (!this.isAuthenticated) {
       return;
     }
 
-    await appStore.setLoadingState(true);
-
-    await userStore.logout();
-
-    await appStore.setLoadingState(false);
+    await this.$store.dispatch('app/setLoadingState', true);
+    await this.$store.dispatch('userSettings/logout');
+    await this.$store.dispatch('app/setLoadingState', false);
 
     await this.$router.push({ name: 'Home' });
   }

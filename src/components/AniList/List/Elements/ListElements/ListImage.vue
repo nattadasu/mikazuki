@@ -94,6 +94,7 @@
 import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
+import { mapGetters } from 'vuex';
 import {
   AniListMediaStatus,
   AniListScoreFormat,
@@ -101,13 +102,18 @@ import {
   IAniListMediaStudioNode,
   ZeroTwoListDataItem,
   IAniListNextAiringEpisode,
+  IAniListSession,
 } from '@/types';
-import { userStore } from '@/store';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('userSettings', ['session']),
+  },
+})
 export default class ListImage extends Vue {
   @Prop(Object) item!: ZeroTwoListDataItem;
   @Prop(Boolean) showStudios!: boolean;
+  readonly session!: IAniListSession;
 
   get nextEpisode(): string | null {
     return this.item.media.nextAiringEpisode
@@ -184,7 +190,7 @@ export default class ListImage extends Vue {
       return 'error darken-2';
     }
 
-    const userScoringSystem = userStore.session.user.mediaListOptions.scoreFormat;
+    const userScoringSystem = this.session.user.mediaListOptions.scoreFormat;
 
     switch (userScoringSystem) {
       case AniListScoreFormat.POINT_100:

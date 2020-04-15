@@ -12,7 +12,6 @@
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 import { AniListListStatus, IAniListSeasonPreviewMedia } from '@/types';
-import { userStore, appStore, aniListStore } from '@/store';
 
 @Component
 export default class SeasonPreviewAddButton extends Vue {

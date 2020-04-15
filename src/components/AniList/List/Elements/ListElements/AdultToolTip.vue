@@ -13,5 +13,5 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class AdultTooltip extends Vue {}
+export default class AdultToolTip extends Vue {}
 </script>

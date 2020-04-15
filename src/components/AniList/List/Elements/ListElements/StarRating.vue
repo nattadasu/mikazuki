@@ -5,13 +5,18 @@
 <script lang="ts">
 // TODO: To be deleted!
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { AniListScoreFormat, ZeroTwoListDataItem } from '@/types';
-import { userStore } from '@/store';
+import { AniListScoreFormat, ZeroTwoListDataItem, IAniListSession } from '@/types';
+import { mapGetters } from 'vuex';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('userSettings', ['session']),
+  },
+})
 export default class StarRating extends Vue {
   @Prop(Object) item!: ZeroTwoListDataItem;
   @Prop(Number) ratingStarAmount!: number;
+  readonly session!: IAniListSession;
 
   get score(): number {
     return this.item.entry.score;
@@ -22,7 +27,7 @@ export default class StarRating extends Vue {
       return 0;
     }
 
-    const userScoringSystem = userStore.session.user.mediaListOptions.scoreFormat;
+    const userScoringSystem = this.session.user.mediaListOptions.scoreFormat;
 
     switch (userScoringSystem) {
       case AniListScoreFormat.POINT_100:

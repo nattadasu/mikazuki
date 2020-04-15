@@ -16,12 +16,31 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { format } from 'url';
-import { userStore } from '@/store';
+import { mapGetters } from 'vuex';
 
-@Component
+@Component({
+  computed: {
+    ...mapGetters('userSettings', ['isAuthenticated']),
+  },
+})
 export default class FirstPage extends Vue {
+  readonly isAuthenticated!: boolean;
+
+  async beforeMount() {
+    if ('login' in this.$route.query) {
+      const { access_token: accessToken } = this.$route.query;
+
+      if (!accessToken) {
+        await this.$router.replace({ name: 'Home' });
+      }
+
+      this.$store.commit('userSettings/setSession', accessToken as string);
+      await this.$router.replace({ name: 'Home' });
+    }
+  }
+
   loginToAniList() {
-    if (!userStore.isAuthenticated) {
+    if (!this.isAuthenticated) {
       const oauthConfig = {
         clientId: process.env.VUE_APP_CLIENT_ID,
         redirectUri: process.env.VUE_APP_REDIRECT_HOST,

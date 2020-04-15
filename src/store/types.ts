@@ -14,6 +14,7 @@ export interface AppState {
 
 export interface UserSettingsState {
   _refreshRate: number;
+  _listItemAmount: number;
   _session: IAniListSession;
 }
 

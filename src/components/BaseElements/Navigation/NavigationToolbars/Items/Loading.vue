@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex';
 
 @Component({
   computed: {
-    ...mapGetters(['app/isLoading']),
+    ...mapGetters('app', ['isLoading']),
   },
 })
 export default class Loading extends Vue {

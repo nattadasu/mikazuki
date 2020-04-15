@@ -256,7 +256,7 @@ export default class SeasonPreview extends Vue {
 
   async setStatus({ mediaId, status, entryId }: { mediaId: number; status: AniListListStatus; entryId?: number }) {
     try {
-      await this.$store.dispatch('setLoadingState', true);
+      await this.$store.dispatch('app/setLoadingState', true);
       if (entryId) {
         await this.$http.updateEntryStatus({
           entryId,
@@ -276,7 +276,7 @@ export default class SeasonPreview extends Vue {
         text: 'To be translated...',
       });
     } finally {
-      await this.$store.dispatch('setLoadingState', false);
+      await this.$store.dispatch('app/setLoadingState', false);
     }
   }
 }

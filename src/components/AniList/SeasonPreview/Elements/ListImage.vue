@@ -91,7 +91,6 @@ import {
   IAniListNextAiringEpisode,
   IAniListSeasonPreviewMedia,
 } from '@/types';
-import { userStore } from '@/store';
 
 @Component
 export default class ListImage extends Vue {

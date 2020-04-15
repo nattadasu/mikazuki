@@ -58,7 +58,7 @@ import {
 } from '@/types';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
 import {
-  AdultTooltip,
+  AdultToolTip,
   EpisodeState,
   ListImage,
   MissingEpisodes,
@@ -71,7 +71,7 @@ import { Route } from 'vue-router';
 
 @Component({
   components: {
-    AdultTooltip,
+    AdultToolTip,
     EpisodeState,
     ListImage,
     MissingEpisodes,
@@ -187,7 +187,7 @@ export default class List extends Vue {
       this.genreFilters = item.genres;
     });
 
-    await this.$store.dispatch('setLoadingState', false);
+    await this.$store.dispatch('app/setLoadingState', false);
   }
 
   getScoreStarValue(score: number): number {

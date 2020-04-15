@@ -72,14 +72,21 @@
 <script lang="ts">
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 import ListImage from '@/components/AniList/List/Elements/ListElements/ListImage.vue';
 import { IAniListActivity, AniListType } from '@/types';
-import { aniListStore } from '@/store';
 
-@Component({ components: { ListImage } })
+@Component({
+  components: { ListImage },
+  computed: {
+    ...mapGetters('aniList', ['latestActivities']),
+  },
+})
 export default class Activities extends Vue {
+  readonly latestActivities!: IAniListActivity[];
+
   get activities() {
-    return aniListStore.latestActivities
+    return this.latestActivities
       .filter((item) => !(Object.entries(item).length === 0 && item.constructor === Object))
       .map((activity) => ({
         id: activity.id,

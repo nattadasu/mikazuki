@@ -220,8 +220,8 @@
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
-import Activities from '@/components/AniList/Activities.vue';
-import ProfileImage from '@/components/AniList/ProfileImage.vue';
+import Activities from './Elements/Activities.vue';
+import ProfileImage from './Elements/ProfileImage.vue';
 import { IAniListSession } from '@/types';
 
 @Component({
@@ -238,19 +238,6 @@ export default class Home extends Vue {
   readonly darkMode!: boolean;
   readonly session!: IAniListSession;
   readonly isAuthenticated!: boolean;
-
-  async beforeMount() {
-    if ('login' in this.$route.query) {
-      const { access_token: accessToken } = this.$route.query;
-
-      if (!accessToken) {
-        await this.$router.replace({ name: 'Home' });
-      }
-
-      this.$store.commit('userSettings/setSession', accessToken as string);
-      await this.$router.replace({ name: 'Home' });
-    }
-  }
 
   get currentUser() {
     return this.session.user;
@@ -278,7 +265,19 @@ export default class Home extends Vue {
 
     const relevantItems = history.filter((item) => item.date >= timestamp);
 
-    if (relevantItems.length !== 15) {
+    if (relevantItems.length === 0) {
+      const fillIn = { amount: 0, level: 1 };
+      let i = 15;
+
+      while (i > 0) {
+        const date = moment()
+          .subtract(i, 'days')
+          .unix();
+        relevantItems.push({ ...fillIn, date });
+
+        i--;
+      }
+    } else if (relevantItems.length < 15) {
       let dateSubstract = 1;
       while (dateSubstract <= 15) {
         const checkDate = moment().subtract(dateSubstract, 'days');
