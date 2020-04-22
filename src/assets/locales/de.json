@@ -236,9 +236,9 @@
         "winter": "Winter"
       },
       "mediaStatus": {
-        "finished": "ABGESCHLOSSEN",
-        "releasing": "LAUFEND",
-        "not_yet_released": "AUSSTRAHLUNG GEPLANT",
+        "finished": "VORBEI",
+        "releasing": "LÄUFT",
+        "not_yet_released": "GEPLANT",
         "cancelled": "ABGESETZT"
       }
     },
