@@ -48,7 +48,7 @@ import Loading from '@/components/AniList/DetailElements/Loading.vue';
 import MediaDetails from '@/components/AniList/DetailElements/MediaDetails.vue';
 import StreamingService from '@/components/AniList/DetailElements/StreamingService.vue';
 import UserListSettings from '@/components/AniList/DetailElements/UserListSettings.vue';
-import { IAniListEntry, IAniListMedia } from '@/types';
+import { IAniListEntry, IAniListMedia, AniListListStatus } from '@/types';
 
 @Component({
   components: {
@@ -110,11 +110,18 @@ export default class DetailView extends Vue {
   }
 
   async loadListEntry(aniListId: number): Promise<void> {
-    this.entry = await this.$http.getListEntryByMediaId(aniListId);
-
-    // Media does not exist
-    if (!this.entry) {
-      throw new Error('Media does not exist!');
+    try {
+      this.entry = await this.$http.getListEntryByMediaId(aniListId);
+    } catch (err) {
+      const mediaInfo: IAniListMedia = await this.$http.getAnimeInfo(aniListId);
+      this.entry = {
+        id: -1,
+        progress: 0,
+        score: 0,
+        status: AniListListStatus.PLANNING,
+        updatedAt: 0,
+        media: mediaInfo,
+      };
     }
   }
 
