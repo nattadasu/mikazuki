@@ -424,7 +424,7 @@ export default class List extends Vue {
             });
           });
       })
-      .catch((error) => console.error(error))
+      .catch((error) => console.error(error)) // eslint-disable-line no-console
       .finally(() => {
         this.updatePayload = [];
       });
