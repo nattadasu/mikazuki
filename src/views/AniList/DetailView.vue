@@ -115,7 +115,7 @@ export default class DetailView extends Vue {
     } catch (err) {
       const mediaInfo: IAniListMedia = await this.$http.getAnimeInfo(aniListId);
       this.entry = {
-        id: -1,
+        id: 0,
         progress: 0,
         score: 0,
         status: AniListListStatus.PLANNING,
