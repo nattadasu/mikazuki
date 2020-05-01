@@ -173,7 +173,7 @@
       "aniList": {
         "loggedInAs": "Masuk sebagai {0}",
         "refreshRate": "Jarak penyegaran",
-        "refreshRateRule": "The allowed interval reaches from 5 minutes to 5 hours (5 - 300 minutes)!",
+        "refreshRateRule": "Selang masa yang dibenarkan adalah dari 5 minit hingga 5 jam (5 - 300 minit)!",
         "refreshRateSuffix": "minit",
         "refreshRateHint": "Selang masa tentukan bilangan minit hingga penyegerakan berikutnya terhadap server AniList. Perubahan selang masa akan digunakan selepas penyegerakan seterusnya."
       },
