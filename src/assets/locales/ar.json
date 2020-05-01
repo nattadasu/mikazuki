@@ -173,7 +173,7 @@
       "aniList": {
         "loggedInAs": "تسجيل الدخول بـ {0}",
         "refreshRate": "معدل التحديث",
-        "refreshRateRule": "The allowed interval reaches from 5 minutes to 5 hours (5 - 300 minutes)!",
+        "refreshRateRule": "الفترة معدل التحديث بها من 5 دقائق إلى 5 ساعات (5 - 300 دقيقة)!",
         "refreshRateSuffix": "دقائق",
         "refreshRateHint": "يحدد هذا الفاصل الزمني مقدار الدقائق حتى المزامنة التالية بخادم AniList. سيتم تطبيق التغييرات على الفاصل الزمني بعد المزامنة التالية."
       },
