@@ -30,7 +30,7 @@
   "errors": {
     "updateFailed": {
       "title": "Mise à jour échouée",
-      "text": "La mise à jour n'a pas pu être synchronisé! Vérifié que AniList soit disponible ou que votre connexion internet fonctionne!"
+      "text": "La mise à jour n'a pas pu être synchronisé! Vérifiez que AniList soit disponible ou que votre connexion internet fonctionne!"
     }
   },
   "menus": {
@@ -53,8 +53,8 @@
       "about": "À propos de Mikazuki",
       "aniList": "AniList",
       "appSettings": "Paramètres de l'App",
-      "changelog": "Derniers changement",
-      "specialThanks": "Remerciement spécial"
+      "changelog": "Derniers changements",
+      "specialThanks": "Remerciements spéciaux"
     }
   },
   "components": {
@@ -88,16 +88,16 @@
             "activityHistory": "Historique des activités",
             "genreOverview": "Aperçu du genre"
           },
-          "headline": "Dernières activitiés",
+          "headline": "Dernières activités",
           "completed": "Terminé {0}",
           "plansToWatch": "À regarder {0}",
           "watchedEpisode": "Épisode regardé {1} sur {0}",
           "dropped": "Abandonné {0}",
-          "rewatchedEpisode": "Épisode revisionné {1} sur {0}",
+          "rewatchedEpisode": "Épisode re-visionné {1} sur {0}",
           "pausedWatching": "En pause {0}",
-          "readChapter": "Chapitre liré {1} sur {0}",
+          "readChapter": "Chapitre lu {1} sur {0}",
           "plansToRead": "À lire {0}",
-          "rereadChapter": "Chapitre reliré {1} sur {0}",
+          "rereadChapter": "Chapitre re-lu {1} sur {0}",
           "pausedReading": "En pause {0}"
         },
         "howToAuthenticate": {
@@ -105,7 +105,7 @@
           "text": [
             "Veuillez-vous rendre dans la page des paramètres (dans le coin supérieur droit), puis dans l'onglet \"AniList\".",
             "Le bouton \"Connexion\" vous permettra d'ouvrir la fenêtre de connexion d'AniList.",
-            "Après avoir entrée vos informations de connexion, la fenêtre se fermera et le processus de connexion devrai avoir réussi."
+            "Après avoir entrée vos informations de connexion, la fenêtre se fermera et le processus de connexion devrai avoir fonctionné."
           ]
         }
       },
@@ -131,7 +131,7 @@
         "episodes": "Épisodes",
         "genres": "Genres",
         "nativeTitle": "Titre original",
-        "ownInformation": "Information de votre list",
+        "ownInformation": "Information de votre liste",
         "ownProgress": "Progrès",
         "ownStatus": "Status",
         "ownScore": "Score",
@@ -147,14 +147,14 @@
       "searchFilter": "Filtre de recherche",
       "adultContent": {
         "label": "Contenu mature",
-        "hint": "Laissé vide pour rechercher du contenu à la fois mature et non-mature",
+        "hint": "Laissez vide pour rechercher du contenu à la fois mature et non-mature",
         "both": "Pas de filtre",
         "onlyNonAdult": "Uniqument contenu non-mature",
         "onlyAdult": "Uniquement contenu mature"
       },
       "inList": {
         "label": "Dans la liste",
-        "hint": "Laissé vide pour aussi rechercher des medias qui no sont pas encore dans votre liste"
+        "hint": "Laissez vide pour aussi rechercher des medias qui no sont pas encore dans votre liste"
       },
       "genres": {
         "label": "Genres",
@@ -173,7 +173,7 @@
       "aniList": {
         "loggedInAs": "Connecté en tant que {0}",
         "refreshRate": "Taux de rafraîchissement",
-        "refreshRateRule": "The allowed interval reaches from 5 minutes to 5 hours (5 - 300 minutes)!",
+        "refreshRateRule": "L'intervalle autorisé est compris entre 5 minutes et 5 heures (5 - 300 minutes)!",
         "refreshRateSuffix": "minutes",
         "refreshRateHint": "Cette interval détermine le nombre minutes avant la prochaine synchronisation avec le serveur d'AniList. Le changement d'interval sera appliqué à la prochaine synchronisation."
       },
@@ -210,8 +210,8 @@
   "notifications": {
     "aniList": {
       "successTitle": "Synchronisation réussite",
-      "completeUpdateText": "{0} a été terminé avec succès avec la synchronisation jusque à l'épisode {1}.",
-      "simpleUpdateText": "{0} a été synchonisé avec succès jusque à l'épisode {1}.",
+      "completeUpdateText": "{0} a été terminé avec succès avec la synchronisation jusqu'à l'épisode {1}.",
+      "simpleUpdateText": "{0} a été synchonisé avec succès jusqu'à l'épisode {1}.",
       "addedToList": "{0} a été ajouté avec succès à votre liste.",
       "removeEntry": "{0} a été supprimé avec succès à votre liste."
     }
