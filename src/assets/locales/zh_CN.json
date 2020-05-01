@@ -173,6 +173,7 @@
       "aniList": {
         "loggedInAs": "用户 {0} 已登录",
         "refreshRate": "刷新率",
+        "refreshRateRule": "The allowed interval reaches from 5 minutes to 5 hours (5 - 300 minutes)!",
         "refreshRateSuffix": "分钟",
         "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。"
       },

@@ -173,6 +173,7 @@
       "aniList": {
         "loggedInAs": "Entrato come {0}",
         "refreshRate": "Frequenza di ricaricamento",
+        "refreshRateRule": "The allowed interval reaches from 5 minutes to 5 hours (5 - 300 minutes)!",
         "refreshRateSuffix": "minuti",
         "refreshRateHint": "Questo intervallo determina il numero di minuti prima di effettuare un nuovo controllo sul server AniList."
       },

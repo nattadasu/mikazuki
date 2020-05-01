@@ -173,6 +173,7 @@
       "aniList": {
         "loggedInAs": "Sessão iniciada como {0}",
         "refreshRate": "Taxa de atualização",
+        "refreshRateRule": "The allowed interval reaches from 5 minutes to 5 hours (5 - 300 minutes)!",
         "refreshRateSuffix": "minutos",
         "refreshRateHint": "Este intervalo determina a quantidade de minutos até a próxima sincronização com os servidores do AniList. Alterações no intervalo serão aplicadas após a próxima sincronização."
       },
