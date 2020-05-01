@@ -94,4 +94,36 @@
     "pt_BR": "por fornecer a tradução em italiana.",
     "zh_CN": "提供了意大利语翻译。"
   }
+}, {
+  "icon": "translate",
+  "name": "Uxy_(ツ)",
+  "message": {
+    "ar": "للترجمة فرنسي",
+    "en": "for providing the French localisation.",
+    "es_MX": "por aportar a la traducción al francés.",
+    "de": "für das Bereitstellen einer französischen Übersetzung.",
+    "id": "untuk memberikan lokalisasi bahasa Perancis",
+    "it": "per la traduzione Francese",
+    "ja": "フランス語の翻訳を作ったこと。",
+    "my": "untuk menyediakan penyetempatan bahasa Perancis",
+    "fr": "pour avoir préparé la traduction française.",
+    "pt_BR": "por fornecer a tradução em francês.",
+    "zh_CN": "提供了法语翻译。"
+  }
+}, {
+  "icon": "translate",
+  "name": "DevonOrxi",
+  "message": {
+    "ar": "للترجمة الإسبانية",
+    "en": "for providing the Spanish localisation.",
+    "es_MX": "por aportar a la traducción al español.",
+    "de": "für das Bereitstellen einer spanischen Übersetzung.",
+    "id": "untuk memberikan lokalisasi bahasa Spanyol",
+    "it": "per la traduzione Spagnolo.",
+    "ja": "スペイン語の翻訳を作ったこと。",
+    "my": "untuk menyediakan penyetempatan bahasa Sepanyol",
+    "fr": "pour avoir préparé la traduction espagnol.",
+    "pt_BR": "por fornecer a tradução em espanhol.",
+    "zh_CN": "提供了西班牙语翻译。"
+  }
 }]
