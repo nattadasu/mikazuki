@@ -172,7 +172,8 @@
       },
       "aniList": {
         "loggedInAs": "用户 {0} 已登录",
-        "refreshRate": "刷新率",
+        "refreshRate": "刷新频率",
+        "refreshRateRule": "刷新时间间隔只可设置在 5 分钟到 5 小时（即 5 - 300 分钟）之间！",
         "refreshRateSuffix": "分钟",
         "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。"
       },

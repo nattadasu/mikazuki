@@ -44,9 +44,15 @@ export default class Refresh extends Vue {
   }
 
   get timerText(): string {
-    const time = this.timeUntilRefresh * 1000;
+    const seconds = (this.timeUntilRefresh % 60).toString().padStart(2, '0');
+    const minutes = Math.floor((this.timeUntilRefresh / 60) % 60)
+      .toString()
+      .padStart(2, '0');
+    const hours = Math.floor(this.timeUntilRefresh / 3600)
+      .toString()
+      .padStart(2, '0');
 
-    return moment(time).format('mm:ss');
+    return `${hours && hours !== '00' ? `${hours}:` : ''}${minutes}:${seconds}`;
   }
 
   get timeUntilRefreshPercentage(): number {

@@ -23,9 +23,10 @@
             </v-flex>
             <v-flex xs12 sm5 offset-sm2>
               <v-text-field
-                v-model="refreshRate"
+                v-model="currentAniListRefreshRate"
                 type="number"
                 :min="5"
+                :rules="[intervalRangeRule]"
                 :label="$t('pages.settings.aniList.refreshRate')"
                 :suffix="$t('pages.settings.aniList.refreshRateSuffix')"
                 :hint="$t('pages.settings.aniList.refreshRateHint')"
@@ -56,6 +57,14 @@ export default class AniListSettings extends Vue {
   readonly session!: IAniListSession;
   readonly refreshRate!: number;
 
+  intervalRangeRule(value: string): boolean | string {
+    const valAsNumber = Number(value);
+
+    return valAsNumber && valAsNumber >= 5 && valAsNumber <= 300
+      ? true
+      : this.$t('pages.settings.aniList.refreshRateRule').toString();
+  }
+
   @Prop(String)
   tabKey!: string;
 
@@ -68,6 +77,10 @@ export default class AniListSettings extends Vue {
   }
 
   set currentAniListRefreshRate(refreshRate: number) {
+    if (!refreshRate || refreshRate < 5 || refreshRate > 300) {
+      return;
+    }
+
     this.$store.dispatch('userSettings/setRefreshRate', refreshRate);
   }
 

@@ -173,6 +173,7 @@
       "aniList": {
         "loggedInAs": "{0}として認識しました",
         "refreshRate": "更新のインターバル",
+        "refreshRateRule": "更新のインターバルは５分～５時間（５～３００分）に設定できます！",
         "refreshRateSuffix": "分",
         "refreshRateHint": "このインターバルは「AniList」のサーバーとの次の更新までの時間を決まります。変更したインターバルは次の更新から発動します。"
       },

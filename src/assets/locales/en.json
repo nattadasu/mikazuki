@@ -173,6 +173,7 @@
       "aniList": {
         "loggedInAs": "Logged in as {0}",
         "refreshRate": "Refresh rate",
+        "refreshRateRule": "The allowed interval reaches from 5 minutes to 5 hours (5 - 300 minutes)!",
         "refreshRateSuffix": "minutes",
         "refreshRateHint": "This interval determines the amount of minutes until the next synchronization with the AniList server. Changes to the interval will be applied after the next synchronization."
       },
