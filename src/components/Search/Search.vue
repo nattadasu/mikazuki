@@ -62,7 +62,7 @@
 
         <v-col
           v-for="result in searchResults"
-          :key="result.id"
+          :key="result.media.id"
           class="lg5-custom"
           cols="12"
           sm="6"
@@ -71,14 +71,9 @@
           xl="2"
         >
           <v-card raised class="ma-2">
-            <ListImage
-              :image-link="result.coverImage.extraLarge"
-              :ani-list-id="result.id"
-              :name="result.title.userPreferred"
-              :studios="result.studios"
-            />
+            <ListImage :item="result" :show-studios="true" />
 
-            <v-card-text class="py-0">
+            <!-- <v-card-text class="py-0">
               <v-row>
                 <v-col cols="4">
                   <template v-if="result.mediaListEntry">
@@ -119,9 +114,9 @@
                   {{ result.averageScore || 'n.a.' }}
                 </v-col>
               </v-row>
-            </v-card-text>
+            </v-card-text> -->
 
-            <v-card-actions class="icon-actionize">
+            <!-- <v-card-actions class="icon-actionize">
               <v-row class="pa-1">
                 <v-col class="text-center">
                   <v-icon :color="result.isWatching ? 'green' : 'grey darken-2'">
@@ -159,7 +154,7 @@
                   </v-icon>
                 </v-col>
               </v-row>
-            </v-card-actions>
+            </v-card-actions> -->
           </v-card>
         </v-col>
       </v-row>
@@ -174,7 +169,7 @@ import { mapGetters } from 'vuex';
 import AdultToolTip from '@/components/AniList/List/Elements/ListElements/AdultToolTip.vue';
 import ListImage from '@/components/AniList/List/Elements/ListElements/ListImage.vue';
 import ProgressCircle from '@/components/AniList/List/Elements/ListElements/ProgressCircle.vue';
-import { AniListListStatus, IAniListSearchResult } from '@/types';
+import { AniListListStatus, IAniListSearchResult, ZeroTwoListDataItem, IAniListMedia } from '@/types';
 import SearchFilter from '@/components/Search/Elements/Filter.vue';
 
 type IAniListExtendedSearchResult = IAniListSearchResult & {
@@ -195,14 +190,14 @@ type IAniListExtendedSearchResult = IAniListSearchResult & {
     SearchFilter,
   },
   computed: {
-    ...mapGetters(['app/isLoading']),
+    ...mapGetters('app', ['isLoading']),
   },
 })
 export default class Search extends Vue {
   readonly isLoading!: boolean;
 
   searchInput: string = '';
-  searchResults: IAniListExtendedSearchResult[] = [];
+  searchResults: ZeroTwoListDataItem[] = [];
   listValues: AniListListStatus[] = [];
   genreValues = [];
   adultContentValue = 'both';
@@ -233,33 +228,39 @@ export default class Search extends Vue {
       const results = await this.$http.searchAnime(this.searchInput, filters);
 
       this.searchResults = results.map(
-        (result): IAniListExtendedSearchResult => {
-          const object = Object.assign(
-            {},
-            {
-              isWatching: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.CURRENT,
-              isRepeating: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.REPEATING,
-              isCompleted: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.COMPLETED,
-              isDropped: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.DROPPED,
-              isPaused: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PAUSED,
-              isPlanning: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PLANNING,
-            },
-            result
-          );
+        (result): ZeroTwoListDataItem => {
+          const media = (result as any) as IAniListMedia;
+          const entry = result.mediaListEntry;
+          // const image = result.coverImage.extraLarge;
+          // const object = Object.assign(
+          //   {},
+          //   {
+          //     isWatching: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.CURRENT,
+          //     isRepeating: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.REPEATING,
+          //     isCompleted: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.COMPLETED,
+          //     isDropped: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.DROPPED,
+          //     isPaused: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PAUSED,
+          //     isPlanning: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PLANNING,
+          //   },
+          //   result
+          // );
 
           this.$store.commit('app/setLoadingState', false);
 
-          if (result.mediaListEntry) {
-            return Object.assign(
-              {},
-              {
-                progressPercentage: this.calculateProgressPercentage(result),
-              },
-              object
-            );
-          }
+          // if (result.mediaListEntry) {
+          //   return Object.assign(
+          //     {},
+          //     {
+          //       progressPercentage: this.calculateProgressPercentage(result),
+          //     },
+          //     object
+          //   );
+          // }
 
-          return object;
+          return {
+            entry,
+            media,
+          };
         }
       );
     } catch (error) {

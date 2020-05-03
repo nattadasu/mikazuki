@@ -15,10 +15,10 @@ export interface ZeroTwoListDataItem {
   /**
    * @var {Date} startDate contains the media's starting date as a Date object
    */
-  startDate: Date;
+  startDate?: Date;
 
   /**
    * @var {string} image contains the link to the media's extraLarge image
    */
-  image: string;
+  image?: string;
 }

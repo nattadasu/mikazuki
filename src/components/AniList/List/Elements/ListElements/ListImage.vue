@@ -166,12 +166,12 @@ export default class ListImage extends Vue {
 
   get mediaStatusIcon(): string {
     return this.item.media.status === AniListMediaStatus.CANCELLED
-      ? 'mdi-close'
+      ? 'mdi-cancel'
       : this.item.media.status === AniListMediaStatus.NOT_YET_RELEASED
       ? 'mdi-calendar'
       : this.item.media.status === AniListMediaStatus.RELEASING
       ? 'mdi-antenna'
-      : 'mdi-check';
+      : 'mdi-stop';
   }
 
   get mediaStatusChipColor(): string {

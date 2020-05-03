@@ -6,12 +6,14 @@ query searchAnime($query: String!, $type: MediaType!, $genres: [String], $onList
         userPreferred
       }
       averageScore
+      status
       coverImage {
         extraLarge
       }
       episodes
       nextAiringEpisode {
         episode
+        airingAt
       }
       studios(isMain: true) {
         nodes {

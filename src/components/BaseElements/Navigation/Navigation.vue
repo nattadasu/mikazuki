@@ -138,7 +138,7 @@ export default class Navigation extends Vue {
       title: 'menus.settings.title',
       location: { name: 'Settings' },
       routeName: 'Settings',
-      icon: 'mdi-cog',
+      icon: 'mdi-cogs',
     },
   ];
 
