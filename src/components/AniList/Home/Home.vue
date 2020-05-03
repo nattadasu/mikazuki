@@ -291,7 +291,7 @@ export default class Home extends Vue {
           const index = relevantItems.findIndex((item) => {
             return moment(item.date, 'X').isAfter(checkDate);
           });
-          if (index <= 0) {
+          if (index > 0) {
             dateSubstract++;
             continue;
           }

@@ -8,7 +8,7 @@ export default (router: VueRouter): void => {
     // requires the user to be unauthorized, we want to prevent the user
     // from going there.
     if (to.meta.requireUnauthorizedState && isAuthenticated) {
-      if (from.name === null) {
+      if (from.meta.requireUnauthorizedState) {
         next({ name: 'Home' });
       } else {
         next(false);
