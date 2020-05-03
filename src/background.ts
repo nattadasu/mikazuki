@@ -1,4 +1,5 @@
-import { app, protocol, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow, ipcMain } from 'electron';
+import path from 'path';
 import {
   createProtocol,
   /* installVueDevtools */
@@ -90,3 +91,11 @@ if (isDevelopment) {
     });
   }
 }
+
+ipcMain.on('start-login-procedure', (event, url: string) => {
+  if (!win) {
+    return;
+  }
+
+  win.loadURL(url);
+});

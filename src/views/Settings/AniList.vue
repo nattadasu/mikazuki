@@ -41,6 +41,7 @@
 </template>
 
 <script lang="ts">
+import { ipcRenderer } from 'electron';
 import { format } from 'url';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
@@ -95,7 +96,11 @@ export default class AniListSettings extends Vue {
       };
       const url = format(`${oauthConfig.authorizationUrl}?client_id=${oauthConfig.clientId}&response_type=token`);
 
-      window.open(url, '_self');
+      if (!process.env.IS_ELECTRON) {
+        window.open(url, '_self');
+      } else {
+        ipcRenderer.send('start-login-procedure', url);
+      }
     }
   }
 

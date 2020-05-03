@@ -8,6 +8,18 @@ module.exports = {
       localeDir: 'assets/locales',
       enableInSFC: false,
     },
+    electronBuilder: {
+      customFileProtocol: 'mikazuki://./',
+      builderOptions: {
+        appId: 'nicoaiko.mikazuki.moe',
+        mac: {
+          category: 'public.app-category.utilities',
+        },
+        linux: {
+          category: 'Utility',
+        },
+      },
+    },
   },
   chainWebpack(config) {
     config.module
