@@ -1,4 +1,4 @@
-import { app, protocol, BrowserWindow, ipcMain } from 'electron';
+import { app, protocol, BrowserWindow, ipcMain, Menu, shell, MenuItem } from 'electron';
 import path from 'path';
 import {
   createProtocol,
@@ -24,6 +24,31 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
+
+  win.removeMenu();
+  if (process.platform === 'darwin') {
+    const menuTemplate = [
+      {
+        label: app.name,
+        submenu: [{ role: 'quit' }],
+      },
+      {
+        role: 'help',
+        submenu: [
+          {
+            label: 'Mikazuki Repository',
+            click: async () => {
+              await shell.openExternal('https://github.com/nicoaiko/mikazuki');
+            },
+          },
+        ],
+      },
+    ];
+
+    // @ts-ignore
+    const menu = Menu.buildFromTemplate(menuTemplate);
+    Menu.setApplicationMenu(menu);
+  }
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
