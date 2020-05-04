@@ -32,7 +32,7 @@ jobs:
         VUE_APP_CLIENT_ID: ${{ secrets.ANILIST_CLIENT_ID }}
         VUE_APP_REDIRECT_HOST: ${{ secrets.ANILIST_REDIRECT_HOST }}
         VUE_APP_I18N_FALLBACK_LOCALE: 'en'
-        
+
   publish:
     needs: build
     runs-on: ubuntu-latest
@@ -40,13 +40,17 @@ jobs:
     steps:
       - uses: actions/upload-artifact@v2
         with:
-          path: dist_electron/*.dmg
-      - uses: actions/upload-artifact@v2
-        with:
-          path: dist_electron/*.snap
-      - uses: actions/upload-artifact@v2
-        with:
-          path: dist_electron/*.AppImage
-      - uses: actions/upload-artifact@v2
-        with:
-          path: dist_electron/*.exe
+          path: ${{ github.workspace }}/dist_electron/*
+    # steps:
+    #   - uses: actions/upload-artifact@v2
+    #     with:
+    #       path: ${{ github.workspace }}/dist_electron/*.dmg
+    #   - uses: actions/upload-artifact@v2
+    #     with:
+    #       path: ${{ github.workspace }}/dist_electron/*.snap
+    #   - uses: actions/upload-artifact@v2
+    #     with:
+    #       path: ${{ github.workspace }}/dist_electron/*.AppImage
+    #   - uses: actions/upload-artifact@v2
+    #     with:
+    #       path: ${{ github.workspace }}/dist_electron/*.exe
