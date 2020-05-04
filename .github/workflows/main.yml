@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Electron-Build
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    tags:
+      - '*'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    name: Build on node 12 and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v1.4.2
+      with:
+        node-version: '12.x'
+
+    - name: npm install and build
+      run: |
+        npm install
+        npm run electron:build
+      env:
+        VUE_APP_CLIENT_ID: ${{ secrets.ANILIST_CLIENT_ID }}
+        VUE_APP_REDIRECT_HOST: ${{ secrets.ANILIST_REDIRECT_HOST }}
+        VUE_APP_I18N_FALLBACK_LOCALE: 'en'
+        
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Publish as new version
+    steps:
+      - uses: actions/upload-artifact@v2
+        with:
+          path: dist_electron/*.dmg
+      - uses: actions/upload-artifact@v2
+        with:
+          path: dist_electron/*.snap
+      - uses: actions/upload-artifact@v2
+        with:
+          path: dist_electron/*.AppImage
+      - uses: actions/upload-artifact@v2
+        with:
+          path: dist_electron/*.exe
