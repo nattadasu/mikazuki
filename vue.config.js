@@ -12,6 +12,7 @@ module.exports = {
       customFileProtocol: 'mikazuki://./',
       builderOptions: {
         appId: 'nicoaiko.mikazuki.moe',
+        publish: 'never',
         mac: {
           category: 'public.app-category.utilities',
         },
