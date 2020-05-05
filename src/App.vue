@@ -1,7 +1,12 @@
 <template>
   <v-app id="app">
-    <Navigation />
-    <router-view :key="$route.path" />
+    <!-- <Navigation /> -->
+    <navigation-drawer />
+
+    <transition name="fade" mode="out-in">
+      <router-view :key="$route.path" />
+    </transition>
+
     <ZeroTwoNotifications position="top center" />
     <TopButton />
   </v-app>
@@ -17,10 +22,12 @@ import { refreshTimer } from '@/plugins/refreshTimer';
 import Navigation from '@/components/Navigation.vue';
 import TopButton from '@/components/TopButton.vue';
 import ZeroTwoNotifications from '@/components/Notifications.vue';
+import NavigationDrawer from '@/components/NavigationDrawer.vue';
 
 @Component({
   components: {
     Navigation,
+    NavigationDrawer,
     TopButton,
     ZeroTwoNotifications,
   },
@@ -138,3 +145,14 @@ export default class App extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
