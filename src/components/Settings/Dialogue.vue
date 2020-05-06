@@ -8,6 +8,8 @@
           <div class="grid-menu">
             <v-btn
               block
+              small
+              rounded
               elevation="0"
               :outlined="activeSettingComponent !== item.identifier"
               color="primary"
