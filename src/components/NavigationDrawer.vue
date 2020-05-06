@@ -6,6 +6,7 @@
     :right="$vuetify.rtl"
     :permanent="true"
     :src="userBackground"
+    :style="customStyling"
   >
     <v-list dense nav>
       <v-list-item two-line class="px-0">
@@ -24,7 +25,7 @@
 
       <v-divider class="my-2" />
 
-      <v-list-item-group v-model="item" color="white">
+      <v-list-item-group v-model="item" :color="listItemHighlightColor">
         <template v-for="(item, index) in menuItems">
           <v-divider v-if="item.title === 'divider'" :key="index" class="my-2" />
 
@@ -39,6 +40,16 @@
           </v-list-item>
         </template>
       </v-list-item-group>
+
+      <v-list-item @click="settingsDialogSynced = !settingsDialogSynced">
+        <v-list-item-icon>
+          <v-icon>mdi-cogs</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-title>
+          {{ $t('menus.settings.title') }}
+        </v-list-item-title>
+      </v-list-item>
     </v-list>
 
     <template #append>
@@ -70,9 +81,15 @@ interface NavigationItem {
 }
 
 export default Vue.extend({
+  props: {
+    settingsDialog: Boolean,
+  },
   computed: {
-    ...mapGetters('userSettings', ['isAuthenticated']),
-    ...mapGetters('userSettings', ['session']),
+    ...mapGetters('app', ['navigationDrawerListItemColor', 'navigationDrawerBackgroundBrightness']),
+    ...mapGetters('userSettings', ['isAuthenticated', 'session']),
+    listItemHighlightColor(): string | undefined {
+      return this.navigationDrawerListItemColor === 'auto' ? undefined : this.navigationDrawerListItemColor;
+    },
     userBackground(): string {
       return (this.session as IAniListSession).user.bannerImage ?? '';
     },
@@ -92,6 +109,19 @@ export default Vue.extend({
         .padStart(2, '0');
 
       return `${hours && hours !== '00' ? `${hours}:` : ''}${minutes}:${seconds}`;
+    },
+    customStyling() {
+      return {
+        '--brightness': `${this.navigationDrawerBackgroundBrightness}%`,
+      };
+    },
+    settingsDialogSynced: {
+      get() {
+        return this.settingsDialog;
+      },
+      set(value) {
+        this.$emit('update:settings-dialog', value);
+      },
     },
   },
   data() {
@@ -174,7 +204,7 @@ export default Vue.extend({
 
 <style lang="scss">
 .v-navigation-drawer__image {
-  -webkit-filter: blur(12px) brightness(75%);
-  filter: blur(12px) brightness(75%);
+  -webkit-filter: blur(12px) brightness(var(--brightness));
+  filter: blur(12px) brightness(var(--brightness));
 }
 </style>

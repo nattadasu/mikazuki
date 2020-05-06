@@ -10,6 +10,8 @@ export interface AppState {
   _locale: string;
   _darkMode: boolean;
   _loading: boolean;
+  _navigationDrawerListItemColor: string;
+  _navigationDrawerBackgroundBrightness: number;
 }
 
 export interface UserSettingsState {
