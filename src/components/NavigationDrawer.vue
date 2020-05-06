@@ -57,9 +57,10 @@
 <script lang="ts">
 import { shell } from 'electron';
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
-import { IAniListSession } from '../types';
 import { RawLocation } from 'vue-router';
+import { mapGetters } from 'vuex';
+import { refreshTimer, RefreshTimer } from '@/plugins/refreshTimer';
+import { IAniListSession } from '@/types';
 
 interface NavigationItem {
   title: string | 'divider';
@@ -80,6 +81,17 @@ export default Vue.extend({
     },
     userName(): string {
       return (this.session as IAniListSession).user.name ?? '-/-';
+    },
+    timerText(): string {
+      const seconds = (refreshTimer.timeUntilRefresh % 60).toString().padStart(2, '0');
+      const minutes = Math.floor((refreshTimer.timeUntilRefresh / 60) % 60)
+        .toString()
+        .padStart(2, '0');
+      const hours = Math.floor(refreshTimer.timeUntilRefresh / 3600)
+        .toString()
+        .padStart(2, '0');
+
+      return `${hours && hours !== '00' ? `${hours}:` : ''}${minutes}:${seconds}`;
     },
   },
   data() {
@@ -144,7 +156,6 @@ export default Vue.extend({
     ];
 
     return {
-      timerText: '10 min.',
       menuItems,
       item: 0,
     };
