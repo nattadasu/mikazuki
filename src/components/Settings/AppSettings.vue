@@ -5,24 +5,27 @@
       <v-col cols="5">
         <v-switch v-model="_darkMode" :label="$t('pages.settings.appSettings.darkMode')" />
 
-        <h3>Color of active item in Navigation</h3>
+        <h3>{{ $t('pages.settings.appSettings.navigationActiveItemColour') }}</h3>
         <v-chip-group v-model="_navigationDrawerListItemColor" column mandatory active-class="primary--text">
           <v-chip small value="auto">
             <v-icon left small :color="darkMode ? 'white' : 'black'" v-text="'mdi-circle'" />
-            Automatic
+            {{ $t('misc.colours.automatic') }}
           </v-chip>
           <v-chip small value="black">
             <v-icon left small color="black" v-text="'mdi-circle'" />
-            Black
+            {{ $t('misc.colours.black') }}
           </v-chip>
           <v-chip small value="white">
             <v-icon left small color="white" v-text="'mdi-circle'" />
-            White
+            {{ $t('misc.colours.white') }}
           </v-chip>
         </v-chip-group>
 
-        <h3>Navigation Background Brightness</h3>
+        <h3>{{ $t('pages.settings.appSettings.navigationBackgroundBrightness') }}</h3>
         <v-slider thumb-label inverse-label :label="`${_brightness}%`" v-model="_brightness" :min="0" :max="100" />
+
+        <h3>{{ $t('pages.settings.appSettings.navigationBackgroundBlurriness') }}</h3>
+        <v-slider thumb-label inverse-label :label="`${_blurriness}px`" v-model="_blurriness" :min="0" :max="20" />
       </v-col>
 
       <v-col cols="7">
@@ -48,6 +51,7 @@ import { mapGetters } from 'vuex';
       'language',
       'navigationDrawerListItemColor',
       'navigationDrawerBackgroundBrightness',
+      'navigationDrawerBackgroundBlurriness',
     ]),
   },
 })
@@ -56,6 +60,7 @@ export default class AppSettings extends Vue {
   readonly language!: string;
   readonly navigationDrawerListItemColor!: string;
   readonly navigationDrawerBackgroundBrightness!: number;
+  readonly navigationDrawerBackgroundBlurriness!: number;
 
   get _darkMode(): boolean {
     return this.darkMode;
@@ -82,6 +87,20 @@ export default class AppSettings extends Vue {
 
     this.$data._updateTimer = setTimeout(() => {
       this.$store.commit('app/setNavigationDrawerBackgroundBrightness', value);
+    }, 250);
+  }
+
+  _blurUpdateTimer: NodeJS.Timeout | null = null;
+  get _blurriness(): number {
+    return this.navigationDrawerBackgroundBlurriness;
+  }
+  set _blurriness(value: number) {
+    if (this.$data._blurUpdateTimer) {
+      clearTimeout(this.$data._blurUpdateTimer);
+    }
+
+    this.$data._blurUpdateTimer = setTimeout(() => {
+      this.$store.commit('app/setNavigationDrawerBackgroundBlurriness', value);
     }, 250);
   }
 

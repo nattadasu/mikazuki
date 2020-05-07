@@ -41,6 +41,8 @@
         </template>
       </v-list-item-group>
 
+      <v-divider class="my-2" />
+
       <v-list-item @click="settingsDialogSynced = !settingsDialogSynced">
         <v-list-item-icon>
           <v-icon>mdi-cogs</v-icon>
@@ -85,7 +87,11 @@ export default Vue.extend({
     settingsDialog: Boolean,
   },
   computed: {
-    ...mapGetters('app', ['navigationDrawerListItemColor', 'navigationDrawerBackgroundBrightness']),
+    ...mapGetters('app', [
+      'navigationDrawerListItemColor',
+      'navigationDrawerBackgroundBrightness',
+      'navigationDrawerBackgroundBlurriness',
+    ]),
     ...mapGetters('userSettings', ['isAuthenticated', 'session']),
     listItemHighlightColor(): string | undefined {
       return this.navigationDrawerListItemColor === 'auto' ? undefined : this.navigationDrawerListItemColor;
@@ -113,6 +119,7 @@ export default Vue.extend({
     customStyling() {
       return {
         '--brightness': `${this.navigationDrawerBackgroundBrightness}%`,
+        '--blurriness': `${this.navigationDrawerBackgroundBlurriness}px`,
       };
     },
     settingsDialogSynced: {
@@ -137,12 +144,6 @@ export default Vue.extend({
         location: { name: 'SeasonPreview' },
         routeName: 'SeasonPreview',
         icon: 'mdi-calendar-month',
-      },
-      {
-        title: 'menus.settings.title',
-        location: { name: 'Settings' },
-        routeName: 'Settings',
-        icon: 'mdi-cogs',
       },
       {
         title: 'divider',
@@ -204,7 +205,7 @@ export default Vue.extend({
 
 <style lang="scss">
 .v-navigation-drawer__image {
-  -webkit-filter: blur(12px) brightness(var(--brightness));
-  filter: blur(12px) brightness(var(--brightness));
+  -webkit-filter: blur(var(--blurriness)) brightness(var(--brightness));
+  filter: blur(var(--blurriness)) brightness(var(--brightness));
 }
 </style>

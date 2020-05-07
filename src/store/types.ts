@@ -12,6 +12,7 @@ export interface AppState {
   _loading: boolean;
   _navigationDrawerListItemColor: string;
   _navigationDrawerBackgroundBrightness: number;
+  _navigationDrawerBackgroundBlurriness: number;
 }
 
 export interface UserSettingsState {

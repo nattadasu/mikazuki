@@ -7,6 +7,7 @@ const state: AppState = {
   _loading: false,
   _navigationDrawerListItemColor: 'auto',
   _navigationDrawerBackgroundBrightness: 75,
+  _navigationDrawerBackgroundBlurriness: 0,
 };
 
 const getters: GetterTree<AppState, RootState> = {
@@ -25,6 +26,9 @@ const getters: GetterTree<AppState, RootState> = {
   navigationDrawerBackgroundBrightness(state): number {
     return state._navigationDrawerBackgroundBrightness;
   },
+  navigationDrawerBackgroundBlurriness(state): number {
+    return state._navigationDrawerBackgroundBlurriness;
+  },
 };
 
 const mutations: MutationTree<AppState> = {
@@ -42,6 +46,9 @@ const mutations: MutationTree<AppState> = {
   },
   setNavigationDrawerBackgroundBrightness(state, payload: number) {
     state._navigationDrawerBackgroundBrightness = payload;
+  },
+  setNavigationDrawerBackgroundBlurriness(state, payload: number) {
+    state._navigationDrawerBackgroundBlurriness = payload;
   },
 };
 
