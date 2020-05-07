@@ -1,13 +1,13 @@
 <template>
   <v-content>
+    <v-progress-linear absolute v-if="isLoading" indeterminate />
     <List :status="status" />
   </v-content>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
-// Custom Components
+import { mapGetters } from 'vuex';
 import List from '@/components/AniList/List.vue';
 import EventBus from '@/eventBus';
 import { AniListListStatus } from '@/types';
@@ -16,16 +16,12 @@ import { AniListListStatus } from '@/types';
   components: {
     List,
   },
-  beforeRouteUpdate(to, from, next) {
-    EventBus.$emit('resetAllSorts');
-    next();
-  },
-  beforeRouteLeave(to, from, next) {
-    EventBus.$emit('resetAllSorts');
-    next();
+  computed: {
+    ...mapGetters('app', ['isLoading']),
   },
 })
 export default class AniList extends Vue {
+  readonly isLoading!: boolean;
   status!: AniListListStatus;
 
   created() {
