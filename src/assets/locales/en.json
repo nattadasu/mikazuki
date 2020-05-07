@@ -178,8 +178,11 @@
         "refreshRateHint": "This interval determines the amount of minutes until the next synchronization with the AniList server. Changes to the interval will be applied after the next synchronization."
       },
       "appSettings": {
-        "chooseLanguage": "Choose language",
-        "darkMode": "Dark mode"
+        "chooseLanguage": "App language",
+        "darkMode": "Dark mode",
+        "navigationActiveItemColour": "Active Navigation item colour",
+        "navigationBackgroundBrightness": "Navigation Background Brightness",
+        "navigationBackgroundBlurriness": "Navigation Background Blurriness"
       },
       "changelog": {
         "new": "NEW",
@@ -232,7 +235,18 @@
         "fall": "Fall",
         "autumn": "Autumn",
         "winter": "Winter"
+      },
+      "mediaStatus": {
+        "finished": "FINISHED",
+        "releasing": "RELEASING",
+        "not_yet_released": "NOT YET RELEASED",
+        "cancelled": "CANCELLED"
       }
+    },
+    "colours": {
+      "automatic": "Automatic",
+      "black": "Black",
+      "white": "White"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",

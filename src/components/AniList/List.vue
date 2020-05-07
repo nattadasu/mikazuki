@@ -1,6 +1,11 @@
 <template>
   <v-container fluid class="py-0 px-1">
-    <v-row no-gutters>
+    <v-row dense>
+      <v-col v-for="item in slicedListData" :key="item.id" cols="12" sm="6" md="4" lg="3" xl="2">
+        <item :item="item" :session="session" :status="status" />
+      </v-col>
+    </v-row>
+    <!-- <v-row no-gutters>
       <v-col v-show="isLoading" cols="12" align-self="center">
         <div class="display-3 text-center ma-6">
           {{ $t('actions.loading') }}
@@ -57,7 +62,7 @@
       <v-snackbar v-model="isSnackbarVisible" top :color="snackbarColor" :timeout="3500">
         {{ snackbarText }}
       </v-snackbar>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 
@@ -73,6 +78,7 @@ import {
   IAniListEntry,
   IAniListSession,
   IAniListMediaListCollection,
+  IAniListMedia,
 } from '@/types';
 import aniListEventHandler from '@/plugins/AniList/eventHandler';
 import AdultToolTip from './ListElements/AdultToolTip.vue';
@@ -81,6 +87,8 @@ import ListImage from './ListElements/ListImage.vue';
 import MissingEpisodes from './ListElements/MissingEpisodes.vue';
 import ProgressCircle from './ListElements/ProgressCircle.vue';
 import StarRating from './ListElements/StarRating.vue';
+
+import Item from './ListElements/Item.vue';
 
 interface UpdatePayloadProperties {
   id: number | null;
@@ -99,6 +107,7 @@ interface UpdatePayloadProperties {
     MissingEpisodes,
     ProgressCircle,
     StarRating,
+    Item,
   },
   computed: {
     ...mapGetters('app', ['isLoading']),
@@ -108,7 +117,7 @@ interface UpdatePayloadProperties {
 })
 export default class List extends Vue {
   // TODO: Make this a non-static number via Store
-  startAmount: number = 20;
+  startAmount: number = 100;
 
   currentIndex: number = 0;
 
@@ -135,82 +144,99 @@ export default class List extends Vue {
   readonly isLoading!: boolean;
   readonly aniListData!: IAniListMediaListCollection;
 
-  @Prop()
-  readonly status!: AniListListStatus;
+  @Prop(String) readonly status!: AniListListStatus;
 
   get ratingStarAmount(): number {
     return this.session.user.mediaListOptions.scoreFormat === AniListScoreFormat.POINT_3 ? 3 : 5;
   }
 
-  get listData() {
+  get listData(): IAniListEntry[] {
     if (!this.aniListData.lists.length) {
       return [];
     }
 
-    const listElement = this.aniListData.lists.find((list) => list.status === this.status);
+    const list = this.aniListData.lists.find((tmp) => tmp.status === this.status);
 
-    if (!listElement) {
+    if (!list) {
       return [];
     }
 
-    let newEntries = listElement.entries.map((entry) => {
-      const { media } = entry;
-      const scoreStars = this.getScoreStarValue(entry.score);
-      const imageLink = media.coverImage.extraLarge;
-
-      const nextEpisode = media.nextAiringEpisode
-        ? this.$root.$t('pages.aniList.list.nextAiringEpisode', [
-            media.nextAiringEpisode.episode,
-            moment(media.nextAiringEpisode.airingAt, 'X').fromNow(),
-          ])
-        : null;
-      const progressPercentage = this.calculateProgressPercentage(entry);
-      const missingEpisodes = this.calculateMissingEpisodes(entry);
-
-      const { year, month, day } = entry.media.startDate;
-
-      return {
-        aniListId: media.id,
-        currentProgress: entry.progress,
-        entry,
-        episodeAmount: media.episodes || '?',
-        forAdults: media.isAdult,
-        genres: media.genres,
-        id: entry.id,
-        imageLink,
-        mediaStatus: media.status,
-        missingEpisodes,
-        nextAiringEpisode: media.nextAiringEpisode,
-        nextEpisode,
-        progressPercentage,
-        score: entry.score,
-        scoreStars,
-        startDate: new Date(year, month, day),
-        status: entry.status,
-        studios: media.studios,
-        title: media.title.userPreferred,
-      };
-    });
-
-    const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
-
-    // @TODO: Give entry a type!
-    const filterGenres = (entry: any): boolean => {
-      if (!this.genreFilters.length) {
-        return true;
-      }
-
-      return this.genreFilters.every((genre) => includes(entry.genres, genre));
-    };
-
-    newEntries = chain(newEntries)
-      .filter(filterGenres)
-      .orderBy((entry) => get(entry, this.sortBy), [sortDirection])
-      .slice(0, this.startAmount + this.currentIndex)
-      .value();
-
-    return newEntries;
+    return list.entries;
   }
+
+  get slicedListData(): IAniListEntry[] {
+    return this.listData.slice(0, (this.currentIndex + 1) * this.startAmount);
+  }
+
+  // get listData() {
+  //   if (!this.aniListData.lists.length) {
+  //     return [];
+  //   }
+
+  //   const listElement = this.aniListData.lists.find((list) => list.status === this.status);
+
+  //   if (!listElement) {
+  //     return [];
+  //   }
+
+  //   let newEntries = listElement.entries.map((entry) => {
+  //     const { media } = entry;
+  //     const scoreStars = this.getScoreStarValue(entry.score);
+  //     const imageLink = media.coverImage.large;
+
+  //     const nextEpisode = media.nextAiringEpisode
+  //       ? this.$root.$t('pages.aniList.list.nextAiringEpisode', [
+  //           media.nextAiringEpisode.episode,
+  //           moment(media.nextAiringEpisode.airingAt, 'X').fromNow(),
+  //         ])
+  //       : null;
+  //     const progressPercentage = this.calculateProgressPercentage(entry);
+  //     const missingEpisodes = this.calculateMissingEpisodes(entry);
+
+  //     const { year, month, day } = entry.media.startDate;
+
+  //     return {
+  //       aniListId: media.id,
+  //       currentProgress: entry.progress,
+  //       entry,
+  //       episodeAmount: media.episodes || '?',
+  //       forAdults: media.isAdult,
+  //       genres: media.genres,
+  //       id: entry.id,
+  //       imageLink,
+  //       mediaStatus: media.status,
+  //       missingEpisodes,
+  //       nextAiringEpisode: media.nextAiringEpisode,
+  //       nextEpisode,
+  //       progressPercentage,
+  //       score: entry.score,
+  //       scoreStars,
+  //       startDate: new Date(year, month, day),
+  //       status: entry.status,
+  //       studios: media.studios,
+  //       title: media.title.userPreferred,
+  //     };
+  //   });
+
+  //   const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
+
+  //   // @TODO: Give entry a type!
+  //   const filterGenres = (entry: any): boolean => {
+  //     if (!this.genreFilters.length) {
+  //       return true;
+  //     }
+
+  //     return this.genreFilters.every((genre) => includes(entry.genres, genre));
+  //   };
+
+  //   newEntries = chain(newEntries)
+  //     .filter(filterGenres)
+  //     .orderBy((entry) => get(entry, this.sortBy), [sortDirection])
+  //     .slice(0, this.startAmount + this.currentIndex)
+  //     .value();
+
+  //   return newEntries;
+  // }
 
   async created() {
     // Infinite Scrolling
@@ -232,203 +258,203 @@ export default class List extends Vue {
     });
   }
 
-  getScoreStarValue(score: number): number {
-    if (!score) {
-      return 0;
-    }
+  // getScoreStarValue(score: number): number {
+  //   if (!score) {
+  //     return 0;
+  //   }
 
-    const userScoringSystem = this.session.user.mediaListOptions.scoreFormat;
+  //   const userScoringSystem = this.session.user.mediaListOptions.scoreFormat;
 
-    switch (userScoringSystem) {
-      case AniListScoreFormat.POINT_100:
-        return score / 20;
-      case AniListScoreFormat.POINT_10_DECIMAL:
-      case AniListScoreFormat.POINT_10:
-        return score / 2;
-      case AniListScoreFormat.POINT_5:
-      case AniListScoreFormat.POINT_3:
-        return score;
-      default:
-        return 0;
-    }
-  }
+  //   switch (userScoringSystem) {
+  //     case AniListScoreFormat.POINT_100:
+  //       return score / 20;
+  //     case AniListScoreFormat.POINT_10_DECIMAL:
+  //     case AniListScoreFormat.POINT_10:
+  //       return score / 2;
+  //     case AniListScoreFormat.POINT_5:
+  //     case AniListScoreFormat.POINT_3:
+  //       return score;
+  //     default:
+  //       return 0;
+  //   }
+  // }
 
-  calculateProgressPercentage(entry: IAniListEntry): number {
-    const { episodes } = entry.media;
-    const { nextAiringEpisode } = entry.media;
-    const currentProgress = entry.progress;
+  // calculateProgressPercentage(entry: IAniListEntry): number {
+  //   const { episodes } = entry.media;
+  //   const { nextAiringEpisode } = entry.media;
+  //   const currentProgress = entry.progress;
 
-    if (!currentProgress) {
-      return 0;
-    }
+  //   if (!currentProgress) {
+  //     return 0;
+  //   }
 
-    // Check if max episode amount is known
-    if (episodes) {
-      return (currentProgress / episodes) * 100;
-    }
+  //   // Check if max episode amount is known
+  //   if (episodes) {
+  //     return (currentProgress / episodes) * 100;
+  //   }
 
-    // We don't know the exact amount of episodes
-    // But we might know how many episodes have been aired so far
-    // so we can calculate the percentage of the currently available episodes
-    // and then add some buffer
-    if (nextAiringEpisode && nextAiringEpisode.episode) {
-      // We have to substract one here as that episode isn't aired yet
-      const episode = nextAiringEpisode.episode - 1 > 0 ? nextAiringEpisode.episode - 1 : 1;
+  //   // We don't know the exact amount of episodes
+  //   // But we might know how many episodes have been aired so far
+  //   // so we can calculate the percentage of the currently available episodes
+  //   // and then add some buffer
+  //   if (nextAiringEpisode && nextAiringEpisode.episode) {
+  //     // We have to substract one here as that episode isn't aired yet
+  //     const episode = nextAiringEpisode.episode - 1 > 0 ? nextAiringEpisode.episode - 1 : 1;
 
-      // We choose only 80 percent here, as we are unaware of the episode amount
-      return (currentProgress / episode) * 80;
-    }
+  //     // We choose only 80 percent here, as we are unaware of the episode amount
+  //     return (currentProgress / episode) * 80;
+  //   }
 
-    // Just return 75% if we have a non-zero progress but
-    // neither through the next airing episode nor through the episode amount
-    // we can determine our status.
-    return 75;
-  }
+  //   // Just return 75% if we have a non-zero progress but
+  //   // neither through the next airing episode nor through the episode amount
+  //   // we can determine our status.
+  //   return 75;
+  // }
 
-  calculateMissingEpisodes(entry: IAniListEntry): number | null {
-    const { nextAiringEpisode } = entry.media;
-    const currentProgress = entry.progress;
+  // calculateMissingEpisodes(entry: IAniListEntry): number | null {
+  //   const { nextAiringEpisode } = entry.media;
+  //   const currentProgress = entry.progress;
 
-    // We don't care about episodes that are not airing anymore.
-    if (!nextAiringEpisode) {
-      return null;
-    }
+  //   // We don't care about episodes that are not airing anymore.
+  //   if (!nextAiringEpisode) {
+  //     return null;
+  //   }
 
-    const nextEpisode = nextAiringEpisode.episode;
+  //   const nextEpisode = nextAiringEpisode.episode;
 
-    // Return the amount of episodes only when there are next episodes
-    // and if there are episodes the user hasn't watched yet.
-    return nextEpisode - 1 > 0 && nextEpisode - 1 - currentProgress > 0 ? nextEpisode - 1 - currentProgress : null;
-  }
+  //   // Return the amount of episodes only when there are next episodes
+  //   // and if there are episodes the user hasn't watched yet.
+  //   return nextEpisode - 1 > 0 && nextEpisode - 1 - currentProgress > 0 ? nextEpisode - 1 - currentProgress : null;
+  // }
 
-  increaseCurrentEpisodeProgress(entryId: number): void {
-    const listEntry = this.listData.find((entry) => entry.id === entryId);
+  // increaseCurrentEpisodeProgress(entryId: number): void {
+  //   const listEntry = this.listData.find((entry) => entry.id === entryId);
 
-    if (!listEntry) {
-      return;
-    }
+  //   if (!listEntry) {
+  //     return;
+  //   }
 
-    const { currentProgress, episodeAmount } = listEntry;
-    if (currentProgress + 1 >= episodeAmount) {
-      listEntry.status = AniListListStatus.COMPLETED;
-      listEntry.currentProgress++;
-    } else {
-      listEntry.currentProgress++;
-    }
+  //   const { currentProgress, episodeAmount } = listEntry;
+  //   if (currentProgress + 1 >= episodeAmount) {
+  //     listEntry.status = AniListListStatus.COMPLETED;
+  //     listEntry.currentProgress++;
+  //   } else {
+  //     listEntry.currentProgress++;
+  //   }
 
-    this.startUpdateTimer(listEntry);
-  }
+  //   this.startUpdateTimer(listEntry);
+  // }
 
-  startUpdateTimer(listEntry: any) {
-    if (this.updateTimer) {
-      clearTimeout(this.updateTimer);
-    }
+  // startUpdateTimer(listEntry: any) {
+  //   if (this.updateTimer) {
+  //     clearTimeout(this.updateTimer);
+  //   }
 
-    const now = Date.now();
-    const entry = {
-      id: listEntry.id,
-      mediaId: listEntry.aniListId,
-      title: listEntry.title,
-      progress: listEntry.currentProgress,
-      status: listEntry.status,
-      score: listEntry.score,
-      changeFrom: now,
-    };
+  //   const now = Date.now();
+  //   const entry = {
+  //     id: listEntry.id,
+  //     mediaId: listEntry.aniListId,
+  //     title: listEntry.title,
+  //     progress: listEntry.currentProgress,
+  //     status: listEntry.status,
+  //     score: listEntry.score,
+  //     changeFrom: now,
+  //   };
 
-    this.updatePayload.push(entry);
-    this.updateTimer = setTimeout(this.updateChanges, this.updateInterval) as any;
-  }
+  //   this.updatePayload.push(entry);
+  //   this.updateTimer = setTimeout(this.updateChanges, this.updateInterval) as any;
+  // }
 
-  async updateChanges() {
-    if (isEmpty(this.updatePayload)) {
-      return;
-    }
+  // async updateChanges() {
+  //   if (isEmpty(this.updatePayload)) {
+  //     return;
+  //   }
 
-    const entries = chain(this.updatePayload)
-      .groupBy((value) => value.id)
-      .map((group) =>
-        reduce(
-          group,
-          (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) =>
-            item.changeFrom > accumulator.changeFrom ? item : accumulator,
-          {
-            id: null,
-            title: null,
-            status: null,
-            progress: null,
-            score: null,
-            changeFrom: 0,
-          }
-        )
-      )
-      .filter((group) => !!group.id)
-      .map(async (entry) => {
-        const { id, status, progress, score } = entry;
+  //   const entries = chain(this.updatePayload)
+  //     .groupBy((value) => value.id)
+  //     .map((group) =>
+  //       reduce(
+  //         group,
+  //         (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) =>
+  //           item.changeFrom > accumulator.changeFrom ? item : accumulator,
+  //         {
+  //           id: null,
+  //           title: null,
+  //           status: null,
+  //           progress: null,
+  //           score: null,
+  //           changeFrom: 0,
+  //         }
+  //       )
+  //     )
+  //     .filter((group) => !!group.id)
+  //     .map(async (entry) => {
+  //       const { id, status, progress, score } = entry;
 
-        if (!id || progress === null) {
-          return;
-        }
+  //       if (!id || progress === null) {
+  //         return;
+  //       }
 
-        let completedAt = undefined;
-        if (status === AniListListStatus.COMPLETED) {
-          const now = new Date();
-          completedAt = {
-            year: now.getUTCFullYear(),
-            month: now.getUTCMonth() + 1,
-            day: now.getUTCDate(),
-          };
-        }
+  //       let completedAt = undefined;
+  //       if (status === AniListListStatus.COMPLETED) {
+  //         const now = new Date();
+  //         completedAt = {
+  //           year: now.getUTCFullYear(),
+  //           month: now.getUTCMonth() + 1,
+  //           day: now.getUTCDate(),
+  //         };
+  //       }
 
-        return this.$http.updateEntry({
-          entryId: id,
-          progress,
-          status: status ? status : undefined,
-          score: score ? score : undefined,
-          completedAt,
-        });
-      })
-      .value();
+  //       return this.$http.updateEntry({
+  //         entryId: id,
+  //         progress,
+  //         status: status ? status : undefined,
+  //         score: score ? score : undefined,
+  //         completedAt,
+  //       });
+  //     })
+  //     .value();
 
-    if (isEmpty(entries)) {
-      return;
-    }
+  //   if (isEmpty(entries)) {
+  //     return;
+  //   }
 
-    entries.push(aniListEventHandler.refreshLists());
+  //   entries.push(aniListEventHandler.refreshLists());
 
-    Promise.all(entries)
-      .then(() => {
-        let updateText = '';
-        chain(this.updatePayload)
-          .groupBy((value) => value.id)
-          .map((group) =>
-            reduce(
-              group,
-              (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) =>
-                item.changeFrom > accumulator.changeFrom ? item : accumulator,
-              {
-                id: null,
-                title: null,
-                status: null,
-                progress: null,
-                score: null,
-                changeFrom: 0,
-              }
-            )
-          )
-          .filter((group) => !!group.id)
-          .forEach((item) => {
-            updateText = item.status === AniListListStatus.COMPLETED ? 'completeUpdateText' : 'simpleUpdateText';
-            this.$notify({
-              title: this.$t('notifications.aniList.successTitle') as string,
-              text: this.$t(`notifications.aniList.${updateText}`, [item.title, item.progress]) as string,
-            });
-          });
-      })
-      .catch((error) => console.error(error)) // eslint-disable-line no-console
-      .finally(() => {
-        this.updatePayload = [];
-      });
-  }
+  //   Promise.all(entries)
+  //     .then(() => {
+  //       let updateText = '';
+  //       chain(this.updatePayload)
+  //         .groupBy((value) => value.id)
+  //         .map((group) =>
+  //           reduce(
+  //             group,
+  //             (accumulator: UpdatePayloadProperties, item: UpdatePayloadProperties) =>
+  //               item.changeFrom > accumulator.changeFrom ? item : accumulator,
+  //             {
+  //               id: null,
+  //               title: null,
+  //               status: null,
+  //               progress: null,
+  //               score: null,
+  //               changeFrom: 0,
+  //             }
+  //           )
+  //         )
+  //         .filter((group) => !!group.id)
+  //         .forEach((item) => {
+  //           updateText = item.status === AniListListStatus.COMPLETED ? 'completeUpdateText' : 'simpleUpdateText';
+  //           this.$notify({
+  //             title: this.$t('notifications.aniList.successTitle') as string,
+  //             text: this.$t(`notifications.aniList.${updateText}`, [item.title, item.progress]) as string,
+  //           });
+  //         });
+  //     })
+  //     .catch((error) => console.error(error)) // eslint-disable-line no-console
+  //     .finally(() => {
+  //       this.updatePayload = [];
+  //     });
+  // }
 }
 </script>
 

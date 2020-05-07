@@ -179,7 +179,10 @@
       },
       "appSettings": {
         "chooseLanguage": "Sprache wählen (Choose language)",
-        "darkMode": "Dunkles App-Design"
+        "darkMode": "Dunkles App-Design",
+        "navigationActiveItemColour": "Farbe des aktiven Navigationitems",
+        "navigationBackgroundBrightness": "Navigationshintergrund - Helligkeit",
+        "navigationBackgroundBlurriness": "Navigationshintergrund - Weichzeichnung"
       },
       "changelog": {
         "new": "NEU",
@@ -232,7 +235,18 @@
         "fall": "Herbst",
         "autumn": "Herbst",
         "winter": "Winter"
+      },
+      "mediaStatus": {
+        "finished": "VORBEI",
+        "releasing": "LÄUFT",
+        "not_yet_released": "GEPLANT",
+        "cancelled": "ABGESETZT"
       }
+    },
+    "colours": {
+      "automatic": "Automatisch",
+      "black": "Schwarz",
+      "white": "Weiß"
     },
     "dates": {
       "dayMonthNumeric": "DD.MM.",
