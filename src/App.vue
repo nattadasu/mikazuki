@@ -10,7 +10,9 @@
     <settings :dialog.sync="settingsDialog" />
 
     <ZeroTwoNotifications position="top center" />
-    <TopButton />
+    <!-- <TopButton /> -->
+
+    <fab />
   </v-app>
 </template>
 
@@ -26,9 +28,11 @@ import TopButton from '@/components/TopButton.vue';
 import ZeroTwoNotifications from '@/components/Notifications.vue';
 import NavigationDrawer from '@/components/NavigationDrawer.vue';
 import Settings from '@/components/Settings/Dialogue.vue';
+import Fab from '@/components/FAB.vue';
 
 @Component({
   components: {
+    Fab,
     Navigation,
     NavigationDrawer,
     TopButton,

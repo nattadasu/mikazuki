@@ -35,6 +35,27 @@
             {{ item.original }} ({{ item.english }})
           </v-chip>
         </v-chip-group>
+
+        <h3>{{ $t('pages.settings.appSettings.initialListItemAmount') }}</h3>
+        <v-slider
+          v-model="_initialListItemAmount"
+          :label="`${_initialListItemAmount}`"
+          thumb-label
+          inverse-label
+          :step="1"
+          :min="5"
+          :max="100"
+        />
+
+        <h3>{{ $t('pages.settings.appSettings.listAnimationActivity.headline') }}</h3>
+        <h5>{{ $t('pages.settings.appSettings.listAnimationActivity.subtitle') }}</h5>
+        <v-chip-group v-model="_forceDisableAnimationAmount" column mandatory active-class="primary--text">
+          <v-chip filter small :value="-1">{{ $t('misc.status.disabled') }}</v-chip>
+          <v-chip filter small :value="0">{{ $t('misc.status.all') }}</v-chip>
+          <v-chip filter small :value="200">200</v-chip>
+          <v-chip filter small :value="300">300</v-chip>
+          <v-chip filter small :value="500">500</v-chip>
+        </v-chip-group>
       </v-col>
     </v-row>
   </v-container>
@@ -52,6 +73,8 @@ import { mapGetters } from 'vuex';
       'navigationDrawerListItemColor',
       'navigationDrawerBackgroundBrightness',
       'navigationDrawerBackgroundBlurriness',
+      'listItemStartAmount',
+      'listItemForceDisableAnimationAmount',
     ]),
   },
 })
@@ -61,6 +84,8 @@ export default class AppSettings extends Vue {
   readonly navigationDrawerListItemColor!: string;
   readonly navigationDrawerBackgroundBrightness!: number;
   readonly navigationDrawerBackgroundBlurriness!: number;
+  readonly listItemStartAmount!: number;
+  readonly listItemForceDisableAnimationAmount!: number;
 
   get _darkMode(): boolean {
     return this.darkMode;
@@ -125,6 +150,20 @@ export default class AppSettings extends Vue {
         english,
       };
     });
+  }
+
+  get _initialListItemAmount(): number {
+    return this.listItemStartAmount;
+  }
+  set _initialListItemAmount(value: number) {
+    this.$store.commit('app/setListItemStartAmount', value);
+  }
+
+  get _forceDisableAnimationAmount(): number {
+    return this.listItemForceDisableAnimationAmount;
+  }
+  set _forceDisableAnimationAmount(value: number) {
+    this.$store.commit('app/setListItemForceDisableAnimationAmount', value);
   }
 }
 </script>

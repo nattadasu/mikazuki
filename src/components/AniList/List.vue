@@ -1,10 +1,14 @@
 <template>
-  <v-container fluid class="py-0 px-1">
-    <v-row dense>
+  <v-container fluid class="py-0 px-1" ref="listContainer">
+    <v-row dense v-if="slicedListData.length">
       <v-col v-for="item in slicedListData" :key="item.id" cols="12" sm="6" md="4" lg="3" xl="2">
-        <item :item="item" :session="session" :status="status" />
+        <item :item="item" :session="session" :status="status" :force-disable-animation="forceDisableAnimation" />
       </v-col>
     </v-row>
+
+    <v-container fluid class="text-center" v-else>
+      <h1>{{ $t('$vuetify.noDataText') }}</h1>
+    </v-container>
     <!-- <v-row no-gutters>
       <v-col v-show="isLoading" cols="12" align-self="center">
         <div class="display-3 text-center ma-6">
@@ -110,14 +114,14 @@ interface UpdatePayloadProperties {
     Item,
   },
   computed: {
-    ...mapGetters('app', ['isLoading']),
+    ...mapGetters('app', ['isLoading', 'listItemForceDisableAnimationAmount', 'listItemStartAmount']),
     ...mapGetters('aniList', ['aniListData']),
     ...mapGetters('userSettings', ['session']),
   },
 })
 export default class List extends Vue {
-  // TODO: Make this a non-static number via Store
-  startAmount: number = 100;
+  readonly listItemStartAmount!: number;
+  readonly listItemForceDisableAnimationAmount!: number;
 
   currentIndex: number = 0;
 
@@ -165,7 +169,15 @@ export default class List extends Vue {
   }
 
   get slicedListData(): IAniListEntry[] {
-    return this.listData.slice(0, (this.currentIndex + 1) * this.startAmount);
+    return this.listData.slice(0, (this.currentIndex + 1) * this.listItemStartAmount);
+  }
+
+  get forceDisableAnimation(): boolean {
+    if (this.listItemForceDisableAnimationAmount === -1) {
+      return false;
+    }
+
+    return this.slicedListData.length > this.listItemForceDisableAnimationAmount;
   }
 
   // get listData() {
@@ -243,8 +255,15 @@ export default class List extends Vue {
     window.onscroll = async () => {
       const bottomOfWindow =
         document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-      if (bottomOfWindow) {
-        this.currentIndex += this.startAmount;
+      const topOfWindow = document.documentElement.scrollTop === 0;
+      const itemsAvailable = this.listData.length - (this.currentIndex + 2) * this.listItemStartAmount > 0;
+
+      if (bottomOfWindow && itemsAvailable) {
+        this.currentIndex++;
+      }
+
+      if (topOfWindow && this.currentIndex !== 0) {
+        this.currentIndex = 0;
       }
     };
 

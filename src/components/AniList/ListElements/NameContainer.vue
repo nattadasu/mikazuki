@@ -1,6 +1,10 @@
 <template>
   <v-container fluid v-if="title" class="fill-height d-flex align-end py-0 anime-image-container">
-    <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} ${isMobile ? 'titled-mobile' : 'titled'}`">
+    <v-row
+      :class="
+        `${darkMode ? 'shadowed' : 'lightened'} ${isMobile || forceDisableAnimation ? 'titled-mobile' : 'titled'}`
+      "
+    >
       <v-col cols="12" class="pb-2">
         <span class="title">{{ title }}</span>
       </v-col>
@@ -15,6 +19,7 @@ import RegularFunctionsMixin from '@/mixins/regular';
 @Component
 export default class NameContainer extends Mixins(RegularFunctionsMixin) {
   @Prop(String) title!: string;
+  @Prop(Boolean) forceDisableAnimation!: boolean;
 }
 </script>
 

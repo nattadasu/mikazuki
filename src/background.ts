@@ -1,4 +1,4 @@
-import { app, protocol, BrowserWindow, ipcMain, Menu, shell, MenuItem } from 'electron';
+import { app, protocol, BrowserWindow, ipcMain, Menu, shell, MenuItem, NativeImage } from 'electron';
 import path from 'path';
 import {
   createProtocol,

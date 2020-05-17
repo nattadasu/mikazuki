@@ -182,7 +182,12 @@
         "darkMode": "Dark mode",
         "navigationActiveItemColour": "Active Navigation item colour",
         "navigationBackgroundBrightness": "Navigation Background Brightness",
-        "navigationBackgroundBlurriness": "Navigation Background Blurriness"
+        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
+        "initialListItemAmount": "Initial amount of shown list items",
+        "listAnimationActivity": {
+          "headline": "List animation activity",
+          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+        }
       },
       "changelog": {
         "new": "NEW",

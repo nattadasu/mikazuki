@@ -1,10 +1,10 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-chip small :ripple="false" link :color="scoreColor">
-      <v-icon small :left="hover || isMobile">mdi-star</v-icon>
+      <v-icon small :left="hover || isMobile || forceDisableAnimation">mdi-star</v-icon>
 
       <v-expand-x-transition>
-        <span v-if="hover || isMobile">{{ score }}</span>
+        <span v-if="hover || isMobile || forceDisableAnimation">{{ score }}</span>
       </v-expand-x-transition>
     </v-chip>
   </v-hover>
@@ -19,6 +19,7 @@ import { AniListScoreFormat } from '@/types';
 export default class ScoreChip extends Mixins(RegularFunctionsMixin) {
   @Prop(Number) score!: number;
   @Prop(String) scoreFormat!: string;
+  @Prop(Boolean) forceDisableAnimation!: boolean;
 
   get scoreColor(): string {
     const score = this.score;

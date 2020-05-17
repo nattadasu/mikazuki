@@ -1,7 +1,13 @@
 <template>
   <v-dialog v-model="syncedDialog">
     <v-card>
-      <v-card-title>{{ $t('menus.settings.title') }}</v-card-title>
+      <v-card-title>
+        <v-btn icon @click="syncedDialog = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+
+        <span class="pl-2">{{ $t('menus.settings.title') }}</span>
+      </v-card-title>
 
       <v-card-text>
         <div class="grid-wrapper">

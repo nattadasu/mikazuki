@@ -6,8 +6,10 @@ const state: AppState = {
   _darkMode: true,
   _loading: false,
   _navigationDrawerListItemColor: 'auto',
-  _navigationDrawerBackgroundBrightness: 75,
+  _navigationDrawerBackgroundBrightness: 100,
   _navigationDrawerBackgroundBlurriness: 0,
+  _listItemForceDisableAnimationAmount: 200,
+  _listItemStartAmount: 25,
 };
 
 const getters: GetterTree<AppState, RootState> = {
@@ -29,6 +31,12 @@ const getters: GetterTree<AppState, RootState> = {
   navigationDrawerBackgroundBlurriness(state): number {
     return state._navigationDrawerBackgroundBlurriness;
   },
+  listItemForceDisableAnimationAmount(state): number {
+    return state._listItemForceDisableAnimationAmount;
+  },
+  listItemStartAmount(state): number {
+    return state._listItemStartAmount;
+  },
 };
 
 const mutations: MutationTree<AppState> = {
@@ -49,6 +57,12 @@ const mutations: MutationTree<AppState> = {
   },
   setNavigationDrawerBackgroundBlurriness(state, payload: number) {
     state._navigationDrawerBackgroundBlurriness = payload;
+  },
+  setListItemForceDisableAnimationAmount(state, payload: number) {
+    state._listItemForceDisableAnimationAmount = payload;
+  },
+  setListItemStartAmount(state, payload: number) {
+    state._listItemStartAmount = payload;
   },
 };
 

@@ -2,10 +2,12 @@
   <v-hover v-slot:default="{ hover }">
     <v-chip small :ripple="false" link :color="mediaStatusChipColor">
       <v-expand-x-transition>
-        <span v-if="hover || isMobile">{{ $t(`misc.aniList.mediaStatus.${status.toString().toLowerCase()}`) }}</span>
+        <span v-if="hover || isMobile || forceDisableAnimation">
+          {{ $t(`misc.aniList.mediaStatus.${status.toString().toLowerCase()}`) }}
+        </span>
       </v-expand-x-transition>
 
-      <v-icon small :right="hover || isMobile">{{ mediaStatusIcon }}</v-icon>
+      <v-icon small :right="hover || isMobile || forceDisableAnimation">{{ mediaStatusIcon }}</v-icon>
     </v-chip>
   </v-hover>
 </template>
@@ -18,6 +20,7 @@ import { AniListMediaStatus } from '@/types';
 @Component
 export default class MediaChip extends Mixins(RegularFunctionsMixin) {
   @Prop(String) status!: string;
+  @Prop(Boolean) forceDisableAnimation!: boolean;
 
   get mediaStatusIcon(): string {
     return this.status === AniListMediaStatus.CANCELLED

@@ -182,7 +182,12 @@
         "darkMode": "Dunkles App-Design",
         "navigationActiveItemColour": "Farbe des aktiven Navigationitems",
         "navigationBackgroundBrightness": "Navigationshintergrund - Helligkeit",
-        "navigationBackgroundBlurriness": "Navigationshintergrund - Weichzeichnung"
+        "navigationBackgroundBlurriness": "Navigationshintergrund - Weichzeichnung",
+        "initialListItemAmount": "Anfangsanzahl der Listeneinträge",
+        "listAnimationActivity": {
+          "headline": "Listenanimationen",
+          "subtitle": "Die gewählte Anzahl ist ein Limit. Werden mehr Einträge gleichzeitig angezeigt, schalten sich die Animationen aus, um Performance aufrecht zu halten. \"Alle\" deaktiviert die Animationen bei allen Einträgen."
+        }
       },
       "changelog": {
         "new": "NEU",
@@ -257,6 +262,10 @@
     },
     "rules": {
       "required": "Diese Eingabe muss ausgefüllt werden."
+    },
+    "status": {
+      "all": "Alle",
+      "disabled": "Deaktiviert"
     },
     "modules": {
       "aniList": "AniList"

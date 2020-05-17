@@ -13,13 +13,28 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { IAniListEntry, AniListListStatus } from '../../../types';
+import _ from 'lodash';
+import eventBus from '@/eventBus';
+import aniListEventHandler from '@/plugins/AniList/eventHandler';
+import { IAniListEntry, AniListListStatus } from '@/types';
+
+interface UpdatePayload {
+  id: number;
+  title: string;
+  status: AniListListStatus;
+  progress: number;
+  score: number;
+  changeFrom: number;
+}
 
 @Component
 export default class ProgressBar extends Vue {
   @Prop(Object) item!: IAniListEntry;
   @Prop(String) status!: AniListListStatus;
+  readonly timeUntilUpdate = 1000;
   indeterminate: boolean = false;
+  updateTimer: NodeJS.Timeout | null = null;
+  updatePayload: UpdatePayload[] = [];
 
   get isCompletedList(): boolean {
     return this.status === AniListListStatus.COMPLETED;
@@ -64,14 +79,86 @@ export default class ProgressBar extends Vue {
     return this.item.media.episodes || '?';
   }
 
-  async increaseEpisodeCounter() {
-    this.indeterminate = true;
-    try {
-      // await this.increaseEpisode(this.entryId);
-      this.indeterminate = false;
-    } catch (error) {
-      console.error('nope');
+  increaseEpisodeCounter() {
+    if (this.item.progress === this.item.media.episodes) {
+      return;
     }
+
+    // Set item data
+    this.item.progress++;
+    if (this.item.progress === this.item.media.episodes) {
+      this.item.status = AniListListStatus.COMPLETED;
+    }
+
+    const payload: UpdatePayload = {
+      id: this.item.id,
+      title: this.item.media.title.userPreferred,
+      progress: this.item.progress,
+      status: this.item.status,
+      score: this.item.score,
+      changeFrom: Date.now(),
+    };
+
+    this.updatePayload.push(payload);
+
+    if (this.updateTimer) {
+      clearTimeout(this.updateTimer);
+    }
+
+    this.updateTimer = setTimeout(this.onUpdateTrigger, this.timeUntilUpdate);
+  }
+
+  onUpdateTrigger() {
+    if (!this.updatePayload.length) {
+      return;
+    }
+
+    const items = _.chain(this.updatePayload)
+      .groupBy((item) => item.id)
+      .map((group) =>
+        _.reduce(group, (a: UpdatePayload, i: UpdatePayload) => (i.changeFrom > a.changeFrom ? i : a), {
+          changeFrom: 0,
+        } as UpdatePayload)
+      )
+      .filter((group) => !!group.id)
+      .value();
+
+    const updates = _.map(items, async (item) => {
+      let completedAt;
+
+      if (item.status === AniListListStatus.COMPLETED) {
+        const now = new Date();
+        completedAt = {
+          year: now.getUTCFullYear(),
+          month: now.getUTCMonth() + 1,
+          day: now.getUTCDate(),
+        };
+      }
+
+      return this.$http.updateEntry({
+        entryId: item.id,
+        progress: item.progress,
+        status: item.status,
+        score: item.score,
+        completedAt,
+      });
+    });
+
+    Promise.all(updates)
+      .then(() => aniListEventHandler.refreshLists())
+      .then(() => {
+        _.forEach(items, (item) => {
+          const updateText = item.status === AniListListStatus.COMPLETED ? 'completeUpdateText' : 'simpleUpdateText';
+          this.$notify({
+            title: this.$t('notifications.aniList.successTitle').toString(),
+            text: this.$t(`notifications.aniList.${updateText}`, [item.title, item.progress]).toString(),
+          });
+        });
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        this.updatePayload = [];
+      });
   }
 }
 </script>

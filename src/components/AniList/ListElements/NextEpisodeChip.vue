@@ -1,10 +1,10 @@
 <template>
   <v-hover v-slot:default="{ hover }" v-if="nextEpisode">
     <v-chip small :ripple="false" link color="indigo">
-      <v-icon small :left="hover || isMobile">mdi-calendar</v-icon>
+      <v-icon small :left="hover || isMobile || forceDisableAnimation">mdi-calendar</v-icon>
 
       <v-expand-x-transition>
-        <span v-if="hover || isMobile">{{ nextEpisode }}</span>
+        <span v-if="hover || isMobile || forceDisableAnimation">{{ nextEpisode }}</span>
       </v-expand-x-transition>
     </v-chip>
   </v-hover>
@@ -19,6 +19,7 @@ import { IAniListNextAiringEpisode } from '../../../types';
 @Component
 export default class NextEpisodeChip extends Mixins(RegularFunctionsMixin) {
   @Prop(Object) nextAiringEpisode!: IAniListNextAiringEpisode;
+  @Prop(Boolean) forceDisableAnimation!: boolean;
 
   get nextEpisode(): string | null {
     return this.nextAiringEpisode

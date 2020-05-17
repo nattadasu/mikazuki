@@ -2,12 +2,12 @@
   <v-hover v-slot:default="{ hover }" v-if="missingEpisodes">
     <v-chip small :ripple="false" link color="info darken-2">
       <v-expand-x-transition>
-        <span v-if="hover || isMobile">{{
+        <span v-if="hover || isMobile || forceDisableAnimation">{{
           $tc('pages.aniList.list.missingEpisodes', missingEpisodes, [missingEpisodes])
         }}</span>
       </v-expand-x-transition>
 
-      <v-icon small :right="hover || isMobile">mdi-fast-forward</v-icon>
+      <v-icon small :right="hover || isMobile || forceDisableAnimation">mdi-fast-forward</v-icon>
     </v-chip>
   </v-hover>
 </template>
@@ -20,6 +20,7 @@ import { IAniListNextAiringEpisode } from '@/types';
 export default class MissingEpisodesChip extends Mixins(RegularFunctionsMixin) {
   @Prop(Number) progress!: number;
   @Prop(Object) nextAiringEpisode!: IAniListNextAiringEpisode;
+  @Prop(Boolean) forceDisableAnimation!: boolean;
 
   get missingEpisodes(): number {
     const { progress, nextAiringEpisode } = this;

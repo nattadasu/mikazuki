@@ -13,6 +13,8 @@ export interface AppState {
   _navigationDrawerListItemColor: string;
   _navigationDrawerBackgroundBrightness: number;
   _navigationDrawerBackgroundBlurriness: number;
+  _listItemForceDisableAnimationAmount: number;
+  _listItemStartAmount: number;
 }
 
 export interface UserSettingsState {
