@@ -6,7 +6,7 @@
     "added": "يضاف إلى القائمة",
     "addToPlanToWatch": "إضافة إلى قائمة التخطيط",
     "back": "رجع",
-    "fastSearch": "بحث... \u23ce",
+    "fastSearch": "بحث... ⏎",
     "loading": "جار التحميل...",
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
@@ -232,6 +232,9 @@
         "fall": "الخريف",
         "autumn": "الخريف",
         "winter": "الشتاء"
+      },
+      "mediaStatus": {
+        "cancelled": "ألغيت"
       }
     },
     "dates": {

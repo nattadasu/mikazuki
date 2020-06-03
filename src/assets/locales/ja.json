@@ -6,7 +6,7 @@
     "added": "リストに追加しました",
     "addToPlanToWatch": "見る予定リストに追加",
     "back": "戻る",
-    "fastSearch": "検索する・・・ \u23ce",
+    "fastSearch": "検索する・・・ ⏎",
     "loading": "通信中",
     "login": "ログイン",
     "logout": "ログアウト",
@@ -179,7 +179,15 @@
       },
       "appSettings": {
         "chooseLanguage": "言語を選択してください (Choose language)",
-        "darkMode": "ダークモード"
+        "darkMode": "ダークモード",
+        "initialListItemAmount": "リストエントリの初期数",
+        "listAnimationActivity": {
+          "headline": "リストのアニメーション制限",
+          "subtitle": "選択した数は制限です。同時により多くのエントリが表示される場合、パフォーマンスを維持するためにアニメーションはオフになります。「すべて」は、すべてのエントリのアニメーションをオフします。"
+        },
+        "navigationActiveItemColour": "ナビゲーションアイテムのハイライトカラー",
+        "navigationBackgroundBlurriness": "ナビゲーションの背景-ソフトフォーカス",
+        "navigationBackgroundBrightness": "ナビゲーションの背景-明るさ"
       },
       "changelog": {
         "new": "追加",
@@ -232,6 +240,12 @@
         "fall": "秋",
         "autumn": "秋",
         "winter": "冬"
+      },
+      "mediaStatus": {
+        "releasing": "放送中",
+        "cancelled": "止めた",
+        "finished": "完全終了",
+        "not_yet_released": "計画"
       }
     },
     "dates": {
@@ -246,6 +260,15 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "colours": {
+      "automatic": "自動的",
+      "black": "黒",
+      "white": "白"
+    },
+    "status": {
+      "all": "すべて",
+      "disabled": "無効"
     }
   },
   "$vuetify": {

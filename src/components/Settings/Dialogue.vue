@@ -1,6 +1,6 @@
 <template>
-  <v-dialog v-model="syncedDialog">
-    <v-card>
+  <v-dialog v-model="syncedDialog" max-width="960">
+    <v-card min-height="650">
       <v-card-title>
         <v-btn icon @click="syncedDialog = false">
           <v-icon>mdi-close</v-icon>
@@ -39,10 +39,12 @@
 <script lang="ts">
 import { Component, PropSync, Vue } from 'vue-property-decorator';
 import AppSettings from './AppSettings.vue';
+import AniList from './AniList.vue';
 
 @Component({
   components: {
     AppSettings,
+    AniList,
   },
 })
 export default class Settings extends Vue {

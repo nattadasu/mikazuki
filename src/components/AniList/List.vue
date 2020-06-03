@@ -9,64 +9,6 @@
     <v-container fluid class="text-center" v-else>
       <h1>{{ $t('$vuetify.noDataText') }}</h1>
     </v-container>
-    <!-- <v-row no-gutters>
-      <v-col v-show="isLoading" cols="12" align-self="center">
-        <div class="display-3 text-center ma-6">
-          {{ $t('actions.loading') }}
-        </div>
-      </v-col>
-      <v-col v-if="!listData.length && !isLoading" cols="12">
-        <v-container>
-          <div class="headline text-center">
-            {{ $t('$vuetify.noDataText') }}
-          </div>
-        </v-container>
-      </v-col>
-      <template v-if="!isLoading">
-        <v-col v-for="item in listData" :key="item.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
-          <v-card raised class="ma-2">
-            <ListImage :image-link="item.imageLink" :ani-list-id="item.aniListId" :name="item.title" />
-
-            <v-card-text class="py-0">
-              <v-row>
-                <v-col cols="4">
-                  <ProgressCircle
-                    :entry-id="item.id"
-                    :status="status"
-                    :progress-percentage="item.progressPercentage"
-                    :current-progress="item.currentProgress"
-                    :episode-amount="item.episodeAmount"
-                    @increase="increaseCurrentEpisodeProgress"
-                  />
-                </v-col>
-
-                <v-col cols="8">
-                  <v-row align="center" justify="end">
-                    <v-col cols="12" class="py-0">
-                      <EpisodeState :status="item.mediaStatus" :next-episode="item.nextEpisode" />
-                    </v-col>
-                    <v-col cols="12" class="py-0">
-                      <MissingEpisodes
-                        :next-airing-episode="item.nextAiringEpisode"
-                        :current-progress="item.currentProgress"
-                      />
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-card-text>
-
-            <v-card-actions>
-              <AdultToolTip v-if="item.forAdults" />
-              <StarRating :score="item.score" :rating-star-amount="ratingStarAmount" :score-stars="item.scoreStars" />
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </template>
-      <v-snackbar v-model="isSnackbarVisible" top :color="snackbarColor" :timeout="3500">
-        {{ snackbarText }}
-      </v-snackbar>
-    </v-row> -->
   </v-container>
 </template>
 

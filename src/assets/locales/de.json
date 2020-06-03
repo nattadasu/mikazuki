@@ -185,7 +185,7 @@
         "navigationBackgroundBlurriness": "Navigationshintergrund - Weichzeichnung",
         "initialListItemAmount": "Anfangsanzahl der Listeneinträge",
         "listAnimationActivity": {
-          "headline": "Listenanimationen",
+          "headline": "Listenanimationen limitieren",
           "subtitle": "Die gewählte Anzahl ist ein Limit. Werden mehr Einträge gleichzeitig angezeigt, schalten sich die Animationen aus, um Performance aufrecht zu halten. \"Alle\" deaktiviert die Animationen bei allen Einträgen."
         }
       },

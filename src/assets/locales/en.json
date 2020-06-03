@@ -6,7 +6,7 @@
     "added": "Added to the list",
     "addToPlanToWatch": "Add to plan to watch",
     "back": "Back",
-    "fastSearch": "Search... \u23ce",
+    "fastSearch": "Search... ⏎",
     "loading": "Loading...",
     "login": "Login",
     "logout": "Logout",
@@ -265,6 +265,10 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "All",
+      "disabled": "Disabled"
     }
   },
   "$vuetify": {
