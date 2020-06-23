@@ -10,6 +10,7 @@ module.exports = {
     },
     electronBuilder: {
       customFileProtocol: 'mikazuki://./',
+      nodeIntegration: true,
       builderOptions: {
         appId: 'nicoaiko.mikazuki.moe',
         publish: null,

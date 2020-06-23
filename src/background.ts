@@ -20,9 +20,6 @@ function createWindow() {
     height: 600,
     minWidth: 900,
     minHeight: 600,
-    webPreferences: {
-      nodeIntegration: true,
-    },
   });
 
   win.removeMenu();
