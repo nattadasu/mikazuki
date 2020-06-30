@@ -11,13 +11,21 @@
     <v-list dense nav>
       <v-list-item two-line class="px-0">
         <v-list-item-avatar>
-          <img :src="userAvatar" />
+          <img :src="userAvatar" v-if="userAvatar" />
+          <v-icon v-else>mdi-account-circle</v-icon>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{ userName }}</v-list-item-title>
+          <v-list-item-title>
+            <template v-if="userName">  
+              {{ userName }}
+            </template>
+            <template v-else>
+              Unauthorized
+            </template>
+          </v-list-item-title>
 
-          <v-list-item-subtitle>
+          <v-list-item-subtitle v-if="isAuthenticated">
             {{ $t('menus.navigationDrawer.timeUntilNextRefresh', [timerText]) }}
           </v-list-item-subtitle>
         </v-list-item-content>
