@@ -1,5 +1,6 @@
 <template>
   <v-app id="app">
+    <navigation-drawer />
     <Navigation />
     <router-view :key="$route.path" />
     <ZeroTwoNotifications position="top center" />
@@ -17,10 +18,12 @@ import { refreshTimer } from '@/plugins/refreshTimer';
 import Navigation from '@/components/Navigation.vue';
 import TopButton from '@/components/TopButton.vue';
 import ZeroTwoNotifications from '@/components/Notifications.vue';
+import NavigationDrawer from '@/components/NavigationDrawer.vue';
 
 @Component({
   components: {
     Navigation,
+    NavigationDrawer,
     TopButton,
     ZeroTwoNotifications,
   },
