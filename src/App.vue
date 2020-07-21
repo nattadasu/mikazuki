@@ -1,10 +1,12 @@
 <template>
   <v-app id="app">
-    <navigation-drawer />
-    <Navigation />
+    <navigation-drawer :settings-dialog.sync="settingsDialog" />
+    <!-- <Navigation /> -->
     <router-view :key="$route.path" />
     <ZeroTwoNotifications position="top center" />
-    <TopButton />
+    <!-- <TopButton /> -->
+
+    <settings :dialog.sync="settingsDialog" />
   </v-app>
 </template>
 
@@ -19,6 +21,7 @@ import Navigation from '@/components/Navigation.vue';
 import TopButton from '@/components/TopButton.vue';
 import ZeroTwoNotifications from '@/components/Notifications.vue';
 import NavigationDrawer from '@/components/NavigationDrawer.vue';
+import Settings from '@/components/Settings/Dialogue.vue';
 
 @Component({
   components: {
@@ -26,6 +29,7 @@ import NavigationDrawer from '@/components/NavigationDrawer.vue';
     NavigationDrawer,
     TopButton,
     ZeroTwoNotifications,
+    Settings,
   },
   computed: {
     ...mapGetters('app', ['language', 'darkMode']),
@@ -38,6 +42,7 @@ export default class App extends Vue {
   readonly darkMode!: boolean;
   readonly isAuthenticated!: boolean;
   readonly refreshRate!: number;
+  settingsDialog: boolean = false;
 
   @Watch('isAuthenticated')
   loggedInStateChanged(value: boolean) {

@@ -1,5 +1,13 @@
 <template>
-  <v-navigation-drawer app :expand-on-hover="true" :mini-variant="true" :right="$vuetify.rtl" :permanent="true">
+  <v-navigation-drawer
+    app
+    :expand-on-hover="true"
+    :mini-variant="true"
+    :right="$vuetify.rtl"
+    :permanent="true"
+    :src="userBackground"
+    :style="customStyling"
+  >
     <v-list dense nav>
       <v-list-item two-line class="px-0">
         <v-list-item-avatar>
@@ -25,7 +33,7 @@
 
       <v-divider class="my-2" />
 
-      <v-list-item-group v-if="isAuthenticated" v-model="item">
+      <v-list-item-group v-if="isAuthenticated" v-model="item" :color="listItemHighlightColor">
         <template v-for="(item, index) in menuItems">
           <v-divider v-if="item.title === 'divider'" :key="index" class="my-2" />
 
@@ -86,6 +94,9 @@ export default class NavigationDrawer extends Vue {
   @PropSync('settingsDialog', Boolean) settings!: Boolean;
   @Getter('userSettings') isAuthenticated!: boolean;
   @Getter('userSettings') session!: IAniListSession;
+  @Getter('app') navigationDrawerListItemColor!: string;
+  @Getter('app') navigationDrawerBackgroundBrightness!: number;
+  @Getter('app') navigationDrawerBackgroundBlurriness!: number;
 
   item = 0;
   menuItems: NavigationItem[] = [
@@ -142,6 +153,17 @@ export default class NavigationDrawer extends Vue {
     },
   ];
 
+  get listItemHighlightColor(): string | undefined {
+    return this.navigationDrawerListItemColor === 'auto' ? undefined : this.navigationDrawerListItemColor;
+  }
+
+  get customStyling() {
+    return {
+      '--brightness': `${this.navigationDrawerBackgroundBrightness}%`,
+      '--blurriness': `${this.navigationDrawerBackgroundBlurriness}px`,
+    };
+  }
+
   get userBackground(): string {
     return this.session.user.bannerImage ?? '';
   }
@@ -170,3 +192,10 @@ export default class NavigationDrawer extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.v-navigation-drawer__image {
+  -webkit-filter: blur(var(--blurriness)) brightness(var(--brightness));
+  filter: blur(var(--blurriness)) brightness(var(--brightness));
+}
+</style>
