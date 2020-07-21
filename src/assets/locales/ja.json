@@ -179,7 +179,15 @@
       },
       "appSettings": {
         "chooseLanguage": "言語を選択してください (Choose language)",
-        "darkMode": "ダークモード"
+        "darkMode": "ダークモード",
+        "navigationActiveItemColour": "サイドバーアイテムのハイライト色",
+        "navigationBackgroundBrightness": "サイドバーの壁紙-明るさ",
+        "navigationBackgroundBlurriness": "サイドバーの壁紙-ソフトフォーカス",
+        "initialListItemAmount": "リストエントリの初期数",
+        "listAnimationActivity": {
+          "headline": "リストのアニメーション制限",
+          "subtitle": "選択した数は制限です。同時により多くのエントリ数が表示される場合、パフォーマンスを維持するためにアニメーションはオフになります。「すべて」は、すべてのエントリのアニメーションをオフします。"
+        }
       },
       "changelog": {
         "new": "追加",
@@ -234,6 +242,11 @@
         "winter": "冬"
       }
     },
+    "colours": {
+      "automatic": "自動的",
+      "black": "黒",
+      "white": "白"
+    },
     "dates": {
       "dayMonthNumeric": "MM/DD",
       "full": "YYYY年MM月DD日",
@@ -246,6 +259,10 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "すべて",
+      "disabled": "無効"
     }
   },
   "$vuetify": {
