@@ -179,7 +179,15 @@
       },
       "appSettings": {
         "chooseLanguage": "Choisir la langue",
-        "darkMode": "Thème sombre"
+        "darkMode": "Thème sombre",
+        "navigationActiveItemColour": "Active Navigation item colour",
+        "navigationBackgroundBrightness": "Navigation Background Brightness",
+        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
+        "initialListItemAmount": "Initial amount of shown list items",
+        "listAnimationActivity": {
+          "headline": "List animation activity",
+          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+        }
       },
       "changelog": {
         "new": "NOUVEAU",
@@ -234,6 +242,11 @@
         "winter": "Hiver"
       }
     },
+    "colours": {
+      "automatic": "Automatic",
+      "black": "Black",
+      "white": "White"
+    },
     "dates": {
       "dayMonthNumeric": "DD/MM",
       "full": "Do MMMM YYYY",
@@ -246,6 +259,10 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "All",
+      "disabled": "Disabled"
     }
   },
   "$vuetify": {
