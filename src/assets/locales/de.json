@@ -1,6 +1,7 @@
 {
   "originalReading": "Deutsch",
   "englishReading": "German",
+  "flag": "de",
   "actions": {
     "add": "Hinzufügen",
     "added": "Zur Liste hinzugefügt",

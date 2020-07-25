@@ -1,6 +1,7 @@
 {
   "originalReading": "Bahasa Indonesia",
   "englishReading": "Indonesian",
+  "flag": "id",
   "actions": {
     "add": "Tambah",
     "added": "Ditambahkan ke dalam daftar",

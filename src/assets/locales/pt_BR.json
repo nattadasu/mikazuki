@@ -1,6 +1,7 @@
 {
   "originalReading": "Português do Brasil",
   "englishReading": "Brazilian Portuguese",
+  "flag": "br",
   "actions": {
     "add": "Adicionar",
     "added": "Adicionado à lista",

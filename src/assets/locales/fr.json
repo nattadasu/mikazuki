@@ -1,6 +1,7 @@
 {
   "originalReading": "Français",
   "englishReading": "French",
+  "flag": "fr",
   "actions": {
     "add": "Ajouter",
     "added": "Ajouté à la liste",
