@@ -30,11 +30,26 @@
 
       <v-col cols="12" md="7">
         <h3>{{ $t('pages.settings.appSettings.chooseLanguage') }}</h3>
-        <v-chip-group v-model="_language" column mandatory active-class="primary--text">
-          <v-chip filter filter-icon="mdi-earth" small v-for="item in languages" :key="item.value" :value="item.value">
-            {{ item.original }} ({{ item.english }})
-          </v-chip>
-        </v-chip-group>
+        <v-select
+          v-model="_language"
+          :items="languages"
+          solo
+          flat
+          single-line
+          hide-details
+          full-width
+          menu-props="auto, offset-y"
+        >
+          <template #item="{ item }">
+            <v-icon v-if="item.flag" :class="item.flag" left />
+            {{ item.text }}
+          </template>
+
+          <template #selection="{ item }">
+            <v-icon v-if="item.flag" :class="item.flag" left small />
+            {{ item.text }}
+          </template>
+        </v-select>
 
         <h3>{{ $t('pages.settings.appSettings.initialListItemAmount') }}</h3>
         <v-slider
@@ -121,16 +136,17 @@ export default class AppSettings extends Vue {
     this.$store.commit('app/setLanguage', value);
   }
 
-  get languages(): Array<{ value: string; original: string; english: string }> {
+  get languages(): Array<{ value: string; flag: string; text: string }> {
     const { messages } = this.$i18n;
     return Object.entries(messages).map(([key, value]) => {
       const locale = key;
       const original = value.originalReading.toString();
       const english = value.englishReading.toString();
+      const flag = value.flag?.toString() ?? 'gb';
       return {
         value: locale,
-        original,
-        english,
+        flag: `flag-icon flag-icon-${flag}`,
+        text: `${original} (${english})`,
       };
     });
   }

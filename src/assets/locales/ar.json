@@ -1,6 +1,7 @@
 {
   "originalReading": "العربية",
   "englishReading": "Arabic",
+  "flag": "sa",
   "actions": {
     "add": "اضف",
     "added": "يضاف إلى القائمة",

@@ -1,6 +1,7 @@
 {
   "originalReading": "Español de México",
   "englishReading": "Spanish (Mexico)",
+  "flag": "mx",
   "actions": {
     "add": "Agregar",
     "added": "Agregado a la lista",

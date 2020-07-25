@@ -1,6 +1,7 @@
 {
   "originalReading": "日本語",
   "englishReading": "Japanese",
+  "flag": "jp",
   "actions": {
     "add": "追加",
     "added": "リストに追加しました",

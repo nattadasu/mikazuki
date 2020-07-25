@@ -1,6 +1,7 @@
 {
   "originalReading": "English",
   "englishReading": "English",
+  "flag": "gb",
   "actions": {
     "add": "Add",
     "added": "Added to the list",
