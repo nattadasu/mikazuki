@@ -136,7 +136,7 @@ export default class AppSettings extends Vue {
     this.$store.commit('app/setLanguage', value);
   }
 
-  get languages(): Array<{ value: string; original: string; english: string; flag: string; text: string }> {
+  get languages(): Array<{ value: string; flag: string; text: string }> {
     const { messages } = this.$i18n;
     return Object.entries(messages).map(([key, value]) => {
       const locale = key;
@@ -147,8 +147,6 @@ export default class AppSettings extends Vue {
         value: locale,
         flag: `flag-icon flag-icon-${flag}`,
         text: `${original} (${english})`,
-        original,
-        english,
       };
     });
   }
