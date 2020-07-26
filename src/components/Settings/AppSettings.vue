@@ -64,13 +64,7 @@
         <v-row dense>
           <v-col cols="12">
             <h3>{{ $t('pages.settings.appSettings.chooseLanguage') }}</h3>
-            <v-select
-              v-model="_language"
-              :items="languages"
-              hide-details
-              menu-props="auto, offset-y"
-              class="py-1 ma-0"
-            >
+            <v-select v-model="_language" :items="languages" hide-details menu-props="auto, offset-y" class="py-1 ma-0">
               <template #item="{ item }">
                 <v-icon v-if="item.flag" :class="item.flag" left />
                 {{ item.text }}
