@@ -7,7 +7,7 @@
     "added": "Aggiunto alla lista",
     "addToPlanToWatch": "Aggiungi alla lista da guardare",
     "back": "Indietro",
-    "fastSearch": "Ricerca... \u23ce",
+    "fastSearch": "Ricerca... ⏎",
     "loading": "Caricamento...",
     "login": "Accedi",
     "logout": "Esci",
@@ -176,7 +176,17 @@
         "refreshRate": "Frequenza di ricaricamento",
         "refreshRateRule": "L'intervallo consentito è tra 5 minuti e 5 ore (5 - 300 minuti)!",
         "refreshRateSuffix": "minuti",
-        "refreshRateHint": "Questo intervallo determina il numero di minuti prima di effettuare un nuovo controllo sul server AniList."
+        "refreshRateHint": "Questo intervallo determina il numero di minuti prima di effettuare un nuovo controllo sul server AniList.",
+        "userAccountSettings": {
+          "headline": "AniList User Account Settings",
+          "scoringFormat": "Scoring Format",
+          "scoringFormatHint": "This setting defines how you can score your list entries.",
+          "showExplicitContent": "Show explicit content (18+ Content)",
+          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
+          "subHeadline": "Changing these settings may take some time until they come into effect!",
+          "userTitleLanguage": "Title Language",
+          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+        }
       },
       "appSettings": {
         "chooseLanguage": "Scegli lingua",
@@ -241,6 +251,23 @@
         "fall": "Autunno",
         "autumn": "Autunno",
         "winter": "Inverno"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "10 Points (5 / 10)",
+          "POINT_100": "100 Points (55 / 100)",
+          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
+          "POINT_3": "3 Point Smileys",
+          "POINT_5": "5 Points (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "English (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Stylised English",
+          "NATIVE": "Native (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Stylised Native",
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Stylised Romaji"
+        }
       }
     },
     "colours": {

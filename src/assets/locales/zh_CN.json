@@ -7,7 +7,7 @@
     "added": "已添加至列表",
     "addToPlanToWatch": "添加至“计划中”",
     "back": "返回",
-    "fastSearch": "搜索…… \u23ce",
+    "fastSearch": "搜索…… ⏎",
     "loading": "加载中……",
     "login": "登录",
     "logout": "注销",
@@ -176,7 +176,17 @@
         "refreshRate": "刷新频率",
         "refreshRateRule": "刷新时间间隔只可设置在 5 分钟到 5 小时（即 5 - 300 分钟）之间！",
         "refreshRateSuffix": "分钟",
-        "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。"
+        "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。",
+        "userAccountSettings": {
+          "headline": "AniList User Account Settings",
+          "scoringFormat": "Scoring Format",
+          "scoringFormatHint": "This setting defines how you can score your list entries.",
+          "showExplicitContent": "Show explicit content (18+ Content)",
+          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
+          "subHeadline": "Changing these settings may take some time until they come into effect!",
+          "userTitleLanguage": "Title Language",
+          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+        }
       },
       "appSettings": {
         "chooseLanguage": "语言选择",
@@ -241,6 +251,23 @@
         "fall": "秋",
         "autumn": "秋",
         "winter": "冬"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "10 Points (5 / 10)",
+          "POINT_100": "100 Points (55 / 100)",
+          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
+          "POINT_3": "3 Point Smileys",
+          "POINT_5": "5 Points (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "English (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Stylised English",
+          "NATIVE": "Native (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Stylised Native",
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Stylised Romaji"
+        }
       }
     },
     "colours": {

@@ -17,6 +17,8 @@ import {
   IAniListMediaDate,
   IAniListUserStats,
   IAniListUserStatistics,
+  AniListUserTitleLanguage,
+  AniListScoreFormat,
 } from '@/types';
 // #endregion
 
@@ -35,6 +37,9 @@ import searchAnime from './queries/searchAnime.graphql';
 import addEntry from './mutations/addEntry.graphql';
 import updateEntry from './mutations/updateEntry.graphql';
 import removeEntry from './mutations/removeEntry.graphql';
+import updateUserTitleLanguage from './mutations/updateUserTitleLanguage.graphql';
+import updateScoringFormat from './mutations/updateScoringFormat.graphql';
+import updateShowExplicitContent from './mutations/updateShowExplicitContent.graphql';
 // #endregion
 
 // #region Responses
@@ -249,5 +254,32 @@ export default class AniListAPI {
       query: removeEntry,
       variables: { entryId },
     });
+  }
+
+  public async updateUserTitleLanguage(language: AniListUserTitleLanguage): Promise<AniListUserTitleLanguage> {
+    const response = await axios.post<UserResponse>('/', {
+      query: updateUserTitleLanguage,
+      variables: { language },
+    });
+
+    return response.user.options.titleLanguage;
+  }
+
+  public async updateScoringFormat(value: AniListScoreFormat): Promise<AniListScoreFormat> {
+    const response = await axios.post<UserResponse>('/', {
+      query: updateScoringFormat,
+      variables: { value },
+    });
+
+    return response.user.mediaListOptions.scoreFormat;
+  }
+
+  public async updateShowExplicitContent(value: boolean): Promise<boolean> {
+    const response = await axios.post<UserResponse>('/', {
+      query: updateShowExplicitContent,
+      variables: { value },
+    });
+
+    return response.user.options.displayAdultContent;
   }
 }

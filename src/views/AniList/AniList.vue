@@ -1,7 +1,7 @@
 <template>
-  <v-content>
+  <v-main>
     <List :status="status" />
-  </v-content>
+  </v-main>
 </template>
 
 <script lang="ts">

@@ -7,7 +7,7 @@
     "added": "Ajouté à la liste",
     "addToPlanToWatch": "Ajouter à \"À regarder\"",
     "back": "Retour",
-    "fastSearch": "Chercher... \u23ce",
+    "fastSearch": "Chercher... ⏎",
     "loading": "Chargement...",
     "login": "Connexion",
     "logout": "Déconnexion",
@@ -176,7 +176,17 @@
         "refreshRate": "Taux de rafraîchissement",
         "refreshRateRule": "L'intervalle autorisé est compris entre 5 minutes et 5 heures (5 - 300 minutes)!",
         "refreshRateSuffix": "minutes",
-        "refreshRateHint": "Cette interval détermine le nombre minutes avant la prochaine synchronisation avec le serveur d'AniList. Le changement d'interval sera appliqué à la prochaine synchronisation."
+        "refreshRateHint": "Cette interval détermine le nombre minutes avant la prochaine synchronisation avec le serveur d'AniList. Le changement d'interval sera appliqué à la prochaine synchronisation.",
+        "userAccountSettings": {
+          "headline": "AniList User Account Settings",
+          "scoringFormat": "Scoring Format",
+          "scoringFormatHint": "This setting defines how you can score your list entries.",
+          "showExplicitContent": "Show explicit content (18+ Content)",
+          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
+          "subHeadline": "Changing these settings may take some time until they come into effect!",
+          "userTitleLanguage": "Title Language",
+          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+        }
       },
       "appSettings": {
         "chooseLanguage": "Choisir la langue",
@@ -241,6 +251,23 @@
         "fall": "Automne",
         "autumn": "Automne",
         "winter": "Hiver"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "10 Points (5 / 10)",
+          "POINT_100": "100 Points (55 / 100)",
+          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
+          "POINT_3": "3 Point Smileys",
+          "POINT_5": "5 Points (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "English (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Stylised English",
+          "NATIVE": "Native (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Stylised Native",
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Stylised Romaji"
+        }
       }
     },
     "colours": {
