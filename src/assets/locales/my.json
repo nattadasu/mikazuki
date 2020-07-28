@@ -36,7 +36,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Kemas kini senarai berikutnya dalam: {0}"
+      "timeUntilNextRefresh": "Kemas kini dalam: {0}"
     },
     "aniList": {
       "completed": "Selesai",
