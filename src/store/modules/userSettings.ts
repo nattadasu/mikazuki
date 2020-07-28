@@ -1,6 +1,6 @@
 import { Module, GetterTree, MutationTree, ActionTree } from 'vuex';
 import { RootState, UserSettingsState } from '../types';
-import { AniListScoreFormat, IAniListSession, IAniListUser } from '@/types';
+import { AniListScoreFormat, IAniListSession, IAniListUser, AniListUserTitleLanguage } from '@/types';
 
 const defaultUser = {
   avatar: {
@@ -60,6 +60,7 @@ const state: UserSettingsState = {
       },
       options: {
         displayAdultContent: false,
+        titleLanguage: AniListUserTitleLanguage.ROMAJI,
       },
       statistics: {
         anime: {
@@ -110,6 +111,15 @@ const mutations: MutationTree<UserSettingsState> = {
   setRefreshRate(state, rate: number) {
     state._refreshRate = rate;
   },
+  setUserTitleLanguage(state, language: AniListUserTitleLanguage) {
+    state._session.user.options.titleLanguage = language;
+  },
+  setScoringFormat(state, value: AniListScoreFormat) {
+    state._session.user.mediaListOptions.scoreFormat = value;
+  },
+  setShowExplicitContent(state, value: boolean) {
+    state._session.user.options.displayAdultContent = value;
+  },
 };
 
 const actions: ActionTree<UserSettingsState, RootState> = {
@@ -125,6 +135,21 @@ const actions: ActionTree<UserSettingsState, RootState> = {
   },
   async setRefreshRate({ commit }, payload: number): Promise<void> {
     commit('setRefreshRate', payload);
+
+    return Promise.resolve();
+  },
+  async setUserTitleLanguage({ commit }, payload: AniListUserTitleLanguage): Promise<void> {
+    commit('setUserTitleLanguage', payload);
+
+    return Promise.resolve();
+  },
+  async setScoringFormat({ commit }, payload: AniListScoreFormat): Promise<void> {
+    commit('setScoringFormat', payload);
+
+    return Promise.resolve();
+  },
+  async setShowExplicitContent({ commit }, payload: boolean): Promise<void> {
+    commit('setShowExplicitContent', payload);
 
     return Promise.resolve();
   },

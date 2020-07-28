@@ -7,7 +7,7 @@
     "added": "リストに追加しました",
     "addToPlanToWatch": "見る予定リストに追加",
     "back": "戻る",
-    "fastSearch": "検索する・・・ \u23ce",
+    "fastSearch": "検索する・・・ ⏎",
     "loading": "通信中",
     "login": "ログイン",
     "logout": "ログアウト",
@@ -176,7 +176,17 @@
         "refreshRate": "更新のインターバル",
         "refreshRateRule": "更新のインターバルは５分～５時間（５～３００分）に設定できます！",
         "refreshRateSuffix": "分",
-        "refreshRateHint": "このインターバルは「AniList」のサーバーとの次の更新までの時間を決まります。変更したインターバルは次の更新から発動します。"
+        "refreshRateHint": "このインターバルは「AniList」のサーバーとの次の更新までの時間を決まります。変更したインターバルは次の更新から発動します。",
+        "userAccountSettings": {
+          "headline": "AniListユーザーアカウント設定",
+          "scoringFormat": "スコア・フォーマット",
+          "scoringFormatHint": "この設定は、リストエントリのスコア・フォーマットを変わります。",
+          "showExplicitContent": "１８禁内容を表示",
+          "showExplicitContentHint": "この設定は、１８禁の内容の表示モードを変える。",
+          "subHeadline": "この設定を変えれば、効能が現れるのは数分掛かるかもしれません。",
+          "userTitleLanguage": "タイトルの言語",
+          "userTitleLanguageHint": "この設定は、メディアのタイトルの言語フォーマットを変える。"
+        }
       },
       "appSettings": {
         "chooseLanguage": "言語を選択してください (Choose language)",
@@ -241,6 +251,23 @@
         "fall": "秋",
         "autumn": "秋",
         "winter": "冬"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "１０点 (5 / 10)",
+          "POINT_100": "１００点 (55 / 100)",
+          "POINT_10_DECIMAL": "十進の１０点 (5.5 / 10)",
+          "POINT_3": "絵文字の３点",
+          "POINT_5": "５点 (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "英語名（How to keep a mummy）",
+          "ENGLISH_STYLISED": "様式化の英語",
+          "NATIVE": "ネイティブ （ミイラの飼い方）",
+          "NATIVE_STYLISED": "様式化のネイティブ名",
+          "ROMAJI": "ローマ字　（Miira no Kaikata）",
+          "ROMAJI_STYLISED": "様式化のローマ字"
+        }
       }
     },
     "colours": {

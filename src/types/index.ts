@@ -5,6 +5,7 @@ export { AniListMediaStatus } from './AniListMediaStatus';
 export { AniListScoreFormat } from './AniListScoreFormat';
 export { AniListSeason } from './AniListSeason';
 export { AniListType } from './AniListType';
+export * from './AniListUserTitleLanguage';
 export { IAniListActivity } from './IAniListActivity';
 export { IAniListActivityHistory } from './IAniListActivityHistory';
 export { IAniListAnimeStatistics } from './IAniListAnimeStatistics';

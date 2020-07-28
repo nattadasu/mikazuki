@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <div class="d-flex flex-column">
       <v-card v-if="isAuthenticated" flat style="background: transparent;">
         <v-card-text class="background" :style="`background-image: url(${currentUser.bannerImage})`">
@@ -213,7 +213,7 @@
         </v-card-text>
       </v-card>
     </div>
-  </v-content>
+  </v-main>
 </template>
 
 <script lang="ts">

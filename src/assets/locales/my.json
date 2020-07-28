@@ -7,7 +7,7 @@
     "added": "Ditambah ke senarai",
     "addToPlanToWatch": "Tambahkan ke senarai Dirancangkan",
     "back": "Kembali",
-    "fastSearch": "Mencari... \u23ce",
+    "fastSearch": "Mencari... ⏎",
     "loading": "Memuatkan...",
     "login": "Masuk",
     "logout": "Keluar",
@@ -36,7 +36,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Kemas kini senarai berikutnya dalam: {0}"
+      "timeUntilNextRefresh": "Kemas kini dalam: {0}"
     },
     "aniList": {
       "completed": "Selesai",
@@ -176,7 +176,17 @@
         "refreshRate": "Jarak penyegaran",
         "refreshRateRule": "Selang masa yang dibenarkan adalah dari 5 minit hingga 5 jam (5 - 300 minit)!",
         "refreshRateSuffix": "minit",
-        "refreshRateHint": "Selang masa tentukan bilangan minit hingga penyegerakan berikutnya terhadap server AniList. Perubahan selang masa akan digunakan selepas penyegerakan seterusnya."
+        "refreshRateHint": "Selang masa tentukan bilangan minit hingga penyegerakan berikutnya terhadap server AniList. Perubahan selang masa akan digunakan selepas penyegerakan seterusnya.",
+        "userAccountSettings": {
+          "headline": "AniList User Account Settings",
+          "scoringFormat": "Scoring Format",
+          "scoringFormatHint": "This setting defines how you can score your list entries.",
+          "showExplicitContent": "Show explicit content (18+ Content)",
+          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
+          "subHeadline": "Changing these settings may take some time until they come into effect!",
+          "userTitleLanguage": "Title Language",
+          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+        }
       },
       "appSettings": {
         "chooseLanguage": "Pilih bahasa",
@@ -241,6 +251,23 @@
         "fall": "Fall",
         "autumn": "Autumn",
         "winter": "Winter"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "10 Points (5 / 10)",
+          "POINT_100": "100 Points (55 / 100)",
+          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
+          "POINT_3": "3 Point Smileys",
+          "POINT_5": "5 Points (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "English (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Stylised English",
+          "NATIVE": "Native (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Stylised Native",
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Stylised Romaji"
+        }
       }
     },
     "colours": {

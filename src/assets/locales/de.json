@@ -7,7 +7,7 @@
     "added": "Zur Liste hinzugefügt",
     "addToPlanToWatch": "Zur Plan-Liste hinzufügen",
     "back": "Zurück",
-    "fastSearch": "Suchen... \u23ce",
+    "fastSearch": "Suchen... ⏎",
     "loading": "Lädt...",
     "login": "Login",
     "logout": "Logout",
@@ -36,7 +36,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Nächste Aktualisierung in: {0}"
+      "timeUntilNextRefresh": "Aktualisierung in: {0}"
     },
     "aniList": {
       "completed": "Abgeschlossen",
@@ -176,7 +176,17 @@
         "refreshRate": "Aktualisierungsintervall",
         "refreshRateRule": "Das erlaubte Intervall reicht von 5 Minuten bis 5 Stunden (5 - 300 Minuten)!",
         "refreshRateSuffix": "Minuten",
-        "refreshRateHint": "Dieses Intervall bestimmt die Dauer (in Minuten) bis zur nächsten Synchronisation mit dem AniList-Server. Änderungen des Intervalls treten nach der nächsten Synchronisation in Kraft."
+        "refreshRateHint": "Dieses Intervall bestimmt die Dauer (in Minuten) bis zur nächsten Synchronisation mit dem AniList-Server. Änderungen des Intervalls treten nach der nächsten Synchronisation in Kraft.",
+        "userAccountSettings": {
+          "headline": "AniList-Benutzeraccounteinstellungen",
+          "scoringFormat": "Bewertungsformat",
+          "scoringFormatHint": "Diese Einstellung verändert das Bewertungsformat deiner Listeneinträge.",
+          "showExplicitContent": "18+-Inhalte anzeigen",
+          "showExplicitContentHint": "Diese Einstellung bestimmt, ob 18+-Inhalte angezeigt werden.",
+          "subHeadline": "Diese Einstellungen könnten möglicherweise einige Minuten benötigen, bis die Änderungen wirken!",
+          "userTitleLanguage": "Titelsprache",
+          "userTitleLanguageHint": "Diese Einstellung ändert das Sprachformat für Medientitel."
+        }
       },
       "appSettings": {
         "chooseLanguage": "Sprache wählen (Choose language)",
@@ -241,6 +251,23 @@
         "fall": "Herbst",
         "autumn": "Herbst",
         "winter": "Winter"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "10 Punkte (5 / 10)",
+          "POINT_100": "100 Punkte (55 / 100)",
+          "POINT_10_DECIMAL": "10 Punkte (Dezimal) (5,5 / 10)",
+          "POINT_3": "3 Smileypunkte",
+          "POINT_5": "5 Punkte (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "Englisch (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Stilisiertes Englisch",
+          "NATIVE": "Muttersprache (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Stilisierte Muttersprache",
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Stilisierte Romaji"
+        }
       }
     },
     "colours": {

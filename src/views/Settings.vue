@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-card tile raised>
       <v-card-text>
         <v-tabs v-model="tabs" grow>
@@ -21,7 +21,7 @@
         </v-tabs>
       </v-card-text>
     </v-card>
-  </v-content>
+  </v-main>
 </template>
 
 <script lang="ts">
