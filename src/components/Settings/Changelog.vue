@@ -15,11 +15,10 @@ export default class Changelog extends Vue {
   created() {
     const md = new MarkdownIt({
       html: false,
-      linkify: false,
+      linkify: true,
       typographer: true,
       quotes: '„“‚‘',
-    })
-      .disable(['link', 'image']);
+    });
     md.use(MarkdownItContainer, 'spoiler', {
       validate(params: string) {
         return params.trim().match(/^spoiler\s+(.*)$/);
