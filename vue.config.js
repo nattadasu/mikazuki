@@ -16,5 +16,11 @@ module.exports = {
       .use('graphql-tag/loader')
       .loader('graphql-tag/loader')
       .end();
+    config.module
+      .rule('md')
+      .test(/\.md$/)
+      .use('raw-loader')
+      .loader('raw-loader')
+      .end();
   },
 };

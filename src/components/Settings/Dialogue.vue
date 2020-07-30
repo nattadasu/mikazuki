@@ -61,12 +61,14 @@ import { Component, PropSync, Vue } from 'vue-property-decorator';
 import AppSettings from './AppSettings.vue';
 import AniList from './AniList.vue';
 import About from './About.vue';
+import Changelog from './Changelog.vue';
 
 @Component({
   components: {
     AppSettings,
     AniList,
     About,
+    Changelog,
   },
 })
 export default class Settings extends Vue {
