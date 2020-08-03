@@ -1,5 +1,10 @@
 <template>
-  <div id="changelog-wrapper" v-html="renderedChangelog" />
+  <v-expansion-panels accordion>
+    <v-expansion-panel v-for="(item, idx) in renderedChangelogs" :key="`item_${idx}`">
+      <v-expansion-panel-header>Test</v-expansion-panel-header>
+      <v-expansion-panel-content v-html="item" />
+    </v-expansion-panel>
+  </v-expansion-panels>
 </template>
 
 <script lang="ts">
@@ -10,7 +15,8 @@ import markdownChangelog from '@/../CHANGELOG.md';
 
 @Component
 export default class Changelog extends Vue {
-  renderedChangelog: string = '';
+  renderedChangelogs: string[] = [];
+  changelogs: string[] = [];
 
   created() {
     const md = new MarkdownIt({
@@ -18,21 +24,6 @@ export default class Changelog extends Vue {
       linkify: true,
       typographer: true,
       quotes: '„“‚‘',
-    });
-    md.use(MarkdownItContainer, 'spoiler', {
-      validate(params: string) {
-        return params.trim().match(/^spoiler\s+(.*)$/);
-      },
-      render(tokens: any, idx: number | string) {
-        const m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/);
-
-        if (tokens[idx].nesting === 1) {
-          // opening tag
-          return `<details><summary>${md.utils.escapeHtml(m[1])}</summary>\n`;
-        } else {
-          return '</details>\n';
-        }
-      },
     });
 
     const defaultRender =
@@ -53,7 +44,10 @@ export default class Changelog extends Vue {
       return defaultRender(tokens, idx, options, env, self);
     };
 
-    this.renderedChangelog = md.render(markdownChangelog);
+    this.changelogs = markdownChangelog.split('---');
+    this.changelogs.forEach((item) => {
+      this.renderedChangelogs.push(md.render(item));
+    });
   }
 }
 </script>
