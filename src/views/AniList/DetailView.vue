@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-layout wrap>
       <v-flex xs12>
         <Loading v-if="!item" />
@@ -35,7 +35,7 @@
         </template>
       </v-row>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script lang="ts">

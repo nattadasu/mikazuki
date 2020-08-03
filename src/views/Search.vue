@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-container fluid class="px-0 py-0">
       <v-row no-gutters>
         <v-col cols="12" class="pa-0">
@@ -166,7 +166,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script lang="ts">

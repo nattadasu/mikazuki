@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <div class="d-flex flex-column">
       <v-card v-if="isAuthenticated" flat style="background: transparent;">
         <v-card-text class="background" :style="`background-image: url(${currentUser.bannerImage})`">
@@ -10,11 +10,7 @@
               </v-col>
 
               <v-col cols="4" sm="3" offset="0" offset-sm="2" offset-md="5" offset-lg="6" offset-xl="7">
-                <v-img
-                  class="pointer-on-hover"
-                  :src="require('@/assets/logos/Ko-fi-Support-Button.png')"
-                  @click="openSupportPage"
-                />
+                <v-img class="pointer-on-hover" :src="kofi" @click="openSupportPage" />
               </v-col>
             </v-row>
           </v-container>
@@ -213,7 +209,7 @@
         </v-card-text>
       </v-card>
     </div>
-  </v-content>
+  </v-main>
 </template>
 
 <script lang="ts">
@@ -223,6 +219,7 @@ import { mapGetters } from 'vuex';
 import Activities from '@/components/AniList/Activities.vue';
 import ProfileImage from '@/components/AniList/ProfileImage.vue';
 import { IAniListSession } from '@/types';
+import kofiImage from '@/assets/logos/Ko-fi-Support-Button.png';
 
 @Component({
   components: {
@@ -250,6 +247,10 @@ export default class Home extends Vue {
       this.$store.commit('userSettings/setSession', accessToken as string);
       await this.$router.replace({ name: 'Home' });
     }
+  }
+
+  get kofi() {
+    return kofiImage;
   }
 
   get currentUser() {

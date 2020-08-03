@@ -1,8 +1,8 @@
 <template>
-  <v-content>
+  <v-main>
     <v-progress-linear absolute v-if="isLoading" indeterminate />
     <List :status="status" />
-  </v-content>
+  </v-main>
 </template>
 
 <script lang="ts">
