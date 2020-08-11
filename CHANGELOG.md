@@ -1,5 +1,3 @@
-# CHANGELOG
-
 ## v0.8.0
 
 ### NEW FEATURES
