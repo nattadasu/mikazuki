@@ -15,9 +15,7 @@
             <v-row justify="center" class="px-1 py-2">
               <v-col :cols="12" :md="4">
                 <div class="headline">
-                  <v-icon large color="blue darken-1">
-                    mdi-rocket
-                  </v-icon>
+                  <v-icon large color="blue darken-1"> mdi-rocket </v-icon>
                   {{ $t('pages.settings.changelog.new') }}
                 </div>
 
@@ -30,9 +28,7 @@
 
               <v-col :cols="12" :md="4">
                 <div class="headline">
-                  <v-icon large color="warning">
-                    mdi-bandage
-                  </v-icon>
+                  <v-icon large color="warning"> mdi-bandage </v-icon>
                   {{ $t('pages.settings.changelog.fix') }}
                 </div>
 
@@ -45,9 +41,7 @@
 
               <v-col :cols="12" :md="4">
                 <div class="headline">
-                  <v-icon large color="error">
-                    mdi-delete
-                  </v-icon>
+                  <v-icon large color="error"> mdi-delete </v-icon>
                   {{ $t('pages.settings.changelog.remove') }}
                 </div>
 

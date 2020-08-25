@@ -13,9 +13,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on: toolTip }">
           <v-btn text exact :to="{ name: 'Watching' }" v-on="{ ...toolTip }">
-            <v-icon color="green">
-              mdi-play
-            </v-icon>
+            <v-icon color="green"> mdi-play </v-icon>
             ({{ watchingAmount }})
           </v-btn>
         </template>
@@ -25,9 +23,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on: toolTip }">
           <v-btn text exact :to="{ name: 'Repeating' }" v-on="{ ...toolTip }">
-            <v-icon color="green darken-3">
-              mdi-repeat
-            </v-icon>
+            <v-icon color="green darken-3"> mdi-repeat </v-icon>
             ({{ repeatingAmount }})
           </v-btn>
         </template>
@@ -37,9 +33,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on: toolTip }">
           <v-btn text exact :to="{ name: 'Completed' }" v-on="{ ...toolTip }">
-            <v-icon color="blue">
-              mdi-check
-            </v-icon>
+            <v-icon color="blue"> mdi-check </v-icon>
             ({{ completedAmount }})
           </v-btn>
         </template>
@@ -49,9 +43,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on: toolTip }">
           <v-btn text exact :to="{ name: 'Paused' }" v-on="{ ...toolTip }">
-            <v-icon color="yellow darken-2">
-              mdi-pause
-            </v-icon>
+            <v-icon color="yellow darken-2"> mdi-pause </v-icon>
             ({{ pausedAmount }})
           </v-btn>
         </template>
@@ -61,9 +53,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on: toolTip }">
           <v-btn text exact :to="{ name: 'Dropped' }" v-on="{ ...toolTip }">
-            <v-icon color="red darken-1">
-              mdi-stop
-            </v-icon>
+            <v-icon color="red darken-1"> mdi-stop </v-icon>
             ({{ droppedAmount }})
           </v-btn>
         </template>

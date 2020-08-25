@@ -51,9 +51,7 @@
 
             <v-card-actions>
               <v-btn block text color="green" :loading="isLoading" @click="search">
-                <v-icon left>
-                  mdi-magnify
-                </v-icon>
+                <v-icon left> mdi-magnify </v-icon>
                 {{ $t('actions.search') }}
               </v-btn>
             </v-card-actions>
@@ -105,9 +103,7 @@
                 <v-col cols="8" class="text-right">
                   <v-tooltip v-if="result.isAdult" top>
                     <template v-slot:activator="{ on }">
-                      <v-icon large color="error" v-on="on">
-                        mdi-alert
-                      </v-icon>
+                      <v-icon large color="error" v-on="on"> mdi-alert </v-icon>
                     </template>
                     <span>{{ $t('alerts.adultContent') }}</span>
                   </v-tooltip>
@@ -115,9 +111,7 @@
                   <template v-if="result.mediaListEntry">
                     <v-icon color="green" class="pr-1"> mdi-account </v-icon>{{ result.mediaListEntry.score }}
                   </template>
-                  <v-icon color="yellow lighten-1" class="pr-1">
-                    mdi-account-group
-                  </v-icon>
+                  <v-icon color="yellow lighten-1" class="pr-1"> mdi-account-group </v-icon>
                   {{ result.averageScore || 'n.a.' }}
                 </v-col>
               </v-row>
@@ -126,39 +120,27 @@
             <v-card-actions class="icon-actionize">
               <v-row class="pa-1">
                 <v-col class="text-center">
-                  <v-icon :color="result.isWatching ? 'green' : 'grey darken-2'">
-                    mdi-play
-                  </v-icon>
+                  <v-icon :color="result.isWatching ? 'green' : 'grey darken-2'"> mdi-play </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="result.isRepeating ? 'green darken-3' : 'grey darken-2'">
-                    mdi-repeat
-                  </v-icon>
+                  <v-icon :color="result.isRepeating ? 'green darken-3' : 'grey darken-2'"> mdi-repeat </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="result.isCompleted ? 'blue' : 'grey darken-2'">
-                    mdi-check
-                  </v-icon>
+                  <v-icon :color="result.isCompleted ? 'blue' : 'grey darken-2'"> mdi-check </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="result.isPaused ? 'yellow darken-2' : 'grey darken-2'">
-                    mdi-pause
-                  </v-icon>
+                  <v-icon :color="result.isPaused ? 'yellow darken-2' : 'grey darken-2'"> mdi-pause </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="result.isDropped ? 'red darken-1' : 'grey darken-2'">
-                    mdi-stop
-                  </v-icon>
+                  <v-icon :color="result.isDropped ? 'red darken-1' : 'grey darken-2'"> mdi-stop </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="result.isPlanning ? '' : 'grey darken-2'">
-                    mdi-playlist-plus
-                  </v-icon>
+                  <v-icon :color="result.isPlanning ? '' : 'grey darken-2'"> mdi-playlist-plus </v-icon>
                 </v-col>
               </v-row>
             </v-card-actions>

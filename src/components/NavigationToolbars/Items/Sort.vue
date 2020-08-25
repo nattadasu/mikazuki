@@ -77,9 +77,7 @@
 
       <v-card-actions>
         <v-btn text block @click="resetFilters">
-          <v-icon left>
-            mdi-restore
-          </v-icon>
+          <v-icon left> mdi-restore </v-icon>
           {{ $t('actions.reset') }}
         </v-btn>
       </v-card-actions>

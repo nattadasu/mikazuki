@@ -65,7 +65,7 @@
     <template #append>
       <v-list-item class="px-2 py-2">
         <v-img
-          style="cursor: pointer;"
+          style="cursor: pointer"
           min-width="240"
           :src="require('@/assets/logos/Ko-fi-Support-Button.png')"
           @click="openSupportPage"

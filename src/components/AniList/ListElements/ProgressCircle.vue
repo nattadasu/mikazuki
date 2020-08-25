@@ -23,9 +23,7 @@
       color="success"
       @click="increaseEpisodeCounter"
     >
-      <v-icon size="18">
-        mdi-plus
-      </v-icon>
+      <v-icon size="18"> mdi-plus </v-icon>
     </v-btn>
   </v-progress-circular>
 </template>

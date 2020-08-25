@@ -1,7 +1,7 @@
 <template>
   <v-main>
     <div class="d-flex flex-column">
-      <v-card v-if="isAuthenticated" flat style="background: transparent;">
+      <v-card v-if="isAuthenticated" flat style="background: transparent">
         <v-card-text class="background" :style="`background-image: url(${currentUser.bannerImage})`">
           <v-container fluid>
             <v-row>
@@ -272,9 +272,7 @@ export default class Home extends Vue {
 
   get activityHistoryItems() {
     const history = this.currentUser.stats.activityHistory;
-    const timestamp = moment()
-      .subtract(15, 'days')
-      .unix();
+    const timestamp = moment().subtract(15, 'days').unix();
 
     const relevantItems = history.filter((item) => item.date >= timestamp);
 

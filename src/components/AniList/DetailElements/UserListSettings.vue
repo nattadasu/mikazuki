@@ -57,17 +57,13 @@
       <v-layout>
         <v-flex>
           <v-btn text block color="success" @click="saveChanges">
-            <v-icon left>
-              mdi-content-save
-            </v-icon>
+            <v-icon left> mdi-content-save </v-icon>
             {{ $t('actions.save') }}
           </v-btn>
         </v-flex>
         <v-flex>
           <v-btn text block color="error" @click="removeFromList">
-            <v-icon left>
-              mdi-delete
-            </v-icon>
+            <v-icon left> mdi-delete </v-icon>
             {{ $t('actions.remove') }}
           </v-btn>
         </v-flex>
@@ -76,9 +72,7 @@
 
     <v-card-actions v-else>
       <v-btn text color="success" block @click="addToList">
-        <v-icon left>
-          mdi-library-plus
-        </v-icon>
+        <v-icon left> mdi-library-plus </v-icon>
         {{ $t('actions.add') }}
       </v-btn>
     </v-card-actions>

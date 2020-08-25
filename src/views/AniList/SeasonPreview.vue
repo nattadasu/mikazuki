@@ -28,9 +28,7 @@
 
                     <v-tooltip top>
                       <template v-slot:activator="{ on }">
-                        <v-icon large color="error" v-on="on">
-                          mdi-alert
-                        </v-icon>
+                        <v-icon large color="error" v-on="on"> mdi-alert </v-icon>
                       </template>
                       <span>{{ $t('alerts.adultContent') }}</span>
                     </v-tooltip>
@@ -42,39 +40,27 @@
             <v-card-actions class="icon-actionize">
               <v-row class="pa-1">
                 <v-col class="text-center">
-                  <v-icon :color="item.isWatching ? 'green' : 'grey darken-2'">
-                    mdi-play
-                  </v-icon>
+                  <v-icon :color="item.isWatching ? 'green' : 'grey darken-2'"> mdi-play </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="item.isRepeating ? 'green darken-3' : 'grey darken-2'">
-                    mdi-repeat
-                  </v-icon>
+                  <v-icon :color="item.isRepeating ? 'green darken-3' : 'grey darken-2'"> mdi-repeat </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="item.isCompleted ? 'blue' : 'grey darken-2'">
-                    mdi-check
-                  </v-icon>
+                  <v-icon :color="item.isCompleted ? 'blue' : 'grey darken-2'"> mdi-check </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="item.isPaused ? 'yellow darken-2' : 'grey darken-2'">
-                    mdi-pause
-                  </v-icon>
+                  <v-icon :color="item.isPaused ? 'yellow darken-2' : 'grey darken-2'"> mdi-pause </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="item.isDropped ? 'red darken-1' : 'grey darken-2'">
-                    mdi-stop
-                  </v-icon>
+                  <v-icon :color="item.isDropped ? 'red darken-1' : 'grey darken-2'"> mdi-stop </v-icon>
                 </v-col>
 
                 <v-col text-center>
-                  <v-icon :color="item.isPlanning ? '' : 'grey darken-2'">
-                    mdi-playlist-plus
-                  </v-icon>
+                  <v-icon :color="item.isPlanning ? '' : 'grey darken-2'"> mdi-playlist-plus </v-icon>
                 </v-col>
               </v-row>
             </v-card-actions>
