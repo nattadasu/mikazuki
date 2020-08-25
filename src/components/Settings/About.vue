@@ -12,12 +12,7 @@
       </v-col>
 
       <v-col cols="4" align-self="center">
-        <image-link
-          dark
-          :link="githubPage"
-          :image="require('@/assets/logos/github-logo.png')"
-          image-text="GitHub"
-        />
+        <image-link dark :link="githubPage" :image="require('@/assets/logos/github-logo.png')" image-text="GitHub" />
       </v-col>
 
       <v-col cols="4" align-self="center">
@@ -37,19 +32,11 @@
       </v-col>
 
       <v-col cols="4" align-self="center">
-        <image-link
-          :link="appHomepage"
-          :image="require('@/assets/logos/AppIcon.png')"
-          image-text="Mikazuki"
-        />
+        <image-link :link="appHomepage" :image="require('@/assets/logos/AppIcon.png')" image-text="Mikazuki" />
       </v-col>
 
       <v-col cols="4" align-self="center">
-        <image-link
-          :link="aniListPage"
-          :image="require('@/assets/logos/AniListLogo.svg')"
-          image-text="AniList"
-        />
+        <image-link :link="aniListPage" :image="require('@/assets/logos/AniListLogo.svg')" image-text="AniList" />
       </v-col>
 
       <v-col cols="4" align-self="center">
