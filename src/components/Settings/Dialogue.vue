@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="syncedDialog" max-width="960" scrollable>
-    <v-card min-height="500">
+    <v-card min-height="750">
       <v-card-title>
         <v-btn icon @click="syncedDialog = false">
           <v-icon>mdi-close</v-icon>
