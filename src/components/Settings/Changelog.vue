@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import MarkdownItContainer from 'markdown-it-container';
 import MarkdownIt from 'markdown-it';
 import markdownChangelog from '@/../CHANGELOG.md';
 
@@ -58,7 +57,8 @@ export default class Changelog extends Vue {
       }
 
       const [, version] = matches;
-      const rendered = md.render(item.trim());
+      const textWithoutVersion = item.replace(`## ${version}`, '').trim();
+      const rendered = md.render(textWithoutVersion);
 
       changelogMap.set(version, rendered);
     });
