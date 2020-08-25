@@ -27,7 +27,6 @@ export default class Changelog extends Vue {
       html: false,
       linkify: true,
       typographer: true,
-      quotes: '„“‚‘',
     });
 
     const defaultRender =
