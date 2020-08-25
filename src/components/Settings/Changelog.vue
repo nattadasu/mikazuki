@@ -70,16 +70,7 @@ export default class Changelog extends Vue {
 
 <style lang="scss">
 .changelog-wrapper {
-  padding: 8px;
-
-  h2 {
-    margin: 4px 0;
-    margin-top: 12px;
-  }
-
-  h3 {
-    margin: 4px 0;
-  }
+  padding: 0 8px;
 
   hr {
     margin: 20px 0;
