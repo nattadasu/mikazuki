@@ -31,7 +31,6 @@
           <template v-else>
             <v-col cols v-for="item in settingsComponents" :key="item.identifier">
               <v-btn
-                v-on="on"
                 text
                 small
                 block
