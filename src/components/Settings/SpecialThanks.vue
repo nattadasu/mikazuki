@@ -3,7 +3,13 @@
     <h1 class="pb-1">{{ $t('menus.settings.specialThanks') }}</h1>
 
     <v-row>
-      <v-col cols="12" md="6" class="py-1" v-for="(item, index) in translators" :key="`translator_${index}`">
+      <v-col
+        cols="12"
+        md="6"
+        class="py-1"
+        v-for="(item, index) in translators"
+        :key="`translator_${index}`"
+      >
         <h4 class="py-1">
           <v-icon v-for="(icon, i) in item.icons" :key="`translator_${index}_icon_${i}`" left :class="`flag-icon flag-icon-${icon}`" />
           <span class="title">{{ item.name }}</span>
