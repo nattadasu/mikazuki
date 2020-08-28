@@ -1,6 +1,12 @@
 <template>
   <a :href="link" target="_blank">
-    <v-img :class="{ 'bright-shadow': !!dark }" :src="image" :alt="imageText">
+    <v-img
+      :class="{ 'bright-shadow': !!dark }"
+      :src="image"
+      :alt="imageText"
+      :max-height="maxHeight"
+      :contain="contain"
+    >
       <template #placeholder>
         <v-row align="center" justify="center" class="ma-0">
           <v-progress-circular indeterminate color="grey lighten-5" />
@@ -19,6 +25,8 @@ export default class ImageLink extends Vue {
   @Prop(String) image!: string;
   @Prop(String) imageText!: string;
   @Prop(Boolean) dark!: boolean;
+  @Prop(Number) maxHeight!: number;
+  @Prop(Boolean) contain!: boolean;
 }
 </script>
 

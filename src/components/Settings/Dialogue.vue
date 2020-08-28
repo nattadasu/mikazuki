@@ -31,7 +31,6 @@
           <template v-else>
             <v-col cols v-for="item in settingsComponents" :key="item.identifier">
               <v-btn
-                v-on="on"
                 text
                 small
                 block
@@ -57,11 +56,12 @@
 </template>
 
 <script lang="ts">
-import { Component, PropSync, Vue } from 'vue-property-decorator';
+import { Component, PropSync, Vue, Watch } from 'vue-property-decorator';
 import AppSettings from './AppSettings.vue';
 import AniList from './AniList.vue';
 import About from './About.vue';
 import Changelog from './Changelog.vue';
+import SpecialThanks from './SpecialThanks.vue';
 
 @Component({
   components: {
@@ -69,6 +69,7 @@ import Changelog from './Changelog.vue';
     AniList,
     About,
     Changelog,
+    SpecialThanks,
   },
 })
 export default class Settings extends Vue {
@@ -117,6 +118,13 @@ export default class Settings extends Vue {
         text: this.$t('menus.settings.specialThanks'),
       },
     ];
+  }
+
+  @Watch('syncedDialog')
+  onDialogChange(value: boolean) {
+    if (!value) {
+      this.activeSettingComponent = 'app-settings';
+    }
   }
 }
 </script>
