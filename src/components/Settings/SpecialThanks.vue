@@ -28,15 +28,26 @@
         <div class="body-2">{{ item.message }}</div>
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col cols="auto">
+        <image-link :link="kofiLink" :image="kofiButton" image-text="Ko-fi" :max-height="75" contain />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SupportList from '@/assets/support/support.json';
+import ImageLink from './About/ImageLink.vue';
+import KofiSupportButton from '@/assets/logos/Ko-fi-Support-Button.png';
 
-@Component
+@Component({ components: { ImageLink } })
 export default class SpecialThanks extends Vue {
+  readonly kofiButton = KofiSupportButton;
+  readonly kofiLink = 'https://ko-fi.com/nicoaiko';
+
   get supporters() {
     return SupportList?.support ?? [];
   }
@@ -46,3 +57,9 @@ export default class SpecialThanks extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.pointer-on-hover:hover {
+  cursor: pointer;
+}
+</style>
