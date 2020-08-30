@@ -82,6 +82,14 @@ const actions: ActionTree<AppState, RootState> = {
 
     return Promise.resolve();
   },
+  async resetAllData({ commit }): Promise<void> {
+    commit('setLoadingState', false);
+    commit('setNavigationDrawerListItemColor', 'auto');
+    commit('setNavigationDrawerBackgroundBrightness', 100);
+    commit('setNavigationDrawerBackgroundBlurriness', 0);
+    commit('setListItemForceDisableAnimationAmount', 200);
+    commit('setListItemStartAmount', 25);
+  },
 };
 
 const module: Module<AppState, RootState> = {

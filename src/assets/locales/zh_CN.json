@@ -207,8 +207,10 @@
         "version": "版本",
         "changesIn": "在 {0} 版本中的新变化"
       },
-      "specialThanks": "特别鸣谢",
-      "supporters": "赞助者"
+      "specialThanks": {
+        "supporters": "赞助者",
+        "translators": "Translators"
+      }
     }
   },
   "routes": {

@@ -3,7 +3,7 @@
     <template v-if="!isAuthenticated">
       <div class="py-1">
         <p>You're currently not logged in! Please do so by clicking on the "Login" button below.</p>
-        <v-btn block color="primary" @click="() => {}" v-text="$t('actions.login')" />
+        <v-btn block color="primary" @click="login" v-text="$t('actions.login')" />
       </div>
     </template>
 
@@ -21,7 +21,7 @@
         <v-divider vertical v-if="$vuetify.breakpoint.mdAndUp" />
 
         <v-col cols="12" md>
-          <v-btn block color="error" @click="() => {}">
+          <v-btn block color="error" @click="logout">
             <v-icon left small>mdi-logout</v-icon>
             {{ $t('actions.logout') }}
           </v-btn>
@@ -48,6 +48,7 @@
 </template>
 
 <script lang="ts">
+import { format } from 'url';
 import { Component, Vue } from 'vue-property-decorator';
 import UserTitleLanguage from './AniList/UserTitleLanguage.vue';
 import ScoringFormat from './AniList/ScoringFormat.vue';
@@ -85,6 +86,38 @@ export default class AniList extends Vue {
 
   get explicitContent(): boolean | null {
     return this.session?.user.options.displayAdultContent ?? null;
+  }
+
+  login() {
+    if (this.isAuthenticated) {
+      return;
+    }
+
+    const oauthConfig = {
+      clientId: process.env.VUE_APP_CLIENT_ID,
+      redirectUri: process.env.VUE_APP_REDIRECT_HOST,
+      authorizationUrl: 'https://anilist.co/api/v2/oauth/authorize',
+      tokenUrl: 'https://anilist.co/api/v2/oauth/token',
+      useBasicAuthorizationHeader: true,
+    };
+    const url = format(`${oauthConfig.authorizationUrl}?client_id=${oauthConfig.clientId}&response_type=token`);
+
+    window.open(url, '_self');
+  }
+
+  async logout() {
+    if (!this.isAuthenticated) {
+      return;
+    }
+
+    this.$store.commit('app/setLoadingState', true);
+    await this.$store.dispatch('userSettings/logout');
+    this.$store.commit('app/setLoadingState', false);
+
+    // Move back to Home page if not there yet
+    if (this.$route.name !== 'Home') {
+      await this.$router.push({ name: 'Home' });
+    }
   }
 }
 </script>
