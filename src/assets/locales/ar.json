@@ -36,7 +36,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "تحديث القائمة التالية فى: {0}"
+      "timeUntilNextRefresh": "التحديث التالي في: {0}"
     },
     "aniList": {
       "completed": "منتهى",
