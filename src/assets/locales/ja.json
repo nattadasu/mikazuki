@@ -36,7 +36,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "次のリスト更新： {0}"
+      "timeUntilNextRefresh": "次の更新： {0}"
     },
     "aniList": {
       "completed": "終了",

@@ -1,10 +1,11 @@
 <template>
   <v-navigation-drawer
+    v-model="drawerActive"
     app
-    :expand-on-hover="true"
-    :mini-variant="true"
+    :expand-on-hover="!isMobile"
+    :mini-variant="!isMobile"
     :right="$vuetify.rtl"
-    :permanent="true"
+    :permanent="!isMobile"
     :src="userBackground"
     :style="customStyling"
   >
@@ -29,27 +30,41 @@
             {{ $t('menus.navigationDrawer.timeUntilNextRefresh', [timerText]) }}
           </v-list-item-subtitle>
         </v-list-item-content>
+
+        <v-list-item-action>
+          <v-btn v-if="isMobile" x-small icon text @click.prevent="drawerActive = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-btn x-small icon text @click.prevent="onRefreshClick">
+            <v-icon>
+              mdi-refresh
+              {{ loading ? 'mdi-spin' : '' }}
+            </v-icon>
+          </v-btn>
+        </v-list-item-action>
       </v-list-item>
 
       <v-divider class="my-2" />
 
-      <v-list-item-group v-if="isAuthenticated" v-model="item" :color="listItemHighlightColor">
-        <template v-for="(item, index) in menuItems">
-          <v-divider v-if="item.title === 'divider'" :key="index" class="my-2" />
+      <template v-if="isAuthenticated">
+        <v-list-item-group v-model="item" :color="listItemHighlightColor">
+          <template v-for="(item, index) in menuItems">
+            <v-divider v-if="item.title === 'divider'" :key="index" class="my-2" />
 
-          <v-list-item :key="index" :to="item.location" v-else exact>
-            <v-list-item-icon>
-              <v-icon v-text="item.icon" />
-            </v-list-item-icon>
+            <v-list-item :key="index" :to="item.location" v-else exact>
+              <v-list-item-icon>
+                <v-icon v-text="item.icon" />
+              </v-list-item-icon>
 
-            <v-list-item-title>
-              {{ $t(item.title) }}
-            </v-list-item-title>
-          </v-list-item>
-        </template>
-      </v-list-item-group>
+              <v-list-item-title>
+                {{ $t(item.title) }}
+              </v-list-item-title>
+            </v-list-item>
+          </template>
+        </v-list-item-group>
 
-      <v-divider class="my-2" />
+        <v-divider class="my-2" />
+      </template>
 
       <v-list-item @click="settings = !settings">
         <v-list-item-icon>
@@ -78,7 +93,7 @@
 <script lang="ts">
 import { Component, PropSync, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
-import { Getter } from '@/decorators';
+import { Getter, isMobile } from '@/decorators';
 import { refreshTimer, RefreshTimer } from '@/plugins/refreshTimer';
 import { IAniListSession } from '@/types';
 
@@ -92,12 +107,15 @@ interface NavigationItem {
 @Component
 export default class NavigationDrawer extends Vue {
   @PropSync('settingsDialog', Boolean) settings!: Boolean;
+  @PropSync('value', Boolean) drawerActive!: boolean;
   @Getter('userSettings') isAuthenticated!: boolean;
   @Getter('userSettings') session!: IAniListSession;
   @Getter('app') navigationDrawerListItemColor!: string;
   @Getter('app') navigationDrawerBackgroundBrightness!: number;
   @Getter('app') navigationDrawerBackgroundBlurriness!: number;
+  @isMobile() readonly isMobile!: boolean;
 
+  loading: boolean = false;
   item = 0;
   menuItems: NavigationItem[] = [
     {
@@ -189,6 +207,12 @@ export default class NavigationDrawer extends Vue {
 
   openSupportPage() {
     window.open('https://ko-fi.com/nicoaiko', '_blank');
+  }
+
+  async onRefreshClick() {
+    this.loading = true;
+    await refreshTimer.triggerRefresh();
+    this.loading = false;
   }
 }
 </script>
