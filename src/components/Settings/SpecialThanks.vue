@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="py-0">
-    <h1 class="pb-1">{{ $t('menus.settings.specialThanks') }}</h1>
+    <h1 class="pb-1">{{ $t('pages.settings.specialThanks.translators') }}</h1>
 
     <v-row>
       <v-col cols="12" md="6" class="py-1" v-for="(item, index) in translators" :key="`translator_${index}`">
@@ -17,7 +17,7 @@
       </v-col>
     </v-row>
 
-    <h1 class="pt-8 pb-1">{{ $t('pages.settings.supporters') }}</h1>
+    <h1 class="pt-8 pb-1">{{ $t('pages.settings.specialThanks.supporters') }}</h1>
 
     <v-row>
       <v-col cols="12" md="6" class="pa-2" v-for="(item, index) in supporters" :key="`supporter_${index}`">
