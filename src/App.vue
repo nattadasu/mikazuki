@@ -1,7 +1,8 @@
 <template>
   <v-app id="app">
-    <navigation-drawer :settings-dialog.sync="settingsDialog" />
+    <navigation-drawer :value.sync="drawer" :settings-dialog.sync="settingsDialog" />
     <!-- <Navigation /> -->
+    <mobile-nav-drawer-button :value.sync="drawer" />
     <router-view :key="$route.path" />
     <ZeroTwoNotifications position="top center" />
     <!-- <TopButton /> -->
@@ -22,6 +23,7 @@ import TopButton from '@/components/TopButton.vue';
 import ZeroTwoNotifications from '@/components/Notifications.vue';
 import NavigationDrawer from '@/components/NavigationDrawer.vue';
 import Settings from '@/components/Settings/Dialogue.vue';
+import MobileNavDrawerButton from '@/components/MobileNavDrawerButton.vue';
 
 @Component({
   components: {
@@ -30,6 +32,7 @@ import Settings from '@/components/Settings/Dialogue.vue';
     TopButton,
     ZeroTwoNotifications,
     Settings,
+    MobileNavDrawerButton,
   },
   computed: {
     ...mapGetters('app', ['language', 'darkMode']),
@@ -43,6 +46,7 @@ export default class App extends Vue {
   readonly isAuthenticated!: boolean;
   readonly refreshRate!: number;
   settingsDialog: boolean = false;
+  drawer: boolean = false;
 
   @Watch('isAuthenticated')
   loggedInStateChanged(value: boolean) {

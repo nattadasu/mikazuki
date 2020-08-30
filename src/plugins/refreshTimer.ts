@@ -64,6 +64,11 @@ export class RefreshTimer {
     return this;
   }
 
+  async triggerRefresh() {
+    await eventHandler.refreshAniListData();
+    this.restartTimer();
+  }
+
   restartTimer() {
     this.resetTimer();
     this.startTimer();

@@ -1,60 +1,53 @@
 <template>
-  <div>
-    <v-btn
-      v-if="isMobile"
-      top
-      :left="!$vuetify.rtl"
-      :right="$vuetify.rtl"
-      color="info"
-      fab
-      fixed
-      small
-      @click="drawerActive = true"
-    >
-      <v-icon>mdi-menu</v-icon>
-    </v-btn>
-    <v-navigation-drawer
-      v-model="drawerActive"
-      app
-      :expand-on-hover="!isMobile"
-      :mini-variant="!isMobile"
-      :right="$vuetify.rtl"
-      :permanent="!isMobile"
-      :src="userBackground"
-      :style="customStyling"
-    >
-      <v-list dense nav>
-        <v-list-item two-line class="px-0">
-          <v-list-item-avatar>
-            <img v-if="userAvatar" :src="userAvatar" />
-            <v-icon v-else>mdi-account-circle</v-icon>
-          </v-list-item-avatar>
+  <v-navigation-drawer
+    v-model="drawerActive"
+    app
+    :expand-on-hover="!isMobile"
+    :mini-variant="!isMobile"
+    :right="$vuetify.rtl"
+    :permanent="!isMobile"
+    :src="userBackground"
+    :style="customStyling"
+  >
+    <v-list dense nav>
+      <v-list-item two-line class="px-0">
+        <v-list-item-avatar>
+          <img v-if="userAvatar" :src="userAvatar" />
+          <v-icon v-else>mdi-account-circle</v-icon>
+        </v-list-item-avatar>
 
-          <v-list-item-content>
-            <v-list-item-title>
-              <template v-if="userName">
-                {{ userName }}
-              </template>
-              <template v-else>
-                {{ $t('alerts.unauthenticated') }}
-              </template>
-            </v-list-item-title>
+        <v-list-item-content>
+          <v-list-item-title>
+            <template v-if="userName">
+              {{ userName }}
+            </template>
+            <template v-else>
+              {{ $t('alerts.unauthenticated') }}
+            </template>
+          </v-list-item-title>
 
-            <v-list-item-subtitle v-if="isAuthenticated">
-              {{ $t('menus.navigationDrawer.timeUntilNextRefresh', [timerText]) }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
+          <v-list-item-subtitle v-if="isAuthenticated">
+            {{ $t('menus.navigationDrawer.timeUntilNextRefresh', [timerText]) }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
 
-          <v-list-item-action v-if="isMobile">
-            <v-btn x-small icon text @click.prevent="drawerActive = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
+        <v-list-item-action>
+          <v-btn v-if="isMobile" x-small icon text @click.prevent="drawerActive = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-btn x-small icon text @click.prevent="onRefreshClick">
+            <v-icon>
+              mdi-refresh
+              {{ loading ? 'mdi-spin' : '' }}
+            </v-icon>
+          </v-btn>
+        </v-list-item-action>
+      </v-list-item>
 
-        <v-divider class="my-2" />
+      <v-divider class="my-2" />
 
-        <v-list-item-group v-if="isAuthenticated" v-model="item" :color="listItemHighlightColor">
+      <template v-if="isAuthenticated">
+        <v-list-item-group v-model="item" :color="listItemHighlightColor">
           <template v-for="(item, index) in menuItems">
             <v-divider v-if="item.title === 'divider'" :key="index" class="my-2" />
 
@@ -71,30 +64,30 @@
         </v-list-item-group>
 
         <v-divider class="my-2" />
-
-        <v-list-item @click="settings = !settings">
-          <v-list-item-icon>
-            <v-icon>mdi-cogs</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-title>
-            {{ $t('menus.settings.title') }}
-          </v-list-item-title>
-        </v-list-item>
-      </v-list>
-
-      <template #append>
-        <v-list-item class="px-2 py-2">
-          <v-img
-            style="cursor: pointer"
-            min-width="240"
-            :src="require('@/assets/logos/Ko-fi-Support-Button.png')"
-            @click="openSupportPage"
-          />
-        </v-list-item>
       </template>
-    </v-navigation-drawer>
-  </div>
+
+      <v-list-item @click="settings = !settings">
+        <v-list-item-icon>
+          <v-icon>mdi-cogs</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-title>
+          {{ $t('menus.settings.title') }}
+        </v-list-item-title>
+      </v-list-item>
+    </v-list>
+
+    <template #append>
+      <v-list-item class="px-2 py-2">
+        <v-img
+          style="cursor: pointer"
+          min-width="240"
+          :src="require('@/assets/logos/Ko-fi-Support-Button.png')"
+          @click="openSupportPage"
+        />
+      </v-list-item>
+    </template>
+  </v-navigation-drawer>
 </template>
 
 <script lang="ts">
@@ -114,6 +107,7 @@ interface NavigationItem {
 @Component
 export default class NavigationDrawer extends Vue {
   @PropSync('settingsDialog', Boolean) settings!: Boolean;
+  @PropSync('value', Boolean) drawerActive!: boolean;
   @Getter('userSettings') isAuthenticated!: boolean;
   @Getter('userSettings') session!: IAniListSession;
   @Getter('app') navigationDrawerListItemColor!: string;
@@ -121,7 +115,7 @@ export default class NavigationDrawer extends Vue {
   @Getter('app') navigationDrawerBackgroundBlurriness!: number;
   @isMobile() readonly isMobile!: boolean;
 
-  drawerActive: boolean = false;
+  loading: boolean = false;
   item = 0;
   menuItems: NavigationItem[] = [
     {
@@ -213,6 +207,12 @@ export default class NavigationDrawer extends Vue {
 
   openSupportPage() {
     window.open('https://ko-fi.com/nicoaiko', '_blank');
+  }
+
+  async onRefreshClick() {
+    this.loading = true;
+    await refreshTimer.triggerRefresh();
+    this.loading = false;
   }
 }
 </script>
