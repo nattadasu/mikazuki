@@ -207,8 +207,10 @@
         "version": "Versão",
         "changesIn": "Últimas mudanças — {0}"
       },
-      "specialThanks": "Agradecimentos especiais",
-      "supporters": "Apoiadores"
+      "specialThanks": {
+        "supporters": "Apoiadores",
+        "translators": "Translators"
+      }
     }
   },
   "routes": {

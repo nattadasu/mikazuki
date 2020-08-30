@@ -207,8 +207,10 @@
         "version": "الإصدار",
         "changesIn": "أحدث التغييرات بـ {0}"
       },
-      "specialThanks": "شكر خاص",
-      "supporters": "الأنصار"
+      "specialThanks": {
+        "supporters": "الأنصار",
+        "translators": "Translators"
+      }
     }
   },
   "routes": {

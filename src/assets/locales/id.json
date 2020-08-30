@@ -207,8 +207,10 @@
         "version": "Versi",
         "changesIn": "Perubahan terakhir di {0}"
       },
-      "specialThanks": "Terimakasih Terkhusus",
-      "supporters": "Pendukung"
+      "specialThanks": {
+        "supporters": "Pendukung",
+        "translators": "Translators"
+      }
     }
   },
   "routes": {

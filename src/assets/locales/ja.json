@@ -207,8 +207,10 @@
         "version": "バージョン",
         "changesIn": "{0}の最新更新情報"
       },
-      "specialThanks": "特別挨拶",
-      "supporters": "サポーター"
+      "specialThanks": {
+        "supporters": "サポーター",
+        "translators": "翻訳者"
+      }
     }
   },
   "routes": {
