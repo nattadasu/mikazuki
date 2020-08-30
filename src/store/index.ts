@@ -26,9 +26,8 @@ const store = new Vuex.Store<RootState>({
   actions: {
     async resetAllData({ dispatch }) {
       await dispatch('aniList/resetAllData');
-      // TODO: Add resetAllData for other modules as well
-
-      return Promise.resolve();
+      await dispatch('app/resetAllData');
+      await dispatch('userSettings/resetAllData');
     },
   },
   modules: {

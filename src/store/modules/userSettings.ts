@@ -19,6 +19,7 @@ const defaultUser = {
   },
   options: {
     displayAdultContent: false,
+    titleLanguage: AniListUserTitleLanguage.ROMAJI,
   },
   statistics: {
     anime: {
@@ -44,41 +45,7 @@ const state: UserSettingsState = {
   _session: {
     accessToken: '',
     user: {
-      avatar: {
-        medium: '',
-        large: '',
-      },
-      bannerImage: '',
-      id: -1,
-      mediaListOptions: {
-        scoreFormat: AniListScoreFormat.POINT_100,
-      },
-      name: '',
-      stats: {
-        watchedTime: 0,
-        activityHistory: [],
-      },
-      options: {
-        displayAdultContent: false,
-        titleLanguage: AniListUserTitleLanguage.ROMAJI,
-      },
-      statistics: {
-        anime: {
-          count: 0,
-          episodesWatched: 0,
-          meanScore: 0,
-          minutesWatched: 0,
-          standardDeviation: 0,
-          genres: [],
-        },
-        manga: {
-          chaptersRead: 0,
-          count: 0,
-          meanScore: 0,
-          standardDeviation: 0,
-          volumesRead: 0,
-        },
-      },
+      ...defaultUser,
     },
   },
 };
@@ -154,13 +121,14 @@ const actions: ActionTree<UserSettingsState, RootState> = {
     return Promise.resolve();
   },
   async logout({ commit, dispatch }): Promise<void> {
-    commit('setSession', '');
-    commit('setUser', defaultUser);
-    commit('setRefreshRate', 15);
-    await dispatch('setCurrentMediaTitle', '');
     await dispatch('resetAllData', undefined, { root: true });
 
     return Promise.resolve();
+  },
+  async resetAllData({ commit }): Promise<void> {
+    commit('setSession', '');
+    commit('setUser', { ...defaultUser });
+    commit('setRefreshRate', 15);
   },
 };
 
