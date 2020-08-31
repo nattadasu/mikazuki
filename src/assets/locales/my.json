@@ -81,24 +81,24 @@
             "manga": "Manga"
           },
           "statistics": {
-            "totalAnime": "Total Anime",
-            "totalManga": "Total Manga",
-            "daysWatched": "Days Watched",
-            "meanScore": "Mean Score",
-            "chaptersRead": "Chapters Read",
-            "activityHistory": "Activity History",
-            "genreOverview": "Genre Overview"
+            "totalAnime": "Jumlah Anime",
+            "totalManga": "Jumlah Manga",
+            "daysWatched": "Hari Ditonton",
+            "meanScore": "Skor Min",
+            "chaptersRead": "Bab Dibaca",
+            "activityHistory": "Sejarah Aktiviti",
+            "genreOverview": "Tinjauan Genre"
           },
           "headline": "Aktiviti Terkini",
-          "completed": "Selesai {0}",
-          "plansToWatch": "Dirancang {0}",
+          "completed": "Selesai menonton {0}",
+          "plansToWatch": "Dirancang tonton {0}",
           "watchedEpisode": "Episod {1} dari {0} selesai",
-          "dropped": "Berhenti {0}",
+          "dropped": "Berhenti tonton {0}",
           "rewatchedEpisode": "Episod {1} dari {0} ditonton kembali",
           "pausedWatching": "Menjeda menonton {0}",
           "readChapter": "Baca bab {1} daripada {0}",
           "plansToRead": "Rancang membaca {0}",
-          "rereadChapter": "Chapter {1} daripada {0} dibaca kembali",
+          "rereadChapter": "Bab {1} daripada {0} dibaca kembali",
           "pausedReading": "Menjeda membaca {0}"
         },
         "howToAuthenticate": {
@@ -178,26 +178,26 @@
         "refreshRateSuffix": "minit",
         "refreshRateHint": "Selang masa tentukan bilangan minit hingga penyegerakan berikutnya terhadap server AniList. Perubahan selang masa akan digunakan selepas penyegerakan seterusnya.",
         "userAccountSettings": {
-          "headline": "AniList User Account Settings",
-          "scoringFormat": "Scoring Format",
-          "scoringFormatHint": "This setting defines how you can score your list entries.",
-          "showExplicitContent": "Show explicit content (18+ Content)",
-          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
-          "subHeadline": "Changing these settings may take some time until they come into effect!",
-          "userTitleLanguage": "Title Language",
-          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+          "headline": "Tetapan Akaun Pengguna AniList",
+          "scoringFormat": "Format Skor",
+          "scoringFormatHint": "Tetapan ini menentukan bagaimana anda dapat memberi skor entri senarai anda.",
+          "showExplicitContent": "Tunjukkan kandungan eksplisit (Kandungan dewasa)",
+          "showExplicitContentHint": "Tetapan ini menentukan sama ada kandungan dewasa akan ditunjukkan.",
+          "subHeadline": "Mengubah tetapan ini mungkin memerlukan sedikit masa sehingga ia dapat dilaksanakan!",
+          "userTitleLanguage": "Bahasa Tajuk",
+          "userTitleLanguageHint": "Tetapan ini menentukan tajuk mana yang digunakan untuk memaparkan nama media."
         }
       },
       "appSettings": {
         "chooseLanguage": "Pilih bahasa",
         "darkMode": "Mod gelap",
-        "navigationActiveItemColour": "Active Navigation item colour",
-        "navigationBackgroundBrightness": "Navigation Background Brightness",
-        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
-        "initialListItemAmount": "Initial amount of shown list items",
+        "navigationActiveItemColour": "Warna item Navigasi Aktif",
+        "navigationBackgroundBrightness": "Kecerahan Latar Belakang Navigasi",
+        "navigationBackgroundBlurriness": "Kekaburan Latar Belakang Navigasi",
+        "initialListItemAmount": "Jumlah awal item senarai yang ditunjukkan",
         "listAnimationActivity": {
-          "headline": "List animation activity",
-          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+          "headline": "Senarai animasi aktiviti",
+          "subtitle": "Jumlah yang dipilih berfungsi sebagai had. Sekiranya lebih banyak item ditunjukkan pada masa yang sama, semua animasi dinyahaktifkan untuk mengekalkan prestasi."
         }
       },
       "changelog": {
@@ -209,7 +209,7 @@
       },
       "specialThanks": {
         "supporters": "Penyokong",
-        "translators": "Translators"
+        "translators": "Penterjemah"
       }
     }
   },
@@ -248,11 +248,11 @@
         "watching": "Sedang Menonton"
       },
       "seasons": {
-        "spring": "Spring",
-        "summer": "Summer",
-        "fall": "Fall",
-        "autumn": "Autumn",
-        "winter": "Winter"
+        "spring": "Bunga",
+        "summer": "Panas",
+        "fall": "Luruh",
+        "autumn": "Luruh",
+        "winter": "Sejuk"
       },
       "settings": {
         "scoringFormats": {
@@ -273,12 +273,12 @@
       }
     },
     "colours": {
-      "automatic": "Automatic",
-      "black": "Black",
-      "white": "White"
+      "automatic": "Automatik",
+      "black": "Hitam",
+      "white": "Putih"
     },
     "dates": {
-      "dayMonthNumeric": "MM/DD",
+      "dayMonthNumeric": "DD/MM",
       "full": "Do MMMM YYYY",
       "monthAndYear": "MMMM YYYY",
       "yearOnly": "YYYY",
@@ -291,8 +291,8 @@
       "aniList": "AniList"
     },
     "status": {
-      "all": "All",
-      "disabled": "Disabled"
+      "all": "Semua",
+      "disabled": "Tidak aktif"
     }
   },
   "$vuetify": {
