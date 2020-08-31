@@ -90,15 +90,15 @@
             "genreOverview": "Tinjauan Genre"
           },
           "headline": "Aktiviti Terkini",
-          "completed": "Selesai {0}",
-          "plansToWatch": "Dirancang {0}",
+          "completed": "Selesai menonton {0}",
+          "plansToWatch": "Dirancang tonton {0}",
           "watchedEpisode": "Episod {1} dari {0} selesai",
-          "dropped": "Berhenti {0}",
+          "dropped": "Berhenti tonton {0}",
           "rewatchedEpisode": "Episod {1} dari {0} ditonton kembali",
           "pausedWatching": "Menjeda menonton {0}",
           "readChapter": "Baca bab {1} daripada {0}",
           "plansToRead": "Rancang membaca {0}",
-          "rereadChapter": "Chapter {1} daripada {0} dibaca kembali",
+          "rereadChapter": "Bab {1} daripada {0} dibaca kembali",
           "pausedReading": "Menjeda membaca {0}"
         },
         "howToAuthenticate": {
