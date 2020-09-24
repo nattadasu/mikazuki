@@ -247,6 +247,12 @@
         "repeating": "Repeating",
         "watching": "Watching"
       },
+      "mediaStatus": {
+        "finished": "FINISHED",
+        "releasing": "RELEASING",
+        "not_yet_released": "NOT YET RELEASED",
+        "cancelled": "CANCELLED"
+      },
       "seasons": {
         "spring": "Spring",
         "summer": "Summer",

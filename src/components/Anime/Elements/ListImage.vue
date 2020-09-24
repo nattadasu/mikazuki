@@ -1,0 +1,243 @@
+<template>
+  <v-img
+    :src="imageLink"
+    height="250px"
+    position="50% 35%"
+    class="pointerCursor"
+    @click.native="moveToDetails(aniListId)"
+  >
+    <template v-slot:placeholder>
+      <v-container class="pa-0 justify-center fill-height align-center">
+        <v-progress-circular indeterminate color="grey lighten-5" />
+      </v-container>
+    </template>
+
+    <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">
+      <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} ${isMobile ? 'titled-mobile' : 'titled'}`">
+        <v-col :cols="10" class="pb-1 media-title-col">
+          <span class="text-h6" :class="{ 'clamp-title': missingEpisodes && nextEpisode }">{{ name }}</span>
+        </v-col>
+        <v-col cols="2" class="pb-2">
+          <v-container fluid class="pa-0 ma-0 text-center">
+            <div class="text-subtitle-1">
+              {{ item.score }}
+              <v-icon x-small color="rgba(76, 175, 80, 0.75)">mdi-star</v-icon>
+            </div>
+          </v-container>
+        </v-col>
+        <!-- <v-col cols="2" class="pb-2 text-right" v-if="mediaStatusIcon">
+          <v-icon class="glow" :color="mediaStatusChipColor">{{ mediaStatusIcon }}</v-icon>
+        </v-col> -->
+        <v-col v-if="missingEpisodes" cols="12" :class="{ 'pb-2': !nextEpisode, 'pb-0': nextEpisode }">
+          <span class="text-body-2 teal--text text--lighten-3">
+            {{ $tc('pages.aniList.list.missingEpisodes', missingEpisodes, [missingEpisodes]) }}
+          </span>
+        </v-col>
+        <v-col v-if="nextEpisode" cols="12" class="pb-2" :class="{ 'pt-0': missingEpisodes }">
+          <span class="text-body-2 teal--text text--lighten-3">
+            {{ nextEpisode }}
+          </span>
+        </v-col>
+        <v-spacer v-if="concatenatedStudios.length" />
+        <v-col v-if="concatenatedStudios.length" cols="12" align-self="end">
+          <span class="grey--text" :class="{ 'text--darken-4': !darkMode }">{{ concatenatedStudios }}</span>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-img>
+</template>
+
+<script lang="ts">
+import moment from 'moment';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { RawLocation } from 'vue-router';
+import { mapGetters } from 'vuex';
+import Star from './Star.vue';
+import {
+  AniListMediaStatus,
+  AniListScoreFormat,
+  IAniListMediaStudio,
+  IAniListMediaStudioNode,
+  // ZeroTwoListDataItem,
+  IAniListNextAiringEpisode,
+  IAniListSession,
+} from '@/types';
+
+@Component({
+  computed: {
+    ...mapGetters('userSettings', ['session']),
+  },
+  components: { Star },
+})
+export default class ListImage extends Vue {
+  @Prop(Object) item!: any;
+  @Prop(Boolean) showStudios!: boolean;
+  readonly session!: IAniListSession;
+  get nextEpisode(): string | null {
+    return this.nextAiringEpisode
+      ? this.$root
+          .$t('pages.aniList.list.nextAiringEpisode', [
+            this.nextAiringEpisode.episode,
+            moment(this.nextAiringEpisode.airingAt, 'X').fromNow(),
+          ])
+          .toString()
+      : null;
+  }
+  get nextAiringEpisode(): IAniListNextAiringEpisode {
+    return this.item.nextAiringEpisode;
+  }
+  get currentProgress(): number {
+    return this.item.currentProgress;
+  }
+  get missingEpisodes(): number {
+    const { currentProgress, nextAiringEpisode } = this;
+    if (!nextAiringEpisode) {
+      return 0;
+    }
+    const nextEpisode = nextAiringEpisode.episode;
+    // Return the amount of episodes only when there are next episodes
+    // and if there are episodes the user hasn't watched yet.
+    return nextEpisode - 1 > 0 && nextEpisode - 1 - currentProgress > 0 ? nextEpisode - 1 - currentProgress : 0;
+  }
+  get aniListId(): number {
+    return this.item.aniListId;
+  }
+  get name(): string {
+    return this.item.title;
+  }
+  get imageLink(): string {
+    return this.item.imageLink;
+  }
+  get studios(): IAniListMediaStudio {
+    return this.item.studios;
+  }
+  get mediaStatusIcon(): string {
+    return this.item.mediaStatus === AniListMediaStatus.CANCELLED
+      ? 'mdi-cancel'
+      : this.item.mediaStatus === AniListMediaStatus.NOT_YET_RELEASED
+      ? 'mdi-calendar'
+      : this.item.mediaStatus === AniListMediaStatus.RELEASING
+      ? 'mdi-antenna'
+      : '';
+  }
+  get mediaStatusChipColor(): string {
+    return this.item.mediaStatus === AniListMediaStatus.CANCELLED
+      ? 'red darken-2'
+      : this.item.mediaStatus === AniListMediaStatus.NOT_YET_RELEASED
+      ? 'yellow darken-4'
+      : this.item.mediaStatus === AniListMediaStatus.RELEASING
+      ? 'success'
+      : '';
+  }
+  get scoreColor(): string {
+    const score = this.item.score;
+    if (!score) {
+      return 'error darken-2';
+    }
+    const userScoringSystem = this.session.user.mediaListOptions.scoreFormat;
+    switch (userScoringSystem) {
+      case AniListScoreFormat.POINT_100:
+        return score / 100 < 1 / 3 ? 'error darken-2' : score / 100 < 2 / 3 ? 'warning darken-2' : 'success darken-2';
+      case AniListScoreFormat.POINT_10_DECIMAL:
+      case AniListScoreFormat.POINT_10:
+        return score / 10 < 1 / 3 ? 'error darken-2' : score / 10 < 2 / 3 ? 'warning darken-2' : 'success darken-2';
+      case AniListScoreFormat.POINT_5:
+        return score / 5 < 1 / 3 ? 'error darken-2' : score / 5 < 2 / 3 ? 'warning darken-2' : 'success darken-2';
+      case AniListScoreFormat.POINT_3:
+        return score <= 1 ? 'error darken-2' : score === 2 ? 'warning darken-2' : 'success darken-2';
+      default:
+        return 'white';
+    }
+  }
+  get darkMode(): boolean {
+    return this.$vuetify.theme.dark;
+  }
+  get isMobile(): boolean {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+  get concatenatedStudios(): string {
+    if (!this.studios || !this.studios.nodes || !this.studios.nodes.length || !this.showStudios) {
+      return '';
+    }
+    let animationStudios = this.studios.nodes
+      .filter((item: IAniListMediaStudioNode) => item.isAnimationStudio)
+      .map((item: IAniListMediaStudioNode) => item.name);
+    if (!animationStudios.length) {
+      animationStudios = this.studios.nodes.map((item: IAniListMediaStudioNode) => item.name);
+    }
+    return animationStudios[0];
+  }
+  moveToDetails(id: number) {
+    const aniListId = id.toString();
+    const location: RawLocation = { name: 'DetailView', params: { id: aniListId } };
+    this.$router.push(location);
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.pointerCursor {
+  cursor: pointer;
+}
+.anime-image-container {
+  & .titled,
+  & .titled-mobile {
+    & .media-title-col {
+      overflow: hidden;
+
+      & .clamp-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+
+  & .titled {
+    &.shadowed {
+      background-color: rgba(0, 0, 0, 0.65);
+    }
+    &.lightened {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    max-height: 52px;
+    transition: 0.25s ease-in-out;
+  }
+  & .titled-mobile {
+    &.shadowed {
+      background-color: rgba(0, 0, 0, 0.65);
+    }
+    &.lightened {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transition: 0.25s ease-in-out;
+  }
+  &:hover > .titled {
+    max-height: 100%;
+    &.shadowed {
+      background-color: rgba(0, 0, 0, 0.85);
+    }
+    &.lightened {
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+  }
+}
+.glow {
+  animation: glow 2.5s ease-in-out infinite alternate;
+
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.75), 0 0 4px rgba(255, 255, 255, 0.55), 0 0 8px rgba(85, 85, 85, 0.55);
+    }
+    to {
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.55), 0 0 8px rgba(255, 255, 255, 0.55), 0 0 16px rgba(85, 85, 85, 0.75);
+    }
+  }
+}
+</style>

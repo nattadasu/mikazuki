@@ -1,14 +1,15 @@
 <template>
   <v-main>
-    <List :status="status" />
+    <list :status="status" />
   </v-main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import List from '@/components/Anime/List.vue';
 
 // Custom Components
-import List from '@/components/AniList/List.vue';
+// import List from '@/components/AniList/List.vue';
 import EventBus from '@/eventBus';
 import { AniListListStatus } from '@/types';
 
