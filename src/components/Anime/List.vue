@@ -1,9 +1,10 @@
 <script lang="ts">
-import { chain } from 'lodash';
+import { chain, reduce } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import ListImage from './Elements/ListImage.vue';
 import ProgressBar from './Elements/ProgressBar.vue';
 import { Getter } from '@/decorators';
+import aniListEventHandler from '@/plugins/AniList/eventHandler';
 import { AniListListStatus, IAniListList, IAniListMediaListCollection } from '@/types';
 
 @Component({
@@ -17,9 +18,11 @@ export default class AnimeList extends Vue {
   isLoading: boolean = false;
   // TODO: Use other name and typing to use animelist for other list providers as well
   @Getter('aniList') readonly aniListData!: IAniListMediaListCollection;
+  @Getter('app') readonly listItemStartAmount!: number;
   updateTimer: NodeJS.Timeout | null = null;
   updatePayload: any[] = [];
   readonly updateInterval = 750;
+  listItemIndex: number = 0;
 
   get isListEmpty(): boolean {
     return this.listData.length === 0;
@@ -36,6 +39,9 @@ export default class AnimeList extends Vue {
       const { media } = entry;
 
       return {
+        __rendered: false,
+        __entry: entry,
+        __media: media,
         aniListId: media.id,
         currentProgress: entry.progress,
         episodeAmount: media.episodes || '?',
@@ -52,6 +58,25 @@ export default class AnimeList extends Vue {
     });
   }
 
+  get slicedListData(): any[] {
+    return this.listData.slice(0, this.listItemStartAmount * (this.listItemIndex + 1));
+  }
+
+  created() {
+    window.onscroll = this.onScroll;
+  }
+
+  async onScroll() {
+    const bottomOfWindow =
+      document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+
+    if (bottomOfWindow) {
+      if ((this.listItemIndex + 1) * this.listItemStartAmount < this.listData.length) {
+        this.listItemIndex++;
+      }
+    }
+  }
+
   increaseEpisode(entryId: number): void {
     const listEntry = this.listData.find((entry) => entry.id === entryId);
 
@@ -65,6 +90,7 @@ export default class AnimeList extends Vue {
       listEntry.status = AniListListStatus.COMPLETED;
     }
 
+    listEntry.__entry.progress++;
     listEntry.currentProgress++;
     this.startUpdateTimer(listEntry);
   }
@@ -76,7 +102,7 @@ export default class AnimeList extends Vue {
 
     const now = Date.now();
     const uploadEntry = {
-      id: entry.id,
+      entryId: entry.id,
       mediaId: entry.aniListId,
       title: entry.title,
       progress: entry.currentProgress,
@@ -94,36 +120,80 @@ export default class AnimeList extends Vue {
       return;
     }
 
-    function groupBy1<K, V>(list: Array<V>, keyGetter: (input: V) => K): Map<K, Array<V>> {
-      const map = new Map<K, Array<V>>();
+    console.time('chain');
 
-      list.forEach((item) => {
-        const key = keyGetter(item);
-        const collection = map.get(key);
+    const entries = chain(this.updatePayload)
+      .groupBy('entryId')
+      .map((group) =>
+        reduce(group, (acc: any, item: any) => (item.changeFrom > acc.changeFrom ? item : acc), { changeFrom: 0 })
+      )
+      .filter((group) => !!group.entryId)
+      .map(async (entry) => {
+        const { entryId, status, progress, score } = entry;
 
-        if (!collection) {
-          map.set(key, [item]);
-        } else {
-          collection.push(item);
+        if (!entryId || progress === null) {
+          return;
         }
+
+        let completedAt = undefined;
+        if (status === AniListListStatus.COMPLETED) {
+          const now = new Date();
+          completedAt = {
+            year: now.getUTCFullYear(),
+            month: now.getUTCMonth() + 1,
+            day: now.getUTCDate(),
+          };
+        }
+
+        return this.$http.updateEntry({
+          entryId,
+          progress,
+          status,
+          score,
+          completedAt,
+        });
+      })
+      .value();
+
+    console.timeEnd('chain');
+
+    if (!entries.length) {
+      return;
+    }
+
+    console.time('Promise all');
+
+    Promise.all(entries)
+      .then((results) => {
+        if (!results?.length) {
+          return;
+        }
+
+        results.forEach((result) => {
+          if (!result) return;
+
+          const entry = this.listData.find((item) => item.id === result?.id);
+
+          if (!entry) return;
+
+          entry.__entry = Object.assign(entry.__entry, {
+            ...result,
+          });
+          entry.currentProgress = result.progress;
+          entry.score = result.score;
+          entry.status = result.status;
+          console.log(entry);
+        });
+      })
+      .then(() => {
+        // TODO: Trigger update notification
+        console.log('Updated');
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        this.updatePayload = [];
+        console.timeEnd('Promise all');
       });
-
-      return map;
-    }
-
-    function groupBy(items: any[], key: string) {
-      return items.reduce(
-        (result, item) => ({
-          ...result,
-          [item[key]]: [...(result[item[key]] || []), item],
-        }),
-        {}
-      );
-    }
-
-    const grouped = groupBy(this.updatePayload, 'id');
-
-    console.log(grouped);
   }
 }
 </script>
@@ -144,8 +214,8 @@ export default class AnimeList extends Vue {
       </v-col>
 
       <template v-if="!isLoading && !isListEmpty">
-        <v-col v-for="item in listData" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2" :key="item.id">
-          <v-lazy :value="false" :options="{ threshold: 0.5 }">
+        <v-col v-for="item in slicedListData" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2" :key="item.id">
+          <v-lazy v-model="item.__rendered" :options="{ threshold: 0.5 }">
             <v-card flat outlined class="ma-2" :id="item.id">
               <list-image :item="item" :show-studios="false" />
               <progress-bar :item="item" :status="status" :increase-episode="increaseEpisode" />
