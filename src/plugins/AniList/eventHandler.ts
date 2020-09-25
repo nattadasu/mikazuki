@@ -41,8 +41,8 @@ export default {
     try {
       store.commit('app/setLoadingState', true);
       const { user } = store.state.userSettings._session;
-      const userName = (user as IAniListUser).name;
-      const userList = await API.getUserList(userName, AniListType.ANIME);
+      const { name } = user;
+      const userList = await API.getUserList(name, AniListType.ANIME);
 
       if (userList) {
         store.commit('aniList/setAniListData', userList);
