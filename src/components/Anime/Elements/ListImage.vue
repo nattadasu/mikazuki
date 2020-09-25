@@ -12,22 +12,29 @@
       </v-container>
     </template>
 
+    <v-icon v-if="mediaStatusIcon" class="glow media-status-icon" :color="mediaStatusChipColor">
+      {{ mediaStatusIcon }}
+    </v-icon>
+
     <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">
       <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} ${isMobile ? 'titled-mobile' : 'titled'}`">
-        <v-col :cols="10" class="pb-1 media-title-col">
-          <span class="text-h6" :class="{ 'clamp-title': missingEpisodes && nextEpisode }">{{ name }}</span>
+        <v-col cols class="pb-1 media-title-col">
+          <span
+            class="text-h6 clamp-title"
+            :class="{
+              'clamp-title-single': Number(!!missingEpisodes) ^ Number(!!nextEpisode),
+              'clamp-title-double': missingEpisodes && nextEpisode,
+            }"
+          >
+            {{ name }}
+          </span>
         </v-col>
-        <v-col cols="2" class="pb-2">
-          <v-container fluid class="pa-0 ma-0 text-center">
-            <div class="text-subtitle-1">
-              {{ item.score }}
-              <v-icon x-small color="rgba(76, 175, 80, 0.75)">mdi-star</v-icon>
-            </div>
-          </v-container>
+        <v-col cols="auto" class="pb-2">
+          <v-chip small :color="scoreColor">
+            <v-icon x-small left>mdi-star</v-icon>
+            {{ item.score }}
+          </v-chip>
         </v-col>
-        <!-- <v-col cols="2" class="pb-2 text-right" v-if="mediaStatusIcon">
-          <v-icon class="glow" :color="mediaStatusChipColor">{{ mediaStatusIcon }}</v-icon>
-        </v-col> -->
         <v-col v-if="missingEpisodes" cols="12" :class="{ 'pb-2': !nextEpisode, 'pb-0': nextEpisode }">
           <span class="text-body-2 teal--text text--lighten-3">
             {{ $tc('pages.aniList.list.missingEpisodes', missingEpisodes, [missingEpisodes]) }}
@@ -187,8 +194,16 @@ export default class ListImage extends Vue {
 
       & .clamp-title {
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 6;
         -webkit-box-orient: vertical;
+      }
+
+      & .clamp-title-single {
+        -webkit-line-clamp: 5;
+      }
+
+      & .clamp-title-double {
+        -webkit-line-clamp: 3 !important;
       }
     }
   }
@@ -203,7 +218,7 @@ export default class ListImage extends Vue {
     position: absolute;
     bottom: 0;
     width: 100%;
-    max-height: 52px;
+    max-height: 48px;
     transition: 0.25s ease-in-out;
   }
   & .titled-mobile {
@@ -228,16 +243,24 @@ export default class ListImage extends Vue {
     }
   }
 }
-.glow {
-  animation: glow 2.5s ease-in-out infinite alternate;
 
-  @keyframes glow {
-    from {
-      text-shadow: 0 0 2px rgba(255, 255, 255, 0.75), 0 0 4px rgba(255, 255, 255, 0.55), 0 0 8px rgba(85, 85, 85, 0.55);
-    }
-    to {
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.55), 0 0 8px rgba(255, 255, 255, 0.55), 0 0 16px rgba(85, 85, 85, 0.75);
-    }
+@keyframes glow {
+  from {
+    text-shadow: 0 0 4px #3a3, 0 0 6px #1c1, 0 0 2px #0f0;
   }
+  to {
+    text-shadow: 0 0 4px #c71, 0 0 6px #07f, 0 0 2px #000;
+  }
+}
+
+.media-status-icon {
+  &.glow {
+    animation: glow 5s ease-in-out infinite alternate;
+  }
+
+  position: absolute;
+  z-index: 2;
+  top: 5px;
+  left: 5px;
 }
 </style>
