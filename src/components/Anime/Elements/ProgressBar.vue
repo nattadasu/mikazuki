@@ -1,11 +1,5 @@
 <template>
-  <v-progress-linear
-    color="success darken-2"
-    :value="percentage"
-    :indeterminate="indeterminate"
-    :height="!!mediaProgress ? 27 : 25"
-    Î
-  >
+  <v-progress-linear color="success darken-2" :value="percentage" :height="!!mediaProgress ? 27 : 25" Î>
     <v-container v-if="!!mediaProgress" fluid class="ma-0 pa-0" style="position: absolute; bottom: 0">
       <v-progress-linear color="rgba(255, 193, 7, 0.8)" :value="mediaProgress" :height="2" />
     </v-container>
@@ -27,7 +21,6 @@ export default class ProgressCircle extends Vue {
   @Prop(Object) item!: any;
   @Prop(String) status!: string;
   @Prop(Function) increaseEpisode!: Function;
-  indeterminate: boolean = false;
 
   get completedList(): boolean {
     return this.status === AniListListStatus.COMPLETED;
@@ -55,7 +48,7 @@ export default class ProgressCircle extends Vue {
       // We have to substract one here as that episode isn't aired yet
       const episode = nextAiringEpisode.episode - 1 > 0 ? nextAiringEpisode.episode - 1 : 1;
       // We choose only 80 percent here, as we are unaware of the episode amount
-      return (currentProgress / episode) * 80;
+      return (currentProgress / episode) * 75;
     }
     // Just return 75% if we have a non-zero progress but
     // neither through the next airing episode nor through the episode amount
@@ -73,21 +66,24 @@ export default class ProgressCircle extends Vue {
 
   get mediaProgress(): number {
     const { nextAiringEpisode, episodeAmount, currentProgress } = this.item;
+    const episodesUntilNow = nextAiringEpisode?.episode - 1;
 
-    if (!nextAiringEpisode?.episode || !episodeAmount || episodeAmount === '?') {
+    if (!episodesUntilNow) {
       return 0;
     }
 
-    const episodesUntilNow = nextAiringEpisode.episode - 1;
+    if (!episodeAmount || episodeAmount === '?') {
+      const multiplyer = currentProgress === episodesUntilNow ? 75 : 80;
+
+      return (currentProgress / episodesUntilNow) * multiplyer;
+    }
 
     return (episodesUntilNow / episodeAmount) * 100;
   }
 
   async increaseEpisodeCounter() {
-    this.indeterminate = true;
     try {
       await this.increaseEpisode(this.entryId);
-      this.indeterminate = false;
     } catch (error) {
       console.error('nope');
     }
