@@ -30,10 +30,7 @@
           </span>
         </v-col>
         <v-col cols="auto" class="pb-2">
-          <v-chip small :color="scoreColor">
-            <v-icon x-small left>mdi-star</v-icon>
-            {{ item.score }}
-          </v-chip>
+          <score-chip :score="item.score" :title="item.title" />
         </v-col>
         <v-col v-if="missingEpisodes" cols="12" :class="{ 'pb-2': !nextEpisode, 'pb-0': nextEpisode }">
           <span class="text-body-2 teal--text text--lighten-3">
@@ -59,7 +56,7 @@ import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
 import { mapGetters } from 'vuex';
-import Star from './Star.vue';
+import ScoreChip from './ScoreChip.vue';
 import {
   AniListMediaStatus,
   AniListScoreFormat,
@@ -74,7 +71,7 @@ import {
   computed: {
     ...mapGetters('userSettings', ['session']),
   },
-  components: { Star },
+  components: { ScoreChip },
 })
 export default class ListImage extends Vue {
   @Prop(Object) item!: any;
