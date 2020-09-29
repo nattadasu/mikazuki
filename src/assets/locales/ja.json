@@ -8,6 +8,7 @@
     "addToPlanToWatch": "見る予定リストに追加",
     "back": "戻る",
     "fastSearch": "検索する・・・ ⏎",
+    "filter": "フィルタリング",
     "loading": "通信中",
     "login": "ログイン",
     "logout": "ログアウト",
@@ -15,7 +16,7 @@
     "reset": "リセット",
     "save": "保存",
     "search": "検索",
-    "sort": "並べる＆フィルタリング",
+    "sort": "並べる",
     "toPageTop": "トップへ"
   },
   "alerts": {
@@ -112,7 +113,7 @@
       },
       "list": {
         "airingFinished": "放送終了",
-        "missingEpisodes": "１つのｴﾋﾟｿｰﾄﾞが見残る | {count}つのｴﾋﾟｿｰﾄﾞが見残る",
+        "missingEpisodes": "１つのエピソードが見残る | {count}つのエピソードが見残る",
         "notYetAired": "まだ放送していませんでした。",
         "nextAiringEpisode": "第{0}話は{1}に放送"
       },

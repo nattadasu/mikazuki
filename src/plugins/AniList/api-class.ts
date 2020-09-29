@@ -235,8 +235,8 @@ export default class AniListAPI {
     status,
     startedAt,
     completedAt,
-  }: UpdateEntryParams): Promise<void> {
-    await axios.post('/', {
+  }: UpdateEntryParams): Promise<IAniListEntry> {
+    const response = await axios.post<MediaResponse<IAniListEntry>>('/', {
       query: updateEntry,
       variables: {
         entryId,
@@ -247,6 +247,8 @@ export default class AniListAPI {
         completedAt,
       },
     });
+
+    return response.media;
   }
 
   public async removeEntry(entryId: number): Promise<void> {

@@ -8,6 +8,7 @@
     "addToPlanToWatch": "Add to plan to watch",
     "back": "Back",
     "fastSearch": "Search... ⏎",
+    "filter": "Filter",
     "loading": "Loading...",
     "login": "Login",
     "logout": "Logout",
@@ -15,7 +16,7 @@
     "reset": "Reset",
     "save": "Save",
     "search": "Search",
-    "sort": "Sort & Filter",
+    "sort": "Sort",
     "toPageTop": "Jump to top"
   },
   "alerts": {
@@ -246,6 +247,12 @@
         "planning": "Planning",
         "repeating": "Repeating",
         "watching": "Watching"
+      },
+      "mediaStatus": {
+        "finished": "FINISHED",
+        "releasing": "RELEASING",
+        "not_yet_released": "NOT YET RELEASED",
+        "cancelled": "CANCELLED"
       },
       "seasons": {
         "spring": "Spring",

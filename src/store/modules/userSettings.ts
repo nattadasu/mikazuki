@@ -66,6 +66,9 @@ const getters: GetterTree<UserSettingsState, RootState> = {
   allowAdultContent(state): boolean {
     return state._session.user.options.displayAdultContent;
   },
+  scoreFormat(state): AniListScoreFormat {
+    return state._session.user.mediaListOptions.scoreFormat;
+  },
 };
 
 const mutations: MutationTree<UserSettingsState> = {

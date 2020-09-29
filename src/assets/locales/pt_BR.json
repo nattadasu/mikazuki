@@ -8,6 +8,7 @@
     "addToPlanToWatch": "Adicionar aos planejados",
     "back": "Voltar",
     "fastSearch": "Buscar... ⏎",
+    "filter": "Filtrar",
     "loading": "Carregando...",
     "login": "Iniciar sessão",
     "logout": "Finalizar sessão",
@@ -15,7 +16,7 @@
     "reset": "Reiniciar",
     "save": "Salvar",
     "search": "Pesquisar",
-    "sort": "Ordenar e filtrar",
+    "sort": "Ordenar",
     "toPageTop": "Ir para o topo"
   },
   "alerts": {
