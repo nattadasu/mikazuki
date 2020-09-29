@@ -16,7 +16,8 @@
     "save": "Simpan",
     "search": "Cari",
     "sort": "Isih & Tapis",
-    "toPageTop": "Lompat ke atas"
+    "toPageTop": "Lompat ke atas",
+    "filter": "Filter"
   },
   "alerts": {
     "adultContent": "Media ini dianggap kandungan dewasa! Kebijakan Penonton Disyorkan.",
@@ -165,7 +166,12 @@
     },
     "seasonPreview": {
       "episodes": "? episod | 1 episod | {count} episod",
-      "startDate": "Mulai disiarkan:"
+      "startDate": "Mulai disiarkan:",
+      "updateDialog": {
+        "season": "Season",
+        "title": "Season Preview Parameters",
+        "yearOfSeason": "Year of Season"
+      }
     },
     "settings": {
       "about": {
@@ -270,6 +276,12 @@
           "ROMAJI": "Romaji (Miira no Kaikata)",
           "ROMAJI_STYLISED": "Stylised Romaji"
         }
+      },
+      "mediaStatus": {
+        "cancelled": "CANCELLED",
+        "finished": "FINISHED",
+        "not_yet_released": "NOT YET RELEASED",
+        "releasing": "RELEASING"
       }
     },
     "colours": {

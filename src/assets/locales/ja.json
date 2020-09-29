@@ -166,7 +166,12 @@
     },
     "seasonPreview": {
       "episodes": "エピソード数：？ | エピソード数：1 | エピソード数：{count}",
-      "startDate": "放送開始日："
+      "startDate": "放送開始日：",
+      "updateDialog": {
+        "season": "放送季節",
+        "title": "シーズン予告パラメートル",
+        "yearOfSeason": "年"
+      }
     },
     "settings": {
       "about": {
@@ -271,6 +276,12 @@
           "ROMAJI": "ローマ字　（Miira no Kaikata）",
           "ROMAJI_STYLISED": "様式化のローマ字"
         }
+      },
+      "mediaStatus": {
+        "cancelled": "中止",
+        "finished": "終",
+        "not_yet_released": "放送予定",
+        "releasing": "放送中"
       }
     },
     "colours": {

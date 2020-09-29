@@ -166,7 +166,12 @@
     },
     "seasonPreview": {
       "episodes": "? episodes | 1 episode | {count} episodes",
-      "startDate": "Start of airing:"
+      "startDate": "Start of airing:",
+      "updateDialog": {
+        "season": "Season",
+        "yearOfSeason": "Year of Season",
+        "title": "Season Preview Parameters"
+      }
     },
     "settings": {
       "about": {

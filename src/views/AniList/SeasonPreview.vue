@@ -6,22 +6,44 @@
       :class="{ 'fill-height': isListEmpty || isLoading }"
       style="position: relative"
     >
-      <v-dialog v-if="!isLoading" max-width="500">
+      <v-dialog v-if="!isLoading" max-width="550">
         <template #activator="{ on }">
-          <v-btn fixed dark large rounded v-on="on" style="z-index: 4; top: 12px">
+          <v-btn
+            fixed
+            dark
+            large
+            rounded
+            v-on="on"
+            :style="{
+              top: '16px',
+              left: isMobile ? undefined : '72px',
+              right: isMobile ? '16px' : undefined,
+              'z-index': 4,
+            }"
+          >
             <v-icon left>mdi-calendar</v-icon>
             {{ $t(`misc.aniList.seasons.${nextSeason.toLowerCase()}`) }} {{ currentYear }}
           </v-btn>
         </template>
         <v-card>
-          <v-card-title>Set Season Preview Parameter</v-card-title>
+          <v-card-title>{{ $t('pages.seasonPreview.updateDialog.title') }}</v-card-title>
           <v-card-text>
-            <v-select v-model="currentYear" :items="years" label="Year of Season" menu-props="auto, offset-y" />
-            <v-select v-model="nextSeason" :items="seasons" label="Season" menu-props="auto, offset-y" />
+            <v-select
+              v-model="currentYear"
+              :items="years"
+              :label="$t('pages.seasonPreview.updateDialog.yearOfSeason')"
+              menu-props="auto, offset-y"
+            />
+            <v-select
+              v-model="nextSeason"
+              :items="seasons"
+              :label="$t('pages.seasonPreview.updateDialog.season')"
+              menu-props="auto, offset-y"
+            />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="secondary" @click="onUpdatePreview"> Set </v-btn>
+            <v-btn color="secondary" @click="onUpdatePreview">{{ $t('actions.save') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -185,6 +207,10 @@ export default class SeasonPreview extends Vue {
         isAdded,
       };
     });
+  }
+
+  get isMobile(): boolean {
+    return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
   async created() {
