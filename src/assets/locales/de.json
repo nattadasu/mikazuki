@@ -8,6 +8,7 @@
     "addToPlanToWatch": "Zur Plan-Liste hinzufügen",
     "back": "Zurück",
     "fastSearch": "Suchen... ⏎",
+    "filter": "Filtern",
     "loading": "Lädt...",
     "login": "Login",
     "logout": "Logout",
@@ -15,7 +16,7 @@
     "reset": "Zurücksetzen",
     "save": "Speichern",
     "search": "Suchen",
-    "sort": "Sortieren & Filtern",
+    "sort": "Sortieren",
     "toPageTop": "Zum Anfang springen"
   },
   "alerts": {

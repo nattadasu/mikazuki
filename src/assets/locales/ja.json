@@ -8,6 +8,7 @@
     "addToPlanToWatch": "見る予定リストに追加",
     "back": "戻る",
     "fastSearch": "検索する・・・ ⏎",
+    "filter": "フィルタリング",
     "loading": "通信中",
     "login": "ログイン",
     "logout": "ログアウト",
@@ -15,7 +16,7 @@
     "reset": "リセット",
     "save": "保存",
     "search": "検索",
-    "sort": "並べる＆フィルタリング",
+    "sort": "並べる",
     "toPageTop": "トップへ"
   },
   "alerts": {
