@@ -11,7 +11,7 @@
       <v-card>
         <v-card-title>Change score of {{ title }}</v-card-title>
         <v-card-text>
-          <v-row justify="center" v-if="true || isThreePointFormat">
+          <v-row justify="center" v-if="isThreePointFormat">
             <v-col
               v-for="btn in threePointButtons"
               :key="`${btn.key}_${btn.value}`"
@@ -27,7 +27,7 @@
 
           <v-container fluid class="text-center">
             <v-rating
-              v-if="true || isFivePointFormat || isTenPointFormat"
+              v-if="isFivePointFormat || isTenPointFormat"
               v-model="rating"
               hover
               :length="isTenPointFormat ? 10 : 5"
@@ -47,11 +47,15 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn color="secondary" @click="showDialog = false"> Cancel </v-btn>
+          <v-btn color="secondary" @click="showDialog = false">
+            {{ $t('actions.back') }}
+          </v-btn>
 
           <v-spacer />
 
-          <v-btn color="success" @click="onSaveClick"> Save </v-btn>
+          <v-btn color="success" @click="onSaveClick">
+            {{ $t('actions.save') }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -59,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
+import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator';
 import { Getter } from '@/decorators';
 import { AniListScoreFormat } from '@/types';
 
@@ -165,6 +169,11 @@ export default class AnimeElementsScoreChip extends Vue {
     this.showDialog = false;
 
     return this.rating;
+  }
+
+  @Watch('score')
+  onScoreChange(score: number) {
+    this.rating = score;
   }
 }
 </script>
