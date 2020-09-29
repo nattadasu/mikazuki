@@ -1,7 +1,7 @@
 <template>
   <v-img
     :src="imageLink"
-    height="250px"
+    :height="cardHeight"
     position="50% 35%"
     class="pointerCursor"
     @click.native="moveToDetails(aniListId)"
@@ -16,13 +16,17 @@
       {{ mediaStatusIcon }}
     </v-icon>
 
+    <slot name="action" />
+
     <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">
       <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} ${isMobile ? 'titled-mobile' : 'titled'}`">
-        <v-col cols class="pb-1 media-title-col">
+        <v-col :cols="nameColSize" class="pb-1 media-title-col">
           <list-element-title :name="name" :missing-episodes="missingEpisodes" :next-episode="nextEpisode" />
         </v-col>
 
-        <v-col cols="auto" class="pb-2">
+        <slot name="before" />
+
+        <v-col cols="auto" class="pb-2" v-if="showScore">
           <score-chip :score="item.score" :title="item.title" @on-save-click="onScoreChipSaveClick" />
         </v-col>
 
@@ -39,6 +43,8 @@
         <v-col v-if="concatenatedStudios.length" cols="12" align-self="end">
           <studios :studios="concatenatedStudios" />
         </v-col>
+
+        <slot name="after" />
       </v-row>
     </v-container>
   </v-img>
@@ -72,10 +78,18 @@ import {
   components: { ListElementTitle, MissingEpisodes, NextEpisode, ScoreChip, Studios },
 })
 export default class ListImage extends Vue {
+  @Prop({ type: String, default: '250px' }) cardHeight!: string;
   @Prop(String) status!: AniListListStatus;
   @Prop(Object) item!: any;
   @Prop(Boolean) showStudios!: boolean;
+  @Prop({ type: Boolean, default: true }) showScore!: boolean;
+  @Prop([Number, String, Boolean]) nameColumnSize!: number | string | boolean;
   readonly session!: IAniListSession;
+
+  get nameColSize(): boolean | number | string {
+    return this.nameColumnSize ? this.nameColumnSize : this.showScore ? true : 12;
+  }
+
   get nextEpisode(): string | null {
     return this.nextAiringEpisode
       ? this.$root
@@ -171,6 +185,10 @@ export default class ListImage extends Vue {
     return animationStudios[0];
   }
   moveToDetails(id: number) {
+    if (!id) {
+      return;
+    }
+
     const aniListId = id.toString();
     const location: RawLocation = { name: 'DetailView', params: { id: aniListId } };
     this.$router.push(location);
