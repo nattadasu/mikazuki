@@ -29,22 +29,23 @@
             {{ name }}
           </span>
         </v-col>
+
         <v-col cols="auto" class="pb-2">
           <score-chip :score="item.score" :title="item.title" />
         </v-col>
+
         <v-col v-if="missingEpisodes" cols="12" :class="{ 'pb-2': !nextEpisode, 'pb-0': nextEpisode }">
-          <span class="text-body-2 teal--text text--lighten-3">
-            {{ $tc('pages.aniList.list.missingEpisodes', missingEpisodes, [missingEpisodes]) }}
-          </span>
+          <missing-episodes :missing-episodes="missingEpisodes" />
         </v-col>
+
         <v-col v-if="nextEpisode" cols="12" class="pb-2" :class="{ 'pt-0': missingEpisodes }">
-          <span class="text-body-2 teal--text text--lighten-3">
-            {{ nextEpisode }}
-          </span>
+          <next-episode :next-episode="nextEpisode" />
         </v-col>
+
         <v-spacer v-if="concatenatedStudios.length" />
+
         <v-col v-if="concatenatedStudios.length" cols="12" align-self="end">
-          <span class="grey--text" :class="{ 'text--darken-4': !darkMode }">{{ concatenatedStudios }}</span>
+          <studios :studios="concatenatedStudios" />
         </v-col>
       </v-row>
     </v-container>
@@ -56,8 +57,12 @@ import moment from 'moment';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
 import { mapGetters } from 'vuex';
-import ScoreChip from './ScoreChip.vue';
+import MissingEpisodes from './ListImageElements/MissingEpisodes.vue';
+import NextEpisode from './ListImageElements/NextEpisode.vue';
+import ScoreChip from './ListImageElements/ScoreChip.vue';
+import Studios from './ListImageElements/Studios.vue';
 import {
+  AniListListStatus,
   AniListMediaStatus,
   AniListScoreFormat,
   IAniListMediaStudio,
@@ -71,9 +76,10 @@ import {
   computed: {
     ...mapGetters('userSettings', ['session']),
   },
-  components: { ScoreChip },
+  components: { MissingEpisodes, NextEpisode, ScoreChip, Studios },
 })
 export default class ListImage extends Vue {
+  @Prop(String) status!: AniListListStatus;
   @Prop(Object) item!: any;
   @Prop(Boolean) showStudios!: boolean;
   readonly session!: IAniListSession;

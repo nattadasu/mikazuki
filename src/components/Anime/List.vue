@@ -1,5 +1,5 @@
 <script lang="ts">
-import { chain, reduce } from 'lodash';
+import { chain, entries, reduce } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import ListImage from './Elements/ListImage.vue';
 import ProgressBar from './Elements/ProgressBar.vue';
@@ -75,24 +75,6 @@ export default class AnimeList extends Vue {
         this.listItemIndex++;
       }
     }
-  }
-
-  increaseEpisode(entryId: number): void {
-    const listEntry = this.listData.find((entry) => entry.id === entryId);
-
-    if (!listEntry) {
-      return;
-    }
-
-    const { currentProgress, episodeAmount } = listEntry;
-
-    if (episodeAmount !== '?' && currentProgress + 1 >= episodeAmount) {
-      listEntry.status = AniListListStatus.COMPLETED;
-    }
-
-    listEntry.__entry.progress++;
-    listEntry.currentProgress++;
-    this.startUpdateTimer(listEntry);
   }
 
   startUpdateTimer(entry: any) {
@@ -195,6 +177,47 @@ export default class AnimeList extends Vue {
         console.timeEnd('Promise all');
       });
   }
+
+  onIncreaseEpisode(entryId: number) {
+    const listEntry = this.listData.find((entry) => entry.id === entryId);
+
+    if (!listEntry) {
+      return;
+    }
+
+    const { currentProgress, episodeAmount } = listEntry;
+
+    if (episodeAmount !== '?' && currentProgress + 1 >= episodeAmount) {
+      listEntry.status = AniListListStatus.COMPLETED;
+    }
+
+    listEntry.__entry.progress++;
+    listEntry.currentProgress++;
+    this.startUpdateTimer(listEntry);
+  }
+
+  onRepeatAnime(entryId: number) {
+    const listEntry = this.listData.find((entry) => entry.id === entryId);
+    if (!listEntry) {
+      return;
+    }
+
+    listEntry.status = AniListListStatus.REPEATING;
+    listEntry.currentProgress = 0;
+
+    this.startUpdateTimer(listEntry);
+  }
+
+  onRevertAnime(entryId: number) {
+    const listEntry = this.listData.find((entry) => entry.id === entryId);
+    if (!listEntry) {
+      return;
+    }
+
+    listEntry.status = AniListListStatus.CURRENT;
+
+    this.startUpdateTimer(listEntry);
+  }
 }
 </script>
 
@@ -217,8 +240,15 @@ export default class AnimeList extends Vue {
         <v-col v-for="item in slicedListData" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2" :key="item.id">
           <v-lazy v-model="item.__rendered" :options="{ threshold: 0.5 }">
             <v-card flat outlined class="ma-2" :id="item.id">
-              <list-image :item="item" :show-studios="false" />
-              <progress-bar :item="item" :status="status" :increase-episode="increaseEpisode" />
+              <list-image :status="status" :item="item" :show-studios="false" />
+
+              <progress-bar
+                :item="item"
+                :status="status"
+                @increase="onIncreaseEpisode"
+                @repeat="onRepeatAnime"
+                @revert="onRevertAnime"
+              />
             </v-card>
           </v-lazy>
         </v-col>

@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 import { Getter } from '@/decorators';
 import { AniListScoreFormat } from '@/types';
 
@@ -160,10 +160,11 @@ export default class AnimeElementsScoreChip extends Vue {
     ];
   }
 
+  @Emit()
   onSaveClick() {
-    // emit event to parent
-
     this.showDialog = false;
+
+    return this.rating;
   }
 }
 </script>

@@ -5,7 +5,26 @@
     </v-container>
     <v-container class="ma-0 pa-0 d-flex flex-row align-center align-self-baseline justify-space-between">
       <span class="pl-3 white--text episodeCount">{{ currentProgress }} / {{ episodeAmount }}</span>
-      <v-btn v-if="!completedList" small text icon @click="increaseEpisodeCounter">
+
+      <v-tooltip top v-if="isReversableList">
+        <template #activator="{ on }">
+          <v-btn small text icon @click="onRevertClick" v-on="on">
+            <v-icon size="20">mdi-undo</v-icon>
+          </v-btn>
+        </template>
+        <span>Revert to airing list</span>
+      </v-tooltip>
+
+      <v-tooltip top v-else-if="completedList">
+        <template #activator="{ on }">
+          <v-btn small text icon @click="onRepeatClick" v-on="on">
+            <v-icon size="20">mdi-repeat</v-icon>
+          </v-btn>
+        </template>
+        <span>Put on repeat list</span>
+      </v-tooltip>
+
+      <v-btn v-else small text icon @click="onPlusClick">
         <v-icon size="20">mdi-plus</v-icon>
       </v-btn>
     </v-container>
@@ -19,11 +38,18 @@ import { AniListListStatus } from '@/types';
 @Component
 export default class ProgressCircle extends Vue {
   @Prop(Object) item!: any;
-  @Prop(String) status!: string;
+  @Prop(String) status!: AniListListStatus;
   @Prop(Function) increaseEpisode!: Function;
 
   get completedList(): boolean {
     return this.status === AniListListStatus.COMPLETED;
+  }
+
+  /**
+   * This is true, when the current status is set to Dropped, Planning or Paused.
+   */
+  get isReversableList(): boolean {
+    return [AniListListStatus.PLANNING, AniListListStatus.DROPPED, AniListListStatus.PAUSED].includes(this.status);
   }
 
   get entryId(): number {
@@ -81,12 +107,19 @@ export default class ProgressCircle extends Vue {
     return (episodesUntilNow / episodeAmount) * 100;
   }
 
-  async increaseEpisodeCounter() {
-    try {
-      await this.increaseEpisode(this.entryId);
-    } catch (error) {
-      console.error('nope');
-    }
+  @Emit('increase')
+  onPlusClick() {
+    return this.entryId;
+  }
+
+  @Emit('revert')
+  onRevertClick() {
+    return this.entryId;
+  }
+
+  @Emit('repeat')
+  onRepeatClick() {
+    return this.entryId;
   }
 }
 </script>
