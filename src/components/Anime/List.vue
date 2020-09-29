@@ -15,6 +15,8 @@ import { AniListListStatus, IAniListList, IAniListMediaListCollection } from '@/
 })
 export default class AnimeList extends Vue {
   @Prop(String) readonly status!: AniListListStatus;
+  @Prop(String) readonly sortBy!: string;
+  @Prop(Boolean) readonly sortDesc!: boolean;
   isLoading: boolean = false;
   // TODO: Use other name and typing to use animelist for other list providers as well
   @Getter('aniList') readonly aniListData!: IAniListMediaListCollection;
@@ -35,27 +37,30 @@ export default class AnimeList extends Vue {
       return [];
     }
 
-    return listElement.entries.map((entry) => {
-      const { media } = entry;
+    return chain(listElement.entries)
+      .map((entry) => {
+        const { media } = entry;
 
-      return {
-        __rendered: false,
-        __entry: entry,
-        __media: media,
-        aniListId: media.id,
-        currentProgress: entry.progress,
-        episodeAmount: media.episodes || '?',
-        id: entry.id,
-        // TODO: Use Object with multiple sizes
-        imageLink: media.coverImage.extraLarge,
-        mediaStatus: media.status,
-        nextAiringEpisode: media.nextAiringEpisode,
-        score: entry.score,
-        status: entry.status,
-        studios: media.studios,
-        title: media.title.userPreferred,
-      };
-    });
+        return {
+          __rendered: false,
+          __entry: entry,
+          __media: media,
+          aniListId: media.id,
+          currentProgress: entry.progress,
+          episodeAmount: media.episodes || '?',
+          id: entry.id,
+          // TODO: Use Object with multiple sizes
+          imageLink: media.coverImage.extraLarge,
+          mediaStatus: media.status,
+          nextAiringEpisode: media.nextAiringEpisode,
+          score: entry.score,
+          status: entry.status,
+          studios: media.studios,
+          title: media.title.userPreferred,
+        };
+      })
+      .orderBy(this.sortBy, this.sortDesc ? 'desc' : 'asc')
+      .value();
   }
 
   get slicedListData(): any[] {
@@ -102,8 +107,6 @@ export default class AnimeList extends Vue {
       return;
     }
 
-    console.time('chain');
-
     const entries = chain(this.updatePayload)
       .groupBy('entryId')
       .map((group) =>
@@ -137,13 +140,9 @@ export default class AnimeList extends Vue {
       })
       .value();
 
-    console.timeEnd('chain');
-
     if (!entries.length) {
       return;
     }
-
-    console.time('Promise all');
 
     Promise.all(entries)
       .then((results) => {
@@ -164,17 +163,17 @@ export default class AnimeList extends Vue {
           entry.currentProgress = result.progress;
           entry.score = result.score;
           entry.status = result.status;
-          console.log(entry);
+
+          const updateText = result.status === AniListListStatus.COMPLETED ? 'completeUpdateText' : 'simpleUpdateText';
+          this.$notify({
+            title: this.$t('notifications.aniList.successTitle').toString(),
+            text: this.$t(`notifications.aniList.${updateText}`, [entry.title, result.progress]).toString(),
+          });
         });
-      })
-      .then(() => {
-        // TODO: Trigger update notification
-        console.log('Updated');
       })
       .catch((error) => console.error(error))
       .finally(() => {
         this.updatePayload = [];
-        console.timeEnd('Promise all');
       });
   }
 
@@ -218,6 +217,17 @@ export default class AnimeList extends Vue {
 
     this.startUpdateTimer(listEntry);
   }
+
+  onUpdateScore(entryId: number, score: number) {
+    const listEntry = this.listData.find((entry) => entry.id === entryId);
+    if (!listEntry) {
+      return;
+    }
+
+    listEntry.score = score;
+
+    this.startUpdateTimer(listEntry);
+  }
 }
 </script>
 
@@ -240,7 +250,7 @@ export default class AnimeList extends Vue {
         <v-col v-for="item in slicedListData" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2" :key="item.id">
           <v-lazy v-model="item.__rendered" :options="{ threshold: 0.5 }">
             <v-card flat outlined class="ma-2" :id="item.id">
-              <list-image :status="status" :item="item" :show-studios="false" />
+              <list-image :status="status" :item="item" :show-studios="false" @update:score="onUpdateScore" />
 
               <progress-bar
                 :item="item"

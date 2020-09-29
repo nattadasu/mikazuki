@@ -19,19 +19,11 @@
     <v-container v-if="name" class="fluid fill-height d-flex align-end py-0 anime-image-container">
       <v-row :class="`${darkMode ? 'shadowed' : 'lightened'} ${isMobile ? 'titled-mobile' : 'titled'}`">
         <v-col cols class="pb-1 media-title-col">
-          <span
-            class="text-h6 clamp-title"
-            :class="{
-              'clamp-title-single': Number(!!missingEpisodes) ^ Number(!!nextEpisode),
-              'clamp-title-double': missingEpisodes && nextEpisode,
-            }"
-          >
-            {{ name }}
-          </span>
+          <list-element-title :name="name" :missing-episodes="missingEpisodes" :next-episode="nextEpisode" />
         </v-col>
 
         <v-col cols="auto" class="pb-2">
-          <score-chip :score="item.score" :title="item.title" />
+          <score-chip :score="item.score" :title="item.title" @on-save-click="onScoreChipSaveClick" />
         </v-col>
 
         <v-col v-if="missingEpisodes" cols="12" :class="{ 'pb-2': !nextEpisode, 'pb-0': nextEpisode }">
@@ -54,9 +46,10 @@
 
 <script lang="ts">
 import moment from 'moment';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 import { RawLocation } from 'vue-router';
 import { mapGetters } from 'vuex';
+import ListElementTitle from './ListImageElements/Title.vue';
 import MissingEpisodes from './ListImageElements/MissingEpisodes.vue';
 import NextEpisode from './ListImageElements/NextEpisode.vue';
 import ScoreChip from './ListImageElements/ScoreChip.vue';
@@ -76,7 +69,7 @@ import {
   computed: {
     ...mapGetters('userSettings', ['session']),
   },
-  components: { MissingEpisodes, NextEpisode, ScoreChip, Studios },
+  components: { ListElementTitle, MissingEpisodes, NextEpisode, ScoreChip, Studios },
 })
 export default class ListImage extends Vue {
   @Prop(String) status!: AniListListStatus;
@@ -181,6 +174,11 @@ export default class ListImage extends Vue {
     const aniListId = id.toString();
     const location: RawLocation = { name: 'DetailView', params: { id: aniListId } };
     this.$router.push(location);
+  }
+
+  @Emit('update:score')
+  onScoreChipSaveClick(rating: number) {
+    return this.item.id;
   }
 }
 </script>
