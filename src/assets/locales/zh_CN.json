@@ -16,7 +16,8 @@
     "save": "保存",
     "search": "搜索",
     "sort": "排序与筛选",
-    "toPageTop": "返回顶部"
+    "toPageTop": "返回顶部",
+    "filter": "Filter"
   },
   "alerts": {
     "adultContent": "该作品可能含有 R-18 内容！建议您在查看时注意场合。",
@@ -165,7 +166,12 @@
     },
     "seasonPreview": {
       "episodes": "共 ? 话 | 共 1 话 | 共 {count} 话",
-      "startDate": "开始放映于："
+      "startDate": "开始放映于：",
+      "updateDialog": {
+        "season": "Season",
+        "title": "Season Preview Parameters",
+        "yearOfSeason": "Year of Season"
+      }
     },
     "settings": {
       "about": {
@@ -270,6 +276,12 @@
           "ROMAJI": "Romaji (Miira no Kaikata)",
           "ROMAJI_STYLISED": "Stylised Romaji"
         }
+      },
+      "mediaStatus": {
+        "cancelled": "CANCELLED",
+        "finished": "FINISHED",
+        "not_yet_released": "NOT YET RELEASED",
+        "releasing": "RELEASING"
       }
     },
     "colours": {

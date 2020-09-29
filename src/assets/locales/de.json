@@ -166,7 +166,12 @@
     },
     "seasonPreview": {
       "episodes": "? Episoden | 1 Episode | {count} Episoden",
-      "startDate": "Serienstart:"
+      "startDate": "Serienstart:",
+      "updateDialog": {
+        "season": "Saison",
+        "title": "Saisonvorschauparameter",
+        "yearOfSeason": "Jahr"
+      }
     },
     "settings": {
       "about": {
@@ -271,6 +276,12 @@
           "ROMAJI": "Romaji (Miira no Kaikata)",
           "ROMAJI_STYLISED": "Stilisierte Romaji"
         }
+      },
+      "mediaStatus": {
+        "cancelled": "ABGESETZT",
+        "finished": "ZUENDE",
+        "not_yet_released": "NOCH NICHT AUSGESTRAHLT",
+        "releasing": "LAUFEND"
       }
     },
     "colours": {

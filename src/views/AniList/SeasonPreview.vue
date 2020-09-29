@@ -1,316 +1,338 @@
 <template>
   <v-main>
-    <v-container fluid class="py-0 px-1">
-      <v-row no-gutters>
-        <v-col v-for="item in preparedMedia" :key="item.id" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2">
-          <v-card raised class="ma-2">
-            <ListImage
-              :image-link="item.coverImage"
-              :name="item.title"
-              :ani-list-id="item.id"
-              :studios="item.studios"
+    <v-container
+      fluid
+      class="py-0 px-1"
+      :class="{ 'fill-height': isListEmpty || isLoading }"
+      style="position: relative"
+    >
+      <v-dialog v-if="!isLoading" max-width="550">
+        <template #activator="{ on }">
+          <v-btn
+            fixed
+            dark
+            large
+            rounded
+            v-on="on"
+            :style="{
+              top: '16px',
+              left: isMobile ? undefined : '72px',
+              right: isMobile ? '16px' : undefined,
+              'z-index': 4,
+            }"
+          >
+            <v-icon left>mdi-calendar</v-icon>
+            {{ $t(`misc.aniList.seasons.${nextSeason.toLowerCase()}`) }} {{ currentYear }}
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title>{{ $t('pages.seasonPreview.updateDialog.title') }}</v-card-title>
+          <v-card-text>
+            <v-select
+              v-model="currentYear"
+              :items="years"
+              :label="$t('pages.seasonPreview.updateDialog.yearOfSeason')"
+              menu-props="auto, offset-y"
             />
+            <v-select
+              v-model="nextSeason"
+              :items="seasons"
+              :label="$t('pages.seasonPreview.updateDialog.season')"
+              menu-props="auto, offset-y"
+            />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="secondary" @click="onUpdatePreview">{{ $t('actions.save') }}</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
-            <v-card-text>
-              <v-layout row fill-height align-center>
-                <v-layout column class="px-2" justify-start>
-                  <v-flex class="subtitle-1 grey--text">
-                    {{ $tc('pages.seasonPreview.episodes', item.episodes) }}
-                  </v-flex>
-                  <v-flex class="subtitle-1 grey--text">
-                    {{ $t('pages.seasonPreview.startDate') }} {{ item.startDate }}
-                  </v-flex>
-                </v-layout>
+      <v-row no-gutters>
+        <v-col v-show="isLoading" cols="12" align-self="center">
+          <div class="text-center display-3">
+            {{ $t('actions.loading') }}
+          </div>
+        </v-col>
 
-                <template v-if="item.isAdult">
-                  <v-flex class="mx-2 text-right">
-                    <v-divider vertical inset />
+        <v-col v-if="!isLoading && isListEmpty" cols="12">
+          <div class="display-3 text-center">
+            {{ $t('$vuetify.noDataText') }}
+          </div>
+        </v-col>
 
+        <template v-if="!isLoading && !isListEmpty">
+          <v-col v-for="item in list" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2" :key="item.id">
+            <v-card flat outlined class="ma-2" :id="item.id">
+              <list-image
+                :nameColumnSize="true"
+                cardHeight="450px"
+                :item="item"
+                :show-studios="false"
+                :show-score="false"
+              >
+                <template #before>
+                  <v-col cols="auto" class="pb-2">
                     <v-tooltip top>
-                      <template v-slot:activator="{ on }">
-                        <v-icon large color="error" v-on="on"> mdi-alert </v-icon>
+                      <template #activator="{ on }">
+                        <v-icon
+                          v-if="!item.isAdded"
+                          v-on="on"
+                          color="success"
+                          @click.stop.prevent="onAddEntry(item.id)"
+                        >
+                          mdi-plus
+                        </v-icon>
+                        <v-icon v-else v-on="on" color="info" @click.stop.prevent="">mdi-check</v-icon>
+                      </template>
+                      <span v-if="!item.isAdded">{{ $t('actions.addToPlanToWatch') }}</span>
+                      <span v-else>{{ $t('actions.added') }}</span>
+                    </v-tooltip>
+                  </v-col>
+
+                  <v-col v-if="item.isAdult" cols="auto" class="pb-2">
+                    <v-tooltip top>
+                      <template #activator="{ on }">
+                        <v-icon color="error" v-on="on">mdi-alert</v-icon>
                       </template>
                       <span>{{ $t('alerts.adultContent') }}</span>
                     </v-tooltip>
-                  </v-flex>
+                  </v-col>
+
+                  <v-col cols="12" class="pb-0">
+                    <span class="text-body-2 teal--text text--lighten-3">
+                      {{ $tc('pages.seasonPreview.episodes', [item.episodes]) }}
+                    </span>
+                  </v-col>
+                  <v-col v-if="item.studios" cols="12" class="py-0">
+                    <span class="text-body-2 teal--text text--lighten-3">
+                      {{ item.studios }}
+                    </span>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    :class="{
+                      'py-0': (item.studios || item.episodes) && item.genres.length,
+                      'pt-0 pb-2': (item.studios || item.episodes) && !item.genres.length,
+                    }"
+                  >
+                    <span class="text-body-2 teal--text text--lighten-3">
+                      {{ $t('pages.seasonPreview.startDate') }}
+                      {{ item.startDate }}
+                    </span>
+                  </v-col>
+                  <v-col v-if="item.genres.length" cols="12" class="pt-0 pb-2">
+                    <span class="text-body-2 teal--text text--lighten-3">
+                      {{ $t('pages.aniList.detailView.genres') }}:
+                      {{ item.genres.join(', ') }}
+                    </span>
+                  </v-col>
                 </template>
-              </v-layout>
-            </v-card-text>
-
-            <v-card-actions class="icon-actionize">
-              <v-row class="pa-1">
-                <v-col class="text-center">
-                  <v-icon :color="item.isWatching ? 'green' : 'grey darken-2'"> mdi-play </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isRepeating ? 'green darken-3' : 'grey darken-2'"> mdi-repeat </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isCompleted ? 'blue' : 'grey darken-2'"> mdi-check </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isPaused ? 'yellow darken-2' : 'grey darken-2'"> mdi-pause </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isDropped ? 'red darken-1' : 'grey darken-2'"> mdi-stop </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="item.isPlanning ? '' : 'grey darken-2'"> mdi-playlist-plus </v-icon>
-                </v-col>
-              </v-row>
-            </v-card-actions>
-
-            <v-card-actions v-if="isAuthenticated">
-              <AddButton :item="item" />
-            </v-card-actions>
-          </v-card>
-        </v-col>
-        <v-col v-if="!preparedMedia.length" cols="12" class="text-center display-2 ma-4">
-          {{ $t('$vuetify.noDataText') }}
-        </v-col>
+              </list-image>
+            </v-card>
+          </v-col>
+        </template>
       </v-row>
     </v-container>
   </v-main>
 </template>
 
 <script lang="ts">
-import { chain, includes, get } from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
-import { mapGetters } from 'vuex';
-import { Route } from 'vue-router';
-import ListImage from '@/components/AniList/ListElements/ListImage.vue';
-import AddButton from '@/components/AniList/SeasonPreview/AddButton.vue';
-import eventBus from '@/eventBus';
-import { AniListSeason, IAniListEntry, IAniListMediaListCollection, IAniListSeasonPreviewMedia } from '@/types';
-
-interface UpdateSeasonProperties {
-  year: number;
-  season: AniListSeason;
-}
-
-Component.registerHooks(['beforeRouteUpdate', 'beforeRouteLeave']);
+import ListImage from '@/components/Anime/Elements/ListImage.vue';
+import { AniListListStatus, AniListSeason, IAniListMediaListCollection, IAniListMediaStudio } from '@/types';
+import { Getter } from '@/decorators';
 
 @Component({
-  components: {
-    ListImage,
-    AddButton,
-  },
-  computed: {
-    ...mapGetters('app', ['isLoading']),
-    ...mapGetters('userSettings', ['isAuthenticated', 'allowAdultContent']),
-    ...mapGetters('aniList', ['aniListData']),
-  },
+  components: { ListImage },
 })
 export default class SeasonPreview extends Vue {
-  readonly isLoading!: boolean;
-  readonly isAuthenticated!: boolean;
-  readonly allowAdultContent!: boolean;
-  readonly aniListData!: IAniListMediaListCollection;
+  isLoading: boolean = false;
+  entries: any[] = [];
+  currentYear: number = new Date().getUTCFullYear();
+  nextSeason: AniListSeason = this.getNextSeason();
+  currentListEntryIds: any[] = [];
+  @Getter('aniList') aniListData!: IAniListMediaListCollection;
 
-  media: IAniListSeasonPreviewMedia[] = [];
+  get years() {
+    let year = new Date().getUTCFullYear() + 5;
+    const arr = new Array(year - 1930).fill(0).map(() => --year);
 
-  seasonYear: number = new Date().getUTCFullYear();
+    return arr;
+  }
 
-  season: AniListSeason = this.getCurrentSeason();
+  get seasons() {
+    return [
+      {
+        text: this.$t('misc.aniList.seasons.winter'),
+        value: AniListSeason.WINTER,
+      },
+      {
+        text: this.$t('misc.aniList.seasons.spring'),
+        value: AniListSeason.SPRING,
+      },
+      {
+        text: this.$t('misc.aniList.seasons.summer'),
+        value: AniListSeason.SUMMER,
+      },
+      {
+        text: this.$t('misc.aniList.seasons.fall'),
+        value: AniListSeason.FALL,
+      },
+    ];
+  }
 
-  sortDirection: string = 'asc';
+  get isListEmpty(): boolean {
+    return this.entries.length === 0;
+  }
 
-  sortBy: string = 'title';
+  get list() {
+    return this.entries.map((entry) => {
+      const { date, inputFormat, outputFormat } = this.getDateFormat(entry);
+      const startDate = moment(date, inputFormat).format(outputFormat) || this.$t('misc.dates.dateUnknown');
+      const studios = this.getStudios(entry.studios);
+      const isAdded = this.currentListEntryIds.includes(entry.id);
 
-  genreFilters: string[] = [];
+      return {
+        title: entry.title.userPreferred,
+        episodes: entry.episodes || '?',
+        genres: entry.genres,
+        imageLink: entry.coverImage.extraLarge,
+        startDate,
+        studios,
+        id: entry.id,
+        isAdult: entry.isAdult,
+        isLocked: entry.isLocked,
+        isAdded,
+      };
+    });
+  }
 
-  adultContentFilter: string = 'without';
-
-  get preparedMedia() {
-    const sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
-
-    // @TODO: Give entry a type!
-    const filterGenres = (entry: any): boolean => {
-      if (!this.genreFilters.length) {
-        return true;
-      }
-
-      return this.genreFilters.every((genre) => includes(entry.genres, genre));
-    };
-
-    let { media } = this;
-
-    if (this.adultContentFilter !== 'noFilter') {
-      const showOnlyAdult = this.adultContentFilter === 'only';
-      media = media.filter((item) => item.isAdult === showOnlyAdult);
-    }
-
-    return chain(media)
-      .filter((item) => !item.isAdult || (item.isAdult && this.allowAdultContent))
-      .map((item) => {
-        const outputFormat = item.startDate.day
-          ? (this.$t('misc.dates.full') as string)
-          : item.startDate.month
-          ? (this.$t('misc.dates.monthAndYear') as string)
-          : item.startDate.year
-          ? (this.$t('misc.dates.yearOnly') as string)
-          : undefined;
-        const usersListStatus = !!this.aniListData.lists.find(
-          (list) => !!list.entries.find((entry: IAniListEntry) => entry.media.id === item.id)
-        );
-
-        let dateFormat = '';
-        let itemDate = '';
-
-        if (item.startDate.year) {
-          dateFormat = 'YYYY';
-          itemDate = `${item.startDate.year}`;
-        }
-
-        if (item.startDate.month) {
-          dateFormat = 'M-YYYY';
-          itemDate = `${item.startDate.month}-${item.startDate.year}`;
-        }
-
-        if (item.startDate.day) {
-          dateFormat = `D-${dateFormat}`;
-          itemDate = `${item.startDate.day}-${itemDate}`;
-        }
-        const startDateTimestamp = moment(itemDate, dateFormat).format('X');
-        const startDate = moment(itemDate, dateFormat).format(outputFormat) || this.$t('misc.dates.dateUnknown');
-        const coverImage = item.coverImage.extraLarge;
-
-        return {
-          id: item.id,
-          inList: usersListStatus,
-          isAdult: item.isAdult,
-          isLocked: item.isLocked,
-
-          isWatching: false,
-          isRepeating: false,
-          isCompleted: false,
-          isDropped: false,
-          isPaused: false,
-          isPlanning: false,
-
-          title: item.title.userPreferred,
-          coverImage,
-          episodes: item.episodes || 0,
-          genres: item.genres,
-          startDateTimestamp,
-          startDate,
-          studios: item.studios,
-        };
-      })
-      .filter(filterGenres)
-      .orderBy((entry) => get(entry, this.sortBy), [sortDirection])
-      .value();
+  get isMobile(): boolean {
+    return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
   async created() {
-    if (this.$route.query && this.$route.query.year && this.$route.query.season) {
-      const { year, season } = this.$route.query;
-      this.seasonYear = parseInt(year as string, 10);
-      this.season = this.isValidSeason(season.toString().toUpperCase())
-        ? (season.toString().toUpperCase() as AniListSeason)
-        : this.getCurrentSeason();
-    }
+    this.currentListEntryIds = this.aniListData.lists
+      .map((list) => {
+        const ids = list.entries.map((entry) => entry.media.id);
 
-    eventBus.$on('changeSorting', (item: { sortBy: string; direction: string }) => {
-      this.sortBy = item.sortBy;
-      this.sortDirection = item.direction;
-    });
+        return ids;
+      })
+      .flat();
 
-    eventBus.$on('changeFiltering', (item: { genres: string[] }) => {
-      this.genreFilters = item.genres;
-    });
+    await this.loadData();
+  }
 
-    eventBus.$on('changeAdultContentFilter', (item: { adultFilter: string }) => {
-      this.adultContentFilter = item.adultFilter;
-    });
-
-    // Listen to event
-    eventBus.$on('updateSeason', async (season: UpdateSeasonProperties) => {
-      this.$store.commit('app/setLoadingState', true);
-      try {
-        const preview = await this.$http.getSeasonPreview(season.year, season.season);
-        if (!preview) {
-          this.media = [];
-        } else {
-          this.media = preview.media;
-        }
-      } catch (error) {
-        this.media = [];
-      }
-      this.$store.commit('app/setLoadingState', false);
-    });
-
+  async loadData() {
     try {
-      const preview = await this.$http.getSeasonPreview(this.seasonYear, this.season);
-      if (!preview) {
-        this.media = [];
-      } else {
-        this.media = preview.media;
-      }
+      this.isLoading = true;
+      const response = await this.$http.getSeasonPreview(this.currentYear, this.nextSeason);
+      this.entries = response ? response.media : [];
     } catch (error) {
-      this.media = [];
+      this.$notify({
+        title: 'Error loading season preview!',
+        text: 'An error occurred while loading data for season preview!',
+        type: 'error',
+      });
+
+      this.entries = [];
+    } finally {
+      this.isLoading = false;
     }
   }
 
-  beforeRouteUpdate(to: Route, from: Route, next: any) {
-    eventBus.$emit('resetAllSorts');
+  getNextSeason(): AniListSeason {
+    const currentMonth = new Date().getUTCMonth() + 1;
 
-    const { query } = to;
-    if (query.year) {
-      this.seasonYear = parseInt(query.year as string, 10);
+    switch (currentMonth) {
+      case 1:
+      case 2:
+      case 3:
+        // Currently in winter, so next is spring
+        return AniListSeason.SPRING;
+      case 4:
+      case 5:
+      case 6:
+        return AniListSeason.SUMMER;
+      case 7:
+      case 8:
+      case 9:
+        return AniListSeason.FALL;
+      case 10:
+      case 11:
+      case 12:
+      default:
+        return AniListSeason.WINTER;
+    }
+  }
+
+  getDateFormat(item: any) {
+    const outputFormat = item.startDate.day
+      ? (this.$t('misc.dates.full') as string)
+      : item.startDate.month
+      ? (this.$t('misc.dates.monthAndYear') as string)
+      : item.startDate.year
+      ? (this.$t('misc.dates.yearOnly') as string)
+      : undefined;
+
+    let dateFormat = '';
+    let itemDate = '';
+
+    if (item.startDate.year) {
+      dateFormat = 'YYYY';
+      itemDate = `${item.startDate.year}`;
     }
 
-    if (query.season) {
-      const season = (query.season as string).toUpperCase();
-
-      this.season = this.isValidSeason(season) ? (season as AniListSeason) : this.getCurrentSeason();
+    if (item.startDate.month) {
+      dateFormat = 'M-YYYY';
+      itemDate = `${item.startDate.month}-${item.startDate.year}`;
     }
 
-    next();
+    if (item.startDate.day) {
+      dateFormat = `D-${dateFormat}`;
+      itemDate = `${item.startDate.day}-${itemDate}`;
+    }
+
+    return {
+      date: itemDate,
+      inputFormat: dateFormat,
+      outputFormat,
+    };
   }
 
-  beforeRouteLeave(to: Route, from: Route, next: any) {
-    eventBus.$emit('resetAllSorts');
-    next();
+  getStudios(studios: IAniListMediaStudio): string {
+    return studios.nodes
+      .filter((node) => node.isAnimationStudio)
+      .map((node) => node.name)
+      .join(', ');
   }
 
-  getCurrentSeason(): AniListSeason {
-    const currentMonth = new Date().getUTCMonth();
-
-    // Spring months
-    return currentMonth >= 3 && currentMonth < 6
-      ? AniListSeason.SPRING
-      : // Summer months
-      currentMonth >= 6 && currentMonth < 9
-      ? AniListSeason.SUMMER
-      : // Fall months
-      currentMonth >= 9 && currentMonth < 12
-      ? AniListSeason.FALL
-      : AniListSeason.WINTER;
+  async onUpdatePreview() {
+    await this.loadData();
   }
 
-  isValidSeason(value: string): boolean {
-    return (
-      [AniListSeason.SPRING, AniListSeason.WINTER, AniListSeason.SUMMER, AniListSeason.FALL].find(
-        (item) => item === value.toUpperCase()
-      ) !== undefined
-    );
+  async onAddEntry(id: number) {
+    try {
+      const entry = await this.$http.addEntry({
+        mediaId: id,
+        status: AniListListStatus.PLANNING,
+      });
+
+      this.currentListEntryIds.push(id);
+
+      this.$notify({
+        title: this.$t('notifications.aniList.successTitle').toString(),
+        text: this.$t('notifications.aniList.addedToList', [entry.media.title.userPreferred]).toString(),
+      });
+    } catch (error) {
+      this.$notify({
+        type: 'error',
+        title: this.$t('errors.updateFailed.title').toString(),
+        text: this.$t('errors.updateFailed.text').toString(),
+      });
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@media (min-width: 1480px) and (max-width: 1920px) {
-  .lg5-custom[class*='col-'] {
-    width: 20% !important;
-    max-width: 20% !important;
-    flex-basis: 20% !important;
-  }
-}
-</style>
