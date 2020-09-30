@@ -115,7 +115,10 @@
         "airingFinished": "放送完毕",
         "missingEpisodes": "有 1 话尚未观看 | 有 {count} 话尚未观看",
         "notYetAired": "尚未放送",
-        "nextAiringEpisode": "第 {0} 话将于 {1} 放送"
+        "nextAiringEpisode": "第 {0} 话将于 {1} 放送",
+        "scoreDialog": {
+          "title": "Change score"
+        }
       },
       "detailView": {
         "airedOn": "已于 {0} 上映",

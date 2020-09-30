@@ -9,7 +9,10 @@
       </template>
 
       <v-card>
-        <v-card-title>Change score of {{ title }}</v-card-title>
+        <v-card-title>
+          {{ $t('pages.aniList.list.scoreDialog.title') }}
+        </v-card-title>
+        <v-card-subtitle>{{ title }}</v-card-subtitle>
         <v-card-text>
           <v-row justify="center" v-if="isThreePointFormat">
             <v-col

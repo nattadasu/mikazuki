@@ -115,7 +115,10 @@
         "airingFinished": "Emisión terminada",
         "missingEpisodes": "Un episodio por ver | {count} episodios por ver",
         "notYetAired": "Aún no emitido",
-        "nextAiringEpisode": "El episodio {0} se emitirá el {1}"
+        "nextAiringEpisode": "El episodio {0} se emitirá el {1}",
+        "scoreDialog": {
+          "title": "Change score"
+        }
       },
       "detailView": {
         "airedOn": "Emitido el {0}",

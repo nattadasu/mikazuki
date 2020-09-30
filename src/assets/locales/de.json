@@ -115,7 +115,10 @@
         "airingFinished": "Ausstrahlung beendet",
         "missingEpisodes": "Noch eine Folge gucken | Noch {count} Folgen gucken",
         "notYetAired": "Noch nicht ausgestrahlt",
-        "nextAiringEpisode": "Episode {0} {1}"
+        "nextAiringEpisode": "Episode {0} {1}",
+        "scoreDialog": {
+          "title": "Bewertung ändern"
+        }
       },
       "detailView": {
         "airedOn": "Wurde am {0} ausgestrahlt",

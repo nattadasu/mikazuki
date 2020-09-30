@@ -115,7 +115,10 @@
         "airingFinished": "Trasmissione terminata",
         "missingEpisodes": "Un episodio da guardare | {count} episodi da guardare",
         "notYetAired": "Non ancora trasmesso",
-        "nextAiringEpisode": "L'episodio {0} verrà trasmesso {1}"
+        "nextAiringEpisode": "L'episodio {0} verrà trasmesso {1}",
+        "scoreDialog": {
+          "title": "Change score"
+        }
       },
       "detailView": {
         "airedOn": "Trasmesso il {0}",

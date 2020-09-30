@@ -115,7 +115,10 @@
         "airingFinished": "Selesai siaran",
         "missingEpisodes": "Satu episod untuk dinonton | {count} episod untuk dinonton",
         "notYetAired": "Belum ditayangkan",
-        "nextAiringEpisode": "Episod {0} akan disiarkan {1}"
+        "nextAiringEpisode": "Episod {0} akan disiarkan {1}",
+        "scoreDialog": {
+          "title": "Change score"
+        }
       },
       "detailView": {
         "airedOn": "Disiarkan pada` {0}",

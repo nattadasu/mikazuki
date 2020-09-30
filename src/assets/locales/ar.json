@@ -115,7 +115,10 @@
         "airingFinished": " بث الانتهاء",
         "missingEpisodes": "حلقة واحدة لمشاهدة | {count} حلقات لمشاهدة",
         "notYetAired": "لم يتم بثه",
-        "nextAiringEpisode": "الحلقة {0} تبث {1}"
+        "nextAiringEpisode": "الحلقة {0} تبث {1}",
+        "scoreDialog": {
+          "title": "Change score"
+        }
       },
       "detailView": {
         "airedOn": "تم البث على {0}",
