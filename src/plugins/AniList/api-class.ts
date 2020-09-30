@@ -54,9 +54,8 @@ import {
 // #endregion
 
 interface SearchFilters {
-  isAdult: string;
-  listStatus: AniListListStatus[];
-  genres: string[];
+  isAdult?: boolean;
+  onList?: boolean;
 }
 
 interface ActivitiesParams {
@@ -181,15 +180,10 @@ export default class AniListAPI {
     return response.media;
   }
 
-  public async searchAnime(query: string, filters: SearchFilters): Promise<IAniListSearchResult[]> {
-    const genres = filters.genres.length ? filters.genres : undefined;
-    const onList = !!filters.listStatus.length || undefined;
-    const isAdult = filters.isAdult === 'both' ? undefined : filters.isAdult === 'adult';
-
+  public async searchAnime(query: string, { onList, isAdult }: SearchFilters): Promise<IAniListSearchResult[]> {
     const params = {
       query,
       type: AniListType.ANIME,
-      genres,
       onList,
       isAdult,
     };
@@ -199,19 +193,7 @@ export default class AniListAPI {
       variables: params,
     });
 
-    const searchResults = response.page.media;
-
-    if (filters.listStatus.length) {
-      return searchResults.filter((element) => {
-        if (!element.mediaListEntry) {
-          return false;
-        }
-
-        return filters.listStatus.some((filter) => filter === element.mediaListEntry.status);
-      });
-    }
-
-    return searchResults;
+    return response.page.media;
   }
 
   public async addEntry({ mediaId, status, score, progress }: AddEntryParams): Promise<IAniListEntry> {
