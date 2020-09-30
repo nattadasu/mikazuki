@@ -51,6 +51,7 @@
         <v-col v-show="isLoading" cols="12" align-self="center">
           <div class="text-center display-3">
             {{ $t('actions.loading') }}
+            <v-progress-circular indeterminate style="vertical-align: super" />
           </div>
         </v-col>
 

@@ -23,6 +23,7 @@ export default class AnimeList extends Vue {
   @Getter('app') readonly listItemStartAmount!: number;
   updateTimer: NodeJS.Timeout | null = null;
   updatePayload: any[] = [];
+  updatePayloadHasCompletedItems: boolean = false;
   readonly updateInterval = 750;
   listItemIndex: number = 0;
 
@@ -128,6 +129,7 @@ export default class AnimeList extends Vue {
             month: now.getUTCMonth() + 1,
             day: now.getUTCDate(),
           };
+          this.updatePayloadHasCompletedItems = true;
         }
 
         return this.$http.updateEntry({
@@ -171,9 +173,17 @@ export default class AnimeList extends Vue {
           });
         });
       })
+      .then(() => {
+        if (this.updatePayloadHasCompletedItems) {
+          this.isLoading = true;
+          return aniListEventHandler.refreshLists();
+        }
+      })
       .catch((error) => console.error(error))
       .finally(() => {
+        this.isLoading = false;
         this.updatePayload = [];
+        this.updatePayloadHasCompletedItems = false;
       });
   }
 
@@ -185,13 +195,15 @@ export default class AnimeList extends Vue {
     }
 
     const { currentProgress, episodeAmount } = listEntry;
-
-    if (episodeAmount !== '?' && currentProgress + 1 >= episodeAmount) {
-      listEntry.status = AniListListStatus.COMPLETED;
-    }
-
     listEntry.__entry.progress++;
     listEntry.currentProgress++;
+
+    if (episodeAmount !== '?' && listEntry.currentProgress >= episodeAmount) {
+      listEntry.status = AniListListStatus.COMPLETED;
+      listEntry.currentProgress = episodeAmount;
+      listEntry.__entry.progress = episodeAmount;
+    }
+
     this.startUpdateTimer(listEntry);
   }
 
@@ -237,6 +249,7 @@ export default class AnimeList extends Vue {
       <v-col v-show="isLoading" cols="12" align-self="center">
         <div class="text-center display-3">
           {{ $t('actions.loading') }}
+          <v-progress-circular indeterminate style="vertical-align: super" />
         </div>
       </v-col>
 
