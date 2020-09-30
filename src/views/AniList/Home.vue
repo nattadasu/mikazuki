@@ -422,7 +422,7 @@ export default class Home extends Vue {
     } else if (daysWatched > 500) {
       return daysWatched;
     } else {
-      return 100;
+      return 50;
     }
   }
 
