@@ -17,7 +17,7 @@
     "search": "Cari",
     "sort": "Isih & Tapis",
     "toPageTop": "Lompat ke atas",
-    "filter": "Filter"
+    "filter": "Tapis"
   },
   "alerts": {
     "adultContent": "Media ini dianggap kandungan dewasa! Kebijakan Penonton Disyorkan.",
@@ -171,9 +171,9 @@
       "episodes": "? episod | 1 episod | {count} episod",
       "startDate": "Mulai disiarkan:",
       "updateDialog": {
-        "season": "Season",
-        "title": "Season Preview Parameters",
-        "yearOfSeason": "Year of Season"
+        "season": "Musim",
+        "title": "Parameter Pratonton Musim",
+        "yearOfSeason": "Tahun Musim"
       }
     },
     "settings": {
@@ -265,19 +265,19 @@
       },
       "settings": {
         "scoringFormats": {
-          "POINT_10": "10 Points (5 / 10)",
-          "POINT_100": "100 Points (55 / 100)",
-          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
-          "POINT_3": "3 Point Smileys",
-          "POINT_5": "5 Points (3 / 5)"
+          "POINT_10": "10 Mata (5 / 10)",
+          "POINT_100": "100 Mata (55 / 100)",
+          "POINT_10_DECIMAL": "10 Mata Perpuluhan (5.5 / 10)",
+          "POINT_3": "3 Mata Smileys",
+          "POINT_5": "5 Mata (3 / 5)"
         },
         "titleLanguages": {
-          "ENGLISH": "English (How to keep a mummy)",
-          "ENGLISH_STYLISED": "Stylised English",
-          "NATIVE": "Native (ミイラの飼い方)",
-          "NATIVE_STYLISED": "Stylised Native",
+          "ENGLISH": "Inggeris (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Bergaya Inggeris",
+          "NATIVE": "Asli (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Bergaya Asli",
           "ROMAJI": "Romaji (Miira no Kaikata)",
-          "ROMAJI_STYLISED": "Stylised Romaji"
+          "ROMAJI_STYLISED": "Bergaya Romaji"
         }
       },
       "mediaStatus": {
@@ -311,13 +311,13 @@
     },
     "sorting": {
       "by": {
-        "episodes": "By Episodes",
-        "score": "By Score",
-        "title": "By Title"
+        "episodes": "Mengikut Episod",
+        "score": "Mengikut Poin",
+        "title": "Mengikut Tajuk"
       },
       "direction": {
-        "asc": "Ascending",
-        "desc": "Descending"
+        "asc": "Menaik",
+        "desc": "Menurun"
       }
     }
   },

@@ -17,7 +17,7 @@
     "search": "Cari",
     "sort": "Urut & Saring",
     "toPageTop": "Lompat ke atas",
-    "filter": "Filter"
+    "filter": "Saring"
   },
   "alerts": {
     "adultContent": "Media ini dianggap konten dewasa! Kebijakan Pemirsa Disarankan.",
@@ -117,7 +117,7 @@
         "notYetAired": "Belum ditayangkan",
         "nextAiringEpisode": "Episode {0} akan ditayangkan {1} lagi",
         "scoreDialog": {
-          "title": "Change score"
+          "title": "Ubah skor"
         }
       },
       "detailView": {
@@ -171,9 +171,9 @@
       "episodes": "? episode | 1 episode | {count} episode",
       "startDate": "Mulai ditayangkan:",
       "updateDialog": {
-        "season": "Season",
-        "title": "Season Preview Parameters",
-        "yearOfSeason": "Year of Season"
+        "season": "Musim",
+        "title": "Parameter Pratinjau Musim",
+        "yearOfSeason": "Tahun Musim"
       }
     },
     "settings": {
@@ -281,10 +281,10 @@
         }
       },
       "mediaStatus": {
-        "cancelled": "CANCELLED",
-        "finished": "FINISHED",
-        "not_yet_released": "NOT YET RELEASED",
-        "releasing": "RELEASING"
+        "cancelled": "DIBATALKAN",
+        "finished": "SELESAI",
+        "not_yet_released": "BELUM DIRILIS",
+        "releasing": "RILIS"
       }
     },
     "colours": {
@@ -311,13 +311,13 @@
     },
     "sorting": {
       "by": {
-        "episodes": "By Episodes",
-        "score": "By Score",
-        "title": "By Title"
+        "episodes": "Berdasarkan Episode",
+        "score": "Berdasarkan Skor",
+        "title": "Berdasarkan Judul"
       },
       "direction": {
-        "asc": "Ascending",
-        "desc": "Descending"
+        "asc": "Menaik",
+        "desc": "Menurun"
       }
     }
   },
