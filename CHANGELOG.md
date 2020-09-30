@@ -6,6 +6,21 @@
 - New Settings design
 - Add more AniList settings ([#74](https://github.com/NicoAiko/mikazuki/issues/74) Add changeable personal settings)
 - Add Links to About page
+- List Overview has been overhauled completely
+- Set Score directly on overview page
+- Season Preview has been overhauled completely
+- Airing media has a yellow-ish progress bar now indicating its airing episode progress ([#80](https://github.com/NicoAiko/mikazuki/issues/80) [Feature Request] Episodes Progress Bar)
+
+### FIX
+
+- [#157](https://github.com/NicoAiko/mikazuki/issues/157) "Can't update the watched count in search results" has been temporarily fixed by removing the progress bar
+- [#169](https://github.com/NicoAiko/mikazuki/issues/169) "Titles added by search aren't handled correctly" now adds the title to the planning list
+- [#202](https://github.com/NicoAiko/mikazuki/issues/202) "Days Watched Progress Bar labels are incorrect" The days watched progress bar middle value on the home view now shows the correct values
+
+### UPDATED
+
+- Changelog is now a markdown file
+- A lot of dependencies have been updated
 
 ---
 
