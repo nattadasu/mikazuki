@@ -131,6 +131,12 @@ export default class NavigationDrawer extends Vue {
       icon: 'mdi-calendar-month',
     },
     {
+      title: 'menus.search',
+      location: { name: 'Search' },
+      routeName: 'Search',
+      icon: 'mdi-magnify',
+    },
+    {
       title: 'divider',
     },
     {
