@@ -7,10 +7,17 @@
         link
         @click="onSortableClick(item.value, item.desc)"
       >
-        <v-list-item-title v-text="item.text" />
+        <v-list-item-title v-text="$t(`misc.sorting.by.${item.text}`)" />
 
         <v-list-item-action>
-          <v-icon @click="item.desc = !item.desc">mdi-sort-{{ item.desc ? 'descending' : 'ascending' }}</v-icon>
+          <v-tooltip left>
+            <template #activator="{ on }">
+              <v-icon @click.stop.prevent="onUpdateSortingDirectionClick(item)" v-on="on">
+                mdi-sort-{{ item.desc ? 'descending' : 'ascending' }}
+              </v-icon>
+            </template>
+            <span>{{ $t(`misc.sorting.direction.${item.desc ? 'desc' : 'asc'}`) }}</span>
+          </v-tooltip>
         </v-list-item-action>
       </v-list-item>
     </v-list>
@@ -35,17 +42,17 @@ export default class SortMenu extends Vue {
 
   sortables: any[] = [
     {
-      text: 'By Title',
+      text: 'title',
       value: 'title',
       desc: false,
     },
     {
-      text: 'By Score',
+      text: 'score',
       value: 'score',
       desc: false,
     },
     {
-      text: 'By Episodes',
+      text: 'episodes',
       value: 'episodeAmount',
       desc: false,
     },
@@ -56,6 +63,13 @@ export default class SortMenu extends Vue {
     this.showMenu = false;
 
     return [key, desc];
+  }
+
+  @Emit('update:sort')
+  onUpdateSortingDirectionClick(item: any) {
+    item.desc = !item.desc;
+
+    return [item.value, item.desc];
   }
 }
 </script>
