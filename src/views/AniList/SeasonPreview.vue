@@ -15,9 +15,8 @@
             rounded
             v-on="on"
             :style="{
+              ...buttonStyles,
               top: '16px',
-              left: isMobile ? undefined : '72px',
-              right: isMobile ? '16px' : undefined,
               'z-index': 4,
             }"
           >
@@ -154,6 +153,34 @@ export default class SeasonPreview extends Vue {
   nextSeason: AniListSeason = this.getNextSeason();
   currentListEntryIds: any[] = [];
   @Getter('aniList') aniListData!: IAniListMediaListCollection;
+
+  get buttonStyles() {
+    const isRTL = this.$vuetify.rtl;
+
+    const isMobileAndRTL = this.isMobile && isRTL;
+    const isMobileOnly = this.isMobile && !isRTL;
+    const isRTLOnly = !this.isMobile && isRTL;
+    const isNeither = !this.isMobile && !isRTL;
+
+    let left;
+    let right;
+
+    if (isMobileAndRTL || isRTLOnly) {
+      left = '16px';
+      right = undefined;
+    } else if (isMobileOnly) {
+      left = undefined;
+      right = '16px';
+    } else if (isNeither) {
+      left = '72px';
+      right = undefined;
+    }
+
+    return {
+      left,
+      right,
+    };
+  }
 
   get years() {
     let year = new Date().getUTCFullYear() + 5;
