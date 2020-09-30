@@ -16,7 +16,6 @@ import BurgerButton from '@/components/Anime/BurgerButton.vue';
 import SortMenu from '@/components/Anime/BurgerButtonElements/SortMenu.vue';
 
 // Custom Components
-// import List from '@/components/AniList/List.vue';
 import EventBus from '@/eventBus';
 import { AniListListStatus } from '@/types';
 
