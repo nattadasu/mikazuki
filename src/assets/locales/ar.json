@@ -4,11 +4,11 @@
   "flag": "sa",
   "actions": {
     "add": "اضف",
-    "added": "يضاف إلى القائمة",
-    "addToPlanToWatch": "إضافة إلى قائمة التخطيط",
-    "back": "رجع",
+    "added": "تمت الإضافة",
+    "addToPlanToWatch": "إضافة إلى المخطط لمشاهدته",
+    "back": "رجوع",
     "fastSearch": "بحث... ⏎",
-    "loading": "جار التحميل...",
+    "loading": "جاري التحميل...",
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
     "remove": "إزالة",
@@ -20,7 +20,7 @@
     "filter": "Filter"
   },
   "alerts": {
-    "adultContent": "تعتبر هذه الوسائط محتوى للبالغين! المشاهد حرية التقدير.",
+    "adultContent": "تعتبر هذه الوسائط محتوى للبالغين! يُنصح بتقدير المشاهد.",
     "noDescription": "لا يوجد وصف متاح.",
     "noEnglishTitle": "لا يوجد عنوان باللغة الإنجليزية المتاحة.",
     "noInformation": "لا توجد معلومات متاحة.",
@@ -112,8 +112,8 @@
         }
       },
       "list": {
-        "airingFinished": " بث الانتهاء",
-        "missingEpisodes": "حلقة واحدة لمشاهدة | {count} حلقات لمشاهدة",
+    "airingFinished": " انتهى البث",
+    "missingEpisodes": "حلقة واحدة للمشاهدة | {count} حلقات للمشاهدة",
         "notYetAired": "لم يتم بثه",
         "nextAiringEpisode": "الحلقة {0} تبث {1}",
         "scoreDialog": {
@@ -121,7 +121,7 @@
         }
       },
       "detailView": {
-        "airedOn": "تم البث على {0}",
+    "airedOn": "تم البث في {0}",
         "airedOnTo": "{0} الى {1}",
         "airesFromTo": "البث من {0} إلى {1}",
         "airesOn": "البث فى {0}",
@@ -169,11 +169,11 @@
     },
     "seasonPreview": {
       "episodes": "? حلقات | 1 حلقة | {count} حلقات",
-      "startDate": "بداء البث:",
+    "startDate": "بدء البث:",
       "updateDialog": {
-        "season": "Season",
-        "title": "Season Preview Parameters",
-        "yearOfSeason": "Year of Season"
+        "season": "الموسم",
+        "title": "معلمات معاينة الموسم",
+        "yearOfSeason": "عام الموسم"
       }
     },
     "settings": {
@@ -214,11 +214,11 @@
         "fix": "إصلاح",
         "remove": "منزوع",
         "version": "الإصدار",
-        "changesIn": "أحدث التغييرات بـ {0}"
+    "changesIn": "أحدث التغييرات في {0}"
       },
       "specialThanks": {
-        "supporters": "الأنصار",
-        "translators": "Translators"
+    "supporters": "الداعمين",
+        "translators": "مترجمين"
       }
     }
   },
@@ -259,9 +259,9 @@
       "seasons": {
         "spring": "الربيع",
         "summer": "الصيف",
-        "fall": "الخريف",
-        "autumn": "الخريف",
-        "winter": "الشتاء"
+    "fall": "خريف",
+    "autumn": "خريف",
+    "winter": "شتاء"
       },
       "settings": {
         "scoringFormats": {
@@ -288,9 +288,9 @@
       }
     },
     "colours": {
-      "automatic": "Automatic",
-      "black": "Black",
-      "white": "White"
+      "automatic": "تلقائي",
+      "black": "أسود",
+      "white": "أبيض"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",
