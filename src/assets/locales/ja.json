@@ -308,6 +308,17 @@
     "status": {
       "all": "すべて",
       "disabled": "無効"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "エピソード",
+        "score": "スコア",
+        "title": "タイトル"
+      },
+      "direction": {
+        "asc": "昇順並べ替え",
+        "desc": "降順並べ替え"
+      }
     }
   },
   "$vuetify": {

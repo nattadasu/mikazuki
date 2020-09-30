@@ -308,6 +308,17 @@
     "status": {
       "all": "All",
       "disabled": "Disabled"
+    },
+    "sorting": {
+      "by": {
+        "title": "By Title",
+        "score": "By Score",
+        "episodes": "By Episodes"
+      },
+      "direction": {
+        "desc": "Descending",
+        "asc": "Ascending"
+      }
     }
   },
   "$vuetify": {

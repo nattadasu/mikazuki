@@ -308,6 +308,17 @@
     "status": {
       "all": "Alle",
       "disabled": "Deaktiviert"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "Nach Episoden",
+        "score": "Bewertung",
+        "title": "Titel"
+      },
+      "direction": {
+        "asc": "Aufsteigend",
+        "desc": "Absteigend"
+      }
     }
   },
   "$vuetify": {

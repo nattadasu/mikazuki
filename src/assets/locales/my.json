@@ -308,6 +308,17 @@
     "status": {
       "all": "Semua",
       "disabled": "Tidak aktif"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "By Episodes",
+        "score": "By Score",
+        "title": "By Title"
+      },
+      "direction": {
+        "asc": "Ascending",
+        "desc": "Descending"
+      }
     }
   },
   "$vuetify": {
