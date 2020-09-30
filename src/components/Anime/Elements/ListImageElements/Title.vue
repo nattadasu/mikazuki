@@ -1,9 +1,10 @@
 <template>
   <span
-    class="text-h6 clamp-title"
+    class="text-h6 clamp-title force-ltr"
     :class="{
       'clamp-title-single': Number(!!missingEpisodes) ^ Number(!!nextEpisode),
       'clamp-title-double': missingEpisodes && nextEpisode,
+      'text-right': $vuetify.rtl,
     }"
   >
     {{ name }}

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="py-0">
+  <v-container fluid class="py-0 force-ltr">
     <h1 class="pb-1">{{ $t('pages.settings.specialThanks.translators') }}</h1>
 
     <v-row>

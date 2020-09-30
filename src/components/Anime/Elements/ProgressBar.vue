@@ -4,7 +4,14 @@
       <v-progress-linear color="rgba(255, 193, 7, 0.8)" :value="mediaProgress" :height="2" />
     </v-container>
     <v-container class="ma-0 pa-0 d-flex flex-row align-center align-self-baseline justify-space-between">
-      <span class="pl-3 white--text episodeCount">{{ currentProgress }} / {{ episodeAmount }}</span>
+      <span
+        :class="{
+          'pl-3': !$vuetify.rtl,
+          'pr-2': $vuetify.rtl,
+        }"
+        class="white--text episodeCount"
+        >{{ currentProgress }} / {{ episodeAmount }}</span
+      >
 
       <v-tooltip top v-if="isReversableList">
         <template #activator="{ on }">

@@ -1,6 +1,8 @@
 <template>
-  <v-container fluid class="py-0">
-    <h1 class="pb-4">{{ $t('menus.settings.changelog') }}</h1>
+  <v-container fluid class="py-0 force-ltr">
+    <h1 class="pb-4">
+      {{ $t('menus.settings.changelog') }}
+    </h1>
     <v-expansion-panels accordion flat>
       <v-expansion-panel v-for="([version, text], idx) in renderedChangelogs" :key="`item_${idx}`">
         <v-expansion-panel-header>{{ version }}</v-expansion-panel-header>

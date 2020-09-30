@@ -1,12 +1,12 @@
 <template>
-  <v-speed-dial v-model="fab" bottom right open-on-hover fixed>
+  <v-speed-dial v-model="fab" bottom :right="!$vuetify.rtl" :left="$vuetify.rtl" open-on-hover fixed>
     <template #activator>
       <v-btn v-model="fab" color="info" dark fab>
         <v-icon v-text="buttonIcon" />
       </v-btn>
     </template>
 
-    <v-tooltip left>
+    <v-tooltip :left="!$vuetify.rtl" :right="$vuetify.rtl">
       <template #activator="{ on }">
         <v-btn fab dark small color="green" @click="onSortClick" v-on="on">
           <v-icon>mdi-sort</v-icon>

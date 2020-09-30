@@ -1,5 +1,15 @@
 <template>
-  <v-menu v-model="showMenu" absolute offset-x offset-y left top :position-x="x" :position-y="y">
+  <v-menu
+    v-model="showMenu"
+    absolute
+    offset-x
+    offset-y
+    :left="!$vuetify.rtl"
+    :right="$vuetify.rtl"
+    top
+    :position-x="x"
+    :position-y="y"
+  >
     <v-list>
       <v-list-item
         v-for="(item, index) in sortables"

@@ -12,6 +12,10 @@ body {
   overflow: hidden;
 }
 
+.force-ltr {
+  direction: ltr;
+}
+
 #app.v-application--is-rtl .v-icon {
   &:not(.mdi-play):not(.mdi-check) {
     -moz-transform: scaleX(-1);
