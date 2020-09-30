@@ -52,9 +52,9 @@ export default class AniList extends Vue {
     this.showSortMenu = true;
   }
 
-  // onFilterClick() {
-  //   this.showFilterMenu = true;
-  // }
+  onFilterClick() {
+    this.showFilterMenu = true;
+  }
 
   onUpdateSort([key, desc]: [string, boolean]) {
     this.sortBy = key;
