@@ -179,6 +179,7 @@ export default class AnimeList extends Vue {
           return aniListEventHandler.refreshLists();
         }
       })
+      // eslint-disable-next-line no-console
       .catch((error) => console.error(error))
       .finally(() => {
         this.isLoading = false;
