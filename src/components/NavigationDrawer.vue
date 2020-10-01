@@ -79,12 +79,7 @@
 
     <template #append>
       <v-list-item class="px-2 py-2">
-        <v-img
-          style="cursor: pointer"
-          min-width="240"
-          :src="require('@/assets/logos/Ko-fi-Support-Button.png')"
-          @click="openSupportPage"
-        />
+        <v-img style="cursor: pointer" min-width="112" :src="kofiLogo" @click="openSupportPage" />
       </v-list-item>
     </template>
   </v-navigation-drawer>
@@ -96,6 +91,8 @@ import { RawLocation } from 'vue-router';
 import { Getter, isMobile } from '@/decorators';
 import { refreshTimer, RefreshTimer } from '@/plugins/refreshTimer';
 import { IAniListSession } from '@/types';
+import KofiDarkLogo from '@/assets/logos/Ko-fi-Support-Logo-Dark.png';
+import KofiLightLogo from '@/assets/logos/Ko-fi-Support-Logo-Light.png';
 
 interface NavigationItem {
   title: string | 'divider';
@@ -209,6 +206,10 @@ export default class NavigationDrawer extends Vue {
       .toString()
       .padStart(2, '0');
     return `${hours && hours !== '00' ? `${hours}:` : ''}${minutes}:${seconds}`;
+  }
+
+  get kofiLogo() {
+    return this.navigationDrawerBackgroundBrightness <= 70 ? KofiLightLogo : KofiDarkLogo;
   }
 
   openSupportPage() {
