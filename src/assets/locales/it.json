@@ -37,7 +37,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Aggiornamento in: {0}"
+      "timeUntilNextRefresh": "Refresh tra: {0}"
     },
     "aniList": {
       "completed": "Completati",
@@ -117,7 +117,7 @@
         "notYetAired": "Non ancora trasmesso",
         "nextAiringEpisode": "L'episodio {0} verrà trasmesso {1}",
         "scoreDialog": {
-          "title": "Change score"
+          "title": "Cambia valutazione"
         }
       },
       "detailView": {
@@ -171,9 +171,9 @@
       "episodes": "? episodi | 1 episodio | {count} episodi",
       "startDate": "Inizio trasmissione:",
       "updateDialog": {
-        "season": "Season",
-        "title": "Season Preview Parameters",
-        "yearOfSeason": "Year of Season"
+        "season": "Stagione",
+        "title": "Parametri Anteprima Stagione",
+        "yearOfSeason": "Anno della Stagione"
       }
     },
     "settings": {
@@ -187,26 +187,26 @@
         "refreshRateSuffix": "minuti",
         "refreshRateHint": "Questo intervallo determina il numero di minuti prima di effettuare un nuovo controllo sul server AniList.",
         "userAccountSettings": {
-          "headline": "AniList User Account Settings",
-          "scoringFormat": "Scoring Format",
-          "scoringFormatHint": "This setting defines how you can score your list entries.",
-          "showExplicitContent": "Show explicit content (18+ Content)",
-          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
-          "subHeadline": "Changing these settings may take some time until they come into effect!",
-          "userTitleLanguage": "Title Language",
-          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+          "headline": "Impostazioni Account AniList",
+          "scoringFormat": "Formato Valutazioni",
+          "scoringFormatHint": "Questa impostazione definisce come puoi valutare le voci della tua lista.",
+          "showExplicitContent": "Mostra contenuti espliciti (18+)",
+          "showExplicitContentHint": "Questa impostazione definisce se verranno visualizzati i contenuti 18+",
+          "subHeadline": "Potrebbe volerci un po' di tempo prima che i cambiamenti diventino definitivi!",
+          "userTitleLanguage": "Lingua del titolo",
+          "userTitleLanguageHint": "Questa impostazione definisce quale lingua verrà utilizzata per visualizzare i titoli dei media"
         }
       },
       "appSettings": {
         "chooseLanguage": "Scegli lingua",
         "darkMode": "Modalità scura",
-        "navigationActiveItemColour": "Active Navigation item colour",
-        "navigationBackgroundBrightness": "Navigation Background Brightness",
-        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
-        "initialListItemAmount": "Initial amount of shown list items",
+        "navigationActiveItemColour": "Colore dell'elemento attivo nella barra di navigazione",
+        "navigationBackgroundBrightness": "Luminosità sfondo barra di navigazione",
+        "navigationBackgroundBlurriness": "Effetto sfocato barra di navigazione",
+        "initialListItemAmount": "Quantità iniziale di elementi mostrati nella lista",
         "listAnimationActivity": {
-          "headline": "List animation activity",
-          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+          "headline": "Limite oggetti per le animazioni",
+          "subtitle": "Il valore scelto agisce come limite: se l'utente visualizza più di quel numero di oggetti allo stesso tempo tutte le animazioni vengono disattivate per preservare le prestazioni."
         }
       },
       "changelog": {
@@ -218,7 +218,7 @@
       },
       "specialThanks": {
         "supporters": "Supportatori",
-        "translators": "Translators"
+        "translators": "Traduttori"
       }
     }
   },
@@ -265,32 +265,32 @@
       },
       "settings": {
         "scoringFormats": {
-          "POINT_10": "10 Points (5 / 10)",
-          "POINT_100": "100 Points (55 / 100)",
-          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
-          "POINT_3": "3 Point Smileys",
-          "POINT_5": "5 Points (3 / 5)"
+          "POINT_10": "10 Punti (5 / 10)",
+          "POINT_100": "100 Punti (55 / 100)",
+          "POINT_10_DECIMAL": "10 Punti Decimali (5.5 / 10)",
+          "POINT_3": "3 Punti Emoji",
+          "POINT_5": "5 Punti (3 / 5)"
         },
         "titleLanguages": {
-          "ENGLISH": "English (How to keep a mummy)",
-          "ENGLISH_STYLISED": "Stylised English",
-          "NATIVE": "Native (ミイラの飼い方)",
-          "NATIVE_STYLISED": "Stylised Native",
+          "ENGLISH": "Inglese (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Inglese Stilizzato",
+          "NATIVE": "Nativa (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Nativa Stilizzata",
           "ROMAJI": "Romaji (Miira no Kaikata)",
-          "ROMAJI_STYLISED": "Stylised Romaji"
+          "ROMAJI_STYLISED": "Romaji Stilizzato"
         }
       },
       "mediaStatus": {
-        "cancelled": "CANCELLED",
-        "finished": "FINISHED",
-        "not_yet_released": "NOT YET RELEASED",
-        "releasing": "RELEASING"
+        "cancelled": "ANNULLATO",
+        "finished": "FINITO",
+        "not_yet_released": "NON ANCORA RILASCIATO",
+        "releasing": "IN USCITA"
       }
     },
     "colours": {
-      "automatic": "Automatic",
-      "black": "Black",
-      "white": "White"
+      "automatic": "Automatico",
+      "black": "Nero",
+      "white": "Bianco"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",
@@ -306,18 +306,18 @@
       "aniList": "AniList"
     },
     "status": {
-      "all": "All",
-      "disabled": "Disabled"
+      "all": "Tutti",
+      "disabled": "Disattivato"
     },
     "sorting": {
       "by": {
-        "episodes": "By Episodes",
-        "score": "By Score",
-        "title": "By Title"
+        "episodes": "Per Episodio",
+        "score": "Per Punteggio",
+        "title": "Per Titolo"
       },
       "direction": {
-        "asc": "Ascending",
-        "desc": "Descending"
+        "asc": "Ascendente",
+        "desc": "Discendente"
       }
     }
   },
