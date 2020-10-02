@@ -41,7 +41,7 @@
     },
     "aniList": {
       "completed": "Concluído",
-      "dropped": "Dropado",
+      "dropped": "Abandonado",
       "home": "Página inicial",
       "paused": "Pausado",
       "planning": "Planejando",
@@ -202,11 +202,11 @@
         "darkMode": "Modo escuro",
         "navigationActiveItemColour": "Cor do item de Navegação ativo",
         "navigationBackgroundBrightness": "Brilho de fundo da Navegação",
-        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
-        "initialListItemAmount": "Initial amount of shown list items",
+        "navigationBackgroundBlurriness": "Desfoque de Fundo da Navegação",
+        "initialListItemAmount": "Quantidade inicial de itens da lista mostrados",
         "listAnimationActivity": {
-          "headline": "List animation activity",
-          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+          "headline": "Atividade de animação da lista",
+          "subtitle": "A quantidade selecionada funciona como um limite. Se mais itens forem mostrados ao mesmo tempo, todas as animações serão desativadas para preservar o desempenho."
         }
       },
       "changelog": {
