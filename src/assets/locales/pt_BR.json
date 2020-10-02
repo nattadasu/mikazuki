@@ -1,19 +1,19 @@
 {
   "originalReading": "Português do Brasil",
-  "englishReading": "Brazilian Portuguese",
+  "englishReading": "Portuguese (Brazil)",
   "flag": "br",
   "actions": {
     "add": "Adicionar",
     "added": "Adicionado à lista",
-    "addToPlanToWatch": "Adicionar aos planejados",
+    "addToPlanToWatch": "Adicionar em planejo assistir",
     "back": "Voltar",
-    "fastSearch": "Buscar... ⏎",
+    "fastSearch": "Pesquisar… ⏎",
     "filter": "Filtrar",
     "loading": "Carregando...",
-    "login": "Iniciar sessão",
-    "logout": "Finalizar sessão",
+    "login": "Fazer login",
+    "logout": "Desconectar",
     "remove": "Remover",
-    "reset": "Reiniciar",
+    "reset": "Redefinir",
     "save": "Salvar",
     "search": "Pesquisar",
     "sort": "Ordenar",
@@ -40,16 +40,16 @@
       "timeUntilNextRefresh": "Atualização em: {0}"
     },
     "aniList": {
-      "completed": "Completado",
+      "completed": "Concluído",
       "dropped": "Dropado",
       "home": "Página inicial",
       "paused": "Pausado",
       "planning": "Planejando",
       "repeating": "Repetindo",
-      "seasonPreview": "Prévia da temporada",
+      "seasonPreview": "Prévia da Temporada",
       "watching": "Assistindo"
     },
-    "search": "Busca",
+    "search": "Pesquisa",
     "settings": {
       "title": "Configurações",
       "about": "Sobre o Mikazuki",
@@ -112,12 +112,12 @@
         }
       },
       "list": {
-        "airingFinished": "Transmissão finalizada",
+        "airingFinished": "Exibição concluída",
         "missingEpisodes": "Um episódio para assistir | {count} episódios para assistir",
         "notYetAired": "Ainda não foi ao ar",
-        "nextAiringEpisode": "O episódio {0} lança {1}",
+        "nextAiringEpisode": "O episódio {0} vai ao ar em {1}",
         "scoreDialog": {
-          "title": "Change score"
+          "title": "Alterar nota"
         }
       },
       "detailView": {
@@ -169,11 +169,11 @@
     },
     "seasonPreview": {
       "episodes": "? episódios | 1 episódio | {count} episódios",
-      "startDate": "Data de lançamento:",
+      "startDate": "Data de exibição:",
       "updateDialog": {
-        "season": "Season",
-        "title": "Season Preview Parameters",
-        "yearOfSeason": "Year of Season"
+        "season": "Temporada",
+        "title": "Parâmetros da prévia da temporada",
+        "yearOfSeason": "Ano da temporada"
       }
     },
     "settings": {
@@ -185,23 +185,23 @@
         "refreshRate": "Taxa de atualização",
         "refreshRateRule": "O intervalo permitido vai de 5 minutos a 5 horas (5 - 300 minutos)!",
         "refreshRateSuffix": "minutos",
-        "refreshRateHint": "Este intervalo determina a quantidade de minutos até a próxima sincronização com os servidores do AniList. Alterações no intervalo serão aplicadas após a próxima sincronização.",
+        "refreshRateHint": "Este intervalo determina a quantidade de minutos até a próxima sincronização com o servidor do AniList. Alterações no intervalo serão aplicadas após a próxima sincronização.",
         "userAccountSettings": {
-          "headline": "AniList User Account Settings",
-          "scoringFormat": "Scoring Format",
-          "scoringFormatHint": "This setting defines how you can score your list entries.",
-          "showExplicitContent": "Show explicit content (18+ Content)",
-          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
-          "subHeadline": "Changing these settings may take some time until they come into effect!",
-          "userTitleLanguage": "Title Language",
-          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+          "headline": "Configurações da conta de usuário do AniList",
+          "scoringFormat": "Formato de Nota",
+          "scoringFormatHint": "Esta configuração define como você pode avaliar as entradas da sua lista.",
+          "showExplicitContent": "Mostrar conteúdo explícito (Conteúdo +18)",
+          "showExplicitContentHint": "Esta configuração define se conteúdo +18 será mostrado",
+          "subHeadline": "Alterar essas configurações podem levar algum tempo até terem efeito!",
+          "userTitleLanguage": "Idioma do Título",
+          "userTitleLanguageHint": "Esta configuração define qual título é usado para exibir o nome da mídia."
         }
       },
       "appSettings": {
         "chooseLanguage": "Selecionar idioma",
         "darkMode": "Modo escuro",
-        "navigationActiveItemColour": "Active Navigation item colour",
-        "navigationBackgroundBrightness": "Navigation Background Brightness",
+        "navigationActiveItemColour": "Cor do item de Navegação ativo",
+        "navigationBackgroundBrightness": "Brilho de fundo da Navegação",
         "navigationBackgroundBlurriness": "Navigation Background Blurriness",
         "initialListItemAmount": "Initial amount of shown list items",
         "listAnimationActivity": {
@@ -210,15 +210,15 @@
         }
       },
       "changelog": {
-        "new": "NOVIDADES",
+        "new": "NOVO",
         "fix": "CORREÇÕES",
         "remove": "REMOÇÕES",
         "version": "Versão",
-        "changesIn": "Últimas mudanças — {0}"
+        "changesIn": "Últimas alterações em {0}"
       },
       "specialThanks": {
         "supporters": "Apoiadores",
-        "translators": "Translators"
+        "translators": "Tradutores"
       }
     }
   },
@@ -265,32 +265,32 @@
       },
       "settings": {
         "scoringFormats": {
-          "POINT_10": "10 Points (5 / 10)",
-          "POINT_100": "100 Points (55 / 100)",
-          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
-          "POINT_3": "3 Point Smileys",
-          "POINT_5": "5 Points (3 / 5)"
+          "POINT_10": "10 Pontos (5 / 10)",
+          "POINT_100": "100 Pontos (55 / 100)",
+          "POINT_10_DECIMAL": "10 Pontos Decimal (5.5 / 10)",
+          "POINT_3": "3 Pontos Smileys",
+          "POINT_5": "5 Pontos (3 / 5)"
         },
         "titleLanguages": {
-          "ENGLISH": "English (How to keep a mummy)",
-          "ENGLISH_STYLISED": "Stylised English",
-          "NATIVE": "Native (ミイラの飼い方)",
-          "NATIVE_STYLISED": "Stylised Native",
+          "ENGLISH": "Inglês (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Inglês Estilizado",
+          "NATIVE": "Nativo (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Nativo Estilizado",
           "ROMAJI": "Romaji (Miira no Kaikata)",
-          "ROMAJI_STYLISED": "Stylised Romaji"
+          "ROMAJI_STYLISED": "Romaji Estilizado"
         }
       },
       "mediaStatus": {
-        "cancelled": "CANCELLED",
-        "finished": "FINISHED",
-        "not_yet_released": "NOT YET RELEASED",
-        "releasing": "RELEASING"
+        "cancelled": "CANCELADO",
+        "finished": "CONCLUÍDO",
+        "not_yet_released": "AINDA NÃO EXIBIDO",
+        "releasing": "EM EXIBIÇÃO"
       }
     },
     "colours": {
-      "automatic": "Automatic",
-      "black": "Black",
-      "white": "White"
+      "automatic": "Automático",
+      "black": "Preto",
+      "white": "Branco"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",
@@ -306,18 +306,18 @@
       "aniList": "AniList"
     },
     "status": {
-      "all": "All",
-      "disabled": "Disabled"
+      "all": "Tudo",
+      "disabled": "Desligado"
     },
     "sorting": {
       "by": {
-        "episodes": "By Episodes",
-        "score": "By Score",
-        "title": "By Title"
+        "episodes": "Por Episódios",
+        "score": "Por Nota",
+        "title": "Por Título"
       },
       "direction": {
-        "asc": "Ascending",
-        "desc": "Descending"
+        "asc": "Ascendente",
+        "desc": "Descendente"
       }
     }
   },
