@@ -1,36 +1,32 @@
 {
   "translators": [{
     "icons": ["fr"],
-    "name": "TheRaphael0000",
+    "name": "TheRaphael0000, Uxy_(ツ)",
     "message": "Thanks for providing and improving the French localisation."
   }, {
     "icons": ["br"],
-    "name": "fror",
+    "name": "fror, hlorenzi, Sam-Oak",
     "message": "Thanks for providing and improving the Portuguese (Brazil) localisation."
   }, {
-    "icons": ["cn"],
+    "icons": [],
     "name": "晨风Mornwind",
     "message": "Thanks for providing and improving the Simplified Chinese localisation."
   }, {
-    "icons": ["id", "my", "sa"],
+    "icons": ["id", "my"],
     "name": "nattadasu",
     "message": "Thanks for providing and improving the Indonesian, Malay, and Arabic localisation."
-  }, {
-    "icons": ["br"],
-    "name": "hlorenzi",
-    "message": "Thanks for providing and improving the Portuguese (Brazil) localisation."
   }, {
     "icons": ["it"],
     "name": "Knocks",
     "message": "Thanks for providing and improving the Italian localisation."
   }, {
-    "icons": ["fr"],
-    "name": "Uxy_(ツ)",
-    "message": "Thanks for providing and improving the French localisation."
-  }, {
-    "icons": ["es"],
+    "icons": ["mx"],
     "name": "DevonOrxi",
     "message": "Thanks for providing and improving the Spanish localisation."
+  }, {
+    "icons": [],
+    "name": "Stain",
+    "message": "Thanks for providing and improving the Arabic localisation."
   }],
   "support": [{
     "icon": "coffee",
