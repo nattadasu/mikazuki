@@ -117,7 +117,7 @@
         "notYetAired": "لم يتم بثه",
         "nextAiringEpisode": "الحلقة {0} تبث {1}",
         "scoreDialog": {
-          "title": "Change score"
+          "title": "تغيير التقييم"
         }
       },
       "detailView": {
@@ -187,32 +187,32 @@
         "refreshRateSuffix": "دقائق",
         "refreshRateHint": "يحدد هذا الفاصل الزمني مقدار الدقائق حتى المزامنة التالية بخادم AniList. سيتم تطبيق التغييرات على الفاصل الزمني بعد المزامنة التالية.",
         "userAccountSettings": {
-          "headline": "AniList User Account Settings",
-          "subHeadline": "Changing these settings may take some time until they come into effect!",
-          "scoringFormat": "Scoring Format",
-          "scoringFormatHint": "This setting defines how you can score your list entries.",
-          "showExplicitContent": "Show explicit content (18+ Content)",
-          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
-          "userTitleLanguage": "Title Language",
-          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+          "headline": "اعدادات مستخدم Anilist",
+          "subHeadline": "قد يستغرق ظهور التأثيرات بعد التعديل بعض الوقت!",
+          "scoringFormat": "طريقة التقييم",
+          "scoringFormatHint": "هذا الخيار يحدد كيفية تقييم محتويات قائمتك.",
+          "showExplicitContent": "اظهار محتوى صريح (محتوى 18+)",
+          "showExplicitContentHint": "هذا الخيار سيحدد ظهور محتوي لـ18+ من عدمه.",
+          "userTitleLanguage": "لغة الاسم",
+          "userTitleLanguageHint": "هذا الخيار يحدد اي عنوان سيستخدم لعرض اسم المحتوي."
         }
       },
       "appSettings": {
         "chooseLanguage": "اختر اللغة",
         "darkMode": "الوضع الليلي",
-        "navigationActiveItemColour": "Active Navigation item colour",
-        "navigationBackgroundBrightness": "Navigation Background Brightness",
-        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
-        "initialListItemAmount": "Initial amount of shown list items",
+        "navigationActiveItemColour": "لون العنصر النشيط في قائمة التنقل",
+        "navigationBackgroundBrightness": "إضاءة خلفية قائمة التنقل",
+        "navigationBackgroundBlurriness": "ضبابية خلفية قائمة التنقل",
+        "initialListItemAmount": "عدد العناصر الظاهرة إبتدائباً في القائمة",
         "listAnimationActivity": {
-          "headline": "List animation activity",
-          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+          "headline": "حركية القائمة",
+          "subtitle": "العدد المُختار هو الحد. اذا ظهر عدد اكبر في نفس الوقت يتم إلغاء تفعيل كل الحركيات لحفظ الأداء."
         }
       },
       "changelog": {
         "new": "جديد",
         "fix": "إصلاح",
-        "remove": "منزوع",
+        "remove": "نزع",
         "version": "الإصدار",
     "changesIn": "أحدث التغييرات في {0}"
       },
@@ -265,26 +265,26 @@
       },
       "settings": {
         "scoringFormats": {
-          "POINT_100": "100 Points (55 / 100)",
-          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
-          "POINT_10": "10 Points (5 / 10)",
-          "POINT_5": "5 Points (3 / 5)",
-          "POINT_3": "3 Point Smileys"
+          "POINT_100": "100 نقطة (55 / 100)",
+          "POINT_10_DECIMAL": "10 نقاط عشرية (5.5 / 10)",
+          "POINT_10": "10 نقاط (5 / 10)",
+          "POINT_5": "5 نقط (3 / 5)",
+          "POINT_3": "3 نقاط ابتسامية"
         },
         "titleLanguages": {
-          "ENGLISH": "English (How to keep a mummy)",
+          "ENGLISH": "الانجليزية (How to keep a mummy)",
           "ENGLISH_STYLISED": "Stylised English",
-          "NATIVE": "Native (ミイラの飼い方)",
+          "NATIVE": "اليابانية (ミイラの飼い方)",
           "NATIVE_STYLISED": "Stylised Native",
-          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI": "رومانجي (Miira no Kaikata)",
           "ROMAJI_STYLISED": "Stylised Romaji"
         }
       },
       "mediaStatus": {
-        "cancelled": "CANCELLED",
-        "finished": "FINISHED",
-        "not_yet_released": "NOT YET RELEASED",
-        "releasing": "RELEASING"
+        "cancelled": "تم إلغائه",
+        "finished": "مُنتهي",
+        "not_yet_released": "لم يُصدر بعد",
+        "releasing": "يُصدر حالياً"
       }
     },
     "colours": {
@@ -306,18 +306,18 @@
       "aniList": "AniList"
     },
     "status": {
-      "all": "All",
-      "disabled": "Disabled"
+      "all": "الكل",
+      "disabled": "الغير مفعل"
     },
     "sorting": {
       "by": {
-        "episodes": "By Episodes",
-        "score": "By Score",
-        "title": "By Title"
+        "episodes": "حسب الحلقات",
+        "score": "حسب التقييم",
+        "title": "حسب الاسم"
       },
       "direction": {
-        "asc": "Ascending",
-        "desc": "Descending"
+        "asc": "تصاعدي",
+        "desc": "تنازلي"
       }
     }
   },
