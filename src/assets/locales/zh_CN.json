@@ -17,7 +17,7 @@
     "search": "搜索",
     "sort": "排序与筛选",
     "toPageTop": "返回顶部",
-    "filter": "Filter"
+    "filter": "筛选"
   },
   "alerts": {
     "adultContent": "该作品可能含有 R-18 内容！建议您在查看时注意场合。",
@@ -117,7 +117,7 @@
         "notYetAired": "尚未放送",
         "nextAiringEpisode": "第 {0} 话将于 {1} 放送",
         "scoreDialog": {
-          "title": "Change score"
+          "title": "修改评分"
         }
       },
       "detailView": {
@@ -171,9 +171,9 @@
       "episodes": "共 ? 话 | 共 1 话 | 共 {count} 话",
       "startDate": "开始放映于：",
       "updateDialog": {
-        "season": "Season",
-        "title": "Season Preview Parameters",
-        "yearOfSeason": "Year of Season"
+        "season": "季度",
+        "title": "番组一览参数设置",
+        "yearOfSeason": "年份"
       }
     },
     "settings": {
@@ -187,26 +187,26 @@
         "refreshRateSuffix": "分钟",
         "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。",
         "userAccountSettings": {
-          "headline": "AniList User Account Settings",
-          "scoringFormat": "Scoring Format",
-          "scoringFormatHint": "This setting defines how you can score your list entries.",
-          "showExplicitContent": "Show explicit content (18+ Content)",
-          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
-          "subHeadline": "Changing these settings may take some time until they come into effect!",
-          "userTitleLanguage": "Title Language",
-          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+          "headline": "AniList 用户帐户设置",
+          "scoringFormat": "评分制",
+          "scoringFormatHint": "此项设置可调整您为列表中的项目打分时所使用的评分制。",
+          "showExplicitContent": "显示露骨的内容（R-18 内容）",
+          "showExplicitContentHint": "此项设置可控制是否显示 R-18 内容。",
+          "subHeadline": "更改这些设置可能需要一段时间才会生效！",
+          "userTitleLanguage": "片名显示语言",
+          "userTitleLanguageHint": "此项设置用于控制片名以何种语言显示。"
         }
       },
       "appSettings": {
         "chooseLanguage": "语言选择",
         "darkMode": "暗黑模式",
-        "navigationActiveItemColour": "Active Navigation item colour",
-        "navigationBackgroundBrightness": "Navigation Background Brightness",
-        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
-        "initialListItemAmount": "Initial amount of shown list items",
+        "navigationActiveItemColour": "导航栏活跃项颜色",
+        "navigationBackgroundBrightness": "导航栏背景亮度",
+        "navigationBackgroundBlurriness": "导航栏背景模糊度",
+        "initialListItemAmount": "列表项目显示数量初始值",
         "listAnimationActivity": {
-          "headline": "List animation activity",
-          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+          "headline": "列表动画效果活跃度",
+          "subtitle": "选定一项作为数量上限。如果同一时间内显示的项目数量超出此上限，则会自动禁用所有的动画效果以保证性能。"
         }
       },
       "changelog": {
@@ -218,7 +218,7 @@
       },
       "specialThanks": {
         "supporters": "赞助者",
-        "translators": "Translators"
+        "translators": "译者"
       }
     }
   },
@@ -265,32 +265,32 @@
       },
       "settings": {
         "scoringFormats": {
-          "POINT_10": "10 Points (5 / 10)",
-          "POINT_100": "100 Points (55 / 100)",
-          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
-          "POINT_3": "3 Point Smileys",
-          "POINT_5": "5 Points (3 / 5)"
+          "POINT_10": "十分制（5 / 10）",
+          "POINT_100": "百分制（55 / 100）",
+          "POINT_10_DECIMAL": 十分小数制（5.5 / 10）",
+          "POINT_3": "三分表情制",
+          "POINT_5": "五星制 (3 / 5)"
         },
         "titleLanguages": {
-          "ENGLISH": "English (How to keep a mummy)",
-          "ENGLISH_STYLISED": "Stylised English",
-          "NATIVE": "Native (ミイラの飼い方)",
-          "NATIVE_STYLISED": "Stylised Native",
-          "ROMAJI": "Romaji (Miira no Kaikata)",
-          "ROMAJI_STYLISED": "Stylised Romaji"
+          "ENGLISH": "英文名（How to keep a mummy）",
+          "ENGLISH_STYLISED": "风格化英文名",
+          "NATIVE": "原名（ミイラの飼い方）",
+          "NATIVE_STYLISED": "风格化原名",
+          "ROMAJI": "罗马字名 (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "风格化罗马字名"
         }
       },
       "mediaStatus": {
-        "cancelled": "CANCELLED",
-        "finished": "FINISHED",
-        "not_yet_released": "NOT YET RELEASED",
-        "releasing": "RELEASING"
+        "cancelled": "取消放送",
+        "finished": "放送完毕",
+        "not_yet_released": "尚未放送",
+        "releasing": "放送中"
       }
     },
     "colours": {
-      "automatic": "Automatic",
-      "black": "Black",
-      "white": "White"
+      "automatic": "自动",
+      "black": "黑色",
+      "white": "白色"
     },
     "dates": {
       "dayMonthNumeric": "MM/DD",
@@ -306,18 +306,18 @@
       "aniList": "AniList"
     },
     "status": {
-      "all": "All",
-      "disabled": "Disabled"
+      "all": "全部",
+      "disabled": "已禁用"
     },
     "sorting": {
       "by": {
-        "episodes": "By Episodes",
-        "score": "By Score",
-        "title": "By Title"
+        "episodes": "通过话数",
+        "score": "通过评分",
+        "title": "通过片名"
       },
       "direction": {
-        "asc": "Ascending",
-        "desc": "Descending"
+        "asc": "升序",
+        "desc": "降序"
       }
     }
   },
