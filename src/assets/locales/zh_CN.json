@@ -1,7 +1,7 @@
 {
   "originalReading": "简体中文",
   "englishReading": "Simplified Chinese",
-  "flag": "cn",
+  "flag": "",
   "actions": {
     "add": "添加",
     "added": "已添加至列表",
