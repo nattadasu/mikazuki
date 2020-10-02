@@ -66,12 +66,12 @@
             <h3>{{ $t('pages.settings.appSettings.chooseLanguage') }}</h3>
             <v-select v-model="_language" :items="languages" hide-details menu-props="auto, offset-y" class="py-1 ma-0">
               <template #item="{ item }">
-                <v-icon v-if="item.flag" :class="item.flag" left />
+                <v-icon v-if="item.flag" :class="item.flag" :left="!$vuetify.rtl" :right="$vuetify.rtl" />
                 {{ item.text }}
               </template>
 
               <template #selection="{ item }">
-                <v-icon v-if="item.flag" :class="item.flag" left small />
+                <v-icon v-if="item.flag" :class="item.flag" :left="!$vuetify.rtl" :right="$vuetify.rtl" small />
                 {{ item.text }}
               </template>
             </v-select>
@@ -190,16 +190,16 @@ export default class AppSettings extends Vue {
     this.$store.commit('app/setLanguage', value);
   }
 
-  get languages(): Array<{ value: string; flag: string; text: string }> {
+  get languages(): Array<{ value: string; flag: string | null; text: string }> {
     const { messages } = this.$i18n;
     return Object.entries(messages).map(([key, value]) => {
       const locale = key;
       const original = value.originalReading.toString();
       const english = value.englishReading.toString();
-      const flag = value.flag?.toString() ?? 'gb';
+      const flag = value.flag?.toString() || null;
       return {
         value: locale,
-        flag: `flag-icon flag-icon-${flag}`,
+        flag: flag ? `flag-icon flag-icon-${flag}` : null,
         text: `${original} (${english})`,
       };
     });
