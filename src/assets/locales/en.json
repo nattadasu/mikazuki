@@ -1,12 +1,14 @@
 {
   "originalReading": "English",
   "englishReading": "English",
+  "flag": "gb",
   "actions": {
     "add": "Add",
     "added": "Added to the list",
     "addToPlanToWatch": "Add to plan to watch",
     "back": "Back",
-    "fastSearch": "Search... \u23ce",
+    "fastSearch": "Search... ⏎",
+    "filter": "Filter",
     "loading": "Loading...",
     "login": "Login",
     "logout": "Logout",
@@ -14,7 +16,7 @@
     "reset": "Reset",
     "save": "Save",
     "search": "Search",
-    "sort": "Sort & Filter",
+    "sort": "Sort",
     "toPageTop": "Jump to top"
   },
   "alerts": {
@@ -35,7 +37,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Next list update in: {0}"
+      "timeUntilNextRefresh": "Next update in: {0}"
     },
     "aniList": {
       "completed": "Completed",
@@ -47,7 +49,7 @@
       "seasonPreview": "Season Preview",
       "watching": "Watching"
     },
-    "search": "Detailed Search",
+    "search": "Search",
     "settings": {
       "title": "Settings",
       "about": "About Mikazuki",
@@ -113,7 +115,10 @@
         "airingFinished": "Airing finished",
         "missingEpisodes": "One episode to watch | {count} episodes to watch",
         "notYetAired": "Not yet aired",
-        "nextAiringEpisode": "Episode {0} is airing {1}"
+        "nextAiringEpisode": "Episode {0} is airing {1}",
+        "scoreDialog": {
+          "title": "Change score"
+        }
       },
       "detailView": {
         "airedOn": "Aired on {0}",
@@ -164,7 +169,12 @@
     },
     "seasonPreview": {
       "episodes": "? episodes | 1 episode | {count} episodes",
-      "startDate": "Start of airing:"
+      "startDate": "Start of airing:",
+      "updateDialog": {
+        "season": "Season",
+        "yearOfSeason": "Year of Season",
+        "title": "Season Preview Parameters"
+      }
     },
     "settings": {
       "about": {
@@ -175,11 +185,29 @@
         "refreshRate": "Refresh rate",
         "refreshRateRule": "The allowed interval reaches from 5 minutes to 5 hours (5 - 300 minutes)!",
         "refreshRateSuffix": "minutes",
-        "refreshRateHint": "This interval determines the amount of minutes until the next synchronization with the AniList server. Changes to the interval will be applied after the next synchronization."
+        "refreshRateHint": "This interval determines the amount of minutes until the next synchronization with the AniList server. Changes to the interval will be applied after the next synchronization.",
+        "userAccountSettings": {
+          "headline": "AniList User Account Settings",
+          "subHeadline": "Changing these settings may take some time until they come into effect!",
+          "userTitleLanguage": "Title Language",
+          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name.",
+          "scoringFormat": "Scoring Format",
+          "scoringFormatHint": "This setting defines how you can score your list entries.",
+          "showExplicitContent": "Show explicit content (18+ Content)",
+          "showExplicitContentHint": "This setting defines if 18+ content will be shown."
+        }
       },
       "appSettings": {
         "chooseLanguage": "Choose language",
-        "darkMode": "Dark mode"
+        "darkMode": "Dark mode",
+        "navigationActiveItemColour": "Active Navigation item colour",
+        "navigationBackgroundBrightness": "Navigation Background Brightness",
+        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
+        "initialListItemAmount": "Initial amount of shown list items",
+        "listAnimationActivity": {
+          "headline": "List animation activity",
+          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+        }
       },
       "changelog": {
         "new": "NEW",
@@ -188,8 +216,10 @@
         "version": "Version",
         "changesIn": "Latest changes in {0}"
       },
-      "specialThanks": "Special Thanks",
-      "supporters": "Supporters"
+      "specialThanks": {
+        "translators": "Translators",
+        "supporters": "Supporters"
+      }
     }
   },
   "routes": {
@@ -226,13 +256,41 @@
         "repeating": "Repeating",
         "watching": "Watching"
       },
+      "mediaStatus": {
+        "finished": "FINISHED",
+        "releasing": "RELEASING",
+        "not_yet_released": "NOT YET RELEASED",
+        "cancelled": "CANCELLED"
+      },
       "seasons": {
         "spring": "Spring",
         "summer": "Summer",
         "fall": "Fall",
         "autumn": "Autumn",
         "winter": "Winter"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_100": "100 Points (55 / 100)",
+          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
+          "POINT_10": "10 Points (5 / 10)",
+          "POINT_5": "5 Points (3 / 5)",
+          "POINT_3": "3 Point Smileys"
+        },
+        "titleLanguages": {
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ENGLISH": "English (How to keep a mummy)",
+          "NATIVE": "Native (ミイラの飼い方)",
+          "ROMAJI_STYLISED": "Stylised Romaji",
+          "ENGLISH_STYLISED": "Stylised English",
+          "NATIVE_STYLISED": "Stylised Native"
+        }
       }
+    },
+    "colours": {
+      "automatic": "Automatic",
+      "black": "Black",
+      "white": "White"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",
@@ -246,6 +304,21 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "All",
+      "disabled": "Disabled"
+    },
+    "sorting": {
+      "by": {
+        "title": "By Title",
+        "score": "By Score",
+        "episodes": "By Episodes"
+      },
+      "direction": {
+        "desc": "Descending",
+        "asc": "Ascending"
+      }
     }
   },
   "$vuetify": {

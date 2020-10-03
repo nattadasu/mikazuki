@@ -1,12 +1,14 @@
 {
   "originalReading": "Español de México",
   "englishReading": "Spanish (Mexico)",
+  "flag": "mx",
   "actions": {
     "add": "Agregar",
     "added": "Agregado a la lista",
     "addToPlanToWatch": "Añadir a planeados",
     "back": "Volver",
-    "fastSearch": "Buscar... \u23ce",
+    "fastSearch": "Buscar... ⏎",
+    "filter": "Filtrar",
     "loading": "Cargando...",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión",
@@ -14,7 +16,7 @@
     "reset": "Reinicializar",
     "save": "Guardar",
     "search": "Buscar",
-    "sort": "Ordenar y filtrar",
+    "sort": "Ordenar",
     "toPageTop": "Ir al inicio de la página"
   },
   "alerts": {
@@ -35,7 +37,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Próxima actualización de la lista en: {0}"
+      "timeUntilNextRefresh": "Actualización en: {0}"
     },
     "aniList": {
       "completed": "Completado",
@@ -47,7 +49,7 @@
       "seasonPreview": "Adelanto de temporada",
       "watching": "Mirando"
     },
-    "search": "Busca detallada",
+    "search": "Busca",
     "settings": {
       "title": "Configuración",
       "about": "Acerca de Mikazuki",
@@ -113,7 +115,10 @@
         "airingFinished": "Emisión terminada",
         "missingEpisodes": "Un episodio por ver | {count} episodios por ver",
         "notYetAired": "Aún no emitido",
-        "nextAiringEpisode": "El episodio {0} se emitirá el {1}"
+        "nextAiringEpisode": "El episodio {0} se emitirá el {1}",
+        "scoreDialog": {
+         "title": "Cambiar puntuación"
+        }
       },
       "detailView": {
         "airedOn": "Emitido el {0}",
@@ -164,7 +169,12 @@
     },
     "seasonPreview": {
       "episodes": "? episodios | 1 episodio | {count} episodios",
-      "startDate": "Comienza a emitir:"
+      "startDate": "Comienza a emitir:",
+      "updateDialog": {
+        "season": "Temporada",
+        "title": "Parámetros de los adelantos de temporada",
+        "yearOfSeason": "Año de la temporada"
+      }
     },
     "settings": {
       "about": {
@@ -175,11 +185,29 @@
         "refreshRate": "Frecuencia de actualización",
         "refreshRateRule": "El intervalo permitido va de 5 minutos a 5 horas (5 - 300 minutos)",
         "refreshRateSuffix": "minutos",
-        "refreshRateHint": "Este intervalo determina el tiempo en minutos entre sincronizaciones con los servidores de AniList. Los cambios realizados a este intervalo se verán reflejados después de la próxima sincronización."
+        "refreshRateHint": "Este intervalo determina el tiempo en minutos entre sincronizaciones con los servidores de AniList. Los cambios realizados a este intervalo se verán reflejados después de la próxima sincronización.",
+        "userAccountSettings": {
+          "headline": "Configuración de la cuenta de AniList",
+          "scoringFormat": "Formato de la puntuación",
+          "scoringFormatHint": "Esta preferencia define cómo podrás puntuar las entradas de tus listas.",
+          "showExplicitContent": "Mostrar contenido explícito",
+          "showExplicitContentHint": "Esta preferencia define si se mostrará contenido para adultos.",
+          "subHeadline": "Los cambios en esta preferencia podrían tardar un tiempo hasta entrar en efecto.",
+          "userTitleLanguage": "Lenguaje de los títulos",
+          "userTitleLanguageHint": "Esta preferencia define qué lenguaje se usará para mostrar los nombres de los títulos."
+        }
       },
       "appSettings": {
         "chooseLanguage": "Elija lenguaje",
-        "darkMode": "Modo oscuro"
+        "darkMode": "Modo oscuro",
+        "navigationActiveItemColour": "Color del ítem activo en la navegación",
+        "navigationBackgroundBrightness": "Brillo del fondo en la navegación",
+        "navigationBackgroundBlurriness": "Borrosidad del fondo en la navegación",
+        "initialListItemAmount": "Cantidad inicial de ítems a mostrar",
+        "listAnimationActivity": {
+          "headline": "Listar actividad de las animaciones",
+          "subtitle": "La función seleccionada funciona como límite. Si más ítems se muestran al mismo tiempo, todas las animaciones se desactivarán para mejorar el desempeño del sitio."
+        }
       },
       "changelog": {
         "new": "NUEVO",
@@ -188,8 +216,10 @@
         "version": "Versión",
         "changesIn": "Últimos cambios en {0}"
       },
-      "specialThanks": "Agradecimientos especiales",
-      "supporters": "Apoyado por"
+      "specialThanks": {
+        "supporters": "Apoyado por",
+        "translators": "Traductores"
+      }
     }
   },
   "routes": {
@@ -232,7 +262,35 @@
         "fall": "Otoño",
         "autumn": "Otoño",
         "winter": "Invierno"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "10 Puntos (5 / 10)",
+          "POINT_100": "100 Puntos (55 / 100)",
+          "POINT_10_DECIMAL": "10 Puntos con decimales (5.5 / 10)",
+          "POINT_3": "3 Puntos con smileys",
+          "POINT_5": "5 Puntos (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "Inglés (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Inglés estilizado",
+          "NATIVE": "Nativo (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Nativo estilizado",
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Romaji estilizado"
+        }
+      },
+      "mediaStatus": {
+        "cancelled": "CANCELADO",
+        "finished": "FINALIZADO",
+        "not_yet_released": "TODAVÍA NO PUBLICADO",
+        "releasing": "EN PUBLICACIÓN"
       }
+    },
+    "colours": {
+      "automatic": "Automático",
+      "black": "Negro",
+      "white": "Blanco"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",
@@ -246,6 +304,21 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "Todos",
+      "disabled": "Deshabilitado"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "Por episodios",
+        "score": "Por puntuación",
+        "title": "Por título"
+      },
+      "direction": {
+        "asc": "Ascendente",
+        "desc": "Descendente"
+      }
     }
   },
   "$vuetify": {

@@ -1,12 +1,13 @@
 {
   "originalReading": "简体中文",
   "englishReading": "Simplified Chinese",
+  "flag": "",
   "actions": {
     "add": "添加",
     "added": "已添加至列表",
     "addToPlanToWatch": "添加至“计划中”",
     "back": "返回",
-    "fastSearch": "搜索…… \u23ce",
+    "fastSearch": "搜索…… ⏎",
     "loading": "加载中……",
     "login": "登录",
     "logout": "注销",
@@ -14,13 +15,14 @@
     "reset": "重置",
     "save": "保存",
     "search": "搜索",
-    "sort": "排序与筛选",
-    "toPageTop": "返回顶部"
+    "sort": "排序",
+    "toPageTop": "返回顶部",
+    "filter": "筛选"
   },
   "alerts": {
     "adultContent": "该作品可能含有 R-18 内容！建议您在查看时注意场合。",
     "noDescription": "无可用的说明。",
-    "noEnglishTitle": "无可用的英文名。",
+    "noEnglishTitle": "无可用的英文片名。",
     "noInformation": "无可用的信息。",
     "noSynonyms": "无可用的别名。",
     "notYetInList": "该作品尚不在您的列表内。",
@@ -47,7 +49,7 @@
       "seasonPreview": "每季番组一览",
       "watching": "观看中"
     },
-    "search": "详细搜索",
+    "search": "搜索",
     "settings": {
       "title": "设置",
       "about": "关于 Mikazuki",
@@ -64,7 +66,7 @@
         "descending": "降序"
       },
       "sortingLabel": "排序方式",
-      "title": "名称",
+      "title": "片名",
       "score": "评分",
       "progress": "进度",
       "startingDate": "放送日期",
@@ -80,13 +82,13 @@
             "manga": "漫画/小说"
           },
           "statistics": {
-            "totalAnime": "Total Anime",
-            "totalManga": "Total Manga",
-            "daysWatched": "Days Watched",
-            "meanScore": "Mean Score",
-            "chaptersRead": "Chapters Read",
-            "activityHistory": "Activity History",
-            "genreOverview": "Genre Overview"
+            "totalAnime": "动画总数",
+            "totalManga": "漫画/小说总数",
+            "daysWatched": "已看天数",
+            "meanScore": "平均分",
+            "chaptersRead": "已读章节数",
+            "activityHistory": "活跃历史",
+            "genreOverview": "题材一览"
           },
           "headline": "最新动态",
           "completed": "已看完 {0}",
@@ -113,7 +115,10 @@
         "airingFinished": "放送完毕",
         "missingEpisodes": "有 1 话尚未观看 | 有 {count} 话尚未观看",
         "notYetAired": "尚未放送",
-        "nextAiringEpisode": "第 {0} 话将于 {1} 放送"
+        "nextAiringEpisode": "第 {0} 话将于 {1} 放送",
+        "scoreDialog": {
+          "title": "修改评分"
+        }
       },
       "detailView": {
         "airedOn": "已于 {0} 上映",
@@ -127,15 +132,15 @@
         "airingTime": "放送时间",
         "airingWithUnknownStart": "? ～ {0}",
         "description": "说明",
-        "englishTitle": "英文名",
+        "englishTitle": "英文片名",
         "episodes": "总话数",
         "genres": "题材",
-        "nativeTitle": "原名",
+        "nativeTitle": "原片名",
         "ownInformation": "您的列表信息",
         "ownProgress": "进度",
         "ownStatus": "状态",
         "ownScore": "评分",
-        "romajiTitle": "罗马音名",
+        "romajiTitle": "罗马字片名",
         "score": "{0} / {1} 分",
         "scoreLabel": "平均分",
         "streamingSubheader": "流媒体服务",
@@ -164,7 +169,12 @@
     },
     "seasonPreview": {
       "episodes": "共 ? 话 | 共 1 话 | 共 {count} 话",
-      "startDate": "开始放映于："
+      "startDate": "开始放映于：",
+      "updateDialog": {
+        "season": "季度",
+        "title": "番组一览参数设置",
+        "yearOfSeason": "年份"
+      }
     },
     "settings": {
       "about": {
@@ -175,11 +185,29 @@
         "refreshRate": "刷新频率",
         "refreshRateRule": "刷新时间间隔只可设置在 5 分钟到 5 小时（即 5 - 300 分钟）之间！",
         "refreshRateSuffix": "分钟",
-        "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。"
+        "refreshRateHint": "此项用于调整本程序与 AniList 服务器每两次同步之间的时间间隔。每次修改将于下次同步后生效。",
+        "userAccountSettings": {
+          "headline": "AniList 用户帐户设置",
+          "scoringFormat": "评分制",
+          "scoringFormatHint": "此项设置可调整您为列表中的项目打分时所使用的评分制。",
+          "showExplicitContent": "显示露骨的内容（R-18 内容）",
+          "showExplicitContentHint": "此项设置可控制是否显示 R-18 内容。",
+          "subHeadline": "更改这些设置可能需要一段时间才会生效！",
+          "userTitleLanguage": "片名语言",
+          "userTitleLanguageHint": "此项设置用于修改作品片名在显示时所使用的语言。"
+        }
       },
       "appSettings": {
         "chooseLanguage": "语言选择",
-        "darkMode": "暗黑模式"
+        "darkMode": "暗黑模式",
+        "navigationActiveItemColour": "导航栏活跃项颜色",
+        "navigationBackgroundBrightness": "导航栏背景亮度",
+        "navigationBackgroundBlurriness": "导航栏背景模糊度",
+        "initialListItemAmount": "列表项目初始显示数量",
+        "listAnimationActivity": {
+          "headline": "列表动画效果活跃度",
+          "subtitle": "选定一项作为数量上限。如果同一时间内显示的项目数量超出此上限，则会自动禁用所有的动画效果以保证性能。"
+        }
       },
       "changelog": {
         "new": "新增",
@@ -188,8 +216,10 @@
         "version": "版本",
         "changesIn": "在 {0} 版本中的新变化"
       },
-      "specialThanks": "特别鸣谢",
-      "supporters": "赞助者"
+      "specialThanks": {
+        "supporters": "赞助者",
+        "translators": "译者"
+      }
     }
   },
   "routes": {
@@ -232,7 +262,35 @@
         "fall": "秋",
         "autumn": "秋",
         "winter": "冬"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "十分制（5 / 10）",
+          "POINT_100": "百分制（55 / 100）",
+          "POINT_10_DECIMAL": "十分小数制（5.5 / 10）",
+          "POINT_3": "三分表情制",
+          "POINT_5": "五星制 (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "英文片名（How to keep a mummy）",
+          "ENGLISH_STYLISED": "风格化英文片名",
+          "NATIVE": "原片名（ミイラの飼い方）",
+          "NATIVE_STYLISED": "风格化原片名",
+          "ROMAJI": "罗马字片名 (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "风格化罗马字片名"
+        }
+      },
+      "mediaStatus": {
+        "cancelled": "取消放送",
+        "finished": "放送完毕",
+        "not_yet_released": "尚未放送",
+        "releasing": "放送中"
       }
+    },
+    "colours": {
+      "automatic": "自动",
+      "black": "黑色",
+      "white": "白色"
     },
     "dates": {
       "dayMonthNumeric": "MM/DD",
@@ -246,6 +304,21 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "全部",
+      "disabled": "禁用"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "通过话数",
+        "score": "通过评分",
+        "title": "通过片名"
+      },
+      "direction": {
+        "asc": "升序",
+        "desc": "降序"
+      }
     }
   },
   "$vuetify": {

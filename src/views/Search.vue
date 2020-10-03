@@ -1,331 +1,264 @@
 <template>
-  <v-content>
-    <v-container fluid class="px-0 py-0">
+  <v-main>
+    <v-toolbar>
+      <v-col cols="auto" class="py-1">
+        <v-text-field
+          v-model="searchQuery"
+          hide-details
+          prepend-icon="mdi-magnify"
+          :label="$t('pages.search.searchQuery')"
+          single-line
+          @keydown.enter="onSearch"
+        />
+      </v-col>
+
+      <v-col cols="auto" class="py-1">
+        <v-select
+          v-model="listFilter"
+          :items="listValues"
+          :label="$t('pages.search.inList.label')"
+          menu-props="auto, offset-y"
+          single-line
+          hide-details
+          multiple
+          clearable
+        />
+      </v-col>
+
+      <v-col cols="auto" class="py-1">
+        <v-select
+          v-model="adultFilter"
+          :items="adultValues"
+          :label="$t('pages.search.adultContent.label')"
+          menu-props="auto, offset-y"
+          single-line
+          hide-details
+        />
+      </v-col>
+
+      <v-col cols="auto">
+        <v-btn block color="success" :loading="isLoading" @click="onSearch">
+          <v-icon left> mdi-magnify </v-icon>
+          {{ $t('actions.search') }}
+        </v-btn>
+      </v-col>
+    </v-toolbar>
+
+    <v-container fluid class="py-0 px-1" :class="{ 'fill-height': isListEmpty || isLoading }">
       <v-row no-gutters>
-        <v-col cols="12" class="pa-0">
-          <v-card class="no-border-radius" :loading="isLoading">
-            <v-card-text>
-              <v-container fluid class="pb-0">
-                <v-row>
-                  <v-col cols="12" md="4">
-                    <v-text-field
-                      v-model="searchInput"
-                      :label="$t('pages.search.searchQuery')"
-                      prepend-icon="mdi-magnify"
-                      @keyup.enter="search"
-                    />
-                  </v-col>
-
-                  <v-col cols="12" md="8">
-                    <template v-if="$vuetify.breakpoint.smAndDown">
-                      <v-expansion-panels v-model="panel" accordion>
-                        <v-expansion-panel>
-                          <v-expansion-panel-header>{{ $t('pages.search.searchFilter') }}</v-expansion-panel-header>
-                          <v-expansion-panel-content>
-                            <SearchFilter
-                              :list-values="listValues"
-                              :adult-content="adultContentValue"
-                              :genre-values="genreValues"
-                              @listValuesChanged="(value) => (listValues = value)"
-                              @adultContentValueChanged="(value) => (adultContentValue = value)"
-                              @genreValuesChanged="(value) => (genreValues = value)"
-                            />
-                          </v-expansion-panel-content>
-                        </v-expansion-panel>
-                      </v-expansion-panels>
-                    </template>
-                    <template v-else>
-                      <SearchFilter
-                        :list-values="listValues"
-                        :adult-content="adultContentValue"
-                        :genre-values="genreValues"
-                        @listValuesChanged="(value) => (listValues = value)"
-                        @adultContentValueChanged="(value) => (adultContentValue = value)"
-                        @genreValuesChanged="(value) => (genreValues = value)"
-                      />
-                    </template>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn block text color="green" :loading="isLoading" @click="search">
-                <v-icon left>
-                  mdi-magnify
-                </v-icon>
-                {{ $t('actions.search') }}
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+        <v-col v-show="isLoading" cols="12" align-self="center">
+          <div class="text-center display-3">
+            {{ $t('actions.loading') }}
+            <v-progress-circular indeterminate style="vertical-align: super" />
+          </div>
         </v-col>
 
-        <v-col
-          v-for="result in searchResults"
-          :key="result.id"
-          class="lg5-custom"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-          xl="2"
-        >
-          <v-card raised class="ma-2">
-            <ListImage
-              :image-link="result.coverImage.extraLarge"
-              :ani-list-id="result.id"
-              :name="result.title.userPreferred"
-              :studios="result.studios"
-            />
-
-            <v-card-text class="py-0">
-              <v-row>
-                <v-col cols="4">
-                  <template v-if="result.mediaListEntry">
-                    <ProgressCircle
-                      :entry-id="result.mediaListEntry.id"
-                      :status="result.mediaListEntry.status"
-                      :progress-percentage="result.progressPercentage"
-                      :current-progress="result.mediaListEntry.progress"
-                      :episode-amount="result.episodes || '?'"
-                      @increase="() => {}"
-                    />
-                  </template>
-                  <template v-else>
-                    <ProgressCircle
-                      :entry-id="0"
-                      :status="null"
-                      :progress-percentage="0"
-                      :current-progress="0"
-                      :episode-amount="result.episodes || '?'"
-                      @increase="() => {}"
-                    />
-                  </template>
-                </v-col>
-                <v-col cols="8" class="text-right">
-                  <v-tooltip v-if="result.isAdult" top>
-                    <template v-slot:activator="{ on }">
-                      <v-icon large color="error" v-on="on">
-                        mdi-alert
-                      </v-icon>
-                    </template>
-                    <span>{{ $t('alerts.adultContent') }}</span>
-                  </v-tooltip>
-
-                  <template v-if="result.mediaListEntry">
-                    <v-icon color="green" class="pr-1"> mdi-account </v-icon>{{ result.mediaListEntry.score }}
-                  </template>
-                  <v-icon color="yellow lighten-1" class="pr-1">
-                    mdi-account-group
-                  </v-icon>
-                  {{ result.averageScore || 'n.a.' }}
-                </v-col>
-              </v-row>
-            </v-card-text>
-
-            <v-card-actions class="icon-actionize">
-              <v-row class="pa-1">
-                <v-col class="text-center">
-                  <v-icon :color="result.isWatching ? 'green' : 'grey darken-2'">
-                    mdi-play
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="result.isRepeating ? 'green darken-3' : 'grey darken-2'">
-                    mdi-repeat
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="result.isCompleted ? 'blue' : 'grey darken-2'">
-                    mdi-check
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="result.isPaused ? 'yellow darken-2' : 'grey darken-2'">
-                    mdi-pause
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="result.isDropped ? 'red darken-1' : 'grey darken-2'">
-                    mdi-stop
-                  </v-icon>
-                </v-col>
-
-                <v-col text-center>
-                  <v-icon :color="result.isPlanning ? '' : 'grey darken-2'">
-                    mdi-playlist-plus
-                  </v-icon>
-                </v-col>
-              </v-row>
-            </v-card-actions>
-          </v-card>
+        <v-col v-if="!isLoading && isListEmpty" cols="12">
+          <div class="display-3 text-center">
+            {{ $t('$vuetify.noDataText') }}
+          </div>
         </v-col>
+
+        <template v-if="!isLoading && !isListEmpty">
+          <v-col v-for="item in list" class="lg5-custom" cols="12" sm="6" md="4" lg="3" xl="2" :key="item.id">
+            <v-card flat outlined class="ma-2" :id="item.id">
+              <list-image
+                :nameColumnSize="true"
+                card-height="450px"
+                :item="item"
+                :show-studios="false"
+                :show-score="false"
+              >
+                <template #before>
+                  <v-col cols="auto" class="pb-2">
+                    <v-tooltip top>
+                      <template #activator="{ on }">
+                        <v-icon
+                          v-if="!item.isAdded"
+                          v-on="on"
+                          color="success"
+                          @click.stop.prevent="onAddEntry(item.id)"
+                        >
+                          mdi-plus
+                        </v-icon>
+                        <v-icon v-else v-on="on" color="info" @click.stop.prevent="">mdi-check</v-icon>
+                      </template>
+                      <span v-if="!item.isAdded">{{ $t('actions.addToPlanToWatch') }}</span>
+                      <span v-else>{{ $t('actions.added') }}</span>
+                    </v-tooltip>
+                  </v-col>
+
+                  <v-col v-if="item.isAdult" cols="auto" class="pb-2">
+                    <v-tooltip top>
+                      <template #activator="{ on }">
+                        <v-icon color="error" v-on="on">mdi-alert</v-icon>
+                      </template>
+                      <span>{{ $t('alerts.adultContent') }}</span>
+                    </v-tooltip>
+                  </v-col>
+
+                  <v-col cols="12" class="pb-2">
+                    <span class="text-body-2 teal--text text--lighten-3">
+                      {{ $tc('pages.seasonPreview.episodes', [item.episodes]) }}
+                    </span>
+                  </v-col>
+                </template>
+              </list-image>
+            </v-card>
+          </v-col>
+        </template>
       </v-row>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Route } from 'vue-router';
-import { mapGetters } from 'vuex';
-import AdultToolTip from '@/components/AniList/ListElements/AdultToolTip.vue';
-import ListImage from '@/components/AniList/ListElements/ListImage.vue';
-import ProgressCircle from '@/components/AniList/ListElements/ProgressCircle.vue';
-import { AniListListStatus, IAniListSearchResult } from '@/types';
-import SearchFilter from '@/components/Search/Filter.vue';
+import { Component, Vue } from 'vue-property-decorator';
+import ListImage from '@/components/Anime/Elements/ListImage.vue';
+import { Getter } from '@/decorators';
+import { AniListListStatus, IAniListMediaListCollection } from '@/types';
 
-type IAniListExtendedSearchResult = IAniListSearchResult & {
-  isWatching: boolean;
-  isRepeating: boolean;
-  isCompleted: boolean;
-  isPlanning: boolean;
-  isDropped: boolean;
-  isPaused: boolean;
-  progressPercentage?: number;
-};
+interface SelectItem<T> {
+  text: string;
+  value: T;
+}
 
 @Component({
-  components: {
-    AdultToolTip,
-    ListImage,
-    ProgressCircle,
-    SearchFilter,
-  },
-  computed: {
-    ...mapGetters(['app/isLoading']),
-  },
+  components: { ListImage },
 })
-export default class Search extends Vue {
-  readonly isLoading!: boolean;
+export default class SearchView extends Vue {
+  @Getter('aniList') aniListData!: IAniListMediaListCollection;
+  currentListEntryIds: number[] = [];
+  isLoading: boolean = false;
+  searchResults: any[] = [];
+  searchQuery: string = '';
+  listFilter: AniListListStatus[] = [];
+  adultFilter: number = 1;
+  listValues: SelectItem<AniListListStatus>[] = [
+    {
+      text: this.$t('misc.aniList.listStatusses.watching').toString(),
+      value: AniListListStatus.CURRENT,
+    },
+    {
+      text: this.$t('misc.aniList.listStatusses.repeating').toString(),
+      value: AniListListStatus.REPEATING,
+    },
+    {
+      text: this.$t('misc.aniList.listStatusses.completed').toString(),
+      value: AniListListStatus.COMPLETED,
+    },
+    {
+      text: this.$t('misc.aniList.listStatusses.paused').toString(),
+      value: AniListListStatus.PAUSED,
+    },
+    {
+      text: this.$t('misc.aniList.listStatusses.dropped').toString(),
+      value: AniListListStatus.DROPPED,
+    },
+    {
+      text: this.$t('misc.aniList.listStatusses.planning').toString(),
+      value: AniListListStatus.PLANNING,
+    },
+  ];
+  adultValues: SelectItem<number>[] = [
+    {
+      text: this.$t('pages.search.adultContent.onlyNonAdult').toString(),
+      value: 1, // 001
+    },
+    {
+      text: this.$t('pages.search.adultContent.onlyAdult').toString(),
+      value: 2, // 010
+    },
+    {
+      text: this.$t('pages.search.adultContent.both').toString(),
+      value: 4, // 100
+    },
+  ];
 
-  searchInput: string = '';
-  searchResults: IAniListExtendedSearchResult[] = [];
-  listValues: AniListListStatus[] = [];
-  genreValues = [];
-  adultContentValue = 'both';
-  panel = null;
-
-  created() {
-    if (this.$route.query && this.$route.query.query) {
-      this.searchInput = this.$route.query.query as string;
-
-      this.search();
-    }
+  get isListEmpty(): boolean {
+    return this.searchResults.length === 0;
   }
 
-  async search() {
-    if (!this.searchInput.length) {
-      return;
-    }
+  get list() {
+    return this.searchResults.map((result) => {
+      const isAdded = this.currentListEntryIds.includes(result.id);
+
+      return {
+        __entry: result.mediaListEntry,
+        title: result.title.userPreferred,
+        imageLink: result.coverImage.extraLarge,
+        episodes: result.episodes || '?',
+        isAdult: result.isAdult,
+        currentProgress: result.mediaListEntry?.progress,
+        score: result.mediaListEntry?.score,
+        status: result.mediaListEntry?.status,
+        entryId: result.mediaListEntry?.id,
+        id: result.id,
+        aniListId: result.id, // This is a fallback to get the navigation to details working
+        isAdded,
+      };
+    });
+  }
+
+  created() {
+    this.currentListEntryIds = this.aniListData.lists
+      .map((list) => {
+        const ids = list.entries.map((entry) => entry.media.id);
+
+        return ids;
+      })
+      .flat();
+  }
+
+  async onSearch() {
+    this.isLoading = true;
+    const isAdult = !!(this.adultFilter & 2) || this.adultFilter & 4 ? undefined : false;
+    const onList = !!this.listFilter.length || undefined;
 
     const filters = {
-      listStatus: this.listValues,
-      isAdult: this.adultContentValue,
-      genres: this.genreValues,
+      onList,
+      isAdult,
     };
 
     try {
-      this.$store.commit('app/setLoadingState', true);
+      let results = await this.$http.searchAnime(this.searchQuery, filters);
 
-      const results = await this.$http.searchAnime(this.searchInput, filters);
+      if (this.listFilter.length) {
+        results = results.filter((result) => this.listFilter.includes(result.mediaListEntry.status));
+      }
 
-      this.searchResults = results.map(
-        (result): IAniListExtendedSearchResult => {
-          const object = Object.assign(
-            {},
-            {
-              isWatching: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.CURRENT,
-              isRepeating: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.REPEATING,
-              isCompleted: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.COMPLETED,
-              isDropped: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.DROPPED,
-              isPaused: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PAUSED,
-              isPlanning: result.mediaListEntry && result.mediaListEntry.status === AniListListStatus.PLANNING,
-            },
-            result
-          );
-
-          this.$store.commit('app/setLoadingState', false);
-
-          if (result.mediaListEntry) {
-            return Object.assign(
-              {},
-              {
-                progressPercentage: this.calculateProgressPercentage(result),
-              },
-              object
-            );
-          }
-
-          return object;
-        }
-      );
+      this.searchResults = results;
     } catch (error) {
       this.$notify({
         type: 'error',
-        title: 'ERROR',
-        text: error,
+        title: this.$t('errors.updateFailed.title').toString(),
+        text: this.$t('errors.updateFailed.text').toString(),
+      });
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async onAddEntry(id: number) {
+    try {
+      const entry = await this.$http.addEntry({
+        mediaId: id,
+        status: AniListListStatus.PLANNING,
       });
 
-      this.$store.commit('app/setLoadingState', false);
-    }
-  }
+      this.currentListEntryIds.push(id);
 
-  calculateProgressPercentage(entry: IAniListSearchResult): number {
-    if (!entry.mediaListEntry) {
-      return 0;
-    }
-
-    const { episodes, nextAiringEpisode } = entry;
-    const currentProgress = entry.mediaListEntry.progress;
-
-    if (!currentProgress) {
-      return 0;
-    }
-
-    // Check if max episode amount is known
-    if (episodes) {
-      return (currentProgress / episodes) * 100;
-    }
-
-    // We don't know the exact amount of episodes
-    // But we might know how many episodes have been aired so far
-    // so we can calculate the percentage of the currently available episodes
-    // and then add some buffer
-    if (nextAiringEpisode && nextAiringEpisode.episode) {
-      // We have to substract one here as that episode isn't aired yet
-      const episode = nextAiringEpisode.episode - 1 > 0 ? nextAiringEpisode.episode - 1 : 1;
-
-      // We choose only 80 percent here, as we are unaware of the episode amount
-      return (currentProgress / episode) * 80;
-    }
-
-    // Just return 75% if we have a non-zero progress but
-    // neither through the next airing episode nor through the episode amount
-    // we can determine our status.
-    return 75;
-  }
-
-  @Watch('$route')
-  onRouteChanged(newRoute: Route, oldRoute: Route) {
-    if (newRoute.name !== oldRoute.name) {
-      return;
-    }
-    if (newRoute.query !== oldRoute.query && newRoute.query.query) {
-      this.searchInput = newRoute.query.query as string;
-
-      this.search();
+      this.$notify({
+        title: this.$t('notifications.aniList.successTitle').toString(),
+        text: this.$t('notifications.aniList.addedToList', [entry.media.title.userPreferred]).toString(),
+      });
+    } catch (error) {
+      this.$notify({
+        type: 'error',
+        title: this.$t('errors.updateFailed.title').toString(),
+        text: this.$t('errors.updateFailed.text').toString(),
+      });
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.no-border-radius {
-  border-radius: 0;
-}
-</style>

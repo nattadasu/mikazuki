@@ -14,6 +14,7 @@ import AniListAPI from './plugins/AniList';
 import '@/assets/scss/extra.scss';
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
+import 'flag-icon-css/css/flag-icon.min.css';
 
 Vue.use(Vuetify);
 

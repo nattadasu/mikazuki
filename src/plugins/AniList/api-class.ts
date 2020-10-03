@@ -17,6 +17,8 @@ import {
   IAniListMediaDate,
   IAniListUserStats,
   IAniListUserStatistics,
+  AniListUserTitleLanguage,
+  AniListScoreFormat,
 } from '@/types';
 // #endregion
 
@@ -35,6 +37,9 @@ import searchAnime from './queries/searchAnime.graphql';
 import addEntry from './mutations/addEntry.graphql';
 import updateEntry from './mutations/updateEntry.graphql';
 import removeEntry from './mutations/removeEntry.graphql';
+import updateUserTitleLanguage from './mutations/updateUserTitleLanguage.graphql';
+import updateScoringFormat from './mutations/updateScoringFormat.graphql';
+import updateShowExplicitContent from './mutations/updateShowExplicitContent.graphql';
 // #endregion
 
 // #region Responses
@@ -49,9 +54,8 @@ import {
 // #endregion
 
 interface SearchFilters {
-  isAdult: string;
-  listStatus: AniListListStatus[];
-  genres: string[];
+  isAdult?: boolean;
+  onList?: boolean;
 }
 
 interface ActivitiesParams {
@@ -176,15 +180,10 @@ export default class AniListAPI {
     return response.media;
   }
 
-  public async searchAnime(query: string, filters: SearchFilters): Promise<IAniListSearchResult[]> {
-    const genres = filters.genres.length ? filters.genres : undefined;
-    const onList = !!filters.listStatus.length || undefined;
-    const isAdult = filters.isAdult === 'both' ? undefined : filters.isAdult === 'adult';
-
+  public async searchAnime(query: string, { onList, isAdult }: SearchFilters): Promise<IAniListSearchResult[]> {
     const params = {
       query,
       type: AniListType.ANIME,
-      genres,
       onList,
       isAdult,
     };
@@ -194,19 +193,7 @@ export default class AniListAPI {
       variables: params,
     });
 
-    const searchResults = response.page.media;
-
-    if (filters.listStatus.length) {
-      return searchResults.filter((element) => {
-        if (!element.mediaListEntry) {
-          return false;
-        }
-
-        return filters.listStatus.some((filter) => filter === element.mediaListEntry.status);
-      });
-    }
-
-    return searchResults;
+    return response.page.media;
   }
 
   public async addEntry({ mediaId, status, score, progress }: AddEntryParams): Promise<IAniListEntry> {
@@ -230,8 +217,8 @@ export default class AniListAPI {
     status,
     startedAt,
     completedAt,
-  }: UpdateEntryParams): Promise<void> {
-    await axios.post('/', {
+  }: UpdateEntryParams): Promise<IAniListEntry> {
+    const response = await axios.post<MediaResponse<IAniListEntry>>('/', {
       query: updateEntry,
       variables: {
         entryId,
@@ -242,6 +229,8 @@ export default class AniListAPI {
         completedAt,
       },
     });
+
+    return response.media;
   }
 
   public async removeEntry(entryId: number): Promise<void> {
@@ -249,5 +238,32 @@ export default class AniListAPI {
       query: removeEntry,
       variables: { entryId },
     });
+  }
+
+  public async updateUserTitleLanguage(language: AniListUserTitleLanguage): Promise<AniListUserTitleLanguage> {
+    const response = await axios.post<UserResponse>('/', {
+      query: updateUserTitleLanguage,
+      variables: { language },
+    });
+
+    return response.user.options.titleLanguage;
+  }
+
+  public async updateScoringFormat(value: AniListScoreFormat): Promise<AniListScoreFormat> {
+    const response = await axios.post<UserResponse>('/', {
+      query: updateScoringFormat,
+      variables: { value },
+    });
+
+    return response.user.mediaListOptions.scoreFormat;
+  }
+
+  public async updateShowExplicitContent(value: boolean): Promise<boolean> {
+    const response = await axios.post<UserResponse>('/', {
+      query: updateShowExplicitContent,
+      variables: { value },
+    });
+
+    return response.user.options.displayAdultContent;
   }
 }

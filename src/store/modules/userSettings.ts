@@ -1,6 +1,6 @@
 import { Module, GetterTree, MutationTree, ActionTree } from 'vuex';
 import { RootState, UserSettingsState } from '../types';
-import { AniListScoreFormat, IAniListSession, IAniListUser } from '@/types';
+import { AniListScoreFormat, IAniListSession, IAniListUser, AniListUserTitleLanguage } from '@/types';
 
 const defaultUser = {
   avatar: {
@@ -19,6 +19,7 @@ const defaultUser = {
   },
   options: {
     displayAdultContent: false,
+    titleLanguage: AniListUserTitleLanguage.ROMAJI,
   },
   statistics: {
     anime: {
@@ -44,40 +45,7 @@ const state: UserSettingsState = {
   _session: {
     accessToken: '',
     user: {
-      avatar: {
-        medium: '',
-        large: '',
-      },
-      bannerImage: '',
-      id: -1,
-      mediaListOptions: {
-        scoreFormat: AniListScoreFormat.POINT_100,
-      },
-      name: '',
-      stats: {
-        watchedTime: 0,
-        activityHistory: [],
-      },
-      options: {
-        displayAdultContent: false,
-      },
-      statistics: {
-        anime: {
-          count: 0,
-          episodesWatched: 0,
-          meanScore: 0,
-          minutesWatched: 0,
-          standardDeviation: 0,
-          genres: [],
-        },
-        manga: {
-          chaptersRead: 0,
-          count: 0,
-          meanScore: 0,
-          standardDeviation: 0,
-          volumesRead: 0,
-        },
-      },
+      ...defaultUser,
     },
   },
 };
@@ -98,6 +66,9 @@ const getters: GetterTree<UserSettingsState, RootState> = {
   allowAdultContent(state): boolean {
     return state._session.user.options.displayAdultContent;
   },
+  scoreFormat(state): AniListScoreFormat {
+    return state._session.user.mediaListOptions.scoreFormat;
+  },
 };
 
 const mutations: MutationTree<UserSettingsState> = {
@@ -109,6 +80,15 @@ const mutations: MutationTree<UserSettingsState> = {
   },
   setRefreshRate(state, rate: number) {
     state._refreshRate = rate;
+  },
+  setUserTitleLanguage(state, language: AniListUserTitleLanguage) {
+    state._session.user.options.titleLanguage = language;
+  },
+  setScoringFormat(state, value: AniListScoreFormat) {
+    state._session.user.mediaListOptions.scoreFormat = value;
+  },
+  setShowExplicitContent(state, value: boolean) {
+    state._session.user.options.displayAdultContent = value;
   },
 };
 
@@ -128,14 +108,30 @@ const actions: ActionTree<UserSettingsState, RootState> = {
 
     return Promise.resolve();
   },
+  async setUserTitleLanguage({ commit }, payload: AniListUserTitleLanguage): Promise<void> {
+    commit('setUserTitleLanguage', payload);
+
+    return Promise.resolve();
+  },
+  async setScoringFormat({ commit }, payload: AniListScoreFormat): Promise<void> {
+    commit('setScoringFormat', payload);
+
+    return Promise.resolve();
+  },
+  async setShowExplicitContent({ commit }, payload: boolean): Promise<void> {
+    commit('setShowExplicitContent', payload);
+
+    return Promise.resolve();
+  },
   async logout({ commit, dispatch }): Promise<void> {
-    commit('setSession', '');
-    commit('setUser', defaultUser);
-    commit('setRefreshRate', 15);
-    await dispatch('setCurrentMediaTitle', '');
     await dispatch('resetAllData', undefined, { root: true });
 
     return Promise.resolve();
+  },
+  async resetAllData({ commit }): Promise<void> {
+    commit('setSession', '');
+    commit('setUser', { ...defaultUser });
+    commit('setRefreshRate', 15);
   },
 };
 

@@ -1,0 +1,7 @@
+mutation updateScoringFormat($value: ScoreFormat!) {
+  user: UpdateUser(scoreFormat: $value) {
+    mediaListOptions {
+      scoreFormat
+    }
+  }
+}

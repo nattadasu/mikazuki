@@ -14,9 +14,7 @@
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on">
           {{ selectedSeason.title }}
-          <v-icon right>
-            mdi-menu-down
-          </v-icon>
+          <v-icon right> mdi-menu-down </v-icon>
         </v-btn>
       </template>
       <v-list>

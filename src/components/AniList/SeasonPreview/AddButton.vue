@@ -1,14 +1,10 @@
 <template>
   <v-btn v-if="inList || isAdded" block text color="grey">
-    <v-icon left color="info">
-      mdi-check
-    </v-icon>
+    <v-icon left color="info"> mdi-check </v-icon>
     {{ $t('actions.added') }}
   </v-btn>
   <v-btn v-else block text :disabled="isLocked" :loading="isLoading" @click="addMediaToPlanList(item)">
-    <v-icon left color="success">
-      mdi-playlist-plus
-    </v-icon>
+    <v-icon left color="success"> mdi-playlist-plus </v-icon>
     {{ $t('actions.add') }}
   </v-btn>
 </template>

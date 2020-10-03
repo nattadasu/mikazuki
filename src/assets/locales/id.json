@@ -1,12 +1,13 @@
 {
   "originalReading": "Bahasa Indonesia",
   "englishReading": "Indonesian",
+  "flag": "id",
   "actions": {
     "add": "Tambah",
     "added": "Ditambahkan ke dalam daftar",
     "addToPlanToWatch": "Tambahkan ke daftar Direncanakan",
     "back": "Kembali",
-    "fastSearch": "Mencari... \u23ce",
+    "fastSearch": "Mencari... ⏎",
     "loading": "Memuat...",
     "login": "Masuk",
     "logout": "Keluar",
@@ -14,8 +15,9 @@
     "reset": "Reset",
     "save": "Simpan",
     "search": "Cari",
-    "sort": "Urutkan & Saring",
-    "toPageTop": "Lompat ke atas"
+    "sort": "Urut & Saring",
+    "toPageTop": "Lompat ke atas",
+    "filter": "Saring"
   },
   "alerts": {
     "adultContent": "Media ini dianggap konten dewasa! Kebijakan Pemirsa Disarankan.",
@@ -35,7 +37,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Pembaruan daftar selanjutnya dalam: {0}"
+      "timeUntilNextRefresh": "Update dalam: {0}"
     },
     "aniList": {
       "completed": "Selesai",
@@ -47,7 +49,7 @@
       "seasonPreview": "Pratinjau Musim",
       "watching": "Sedang Menonton"
     },
-    "search": "Pencarian Terperinci",
+    "search": "Pencarian Lanjutan",
     "settings": {
       "title": "Pengaturan",
       "about": "Tentang Mikazuki",
@@ -63,7 +65,7 @@
         "ascending": "Naik",
         "descending": "Turun"
       },
-      "sortingLabel": "Urutkan berdasarkan",
+      "sortingLabel": "Urut berdasarkan",
       "title": "Judul",
       "score": "Skor",
       "progress": "Kemajuan",
@@ -80,24 +82,24 @@
             "manga": "Manga"
           },
           "statistics": {
-            "totalAnime": "Total Anime",
-            "totalManga": "Total Manga",
-            "daysWatched": "Days Watched",
-            "meanScore": "Mean Score",
-            "chaptersRead": "Chapters Read",
-            "activityHistory": "Activity History",
-            "genreOverview": "Genre Overview"
+            "totalAnime": "Anime Total",
+            "totalManga": "Manga Total",
+            "daysWatched": "Hari Menonton",
+            "meanScore": "Skor Rata-rata",
+            "chaptersRead": "Bab Dibaca",
+            "activityHistory": "Riwayat Aktivitas",
+            "genreOverview": "Pratinjau Genre"
           },
           "headline": "Aktivitas Terbaru",
-          "completed": "Selesai {0}",
-          "plansToWatch": "Direncanakan {0}",
-          "watchedEpisode": "Episode {1} dari {0} selesai",
-          "dropped": "Dihentikan {0}",
+          "completed": "Selesai menonton {0}",
+          "plansToWatch": "Merencanakan menonton {0}",
+          "watchedEpisode": "Episode {1} dari {0} selesai ditonton",
+          "dropped": "Menghentikan {0}",
           "rewatchedEpisode": "Episode {1} dari {0} ditonton kembali",
           "pausedWatching": "Menahan menonton {0}",
-          "readChapter": "Membaca chapter {1} dari {0}",
+          "readChapter": "Selesai membaca bab {1} dari {0}",
           "plansToRead": "Direncanakan membaca {0}",
-          "rereadChapter": "Membaca kembali chapter {1} dari {0}",
+          "rereadChapter": "Kembali membaca bab {1} dari {0}",
           "pausedReading": "Menahan membaca {0}"
         },
         "howToAuthenticate": {
@@ -111,14 +113,17 @@
       },
       "list": {
         "airingFinished": "Selesai ditayangkan",
-        "missingEpisodes": "Satu episode untuk dinonton | {count} episode untuk dinonton",
+        "missingEpisodes": "Tersisa satu episode lagi untuk ditonton | Tersisa {count} episode lagi untuk ditonton",
         "notYetAired": "Belum ditayangkan",
-        "nextAiringEpisode": "Episode {0} akan ditayangkan {1}"
+        "nextAiringEpisode": "Episode {0} akan ditayangkan {1} lagi",
+        "scoreDialog": {
+          "title": "Ubah skor"
+        }
       },
       "detailView": {
         "airedOn": "Ditayangkan pada {0}",
-        "airedOnTo": "{0} hingga {1}",
-        "airesFromTo": "Ditayangkan pada {0} hingga {1}",
+        "airedOnTo": "{0} sampai {1}",
+        "airesFromTo": "Ditayangkan pada {0} sampai {1}",
         "airesOn": "Ditayangkan pada {0}",
         "airingStartedOn": "Ditayangkan pada {0}",
         "airingStartsOnDay": "Ditayangkan pada hari {0}",
@@ -131,8 +136,8 @@
         "episodes": "Episode",
         "genres": "Genre",
         "nativeTitle": "Judul asli",
-        "ownInformation": "Informasi dari daftar kamu",
-        "ownProgress": "Perkembangan",
+        "ownInformation": "Informasi dari daftarmu",
+        "ownProgress": "Progres",
         "ownStatus": "Status",
         "ownScore": "Skor",
         "romajiTitle": "Judul dalam Romaji",
@@ -164,7 +169,12 @@
     },
     "seasonPreview": {
       "episodes": "? episode | 1 episode | {count} episode",
-      "startDate": "Mulai ditayangkan:"
+      "startDate": "Mulai ditayangkan:",
+      "updateDialog": {
+        "season": "Musim",
+        "title": "Parameter Pratinjau Musim",
+        "yearOfSeason": "Tahun Musim"
+      }
     },
     "settings": {
       "about": {
@@ -175,11 +185,29 @@
         "refreshRate": "Jarak penyegaran",
         "refreshRateRule": "Jarak penyegaran yang diperbolehkan berkisar antara 5 menit hingga 5 jam (5 - 300 menit)!",
         "refreshRateSuffix": "menit",
-        "refreshRateHint": "Interval ini menentukan jumlah menit hingga sinkronisasi berikutnya dengan server AniList. Perubahan interval akan diterapkan setelah sinkronisasi berikutnya."
+        "refreshRateHint": "Interval ini menentukan jumlah menit hingga sinkronisasi berikutnya dengan server AniList. Perubahan interval akan diterapkan setelah sinkronisasi berikutnya.",
+        "userAccountSettings": {
+          "headline": "Pengaturan Akun Pengguna AniList",
+          "scoringFormat": "Format Skor",
+          "scoringFormatHint": "Pengaturan ini menentukan bagaimana kamu dapat memberikan skor ke daftar entri kamu.",
+          "showExplicitContent": "Tampilkan konten eksplisit (konten dewasa)",
+          "showExplicitContentHint": "Pengaturan ini menentukan bagaimana konten dewasa akan ditampilkan.",
+          "subHeadline": "Mengubah pengaturan ini bisa menghabiskan beberapa waktu hingga sampai berlaku!",
+          "userTitleLanguage": "Bahasa Judul",
+          "userTitleLanguageHint": "Pengaturan ini menentukan judul mana yang digunakan untuk menampilkan nama media."
+        }
       },
       "appSettings": {
         "chooseLanguage": "Pilih bahasa",
-        "darkMode": "Mode gelap"
+        "darkMode": "Mode gelap",
+        "navigationActiveItemColour": "Warna item navigasi aktif",
+        "navigationBackgroundBrightness": "Kecerahan latar belakang navigasi",
+        "navigationBackgroundBlurriness": "Keburaman latar belakang navigasi",
+        "initialListItemAmount": "Jumlah awal item daftar yang ditampilkan",
+        "listAnimationActivity": {
+          "headline": "Daftar aktifitas animasi",
+          "subtitle": "Jumlah yang dipilih berfungsi sebagai batasan. Jika lebih banyak item ditampilkan pada saat yang sama, semua animasi dinonaktifkan untuk menjaga kinerja."
+        }
       },
       "changelog": {
         "new": "BARU",
@@ -188,8 +216,10 @@
         "version": "Versi",
         "changesIn": "Perubahan terakhir di {0}"
       },
-      "specialThanks": "Terimakasih Terkhusus",
-      "supporters": "Pendukung"
+      "specialThanks": {
+        "supporters": "Pendukung",
+        "translators": "Penerjemah"
+      }
     }
   },
   "routes": {
@@ -211,7 +241,7 @@
     "aniList": {
       "successTitle": "Sinkronisasi sukses",
       "completeUpdateText": "Sinkronisasi selesai {0} sukses ke episode {1}.",
-      "simpleUpdateText": "{0} sukses disinkronisasi ke episode {1}.",
+      "simpleUpdateText": "{0} sukses disinkronisasikan ke episode {1}.",
       "addedToList": "{0} sukses ditambahkan ke dalam daftar kamu.",
       "removeEntry": "{0} sukses dihapus dari daftar."
     }
@@ -227,15 +257,43 @@
         "watching": "Sedang Menonton"
       },
       "seasons": {
-        "spring": "Spring",
-        "summer": "Summer",
-        "fall": "Fall",
-        "autumn": "Autumn",
-        "winter": "Winter"
+        "spring": "Semi",
+        "summer": "Panas",
+        "fall": "Gugur",
+        "autumn": "Gugur",
+        "winter": "Dingin"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "10 Poin (5 / 10)",
+          "POINT_100": "100 Poin (55 / 100)",
+          "POINT_10_DECIMAL": "10 Poin Desimal (5.5 / 10)",
+          "POINT_3": "3 Poin Smileys",
+          "POINT_5": "5 Poin (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "Inggris (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Penggayaan Inggris",
+          "NATIVE": "Asli (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Penggayaan Asli",
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Penggayaan Romaji"
+        }
+      },
+      "mediaStatus": {
+        "cancelled": "DIBATALKAN",
+        "finished": "SELESAI",
+        "not_yet_released": "BELUM DIRILIS",
+        "releasing": "RILIS"
       }
     },
+    "colours": {
+      "automatic": "Otomatis",
+      "black": "Hitam",
+      "white": "Putih"
+    },
     "dates": {
-      "dayMonthNumeric": "MM/DD",
+      "dayMonthNumeric": "DD/MM",
       "full": "Do MMMM YYYY",
       "monthAndYear": "MMMM YYYY",
       "yearOnly": "YYYY",
@@ -246,6 +304,21 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "Semua",
+      "disabled": "Nonaktif"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "Berdasarkan Episode",
+        "score": "Berdasarkan Skor",
+        "title": "Berdasarkan Judul"
+      },
+      "direction": {
+        "asc": "Menaik",
+        "desc": "Menurun"
+      }
     }
   },
   "$vuetify": {
@@ -253,6 +326,6 @@
   },
   "transfer": {
     "title": "ZeroTwo kini menjadi Mikazuki",
-    "text": "Kepada pengguna ZeroTwo,\nBeberapa orang yang mengikuti informasi terbaru di server Discord mengetahui bahwa saya sudah lama merencanakan untuk mengubah nama ZeroTwo.\nAlasan untuk mengubah nama ZeroTwo, singkatnya, untuk membuat namanya lebih netral dan nyaman sejauh perasaan pribadi sendiri.\nBerdasarkan hasil suara di Discord, telah ditentukan dari mayoritas, mikazuki.moe terpilih sebagai domain baru.\nMulai pada tanggal 7 April 2020, zerotwo.org akan tidak dilanjutkan dan tidak dapat diakses sebagaimana mikazuki.moe dimulai dari hari ini.\nUntuk melanjutkan menggunakan ZeroTwo, yang kini bernama Mikazuki, silakan ganti dengan mikazuki.moe.\nHarap diketahui bahwa Anda perlu memasukkan kembali informasi log Anda di mikazuki.moe sebagai mana Anda tidak dapat men-transfer data Anda dari zerotwo.org ke mikazuki.moe.\nJuga pada pengaturan yang telah Anda atur di zerotwo.org, seperti pengaturan interval hitung mundur waktu penyegaran, teratur ulang.\n\nNicoAiko\nPengembang utama Mikazuki"
+    "text": "Kepada pengguna ZeroTwo,\nBeberapa orang yang mengikuti informasi terbaru di server Discord mengetahui bahwa saya sudah lama merencanakan untuk mengubah nama ZeroTwo.\nAlasan untuk mengubah nama ZeroTwo, singkatnya, untuk membuat namanya lebih netral dan nyaman sejauh perasaan pribadi sendiri.\nBerdasarkan hasil suara di Discord, telah ditentukan dari mayoritas, mikazuki.moe terpilih sebagai domain baru.\nMulai pada tanggal 7 April 2020, zerotwo.org akan tidak dilanjutkan dan tidak dapat diakses sebagaimana mikazuki.moe dimulai dari hari ini.\nUntuk melanjutkan menggunakan ZeroTwo, yang kini bernama Mikazuki, silakan ganti dengan mikazuki.moe.\nHarap diketahui bahwa kamu perlu memasukkan kembali informasi log kamu di mikazuki.moe sebagai mana kamu tidak dapat men-transfer data kamu dari zerotwo.org ke mikazuki.moe.\nJuga pada pengaturan yang telah kamu atur di zerotwo.org, seperti pengaturan interval hitung mundur waktu penyegaran, teratur ulang.\n\nNicoAiko\nPengembang utama Mikazuki"
   }
 }

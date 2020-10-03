@@ -1,10 +1,17 @@
 <template>
-  <v-container class="py-0 px-1" fluid>
+  <v-container class="py-0 px-1" fluid :class="{ 'fill-height': loading }">
     <v-row>
-      <v-col cols="12" v-if="!activities.length" align-self="center" justify-self="center">
-        <span class="font-weight-bold">
+      <v-col cols="12" v-show="!activities.length && !loading" align-self="center">
+        <div class="text-center display-3">
           {{ $t('$vuetify.noDataText') }}
-        </span>
+        </div>
+      </v-col>
+
+      <v-col v-show="loading" cols="12" align-self="center">
+        <div class="text-center display-3">
+          {{ $t('actions.loading') }}
+          <v-progress-circular indeterminate style="vertical-align: super" />
+        </div>
       </v-col>
 
       <v-col cols="12" lg="6" v-for="activity in activities" :key="activity.id">
@@ -69,7 +76,7 @@
 
 <script lang="ts">
 import moment from 'moment';
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import ListImage from '@/components/AniList/ListElements/ListImage.vue';
 import { IAniListActivity, AniListType } from '@/types';
@@ -82,6 +89,14 @@ import { IAniListActivity, AniListType } from '@/types';
 })
 export default class Activities extends Vue {
   readonly latestActivities!: IAniListActivity[];
+  loading: boolean = false;
+
+  created() {
+    if (this.latestActivities.length === 0) {
+      this.loading = true;
+      setTimeout(() => (this.loading = false), 10000);
+    }
+  }
 
   get activities() {
     return this.latestActivities
@@ -110,6 +125,13 @@ export default class Activities extends Vue {
         rereadChapter: activity.status === 'reread chapter',
         pausedReading: activity.status === 'paused reading',
       }));
+  }
+
+  @Watch('latestActivities')
+  onLatestActivitiesChange(changed: IAniListActivity[], old: IAniListActivity[]) {
+    if (old.length === 0 && changed.length !== 0) {
+      this.loading = false;
+    }
   }
 }
 </script>

@@ -1,12 +1,14 @@
 {
   "originalReading": "日本語",
   "englishReading": "Japanese",
+  "flag": "jp",
   "actions": {
     "add": "追加",
     "added": "リストに追加しました",
     "addToPlanToWatch": "見る予定リストに追加",
     "back": "戻る",
-    "fastSearch": "検索する・・・ \u23ce",
+    "fastSearch": "検索する・・・ ⏎",
+    "filter": "フィルタリング",
     "loading": "通信中",
     "login": "ログイン",
     "logout": "ログアウト",
@@ -14,7 +16,7 @@
     "reset": "リセット",
     "save": "保存",
     "search": "検索",
-    "sort": "並べる＆フィルタリング",
+    "sort": "並べる",
     "toPageTop": "トップへ"
   },
   "alerts": {
@@ -35,7 +37,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "次のリスト更新： {0}"
+      "timeUntilNextRefresh": "次の更新： {0}"
     },
     "aniList": {
       "completed": "終了",
@@ -47,7 +49,7 @@
       "seasonPreview": "シーズン予告",
       "watching": "見る中"
     },
-    "search": "詳細検索",
+    "search": "検索",
     "settings": {
       "title": "環境設定",
       "about": "三日月について",
@@ -111,9 +113,12 @@
       },
       "list": {
         "airingFinished": "放送終了",
-        "missingEpisodes": "１つのｴﾋﾟｿｰﾄﾞが見残る | {count}つのｴﾋﾟｿｰﾄﾞが見残る",
+        "missingEpisodes": "１つのエピソードが見残る | {count}つのエピソードが見残る",
         "notYetAired": "まだ放送していませんでした。",
-        "nextAiringEpisode": "第{0}話は{1}に放送"
+        "nextAiringEpisode": "第{0}話は{1}に放送",
+        "scoreDialog": {
+          "title": "評価更新"
+        }
       },
       "detailView": {
         "airedOn": "{0}に放送された",
@@ -164,7 +169,12 @@
     },
     "seasonPreview": {
       "episodes": "エピソード数：？ | エピソード数：1 | エピソード数：{count}",
-      "startDate": "放送開始日："
+      "startDate": "放送開始日：",
+      "updateDialog": {
+        "season": "放送季節",
+        "title": "シーズン予告パラメートル",
+        "yearOfSeason": "年"
+      }
     },
     "settings": {
       "about": {
@@ -175,11 +185,29 @@
         "refreshRate": "更新のインターバル",
         "refreshRateRule": "更新のインターバルは５分～５時間（５～３００分）に設定できます！",
         "refreshRateSuffix": "分",
-        "refreshRateHint": "このインターバルは「AniList」のサーバーとの次の更新までの時間を決まります。変更したインターバルは次の更新から発動します。"
+        "refreshRateHint": "このインターバルは「AniList」のサーバーとの次の更新までの時間を決まります。変更したインターバルは次の更新から発動します。",
+        "userAccountSettings": {
+          "headline": "AniListユーザーアカウント設定",
+          "scoringFormat": "スコア・フォーマット",
+          "scoringFormatHint": "この設定は、リストエントリのスコア・フォーマットを変わります。",
+          "showExplicitContent": "１８禁内容を表示",
+          "showExplicitContentHint": "この設定は、１８禁の内容の表示モードを変える。",
+          "subHeadline": "この設定を変えれば、効能が現れるのは数分掛かるかもしれません。",
+          "userTitleLanguage": "タイトルの言語",
+          "userTitleLanguageHint": "この設定は、メディアのタイトルの言語フォーマットを変える。"
+        }
       },
       "appSettings": {
         "chooseLanguage": "言語を選択してください (Choose language)",
-        "darkMode": "ダークモード"
+        "darkMode": "ダークモード",
+        "navigationActiveItemColour": "サイドバーアイテムのハイライト色",
+        "navigationBackgroundBrightness": "サイドバーの壁紙-明るさ",
+        "navigationBackgroundBlurriness": "サイドバーの壁紙-ソフトフォーカス",
+        "initialListItemAmount": "リストエントリの初期数",
+        "listAnimationActivity": {
+          "headline": "リストのアニメーション制限",
+          "subtitle": "選択した数は制限です。同時により多くのエントリ数が表示される場合、パフォーマンスを維持するためにアニメーションはオフになります。「すべて」は、すべてのエントリのアニメーションをオフします。"
+        }
       },
       "changelog": {
         "new": "追加",
@@ -188,8 +216,10 @@
         "version": "バージョン",
         "changesIn": "{0}の最新更新情報"
       },
-      "specialThanks": "特別挨拶",
-      "supporters": "サポーター"
+      "specialThanks": {
+        "supporters": "サポーター",
+        "translators": "翻訳者"
+      }
     }
   },
   "routes": {
@@ -232,7 +262,35 @@
         "fall": "秋",
         "autumn": "秋",
         "winter": "冬"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "１０点 (5 / 10)",
+          "POINT_100": "１００点 (55 / 100)",
+          "POINT_10_DECIMAL": "十進の１０点 (5.5 / 10)",
+          "POINT_3": "絵文字の３点",
+          "POINT_5": "５点 (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "英語名（How to keep a mummy）",
+          "ENGLISH_STYLISED": "様式化の英語",
+          "NATIVE": "ネイティブ （ミイラの飼い方）",
+          "NATIVE_STYLISED": "様式化のネイティブ名",
+          "ROMAJI": "ローマ字　（Miira no Kaikata）",
+          "ROMAJI_STYLISED": "様式化のローマ字"
+        }
+      },
+      "mediaStatus": {
+        "cancelled": "中止",
+        "finished": "終",
+        "not_yet_released": "放送予定",
+        "releasing": "放送中"
       }
+    },
+    "colours": {
+      "automatic": "自動的",
+      "black": "黒",
+      "white": "白"
     },
     "dates": {
       "dayMonthNumeric": "MM/DD",
@@ -246,6 +304,21 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "すべて",
+      "disabled": "無効"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "エピソード",
+        "score": "スコア",
+        "title": "タイトル"
+      },
+      "direction": {
+        "asc": "昇順並べ替え",
+        "desc": "降順並べ替え"
+      }
     }
   },
   "$vuetify": {

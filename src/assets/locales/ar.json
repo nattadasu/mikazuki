@@ -1,13 +1,14 @@
 {
   "originalReading": "العربية",
   "englishReading": "Arabic",
+  "flag": "",
   "actions": {
     "add": "اضف",
-    "added": "يضاف إلى القائمة",
-    "addToPlanToWatch": "إضافة إلى قائمة التخطيط",
-    "back": "رجع",
-    "fastSearch": "بحث... \u23ce",
-    "loading": "جار التحميل...",
+    "added": "تمت الإضافة",
+    "addToPlanToWatch": "إضافة إلى المخطط لمشاهدته",
+    "back": "رجوع",
+    "fastSearch": "بحث... ⏎",
+    "loading": "جاري التحميل...",
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
     "remove": "إزالة",
@@ -15,10 +16,11 @@
     "save": "حفظ",
     "search": "بحث",
     "sort": "فرز وصفى",
-    "toPageTop": "القفز إلى الأعلى"
+    "toPageTop": "القفز إلى الأعلى",
+    "filter": "فرز"
   },
   "alerts": {
-    "adultContent": "تعتبر هذه الوسائط محتوى للبالغين! المشاهد حرية التقدير.",
+    "adultContent": "تعتبر هذه الوسائط محتوى للبالغين! يُنصح بتقدير المشاهد.",
     "noDescription": "لا يوجد وصف متاح.",
     "noEnglishTitle": "لا يوجد عنوان باللغة الإنجليزية المتاحة.",
     "noInformation": "لا توجد معلومات متاحة.",
@@ -35,7 +37,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "تحديث القائمة التالية فى: {0}"
+      "timeUntilNextRefresh": "التحديث التالي في: {0}"
     },
     "aniList": {
       "completed": "منتهى",
@@ -110,13 +112,16 @@
         }
       },
       "list": {
-        "airingFinished": " بث الانتهاء",
-        "missingEpisodes": "حلقة واحدة لمشاهدة | {count} حلقات لمشاهدة",
+    "airingFinished": " انتهى البث",
+    "missingEpisodes": "حلقة واحدة للمشاهدة | {count} حلقات للمشاهدة",
         "notYetAired": "لم يتم بثه",
-        "nextAiringEpisode": "الحلقة {0} تبث {1}"
+        "nextAiringEpisode": "الحلقة {0} تبث {1}",
+        "scoreDialog": {
+          "title": "تغيير التقييم"
+        }
       },
       "detailView": {
-        "airedOn": "تم البث على {0}",
+    "airedOn": "تم البث في {0}",
         "airedOnTo": "{0} الى {1}",
         "airesFromTo": "البث من {0} إلى {1}",
         "airesOn": "البث فى {0}",
@@ -164,7 +169,12 @@
     },
     "seasonPreview": {
       "episodes": "? حلقات | 1 حلقة | {count} حلقات",
-      "startDate": "بداء البث:"
+    "startDate": "بدء البث:",
+      "updateDialog": {
+        "season": "الموسم",
+        "title": "معلمات معاينة الموسم",
+        "yearOfSeason": "عام الموسم"
+      }
     },
     "settings": {
       "about": {
@@ -175,21 +185,41 @@
         "refreshRate": "معدل التحديث",
         "refreshRateRule": "الفترة معدل التحديث بها من 5 دقائق إلى 5 ساعات (5 - 300 دقيقة)!",
         "refreshRateSuffix": "دقائق",
-        "refreshRateHint": "يحدد هذا الفاصل الزمني مقدار الدقائق حتى المزامنة التالية بخادم AniList. سيتم تطبيق التغييرات على الفاصل الزمني بعد المزامنة التالية."
+        "refreshRateHint": "يحدد هذا الفاصل الزمني مقدار الدقائق حتى المزامنة التالية بخادم AniList. سيتم تطبيق التغييرات على الفاصل الزمني بعد المزامنة التالية.",
+        "userAccountSettings": {
+          "headline": "اعدادات مستخدم AniList",
+          "subHeadline": "قد يستغرق ظهور التأثيرات بعد التعديل بعض الوقت!",
+          "scoringFormat": "طريقة التقييم",
+          "scoringFormatHint": "هذا الخيار يحدد كيفية تقييم محتويات قائمتك.",
+          "showExplicitContent": "اظهار محتوى صريح (محتوى 18+)",
+          "showExplicitContentHint": "هذا الخيار سيحدد ظهور محتوي لـ18+ من عدمه.",
+          "userTitleLanguage": "لغة الاسم",
+          "userTitleLanguageHint": "هذا الخيار يحدد اي عنوان سيستخدم لعرض اسم المحتوي."
+        }
       },
       "appSettings": {
         "chooseLanguage": "اختر اللغة",
-        "darkMode": "الوضع الليلي"
+        "darkMode": "الوضع الليلي",
+        "navigationActiveItemColour": "لون العنصر النشيط في قائمة التنقل",
+        "navigationBackgroundBrightness": "إضاءة خلفية قائمة التنقل",
+        "navigationBackgroundBlurriness": "ضبابية خلفية قائمة التنقل",
+        "initialListItemAmount": "عدد العناصر الظاهرة إبتدائباً في القائمة",
+        "listAnimationActivity": {
+          "headline": "حركية القائمة",
+          "subtitle": "العدد المُختار هو الحد. اذا ظهر عدد اكبر في نفس الوقت يتم إلغاء تفعيل كل الحركيات لحفظ الأداء."
+        }
       },
       "changelog": {
         "new": "جديد",
         "fix": "إصلاح",
-        "remove": "منزوع",
+        "remove": "نزع",
         "version": "الإصدار",
-        "changesIn": "أحدث التغييرات بـ {0}"
+    "changesIn": "أحدث التغييرات في {0}"
       },
-      "specialThanks": "شكر خاص",
-      "supporters": "الأنصار"
+      "specialThanks": {
+    "supporters": "الداعمين",
+        "translators": "مترجمين"
+      }
     }
   },
   "routes": {
@@ -229,10 +259,38 @@
       "seasons": {
         "spring": "الربيع",
         "summer": "الصيف",
-        "fall": "الخريف",
-        "autumn": "الخريف",
-        "winter": "الشتاء"
+    "fall": "خريف",
+    "autumn": "خريف",
+    "winter": "شتاء"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_100": "100 نقطة (55 / 100)",
+          "POINT_10_DECIMAL": "10 نقاط عشرية (5.5 / 10)",
+          "POINT_10": "10 نقاط (5 / 10)",
+          "POINT_5": "5 نقط (3 / 5)",
+          "POINT_3": "3 نقاط ابتسامية"
+        },
+        "titleLanguages": {
+          "ENGLISH": "الانجليزية (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Stylised English",
+          "NATIVE": "اليابانية (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Stylised Native",
+          "ROMAJI": "رومانجي (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Stylised Romaji"
+        }
+      },
+      "mediaStatus": {
+        "cancelled": "تم إلغائه",
+        "finished": "مُنتهي",
+        "not_yet_released": "لم يُصدر بعد",
+        "releasing": "يُصدر حالياً"
       }
+    },
+    "colours": {
+      "automatic": "تلقائي",
+      "black": "أسود",
+      "white": "أبيض"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",
@@ -246,6 +304,21 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "الكل",
+      "disabled": "الغير مفعل"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "حسب الحلقات",
+        "score": "حسب التقييم",
+        "title": "حسب الاسم"
+      },
+      "direction": {
+        "asc": "تصاعدي",
+        "desc": "تنازلي"
+      }
     }
   },
   "$vuetify": {

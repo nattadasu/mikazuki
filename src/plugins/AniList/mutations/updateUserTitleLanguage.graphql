@@ -1,0 +1,7 @@
+mutation updateUserTitleLanguage($language: UserTitleLanguage!) {
+  user: UpdateUser(titleLanguage: $language) {
+    options {
+      titleLanguage
+    }
+  }
+}

@@ -1,0 +1,7 @@
+mutation updateShowExplicitContent($value: Boolean!) {
+  user: UpdateUser(displayAdultContent: $value) {
+    options {
+      displayAdultContent
+    }
+  }
+}

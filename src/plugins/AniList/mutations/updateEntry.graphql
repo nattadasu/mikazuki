@@ -1,5 +1,8 @@
 mutation updateEntry($entryId: Int!, $progress: Int!, $score: Float, $status: MediaListStatus, $startedAt: FuzzyDateInput, $completedAt: FuzzyDateInput) {
-  SaveMediaListEntry(id: $entryId, progress: $progress, status: $status, score: $score, startedAt: $startedAt, completedAt: $completedAt) {
+  media: SaveMediaListEntry(id: $entryId, progress: $progress, status: $status, score: $score, startedAt: $startedAt, completedAt: $completedAt) {
     id
+    progress
+    score
+    status
   }
 }

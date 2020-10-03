@@ -1,12 +1,14 @@
 {
   "originalReading": "Français",
   "englishReading": "French",
+  "flag": "fr",
   "actions": {
     "add": "Ajouter",
     "added": "Ajouté à la liste",
     "addToPlanToWatch": "Ajouter à \"À regarder\"",
     "back": "Retour",
-    "fastSearch": "Chercher... \u23ce",
+    "fastSearch": "Chercher... ⏎",
+    "filter": "Filtrer",
     "loading": "Chargement...",
     "login": "Connexion",
     "logout": "Déconnexion",
@@ -14,7 +16,7 @@
     "reset": "Remise à zéro",
     "save": "Sauvegarder",
     "search": "Chercher",
-    "sort": "Trier & Filtrer",
+    "sort": "Trier",
     "toPageTop": "Retourner en haut"
   },
   "alerts": {
@@ -35,7 +37,7 @@
   },
   "menus": {
     "navigationDrawer": {
-      "timeUntilNextRefresh": "Prochaine mise à jour de la liste dans: {0}"
+      "timeUntilNextRefresh": "Mise à jour dans: {0}"
     },
     "aniList": {
       "completed": "Terminé",
@@ -47,7 +49,7 @@
       "seasonPreview": "Aperçu de la saison",
       "watching": "En cours de visionnage"
     },
-    "search": "Recherche détaillée",
+    "search": "Recherche",
     "settings": {
       "title": "Paramètres",
       "about": "À propos de Mikazuki",
@@ -113,7 +115,10 @@
         "airingFinished": "Diffusion terminée",
         "missingEpisodes": "Un épisode à regarder | {count} épisodes à regarder",
         "notYetAired": "Pas encore diffusé",
-        "nextAiringEpisode": "L'épisode {0} sera diffusé le {1}"
+        "nextAiringEpisode": "L'épisode {0} sera diffusé {1}",
+        "scoreDialog": {
+          "title": "Changez le score"
+        }
       },
       "detailView": {
         "airedOn": "Diffusé le {0}",
@@ -164,7 +169,12 @@
     },
     "seasonPreview": {
       "episodes": "? épisodes | 1 épisode | {count} épisodes",
-      "startDate": "Début de diffusion:"
+      "startDate": "Début de diffusion:",
+      "updateDialog": {
+        "season": "Saison",
+        "title": "Paramètres de prévisualisation de la saison",
+        "yearOfSeason": "Année"
+      }
     },
     "settings": {
       "about": {
@@ -175,11 +185,29 @@
         "refreshRate": "Taux de rafraîchissement",
         "refreshRateRule": "L'intervalle autorisé est compris entre 5 minutes et 5 heures (5 - 300 minutes)!",
         "refreshRateSuffix": "minutes",
-        "refreshRateHint": "Cette interval détermine le nombre minutes avant la prochaine synchronisation avec le serveur d'AniList. Le changement d'interval sera appliqué à la prochaine synchronisation."
+        "refreshRateHint": "Cette interval détermine le nombre minutes avant la prochaine synchronisation avec le serveur d'AniList. Le changement d'interval sera appliqué à la prochaine synchronisation.",
+        "userAccountSettings": {
+          "headline": "Paramètres du compte AniList",
+          "scoringFormat": "Format du score",
+          "scoringFormatHint": "Ce paramètre définie comment vous pouvez noter vos entrés de liste.",
+          "showExplicitContent": "Montrer du contenu explicite (18+)",
+          "showExplicitContentHint": "Ce paramètre défini si le contenu 18+ est affiché.",
+          "subHeadline": "Changer ces paramètres peuvent prendre du temps jusqu'à ce qu'ils deviennent actif!",
+          "userTitleLanguage": "Langue du titre",
+          "userTitleLanguageHint": "Ce paramètre défini quel titre va être utilisé pour afficher le nom du média."
+        }
       },
       "appSettings": {
         "chooseLanguage": "Choisir la langue",
-        "darkMode": "Thème sombre"
+        "darkMode": "Thème sombre",
+        "navigationActiveItemColour": "Couleur active pour la navigation",
+        "navigationBackgroundBrightness": "Luminosité de l'arrière plan pour la navigation",
+        "navigationBackgroundBlurriness": "Flou d'arrière plan pour la navigation",
+        "initialListItemAmount": "Montant initial d'objets affichés",
+        "listAnimationActivity": {
+          "headline": "Limite de la liste d'animation",
+          "subtitle": "Le montant sélectionné de fonctions a une limite. Si plus d'objets sont affichés au même moment, toutes les animations sont désactivées pour préserver les performances."
+        }
       },
       "changelog": {
         "new": "NOUVEAU",
@@ -188,8 +216,10 @@
         "version": "Version",
         "changesIn": "Dernier changements dans {0}"
       },
-      "specialThanks": "Remerciements",
-      "supporters": "Supporters"
+      "specialThanks": {
+        "supporters": "Supporters",
+        "translators": "Traducteurs"
+      }
     }
   },
   "routes": {
@@ -232,7 +262,35 @@
         "fall": "Automne",
         "autumn": "Automne",
         "winter": "Hiver"
+      },
+      "settings": {
+        "scoringFormats": {
+          "POINT_10": "10 Points (5 / 10)",
+          "POINT_100": "100 Points (55 / 100)",
+          "POINT_10_DECIMAL": "10 Points avec décimales (5.5 / 10)",
+          "POINT_3": "3 Point émojis",
+          "POINT_5": "5 Points (3 / 5)"
+        },
+        "titleLanguages": {
+          "ENGLISH": "Anglais (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Anglais stylisé",
+          "NATIVE": "Original (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Original stylisé",
+          "ROMAJI": "Romaji (Miira no Kaikata)",
+          "ROMAJI_STYLISED": "Romaji stylisé"
+        }
+      },
+      "mediaStatus": {
+        "cancelled": "ANNULÉ",
+        "finished": "TERMINÉ",
+        "not_yet_released": "PAS ENCORE SORTI",
+        "releasing": "EN TRAIN DE SORTIR"
       }
+    },
+    "colours": {
+      "automatic": "Automatique",
+      "black": "Noir",
+      "white": "Blanc"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",
@@ -246,6 +304,21 @@
     },
     "modules": {
       "aniList": "AniList"
+    },
+    "status": {
+      "all": "Tout",
+      "disabled": "Désactivé"
+    },
+    "sorting": {
+      "by": {
+        "episodes": "Par épisodes",
+        "score": "Par scores",
+        "title": "Par titres"
+      },
+      "direction": {
+        "asc": "Ascendant",
+        "desc": "Descendant"
+      }
     }
   },
   "$vuetify": {
