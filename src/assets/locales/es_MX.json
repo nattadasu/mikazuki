@@ -187,7 +187,7 @@
         "refreshRateSuffix": "minutos",
         "refreshRateHint": "Este intervalo determina el tiempo en minutos entre sincronizaciones con los servidores de AniList. Los cambios realizados a este intervalo se verán reflejados después de la próxima sincronización.",
         "userAccountSettings": {
-          "headline": "Configuración de la cuenta de Anilist",
+          "headline": "Configuración de la cuenta de AniList",
           "scoringFormat": "Formato de la puntuación",
           "scoringFormatHint": "Esta preferencia define cómo podrás puntuar las entradas de tus listas.",
           "showExplicitContent": "Mostrar contenido explícito",
