@@ -117,7 +117,7 @@
         "notYetAired": "Aún no emitido",
         "nextAiringEpisode": "El episodio {0} se emitirá el {1}",
         "scoreDialog": {
-          "title": "Change score"
+         "title": "Cambiar puntuación"
         }
       },
       "detailView": {
@@ -171,9 +171,9 @@
       "episodes": "? episodios | 1 episodio | {count} episodios",
       "startDate": "Comienza a emitir:",
       "updateDialog": {
-        "season": "Season",
-        "title": "Season Preview Parameters",
-        "yearOfSeason": "Year of Season"
+        "season": "Temporada",
+        "title": "Parámetros de los adelantos de temporada",
+        "yearOfSeason": "Año de la temporada"
       }
     },
     "settings": {
@@ -187,26 +187,26 @@
         "refreshRateSuffix": "minutos",
         "refreshRateHint": "Este intervalo determina el tiempo en minutos entre sincronizaciones con los servidores de AniList. Los cambios realizados a este intervalo se verán reflejados después de la próxima sincronización.",
         "userAccountSettings": {
-          "headline": "AniList User Account Settings",
-          "scoringFormat": "Scoring Format",
-          "scoringFormatHint": "This setting defines how you can score your list entries.",
-          "showExplicitContent": "Show explicit content (18+ Content)",
-          "showExplicitContentHint": "This setting defines if 18+ content will be shown.",
-          "subHeadline": "Changing these settings may take some time until they come into effect!",
-          "userTitleLanguage": "Title Language",
-          "userTitleLanguageHint": "This setting defines which title is used for displaying the media's name."
+          "headline": "Configuración de la cuenta de Anilist",
+          "scoringFormat": "Formato de la puntuación",
+          "scoringFormatHint": "Esta preferencia define cómo podrás puntuar las entradas de tus listas.",
+          "showExplicitContent": "Mostrar contenido explícito",
+          "showExplicitContentHint": "Esta preferencia define si se mostrará contenido para adultos.",
+          "subHeadline": "Los cambios en esta preferencia podrían tardar un tiempo hasta entrar en efecto.",
+          "userTitleLanguage": "Lenguaje de los títulos",
+          "userTitleLanguageHint": "Esta preferencia define qué lenguaje se usará para mostrar los nombres de los títulos."
         }
       },
       "appSettings": {
         "chooseLanguage": "Elija lenguaje",
         "darkMode": "Modo oscuro",
-        "navigationActiveItemColour": "Active Navigation item colour",
-        "navigationBackgroundBrightness": "Navigation Background Brightness",
-        "navigationBackgroundBlurriness": "Navigation Background Blurriness",
-        "initialListItemAmount": "Initial amount of shown list items",
+        "navigationActiveItemColour": "Color del ítem activo en la navegación",
+        "navigationBackgroundBrightness": "Brillo del fondo en la navegación",
+        "navigationBackgroundBlurriness": "Borrosidad del fondo en la navegación",
+        "initialListItemAmount": "Cantidad inicial de ítems a mostrar",
         "listAnimationActivity": {
-          "headline": "List animation activity",
-          "subtitle": "The selected amount functions as a limit. If more items are shown at the same time, all animations are deactivated to preserve performance."
+          "headline": "Listar actividad de las animaciones",
+          "subtitle": "La función seleccionada funciona como límite. Si más ítems se muestran al mismo tiempo, todas las animaciones se desactivarán para mejorar el desempeño del sitio."
         }
       },
       "changelog": {
@@ -218,7 +218,7 @@
       },
       "specialThanks": {
         "supporters": "Apoyado por",
-        "translators": "Translators"
+        "translators": "Traductores"
       }
     }
   },
@@ -265,32 +265,32 @@
       },
       "settings": {
         "scoringFormats": {
-          "POINT_10": "10 Points (5 / 10)",
-          "POINT_100": "100 Points (55 / 100)",
-          "POINT_10_DECIMAL": "10 Points Decimal (5.5 / 10)",
-          "POINT_3": "3 Point Smileys",
-          "POINT_5": "5 Points (3 / 5)"
+          "POINT_10": "10 Puntos (5 / 10)",
+          "POINT_100": "100 Puntos (55 / 100)",
+          "POINT_10_DECIMAL": "10 Puntos con decimales (5.5 / 10)",
+          "POINT_3": "3 Puntos con smileys",
+          "POINT_5": "5 Puntos (3 / 5)"
         },
         "titleLanguages": {
-          "ENGLISH": "English (How to keep a mummy)",
-          "ENGLISH_STYLISED": "Stylised English",
-          "NATIVE": "Native (ミイラの飼い方)",
-          "NATIVE_STYLISED": "Stylised Native",
+          "ENGLISH": "Inglés (How to keep a mummy)",
+          "ENGLISH_STYLISED": "Inglés estilizado",
+          "NATIVE": "Nativo (ミイラの飼い方)",
+          "NATIVE_STYLISED": "Nativo estilizado",
           "ROMAJI": "Romaji (Miira no Kaikata)",
-          "ROMAJI_STYLISED": "Stylised Romaji"
+          "ROMAJI_STYLISED": "Romaji estilizado"
         }
       },
       "mediaStatus": {
-        "cancelled": "CANCELLED",
-        "finished": "FINISHED",
-        "not_yet_released": "NOT YET RELEASED",
-        "releasing": "RELEASING"
+        "cancelled": "CANCELADO",
+        "finished": "FINALIZADO",
+        "not_yet_released": "TODAVÍA NO PUBLICADO",
+        "releasing": "EN PUBLICACIÓN"
       }
     },
     "colours": {
-      "automatic": "Automatic",
-      "black": "Black",
-      "white": "White"
+      "automatic": "Automático",
+      "black": "Negro",
+      "white": "Blanco"
     },
     "dates": {
       "dayMonthNumeric": "DD/MM",
@@ -306,18 +306,18 @@
       "aniList": "AniList"
     },
     "status": {
-      "all": "All",
-      "disabled": "Disabled"
+      "all": "Todos",
+      "disabled": "Deshabilitado"
     },
     "sorting": {
       "by": {
-        "episodes": "By Episodes",
-        "score": "By Score",
-        "title": "By Title"
+        "episodes": "Por episodios",
+        "score": "Por puntuación",
+        "title": "Por título"
       },
       "direction": {
-        "asc": "Ascending",
-        "desc": "Descending"
+        "asc": "Ascendente",
+        "desc": "Descendente"
       }
     }
   },
